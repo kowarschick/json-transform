@@ -13,10 +13,10 @@ export interface Indexable
 { [key: string]: JsonValue | JsonTransformer; }
 
 export type JsonTransformerParameters =
-  Partial<{ init:        any,
-            level:       number,
-            transformer: JsonTransformer | null,
-            data:        Indexable
+  Partial<{ init:         any,
+            level:        number,
+            transformers: JsonTransformer | JsonTransformer[] | null,
+            data:         Indexable
          }>
 
 export type JsonTransformerString = { (value: string):    JsonValue } | null;
@@ -37,21 +37,21 @@ class JsonTransformer
   * $param level
   *   The level of the current JSON value within the entire JSON value.
   * $param transformer
-  *   A transformer to which the JSON value is passed, after it may have
-  *   been transformed by this transformer. After that transformation, 
-  *   this transformer may transform the result of <code>transformer</code>
-  *   further 
+  *   A transformer or an array of transformers to which the JSON value 
+  *   are passed, after it may have been transformed by this transformer. 
+  *   After that transformation, this transformer may transform the 
+  *   result of <code>transformer</code> further. 
    * $param data
   *   A data object that is passed as environment to the
   *   transformers.
  */
   constructor
-  ( { init        = undefined,
-      level       = 0,
-      transformer = null,
-      data        = {}
+  ( { init         = undefined,
+      level        = 0,
+      transformers = null,
+      data         = {}
     }: JsonTransformerParameters = {}) 
-  { this.options = {init, level, transformer, data};
+  { this.options = {init, level, transformers, data};
     Object.assign(this, this.options);  
   }
 
@@ -64,6 +64,22 @@ class JsonTransformer
   protected readonly transformMapBefore:    JsonTransformerMap    = null;
   protected readonly transformMapAfter:     JsonTransformerMap    = null;
 
+  protected invokeTransformers (value: JsonValue, options: JsonTransformerParameters): JsonValue
+  { const l_transformers = options.transformers;
+
+    if (Array.isArray(l_transformers))
+    { for (let t of l_transformers)
+      { value = t.transform(value, options); }
+    }
+    else if (l_transformers != null)
+    { value = l_transformers.transform(value, options); }
+
+    return value;
+  }
+
+  protected pipe(value: JsonValue, options: JsonTransformerParameters): JsonValue
+  { return this.invokeTransformers(value, options); }
+  
  /**
   * Transforms a <code>JsonValue</code>.
   *
@@ -72,7 +88,7 @@ class JsonTransformer
   * $return
   *   A clone of <code>value</code> with the transformations done.
   */
-  public transform (value: JsonValue, options: JsonTransformerParameters = this.options) : JsonValue
+  public transform (value: JsonValue, options: JsonTransformerParameters = this.options): JsonValue
   { let l_value = value;
 
     // Do transformations before passing the value to the pipe.
@@ -86,8 +102,7 @@ class JsonTransformer
     { l_value = this.transformMapBefore(value as JsonMap); }
 
     // Pipe
-    if (this.transformer != null)
-    { l_value = this.transformer.transform(l_value, options)}
+    l_value = this.pipe(l_value, options);
 
     // Do transformations after the value has been transformed by the pip..
     if (this.transformStringAfter != null && typeof value === 'string')

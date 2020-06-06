@@ -1,0 +1,21 @@
+# Created by W. Kowarschick
+# -----------------------------------------------------------------
+
+# ignore temp-files
+tmp
+temp
+tmp.*
+temp.*
+
+# ignore all files starting with ~
+~*
+
+# ignore dependency directories
+node_modules/
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore

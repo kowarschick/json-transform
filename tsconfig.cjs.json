@@ -1,0 +1,17 @@
+{ "extends": "./tsconfig.json",
+  
+  "compilerOptions": 
+  { "module": "CommonJS",
+    "outDir": "./transformer"
+  },
+    
+  "include": 
+  [ "src/**/*" ],
+  
+  "exclude": 
+  [ "node_modules",
+    "lib",
+    "test",
+    "examples"
+  ]
+}

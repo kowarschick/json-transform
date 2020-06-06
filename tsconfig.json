@@ -1,0 +1,24 @@
+{ "compilerOptions": 
+  { "moduleResolution":   "node",
+    "declaration":        true,
+    "sourceMap":          true,
+    "esModuleInterop":    true,
+    "strict":             true,
+    "removeComments":     true,
+    "lib":                ["es2020.string"],
+    "downlevelIteration": true,
+    "baseUrl":            "./",
+    "paths":              { "~/*": [ "./src/*" ] }
+  },
+
+  "include": 
+  [ "src/**/*",
+    "test/**/*",
+    "examples/**/*", "../../../jsonPretty.js"
+  ],
+
+  "exclude": 
+  [ "node_modules",
+    "lib"
+  ]
+}

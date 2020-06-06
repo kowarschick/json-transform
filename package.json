@@ -1,0 +1,37 @@
+{
+  "name": "@wljkowa/json-transform",
+  "version": "0.5.0",
+  "author": "Wolfgang L. J. Kowarschick",
+  "license": "MIT",
+  "description": "recursively apply transformers to JSON elements",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wljkowa/wk-json-transform.git"
+  },
+  "keywords": [
+    "json",
+    "transform"
+  ],
+  "main": "./transformer/json.transform.js",
+  "files": [
+    "transformer/"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf transformer",
+    "build": "tsc -p tsconfig.cjs.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "examples": "node examples/examples.js",
+    "prelink": "npm run build",
+    "link": "npm link && npm link @wljkowa/json-transform"
+  },
+  "devDependencies": {
+    "@types/jest": "25.1.4",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.9.3",
+    "yargs": "^15.3.1"
+  },
+  "dependencies": {}
+}

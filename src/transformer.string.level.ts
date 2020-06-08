@@ -4,6 +4,7 @@
  * $license   MIT
  */
 
+import { Data }                                                               from './transformer';
 import { JsonTransformer, JsonTransformerParameters, JsonTransformerString }  from './transformer';
 
 export 
@@ -19,7 +20,7 @@ class JsonTransformerStringLevel extends JsonTransformer
   { super( { ...options, init: options?.init ?? '$level'}); }
 
   protected transformStringBefore: JsonTransformerString = 
-  (value: string) => 
-  { return (value === this.init) ? this.level : value; }
+  (value: string, data: Data) => 
+  { return (value === this.init) ? data.level : value; }
 
 }

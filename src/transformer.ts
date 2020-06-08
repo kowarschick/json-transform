@@ -12,20 +12,22 @@ export type JsonArray     = JsonValue[];
 export interface Indexable 
 { [key: string]: JsonValue | JsonTransformer | null; }
 
-export type JsonTransformerParameters =
-  Partial<{ init:  any,
-            level: number,
-            data:  Indexable,
-            transformers: JsonTransformer | JsonTransformer[]
-         }>;
+export type Data = Indexable & { level: number };
 
+type JsonTransformerProperties =
+  { init:         any,
+    data:         Data,
+    transformers: JsonTransformer | JsonTransformer[]
+  };
 
-export type JsonTransformerString = { (value: string):    JsonValue } | null;
-export type JsonTransformerArray  = { (value: JsonArray): JsonValue } | null;
-export type JsonTransformerMap    = { (value: JsonMap):   JsonValue } | null;
+export type JsonTransformerParameters = Partial<JsonTransformerProperties>;
+
+export type JsonTransformerString     = { (value: string,    data: Data): JsonValue } | null;
+export type JsonTransformerArray      = { (value: JsonArray, data: Data): JsonValue } | null;
+export type JsonTransformerMap        = { (value: JsonMap,   data: Data): JsonValue } | null;
 
 export 
-interface JsonTransformer extends Readonly<JsonTransformerParameters>{};
+interface JsonTransformer extends Readonly<JsonTransformerProperties>{};
 
 export 
 class JsonTransformer
@@ -35,8 +37,6 @@ class JsonTransformer
   *
   * $param init
   *   An object that may be used to initialize the transformer.
-  * $param level
-  *   The level of the current JSON value within the entire JSON value.
   * $param transformer
   *   A transformer or an array of transformers to which the JSON value 
   *   are passed, after it may have been transformed by this transformer. 
@@ -44,49 +44,43 @@ class JsonTransformer
   *   result of <code>transformer</code> further. 
   * $param data
   *   A data object that is passed as environment to the
-  *   transformers.
+  *   transformers. If data doen not contain the property
+  *   <code>level</code>, that property is added and initialized
+  *   by <code>0</code>.
  */
   constructor
   ( { init         = undefined,
-      level        = 0,
+      data         = { level: 0},
       transformers = [],
-      data         = {}
     }: JsonTransformerParameters  
     = {}
   ) 
-  { this.transformers = 
+  { Object.assign(this, {init, data});  
+
+    this.transformers = 
       (transformers == null) 
       ? []
       : (!Array.isArray(transformers))
         ? [transformers]
         : transformers;
-    
-    this.options = {init, level, data};
-    Object.assign(this, this.options);  
   }
 
-  public readonly transformers: JsonTransformer[];
-  public readonly options:      JsonTransformerParameters;
-
-  private invokeTransformers (value: JsonValue, options: JsonTransformerParameters): JsonValue
-  { const l_transformers = options.transformers;
-
-    if (Array.isArray(l_transformers))
-    { for (let t of l_transformers)
-      { value = t.transform(value, options); }
-    }
-    else if (l_transformers != null)
-    { value = l_transformers.transform(value, options); }
-
-    return value;
-  }
+  public     transformers:          JsonTransformer[];
 
   protected readonly transformStringBefore: JsonTransformerString = null;
   protected readonly transformStringAfter:  JsonTransformerString = null;
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
   
-  protected pipe(value: JsonValue, options: JsonTransformerParameters): JsonValue
-  { return this.invokeTransformers(value, options); }
+  protected pipe(value: JsonValue, data: Data): JsonValue
+  { const l_transformers = this.transformers;
+
+    if (l_transformers != null)
+    { for (let transformer of l_transformers)
+      { value = transformer.transform(value, data); }
+    }
+
+    return value; 
+  }
   
   protected readonly transformArrayAfter:   JsonTransformerArray  = null;
   protected readonly transformMapBefore:    JsonTransformerMap    = null;
@@ -100,38 +94,39 @@ class JsonTransformer
   * $return
   *   A clone of <code>value</code> with the transformations done.
   */
-  public transform (value: JsonValue, data:  Indexable ): JsonValue
+  public transform (value: JsonValue, data?: Data): JsonValue
   { 
     let l_value = value;
 
     // Do transformations before passing the value to the pipe.
     if (this.transformStringBefore != null && typeof value === 'string')
-    { l_value = this.transformStringBefore(value as string); }
+    { l_value = this.transformStringBefore(value as string, data ?? this.data); }
     else
     if (this.transformArrayBefore != null && Array.isArray(value))
-    { l_value = this.transformArrayBefore(value as JsonArray); }
+    { l_value = this.transformArrayBefore(value as JsonArray, data ?? this.data); }
     else
     if (this.transformMapBefore != null && typeof value === 'object')
-    { l_value = this.transformMapBefore(value as JsonMap); }
+    { l_value = this.transformMapBefore(value as JsonMap, data ?? this.data); }
 
     // Pipe
-    l_value = this.pipe(l_value, options);
+    l_value = this.pipe(l_value, data ?? this.data);
 
     // Do transformations after the value has been transformed by the pip..
     if (this.transformStringAfter != null && typeof value === 'string')
-    { l_value = this.transformStringAfter(value as string); }
+    { l_value = this.transformStringAfter(value as string, data ?? this.data); }
     else
     if (this.transformArrayAfter != null && Array.isArray(value))
-    { l_value = this.transformArrayAfter(value as JsonArray); }
+    { l_value = this.transformArrayAfter(value as JsonArray, data ?? this.data); }
     else
     if (this.transformMapAfter != null && typeof value === 'object')
-    { l_value = this.transformMapAfter(value as JsonMap); }
+    { l_value = this.transformMapAfter(value as JsonMap, data ?? this.data); }
 
     return l_value; 
   }
 
-  public add (transformer: JsonTransformer): JsonTransformer
-  { this.transformers.push(transformer);
-    return transformer;
+  public add (...transformers: JsonTransformer[]): JsonTransformer
+  { for (let transformer of transformers)
+    { this.transformers.push(transformer); }
+    return this;
   }
 }

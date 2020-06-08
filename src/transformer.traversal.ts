@@ -4,9 +4,9 @@
  * $license   MIT
  */
 
-import { JsonValue, JsonArray, JsonMap }                                   from './transformer';
-import { JsonTransformer, JsonTransformerParameters }                      from './transformer';
-import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from './transformer';
+import { JsonValue, JsonArray, JsonMap, Data }        from './transformer';
+import { JsonTransformer, JsonTransformerParameters } from './transformer';
+import { JsonTransformerArray, JsonTransformerMap }   from './transformer';
 
 export 
 class JsonTransformerTraversal extends JsonTransformer
@@ -18,31 +18,29 @@ class JsonTransformerTraversal extends JsonTransformer
   ( options: JsonTransformerParameters = {}) 
   { super(options); }
 
-  protected transformStringBefore: JsonTransformerString = 
-  (value: string) => 
-  { return this.pipe(value, this.options); }
 
-  protected transformArrayBefore: JsonTransformerArray = 
-  (value: JsonArray) => 
-  { var l_result: JsonValue = [];
+  protected transformArrayAfter: JsonTransformerArray = 
+  (value: JsonArray, data: Data) => 
+  { const 
+    c_data = { ...data, level: data.level+1 },
+    c_result: JsonValue = [];
 
     for (const c_json_value of value)
-    { l_result.push( this.transform(c_json_value, { ...this.options, level: (this.level ?? 0)+1 } ) ); }
+    { c_result.push(this.transform(c_json_value, c_data)); }
 
-    return l_result;
+    return c_result;
   }
 
-  protected transformMapBefore: JsonTransformerMap = 
-  (value: JsonMap) => 
-  { var 
-    l_result: JsonValue = {};
+  protected transformMapAfter: JsonTransformerMap = 
+  (value: JsonMap, data: Data) => 
+  { const
+      c_data = { ...data, level: data.level+1 },
+      c_result: JsonValue = {};
 
    for (const [c_key, c_value] of Object.entries(value))
-   { const c_options = { ...this.options, level: (this.level ?? 0)+1 };
-     l_result[this.transform(c_key,c_options) as string] = this.transform(c_value, c_options); 
-   }
+   { c_result[this.transform(c_key, c_data) as string] = this.transform(c_value, c_data); }
 
-   return l_result;
+   return c_result;
   }
 
 }

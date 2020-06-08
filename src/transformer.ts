@@ -10,14 +10,15 @@ export type JsonMap       = {[key: string]: JsonValue};
 export type JsonArray     = JsonValue[];
 
 export interface Indexable 
-{ [key: string]: JsonValue | JsonTransformer; }
+{ [key: string]: JsonValue | JsonTransformer | null; }
 
 export type JsonTransformerParameters =
-  Partial<{ init:         any,
-            level:        number,
-            transformers: JsonTransformer | JsonTransformer[] | null,
-            data:         Indexable
-         }>
+  Partial<{ init:  any,
+            level: number,
+            data:  Indexable,
+            transformers: JsonTransformer | JsonTransformer[]
+         }>;
+
 
 export type JsonTransformerString = { (value: string):    JsonValue } | null;
 export type JsonTransformerArray  = { (value: JsonArray): JsonValue } | null;
@@ -41,30 +42,33 @@ class JsonTransformer
   *   are passed, after it may have been transformed by this transformer. 
   *   After that transformation, this transformer may transform the 
   *   result of <code>transformer</code> further. 
-   * $param data
+  * $param data
   *   A data object that is passed as environment to the
   *   transformers.
  */
   constructor
   ( { init         = undefined,
       level        = 0,
-      transformers = null,
+      transformers = [],
       data         = {}
-    }: JsonTransformerParameters = {}) 
-  { this.options = {init, level, transformers, data};
+    }: JsonTransformerParameters  
+    = {}
+  ) 
+  { this.transformers = 
+      (transformers == null) 
+      ? []
+      : (!Array.isArray(transformers))
+        ? [transformers]
+        : transformers;
+    
+    this.options = {init, level, data};
     Object.assign(this, this.options);  
   }
 
-  protected readonly options:   JsonTransformerParameters;
+  public readonly transformers: JsonTransformer[];
+  public readonly options:      JsonTransformerParameters;
 
-  protected readonly transformStringBefore: JsonTransformerString = null;
-  protected readonly transformStringAfter:  JsonTransformerString = null;
-  protected readonly transformArrayBefore:  JsonTransformerArray  = null;
-  protected readonly transformArrayAfter:   JsonTransformerArray  = null;
-  protected readonly transformMapBefore:    JsonTransformerMap    = null;
-  protected readonly transformMapAfter:     JsonTransformerMap    = null;
-
-  protected invokeTransformers (value: JsonValue, options: JsonTransformerParameters): JsonValue
+  private invokeTransformers (value: JsonValue, options: JsonTransformerParameters): JsonValue
   { const l_transformers = options.transformers;
 
     if (Array.isArray(l_transformers))
@@ -77,9 +81,17 @@ class JsonTransformer
     return value;
   }
 
+  protected readonly transformStringBefore: JsonTransformerString = null;
+  protected readonly transformStringAfter:  JsonTransformerString = null;
+  protected readonly transformArrayBefore:  JsonTransformerArray  = null;
+  
   protected pipe(value: JsonValue, options: JsonTransformerParameters): JsonValue
   { return this.invokeTransformers(value, options); }
   
+  protected readonly transformArrayAfter:   JsonTransformerArray  = null;
+  protected readonly transformMapBefore:    JsonTransformerMap    = null;
+  protected readonly transformMapAfter:     JsonTransformerMap    = null;
+
  /**
   * Transforms a <code>JsonValue</code>.
   *
@@ -88,8 +100,9 @@ class JsonTransformer
   * $return
   *   A clone of <code>value</code> with the transformations done.
   */
-  public transform (value: JsonValue, options: JsonTransformerParameters = this.options): JsonValue
-  { let l_value = value;
+  public transform (value: JsonValue, data:  Indexable ): JsonValue
+  { 
+    let l_value = value;
 
     // Do transformations before passing the value to the pipe.
     if (this.transformStringBefore != null && typeof value === 'string')
@@ -115,5 +128,10 @@ class JsonTransformer
     { l_value = this.transformMapAfter(value as JsonMap); }
 
     return l_value; 
+  }
+
+  public add (transformer: JsonTransformer): JsonTransformer
+  { this.transformers.push(transformer);
+    return transformer;
   }
 }

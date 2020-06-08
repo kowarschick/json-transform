@@ -9,7 +9,7 @@ import { JsonTransformer, JsonTransformerParameters }                      from 
 import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from './transformer';
 
 export 
-class JsonTransformerTraverse extends JsonTransformer
+class JsonTransformerTraversal extends JsonTransformer
 {/**
   * This transformers applies the transformer passed recursively to
   * all elements of the JSON value. 
@@ -20,7 +20,7 @@ class JsonTransformerTraverse extends JsonTransformer
 
   protected transformStringBefore: JsonTransformerString = 
   (value: string) => 
-  { return this?.transformer?.transform(value) ?? value; }
+  { return this.pipe(value, this.options); }
 
   protected transformArrayBefore: JsonTransformerArray = 
   (value: JsonArray) => 

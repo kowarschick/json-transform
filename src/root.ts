@@ -68,7 +68,7 @@ class JsonTransformer
   *   A clone of <code>value</code> with the transformations done.
   */
   public transform (value: JsonValue, data: Data = {}, level = 0): JsonValue
-  { const c_data = { ...data };
+  { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 
     let l_value = value;

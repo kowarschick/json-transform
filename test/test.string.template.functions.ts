@@ -11,10 +11,11 @@ import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/
 import { JsonTransformerTraversal }                         from '@wljkowa/json/transformer/traversal';
 */
 
-import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '~/interfaces';
-import { JsonTransformer }                                  from '~/root';
-import { JsonTransformerStringTemplateFunctions }           from '~/string.template.functions';
-import { JsonTransformerTraversal }                         from '~/traversal';
+import { JsonValue, JsonMap, Data }               from '~/interfaces';
+import { JsonFunction, JsonFunctionParameters }   from '~/interfaces';
+import { JsonTransformer }                        from '~/root';
+import { JsonTransformerStringTemplateFunctions } from '~/string.template.functions';
+import { JsonTransformerTraversal }               from '~/traversal';
 
 interface Point extends JsonMap
 { x: number,
@@ -36,7 +37,8 @@ const
       vpf:   ({value, data}: JsonFunctionParameters): JsonValue => 
              [ (value as Point).x/c_data.fps,
                (value as Point).y/(data as Data2).fps,
-             ]
+             ],
+      def:   () => 123
     },
   
   c_transformer =
@@ -71,6 +73,24 @@ const
               .toStrictEqual([{v: [2,4]}, {a: [4,8]}]); 
           }
   );
+
+  test
+  ( '"${def()}" should be transformed into 123', 
+    () => { expect(c_transformer.transform("${def()}")).toBe(123); }
+  );
+
+  test
+  ( '"${abc}" should be transformed into 234', 
+    () => { expect(c_transformer.transform("${abc}", { abc: 234 })
+                  ).toStrictEqual(234); 
+          }
+  );
+
+  test
+  ( '"${def()}" should be transformed into 234', 
+    () => { expect(c_transformer.transform("${def()}", { def: () => 234 })).toBe(234); }
+  );
+
 
 
 function stringTests(transformer: JsonTransformer)

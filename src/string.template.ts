@@ -16,8 +16,7 @@ class JsonTransformerStringTemplate extends JsonTransformer
   *
   * $param init = '$level'
   */
-  constructor
-  ( options: JsonTransformerParameters = {}) 
+  constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)}/}); }
 
   protected transformStringBefore: JsonTransformerString = 

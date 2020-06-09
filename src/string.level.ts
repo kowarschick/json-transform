@@ -11,13 +11,12 @@ import { JsonTransformer }                                  from './root';
 export 
 class JsonTransformerStringLevel extends JsonTransformer
 {/**
-  * The string <code>init<code> is transformed into the current level number.
+  * The string <code>option.init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
   * $param options.init = '$level'
   */
-  constructor
-  ( options: JsonTransformerParameters = {}) 
+  constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? '$level'}); }
 
   protected transformStringBefore: JsonTransformerString = 

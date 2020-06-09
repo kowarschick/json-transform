@@ -23,7 +23,7 @@
     "test:watch": "jest --watch",
     "examples": "node examples/examples.js",
     "prelink": "npm run build",
-    "link": "npm link && npm link @wljkowa/json"
+    "link": "npm link  && npm i && npm link @wljkowa/json"
   },
   "devDependencies": {
     "@types/jest": "25.1.4",

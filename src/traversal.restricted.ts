@@ -14,8 +14,7 @@ class JsonTransformerTraversalRestricted extends JsonTransformer
   * This transformers applies the transformer passed recursively to
   * all elements of the JSON value. 
   */
-  constructor
-  ( options: JsonTransformerParameters = {}) 
+  constructor (options: JsonTransformerParameters = {}) 
   { super({ ...options, init: { minLevel: options?.init?.minLevel ?? 0,
                                 maxLevel: options?.init?.maxLevel ?? Infinity,
                               }

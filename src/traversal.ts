@@ -15,8 +15,7 @@ class JsonTransformerTraversal extends JsonTransformer
   * This transformers applies the transformer passed recursively to
   * all elements of the JSON value. 
   */
-  constructor
-  ( options: JsonTransformerParameters = {}) 
+  constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
 
   protected transformArrayAfter: JsonTransformerArray = 

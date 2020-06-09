@@ -4,7 +4,7 @@
  * $license   MIT
  */
 
- // run: node examples/example.string.level.js
+ // run: node examples.cjs/example.string.level.js
 
 const 
   JsonTransformerTraversal   = require('@wljkowa/json/transformer/traversal')   .JsonTransformerTraversal,
@@ -17,7 +17,7 @@ const
     .add(new JsonTransformerStringLevel())
     .root
   ;
-s
+
 trace.title('String: $level (es6)');
 
 trace.transform(transformer, "$level");

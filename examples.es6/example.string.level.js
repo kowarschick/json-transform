@@ -4,10 +4,8 @@
  * $license   MIT
  */
 
-// run: node --experimental-modules example.string.level.js
-
-import { JsonTransformerStringLevel } from '@wljkowa/json/transformer/string.level.js';
-import { JsonTransformerTraversal }   from '@wljkowa/json/transformer/traversal.js';
+import JsonTransformerStringLevel from '@wljkowa/json/transformer/string.level.js';
+import JsonTransformerTraversal   from '@wljkowa/json/transformer/traversal.js';
 
 import trace from './trace';
 

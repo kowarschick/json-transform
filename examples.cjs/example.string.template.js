@@ -4,7 +4,7 @@
  * $license   MIT
  */
 
- // run: node examples/example.string.level.js
+ // run: node examples.cjs/example.string.template.js
 
 const 
   JsonTransformerTraversal      = require('@wljkowa/json/transformer/traversal')      .JsonTransformerTraversal,

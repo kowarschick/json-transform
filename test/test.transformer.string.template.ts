@@ -5,14 +5,14 @@
  */
 
 /*
-import { JsonTransformer }               from '@wljkowa/json-transform/transformer';
-import { JsonTransformerStringTemplate } from '@wljkowa/json-transform/transformer.string.template';
-import { JsonTransformerTraversal }      from '@wljkowa/json-transform/transformer.traversal';
+import { JsonTransformer }               from '@wljkowa/json/transformer';
+import { JsonTransformerStringTemplate } from '@wljkowa/json/transformer/string.template.transformers';
+import { JsonTransformerTraversal }      from '@wljkowa/json/transformer/traversal';
 */
 
 import { JsonTransformer }               from '~/transformer';
-import { JsonTransformerStringTemplate } from '~/transformer.string.template';
-import { JsonTransformerTraversal }      from '~/transformer.traversal';
+import { JsonTransformerStringTemplate } from '~/string.template';
+import { JsonTransformerTraversal }      from '~/traversal';
 
 function allTests(transformer: JsonTransformer)
 { test

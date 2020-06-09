@@ -4,8 +4,9 @@
  * $license   MIT
  */
 
-import { Data, JsonValue }                                                    from './transformer';
-import { JsonTransformer, JsonTransformerParameters, JsonTransformerString }  from './transformer';
+import { Data, JsonValue }                                  from './interfaces';
+import { JsonTransformerParameters, JsonTransformerString } from './interfaces';
+import { JsonTransformer }                                  from './transformer';
 
 export 
 class JsonTransformerStringTemplate extends JsonTransformer

@@ -4,9 +4,10 @@
  * $license   MIT
  */
 
-import { JsonValue, JsonArray, JsonMap, Data }   from './transformer';
-import { JsonTransformer, JsonTransformerParameters } from './transformer';
-import { JsonTransformerArray, JsonTransformerMap }   from './transformer';
+import { Data, JsonValue, JsonArray, JsonMap }                                 from './interfaces';
+import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
+import { JsonTransformer }                                                     from './transformer';
+
 
 export 
 class JsonTransformerTraversal extends JsonTransformer

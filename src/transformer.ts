@@ -4,38 +4,12 @@
  * $license   MIT
  */
 
-import { Interface } from "readline";
+import { JsonValue, JsonMap, JsonArray                                   } from "./interfaces";
+import { JsonTransformerProperties, JsonTransformerParameters            } from "./interfaces";
+import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from "./interfaces";
+import { Data } from "./interfaces";
 
-export type JsonValue     = JsonPrimitive | JsonMap | JsonArray ;
-export type JsonPrimitive = string | number | boolean | null | undefined;
-export type JsonMap       = {[key: string]: JsonValue};
-export type JsonArray     = JsonValue[];
-
-export interface Data 
-{ [key: string]: JsonValue | JsonFunction | null; }
-
-type JsonTransformerProperties =
-  { readonly init:        any,
-    readonly data:        Data,
-    readonly level:       number,
-             transformer: JsonTransformer
-  };
-
-export type JsonTransformerParameters = Partial<JsonTransformerProperties>;
-
-export type JsonTransformerString = { (value: string,    data: Data, level: number): JsonValue } | null;
-export type JsonTransformerArray  = { (value: JsonArray, data: Data, level: number): JsonValue } | null;
-export type JsonTransformerMap    = { (value: JsonMap,   data: Data, level: number): JsonValue } | null;
-
-export type JsonFunctionParameters = 
-  Partial<{ value: JsonValue,
-            data:  Data,
-            level: number
-         }>;
-
-export type JsonFunction = { (_: JsonFunctionParameters): JsonValue };
-
-  export
+export 
 interface JsonTransformer extends JsonTransformerProperties{};
 
 export 

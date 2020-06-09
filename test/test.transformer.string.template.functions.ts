@@ -5,15 +5,16 @@
  */
 
 /*
-import { JsonTransformer }                           from '@wljkowa/json-transform/transformer';
-import { JsonTransformerStringTemplateFunctions } from '@wljkowa/json-transform/transformer.string.template.transformers';
-import { JsonTransformerTraversal }                  from '@wljkowa/json-transform/transformer.traversal';
+import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '@wljkowa/json';
+import { JsonTransformer }                                  from '@wljkowa/json/transformer';
+import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/transformer/string.template.transformers';
+import { JsonTransformerTraversal }                         from '@wljkowa/json/transformer/traversal';
 */
 
+import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '~/interfaces';
 import { JsonTransformer }                                  from '~/transformer';
-import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '~/transformer';
-import { JsonTransformerStringTemplateFunctions }           from '~/transformer.string.template.functions';
-import { JsonTransformerTraversal }                         from '~/transformer.traversal';
+import { JsonTransformerStringTemplateFunctions }           from '~/string.template.functions';
+import { JsonTransformerTraversal }                         from '~/traversal';
 
 interface Point extends JsonMap
 { x: number,

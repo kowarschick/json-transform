@@ -5,14 +5,14 @@
  */
 
 /*
-import { JsonTransformer }            from '@wljkowa/json-transform/transformer';
-import { JsonTransformerStringLevel } from '@wljkowa/json-transform/transformer.string.level';
-import { JsonTransformerTraversal }   from '@wljkowa/json-transform/transformer.traversal';
+import { JsonTransformer }            from '@wljkowa/json/transformer';
+import { JsonTransformerStringLevel } from '@wljkowa/json/transformer.string.level';
+import { JsonTransformerTraversal }   from '@wljkowa/json/transformer.traversal';
 */
 
 import { JsonTransformer }            from '~/transformer';
-import { JsonTransformerStringLevel } from '~/transformer.string.level';
-import { JsonTransformerTraversal }   from '~/transformer.traversal';
+import { JsonTransformerStringLevel } from '~/string.level';
+import { JsonTransformerTraversal }   from '~/traversal';
 
 { const c_transformer: JsonTransformer = new JsonTransformerStringLevel();
 

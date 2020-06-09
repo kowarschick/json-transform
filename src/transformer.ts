@@ -12,7 +12,7 @@ export type JsonMap       = {[key: string]: JsonValue};
 export type JsonArray     = JsonValue[];
 
 export interface Data 
-{ [key: string]: JsonValue | JsonTransformer | null; }
+{ [key: string]: JsonValue | JsonFunction | null; }
 
 type JsonTransformerProperties =
   { readonly init:        any,
@@ -27,7 +27,15 @@ export type JsonTransformerString = { (value: string,    data: Data, level: numb
 export type JsonTransformerArray  = { (value: JsonArray, data: Data, level: number): JsonValue } | null;
 export type JsonTransformerMap    = { (value: JsonMap,   data: Data, level: number): JsonValue } | null;
 
-export
+export type JsonFunctionParameters = 
+  Partial<{ value: JsonValue,
+            data:  Data,
+            level: number
+         }>;
+
+export type JsonFunction = { (_: JsonFunctionParameters): JsonValue };
+
+  export
 interface JsonTransformer extends JsonTransformerProperties{};
 
 export 

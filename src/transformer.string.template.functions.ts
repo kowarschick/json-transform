@@ -4,11 +4,11 @@
  * $license   MIT
  */
 
-import { Data, JsonValue }                                                    from './transformer';
+import { Data, JsonValue, JsonFunction }                                      from './transformer';
 import { JsonTransformer, JsonTransformerParameters, JsonTransformerString }  from './transformer';
 
 export 
-class JsonTransformerStringTemplateTransformers extends JsonTransformer
+class JsonTransformerStringTemplateFunctions extends JsonTransformer
 {/**
   * The string <code>init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
@@ -27,7 +27,7 @@ class JsonTransformerStringTemplateTransformers extends JsonTransformer
       c_match  = c_value.match(new RegExp(`^${this.init.toString().slice(1,-1)}$`)),
 
       f_split_placeholder =
-      (p_name: string, p_arguments: string): [JsonValue|JsonTransformer, JsonValue] =>
+      (p_name: string, p_arguments: string): [JsonValue|JsonFunction, JsonValue] =>
       { const 
           c_name      = p_name == null ? null : data[p_name],
           c_arguments = p_arguments?.slice(1,-2).replace(/'/g,'"') ?? '';
@@ -61,17 +61,18 @@ class JsonTransformerStringTemplateTransformers extends JsonTransformer
         { const
             c_match = l_result.value, 
             [c_data, c_json_value]  = f_split_placeholder(c_match[1], c_match[2]);
-
+            
           if (c_data != null)
           { let l_data: JsonValue;
             
             if (typeof c_data === 'function')
             { const c_data_computed = 
-                      (c_data as Function)(c_json_value, data, this.level);
-              
+                      (c_data as Function)({value: c_json_value, data, level: this.level});
+
               l_data = (!p_string_cast || typeof c_data_computed === 'string')
                        ? c_data_computed
                        : JSON.stringify(c_data_computed);
+
             }
             else
             { l_data = (c_json_value != null)
@@ -82,7 +83,7 @@ class JsonTransformerStringTemplateTransformers extends JsonTransformer
           }
           l_result = c_placeholders.next();
         }
-        
+
         if (p_string_cast)
         { for (const r of c_replacers)
           { p_value = p_value.replace(r[0], r[1] as string); }

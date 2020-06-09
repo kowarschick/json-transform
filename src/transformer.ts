@@ -4,30 +4,31 @@
  * $license   MIT
  */
 
+import { Interface } from "readline";
+
 export type JsonValue     = JsonPrimitive | JsonMap | JsonArray ;
 export type JsonPrimitive = string | number | boolean | null | undefined;
 export type JsonMap       = {[key: string]: JsonValue};
 export type JsonArray     = JsonValue[];
 
-export interface Indexable 
+export interface Data 
 { [key: string]: JsonValue | JsonTransformer | null; }
 
-export type Data = Indexable & { level: number };
-
 type JsonTransformerProperties =
-  { init:         any,
-    data:         Data,
-    transformers: JsonTransformer | JsonTransformer[]
+  { readonly init:        any,
+    readonly data:        Data,
+    readonly level:       number,
+             transformer: JsonTransformer
   };
 
 export type JsonTransformerParameters = Partial<JsonTransformerProperties>;
 
-export type JsonTransformerString     = { (value: string,    data: Data): JsonValue } | null;
-export type JsonTransformerArray      = { (value: JsonArray, data: Data): JsonValue } | null;
-export type JsonTransformerMap        = { (value: JsonMap,   data: Data): JsonValue } | null;
+export type JsonTransformerString = { (value: string,    data: Data, level: number): JsonValue } | null;
+export type JsonTransformerArray  = { (value: JsonArray, data: Data, level: number): JsonValue } | null;
+export type JsonTransformerMap    = { (value: JsonMap,   data: Data, level: number): JsonValue } | null;
 
-export 
-interface JsonTransformer extends Readonly<JsonTransformerProperties>{};
+export
+interface JsonTransformer extends JsonTransformerProperties{};
 
 export 
 class JsonTransformer
@@ -45,46 +46,36 @@ class JsonTransformer
   * $param data
   *   A data object that is passed as environment to the
   *   transformers. If data doen not contain the property
-  *   <code>level</code>, that property is added and initialized
+  *   <code>$level</code>, that property is added and initialized
   *   by <code>0</code>.
  */
   constructor
-  ( { init         = undefined,
-      data         = { level: 0},
-      transformers = [],
+  ( { init        = undefined,
+      data        = {},
+      level       = 0,
+      transformer = undefined,
     }: JsonTransformerParameters  
     = {}
   ) 
-  { Object.assign(this, {init, data});  
-
-    this.transformers = 
-      (transformers == null) 
-      ? []
-      : (!Array.isArray(transformers))
-        ? [transformers]
-        : transformers;
+  { Object.assign(this, {init, data, level, transformer});
+    this._root = this; 
+    if (transformer != null)
+    { Object.setPrototypeOf(this.transformer.data, this.data) };
   }
 
-  public     transformers:          JsonTransformer[];
+  private _root: JsonTransformer
+  public get root() { return this._root};
 
   protected readonly transformStringBefore: JsonTransformerString = null;
   protected readonly transformStringAfter:  JsonTransformerString = null;
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
   
-  protected pipe(value: JsonValue, data: Data): JsonValue
-  { const l_transformers = this.transformers;
-
-    if (l_transformers != null)
-    { for (let transformer of l_transformers)
-      { value = transformer.transform(value, data); }
-    }
-
-    return value; 
-  }
+  protected pipe(value: JsonValue, data: Data, level: number): JsonValue
+  { return this.transformer?.transform(value, data, level) ?? value; }
   
-  protected readonly transformArrayAfter:   JsonTransformerArray  = null;
-  protected readonly transformMapBefore:    JsonTransformerMap    = null;
-  protected readonly transformMapAfter:     JsonTransformerMap    = null;
+  protected readonly transformArrayAfter: JsonTransformerArray  = null;
+  protected readonly transformMapBefore:  JsonTransformerMap    = null;
+  protected readonly transformMapAfter:   JsonTransformerMap    = null;
 
  /**
   * Transforms a <code>JsonValue</code>.
@@ -94,39 +85,46 @@ class JsonTransformer
   * $return
   *   A clone of <code>value</code> with the transformations done.
   */
-  public transform (value: JsonValue, data?: Data): JsonValue
-  { 
+  public transform (value: JsonValue, data: Data = {}, level = 0): JsonValue
+  { const c_data = { ...data };
+    Object.setPrototypeOf(c_data, this.data );
+
     let l_value = value;
 
     // Do transformations before passing the value to the pipe.
-    if (this.transformStringBefore != null && typeof value === 'string')
-    { l_value = this.transformStringBefore(value as string, data ?? this.data); }
+    if (this.transformStringBefore != null && typeof l_value === 'string')
+    { l_value = this.transformStringBefore(value as string, c_data, level); }
     else
-    if (this.transformArrayBefore != null && Array.isArray(value))
-    { l_value = this.transformArrayBefore(value as JsonArray, data ?? this.data); }
+    if (this.transformArrayBefore != null && Array.isArray(l_value))
+    { l_value = this.transformArrayBefore(l_value as JsonArray, c_data, level ); }
     else
-    if (this.transformMapBefore != null && typeof value === 'object')
-    { l_value = this.transformMapBefore(value as JsonMap, data ?? this.data); }
+    if (this.transformMapBefore != null && typeof l_value === 'object')
+    { l_value = this.transformMapBefore(l_value as JsonMap, c_data, level ); }
 
     // Pipe
-    l_value = this.pipe(l_value, data ?? this.data);
+    l_value = this.pipe(l_value, c_data, level);
 
-    // Do transformations after the value has been transformed by the pip..
-    if (this.transformStringAfter != null && typeof value === 'string')
-    { l_value = this.transformStringAfter(value as string, data ?? this.data); }
+    // Do transformations after the value has been transformed by the pipe.
+    if (this.transformStringAfter != null && typeof l_value === 'string')
+    { l_value = this.transformStringAfter(l_value as string, c_data, level); }
     else
-    if (this.transformArrayAfter != null && Array.isArray(value))
-    { l_value = this.transformArrayAfter(value as JsonArray, data ?? this.data); }
+    if (this.transformArrayAfter != null && Array.isArray(l_value))
+    { l_value = this.transformArrayAfter(l_value as JsonArray, c_data, level); }
     else
-    if (this.transformMapAfter != null && typeof value === 'object')
-    { l_value = this.transformMapAfter(value as JsonMap, data ?? this.data); }
+    if (this.transformMapAfter != null && typeof l_value === 'object')
+    { l_value = this.transformMapAfter(l_value as JsonMap, c_data, level); }
 
     return l_value; 
   }
 
-  public add (...transformers: JsonTransformer[]): JsonTransformer
-  { for (let transformer of transformers)
-    { this.transformers.push(transformer); }
-    return this;
+  public add (transformer: JsonTransformer): JsonTransformer
+  { const 
+      c_data = transformer.data;
+      Object.setPrototypeOf(c_data, this.data);
+
+    transformer._root = this;
+    this.transformer = transformer; 
+
+    return transformer;
   }
 }

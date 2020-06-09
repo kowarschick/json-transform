@@ -16,7 +16,17 @@ class JsonTransformerTraversal extends JsonTransformer
   */
   constructor
   ( options: JsonTransformerParameters = {}) 
-  { super(options); }
+  { super({ ...options, init: { minLevel: options?.init?.minLevel ?? 0,
+                                maxLevel: options?.init?.maxLevel ?? Infinity,
+                              }
+         }); 
+  }
+
+  protected pipe(value: JsonValue, data: Data, level: number): JsonValue
+  { return (this.init.minLevel <= level && level <= this.init.maxLevel)
+           ? super.pipe(value, data, level)
+           : value; 
+  }
 
   protected transformArrayAfter: JsonTransformerArray = 
   (value: JsonArray, data: Data, level: number) => 
@@ -43,5 +53,4 @@ class JsonTransformerTraversal extends JsonTransformer
  
     return c_result;
   }
-
 }

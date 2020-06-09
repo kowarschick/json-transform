@@ -20,7 +20,6 @@ class JsonTransformerStringLevel extends JsonTransformer
   { super( { ...options, init: options?.init ?? '$level'}); }
 
   protected transformStringBefore: JsonTransformerString = 
-  (value: string, data: Data) => 
-  { return (value === this.init) ? data.level : value; }
-
+  (value: string, data: Data, level: number) => 
+  { return (value === this.init) ? level : value; }
 }

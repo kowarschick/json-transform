@@ -7,3 +7,4 @@ export declare class JsonTransformerTraversalRestricted extends JsonTransformer 
     protected transformArrayAfter: JsonTransformerArray;
     protected transformMapAfter: JsonTransformerMap;
 }
+export default JsonTransformerTraversalRestricted;

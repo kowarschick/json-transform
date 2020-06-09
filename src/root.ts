@@ -110,3 +110,5 @@ class JsonTransformer
     return transformer;
   }
 }
+
+export default JsonTransformer;

@@ -59,3 +59,5 @@ class JsonTransformerStringTemplate extends JsonTransformer
   }
 
 }
+
+export default JsonTransformerStringTemplate;

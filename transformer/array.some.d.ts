@@ -4,3 +4,4 @@ export declare class JsonTransformerArraySome extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);
     protected transformArrayAfter: JsonTransformerArray;
 }
+export default JsonTransformerArraySome;

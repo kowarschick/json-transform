@@ -53,3 +53,5 @@ class JsonTransformerTraversalRestricted extends JsonTransformer
     return c_result;
   }
 }
+
+export default JsonTransformerTraversalRestricted;

@@ -7,17 +7,18 @@
  // run: node examples/example.string.level.js
 
 const 
-  trace                      = require('./trace'),
   JsonTransformerTraversal   = require('@wljkowa/json/transformer/traversal')   .JsonTransformerTraversal,
   JsonTransformerStringLevel = require('@wljkowa/json/transformer/string.level').JsonTransformerStringLevel,
 
+  trace                      = require('./trace'),
+  
   transformer =  
          new JsonTransformerTraversal()
     .add(new JsonTransformerStringLevel())
     .root
   ;
-
-trace.title('String: $level');
+s
+trace.title('String: $level (es6)');
 
 trace.transform(transformer, "$level");
 trace.transform(transformer, ["$level", {"level": "$level"}, ["$level", ["$level"]]]);

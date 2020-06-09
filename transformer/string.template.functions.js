@@ -5,7 +5,7 @@ const root_1 = require("./root");
 class JsonTransformerStringTemplateFunctions extends root_1.JsonTransformer {
     constructor(options = {}) {
         var _a;
-        super(Object.assign(Object.assign({}, options), { init: (_a = options === null || options === void 0 ? void 0 : options.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]+\)})/ }));
+        super(Object.assign(Object.assign({}, options), { init: (_a = options === null || options === void 0 ? void 0 : options.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }));
         this.transformStringBefore = (value, data) => {
             const c_regexp = new RegExp(this.init, 'g'), c_value = value, c_match = c_value.match(new RegExp(`^${this.init.toString().slice(1, -1)}$`)), f_split_placeholder = (p_name, p_arguments) => {
                 var _a;
@@ -62,4 +62,5 @@ class JsonTransformerStringTemplateFunctions extends root_1.JsonTransformer {
     }
 }
 exports.JsonTransformerStringTemplateFunctions = JsonTransformerStringTemplateFunctions;
+exports.default = JsonTransformerStringTemplateFunctions;
 //# sourceMappingURL=string.template.functions.js.map

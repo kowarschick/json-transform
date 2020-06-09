@@ -5,3 +5,4 @@ export declare class JsonTransformerTraversal extends JsonTransformer {
     protected transformArrayAfter: JsonTransformerArray;
     protected transformMapAfter: JsonTransformerMap;
 }
+export default JsonTransformerTraversal;

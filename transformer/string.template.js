@@ -32,4 +32,5 @@ class JsonTransformerStringTemplate extends root_1.JsonTransformer {
     }
 }
 exports.JsonTransformerStringTemplate = JsonTransformerStringTemplate;
+exports.default = JsonTransformerStringTemplate;
 //# sourceMappingURL=string.template.js.map

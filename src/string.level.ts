@@ -23,3 +23,5 @@ class JsonTransformerStringLevel extends JsonTransformer
   (value: string, data: Data, level: number) => 
   { return (value === this.init) ? level : value; }
 }
+
+export default JsonTransformerStringLevel;

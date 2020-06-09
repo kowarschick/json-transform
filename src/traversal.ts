@@ -45,3 +45,5 @@ class JsonTransformerTraversal extends JsonTransformer
   }
 
 }
+
+export default JsonTransformerTraversal;

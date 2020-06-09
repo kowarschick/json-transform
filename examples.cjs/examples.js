@@ -4,7 +4,7 @@
  * $license   MIT
  */
 
- // run: node examples/examples.js
+ // run: node examples.cjs/examples.js
 
  require('./example.string.level');
  //require('./example.array.some');

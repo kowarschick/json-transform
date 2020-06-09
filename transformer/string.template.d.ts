@@ -4,3 +4,4 @@ export declare class JsonTransformerStringTemplate extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);
     protected transformStringBefore: JsonTransformerString;
 }
+export default JsonTransformerStringTemplate;

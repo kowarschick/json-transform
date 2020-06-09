@@ -18,3 +18,4 @@ export declare class JsonTransformer {
     transform(value: JsonValue, data?: Data, level?: number): JsonValue;
     add(transformer: JsonTransformer): JsonTransformer;
 }
+export default JsonTransformer;

@@ -10,4 +10,5 @@ class JsonTransformerStringLevel extends root_1.JsonTransformer {
     }
 }
 exports.JsonTransformerStringLevel = JsonTransformerStringLevel;
+exports.default = JsonTransformerStringLevel;
 //# sourceMappingURL=string.level.js.map

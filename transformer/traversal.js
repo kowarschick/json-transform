@@ -23,4 +23,5 @@ class JsonTransformerTraversal extends root_1.JsonTransformer {
     }
 }
 exports.JsonTransformerTraversal = JsonTransformerTraversal;
+exports.default = JsonTransformerTraversal;
 //# sourceMappingURL=traversal.js.map

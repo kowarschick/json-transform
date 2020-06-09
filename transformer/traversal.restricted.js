@@ -31,4 +31,5 @@ class JsonTransformerTraversalRestricted extends root_1.JsonTransformer {
     }
 }
 exports.JsonTransformerTraversalRestricted = JsonTransformerTraversalRestricted;
+exports.default = JsonTransformerTraversalRestricted;
 //# sourceMappingURL=traversal.restricted.js.map

@@ -54,4 +54,5 @@ class JsonTransformer {
     }
 }
 exports.JsonTransformer = JsonTransformer;
+exports.default = JsonTransformer;
 //# sourceMappingURL=root.js.map

@@ -33,3 +33,5 @@ class JsonTransformerArraySome extends JsonTransformer
            : value[Math.floor(Math.random()*(c_length-1))+1];
   }
 }
+
+export default JsonTransformerArraySome;

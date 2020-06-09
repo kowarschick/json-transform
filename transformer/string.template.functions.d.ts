@@ -4,3 +4,4 @@ export declare class JsonTransformerStringTemplateFunctions extends JsonTransfor
     constructor(options?: JsonTransformerParameters);
     protected transformStringBefore: JsonTransformerString;
 }
+export default JsonTransformerStringTemplateFunctions;

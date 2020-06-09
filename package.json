@@ -1,5 +1,5 @@
 {
-  "name": "@wljkowa/json-transform",
+  "name": "@wljkowa/json",
   "version": "0.5.0",
   "author": "Wolfgang L. J. Kowarschick",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "json",
     "transform"
   ],
-  "main": "./transformer/json.transform.js",
+  "main": "./transformer/interfaces.js",
   "files": [
     "transformer/"
   ],
@@ -23,7 +23,7 @@
     "test:watch": "jest --watch",
     "examples": "node examples/examples.js",
     "prelink": "npm run build",
-    "link": "npm link && npm link @wljkowa/json-transform"
+    "link": "npm link && npm link @wljkowa/json"
   },
   "devDependencies": {
     "@types/jest": "25.1.4",

@@ -49,15 +49,15 @@ class JsonTransformer
   public get root() { return this._root};
 
   protected readonly transformStringBefore: JsonTransformerString = null;
-  protected readonly transformStringAfter:  JsonTransformerString = null;
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
+  protected readonly transformMapBefore:    JsonTransformerMap    = null;
   
   protected pipe(value: JsonValue, data: Data, level: number): JsonValue
   { return this.transformer?.transform(value, data, level) ?? value; }
   
-  protected readonly transformArrayAfter: JsonTransformerArray  = null;
-  protected readonly transformMapBefore:  JsonTransformerMap    = null;
-  protected readonly transformMapAfter:   JsonTransformerMap    = null;
+  protected readonly transformStringAfter: JsonTransformerString = null;
+  protected readonly transformArrayAfter:  JsonTransformerArray  = null;
+  protected readonly transformMapAfter:    JsonTransformerMap    = null;
 
  /**
   * Transforms a <code>JsonValue</code>.

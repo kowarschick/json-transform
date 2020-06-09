@@ -4,7 +4,7 @@
  * $license   MIT
  */
 
- import { JsonTransformer } from './transformer';
+ import { JsonTransformer } from './root';
 
 export type JsonValue     = JsonPrimitive | JsonMap | JsonArray ;
 export type JsonPrimitive = string | number | boolean | null | undefined;

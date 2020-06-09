@@ -6,7 +6,7 @@
 
 import { Data, JsonValue, JsonArray, JsonMap }                                 from './interfaces';
 import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
-import { JsonTransformer }                                                     from './transformer';
+import { JsonTransformer }                                                     from './root';
 
 export 
 class JsonTransformerTraversalRestricted extends JsonTransformer

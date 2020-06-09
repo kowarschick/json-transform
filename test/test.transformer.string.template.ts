@@ -5,12 +5,12 @@
  */
 
 /*
-import { JsonTransformer }               from '@wljkowa/json/transformer';
-import { JsonTransformerStringTemplate } from '@wljkowa/json/transformer/string.template.transformers';
+import { JsonTransformer }               from '@wljkowa/json/transformer/root';
+import { JsonTransformerStringTemplate } from '@wljkowa/json/transformer/string.template';
 import { JsonTransformerTraversal }      from '@wljkowa/json/transformer/traversal';
 */
 
-import { JsonTransformer }               from '~/transformer';
+import { JsonTransformer }               from '~/root';
 import { JsonTransformerStringTemplate } from '~/string.template';
 import { JsonTransformerTraversal }      from '~/traversal';
 

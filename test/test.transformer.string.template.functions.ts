@@ -6,13 +6,13 @@
 
 /*
 import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '@wljkowa/json';
-import { JsonTransformer }                                  from '@wljkowa/json/transformer';
-import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/transformer/string.template.transformers';
+import { JsonTransformer }                                  from '@wljkowa/json/transformer/root';
+import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/transformer/string.template.functions';
 import { JsonTransformerTraversal }                         from '@wljkowa/json/transformer/traversal';
 */
 
 import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '~/interfaces';
-import { JsonTransformer }                                  from '~/transformer';
+import { JsonTransformer }                                  from '~/root';
 import { JsonTransformerStringTemplateFunctions }           from '~/string.template.functions';
 import { JsonTransformerTraversal }                         from '~/traversal';
 

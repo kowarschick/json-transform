@@ -9,7 +9,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 import { JsonTransformerArray, JsonTransformerMap }   from './transformer';
 
 export 
-class JsonTransformerTraversal extends JsonTransformer
+class JsonTransformerTraversalRestricted extends JsonTransformer
 {/**
   * This transformers applies the transformer passed recursively to
   * all elements of the JSON value. 

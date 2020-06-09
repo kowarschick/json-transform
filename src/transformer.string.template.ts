@@ -25,6 +25,7 @@ class JsonTransformerStringTemplate extends JsonTransformer
       c_regexp = new RegExp(this.init,'g'),
       c_value  = value as string,
       c_match  = c_value.match(new RegExp(`^${this.init.toString().slice(1,-1)}$`)),
+      
       f_replace_placeholders =
       (p_value: string): string =>
       { const

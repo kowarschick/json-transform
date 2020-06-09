@@ -5,18 +5,18 @@
  */
 
 /*
-import { JsonTransformer }            from '@wljkowa/json-transform/transformer';
-import { JsonTransformerStringLevel } from '@wljkowa/json-transform/transformer.string.level';
-import { JsonTransformerTraversal }   from '@wljkowa/json-transform/transformer.traversal.restricted';
+import { JsonTransformer }                    from '@wljkowa/json-transform/transformer';
+import { JsonTransformerStringLevel }         from '@wljkowa/json-transform/transformer.string.level';
+import { JsonTransformerTraversalRestricted } from '@wljkowa/json-transform/transformer.traversal.restricted';
 */
 
-import { JsonTransformer }            from '~/transformer';
-import { JsonTransformerStringLevel } from '~/transformer.string.level';
-import { JsonTransformerTraversal }   from '~/transformer.traversal.restricted';
+import { JsonTransformer }                    from '~/transformer';
+import { JsonTransformerStringLevel }         from '~/transformer.string.level';
+import { JsonTransformerTraversalRestricted } from '~/transformer.traversal.restricted';
 
 { const 
     c_transform = 
-           new JsonTransformerTraversal({init: { minLevel: 2, maxLevel: 3}})
+           new JsonTransformerTraversalRestricted({init: { minLevel: 2, maxLevel: 3}})
       .add(new JsonTransformerStringLevel({init: '@level'}))
       .root;
 
@@ -72,28 +72,28 @@ function traversalTests(transformer: JsonTransformer)
   );
 }
 
-traversalTests(new JsonTransformerTraversal({transformer: new JsonTransformerStringLevel()}));
+traversalTests(new JsonTransformerTraversalRestricted({transformer: new JsonTransformerStringLevel()}));
 
-{ const c_transformer = new JsonTransformerTraversal();
+{ const c_transformer = new JsonTransformerTraversalRestricted();
   c_transformer.add(new JsonTransformerStringLevel());
 
   traversalTests(c_transformer);
 }
 
 traversalTests
-(      new JsonTransformerTraversal()
+(      new JsonTransformerTraversalRestricted()
   .add(new JsonTransformerStringLevel())
   .root
 );
 
 traversalTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal())
+  .add(new JsonTransformerTraversalRestricted())
   .add(new JsonTransformerStringLevel())
   .root
 );
 
-{ const c_transformer = new JsonTransformerTraversal();
+{ const c_transformer = new JsonTransformerTraversalRestricted();
   c_transformer.add(new JsonTransformerStringLevel({init: '@level'}));
 
   test

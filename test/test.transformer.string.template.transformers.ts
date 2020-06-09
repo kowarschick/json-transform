@@ -5,14 +5,14 @@
  */
 
 /*
-import { JsonTransformer }               from '@wljkowa/json-transform/transformer';
-import { JsonTransformerStringTemplate } from '@wljkowa/json-transform/transformer.string.template';
-import { JsonTransformerTraversal }      from '@wljkowa/json-transform/transformer.traversal';
+import { JsonTransformer }                           from '@wljkowa/json-transform/transformer';
+import { JsonTransformerStringTemplateTransformers } from '@wljkowa/json-transform/transformer.string.template.transformers';
+import { JsonTransformerTraversal }                  from '@wljkowa/json-transform/transformer.traversal';
 */
 
-import { JsonTransformer }               from '~/transformer';
-import { JsonTransformerStringTemplate } from '~/transformer.string.template';
-import { JsonTransformerTraversal }      from '~/transformer.traversal';
+import { JsonTransformer }                           from '~/transformer';
+import { JsonTransformerStringTemplateTransformers } from '~/transformer.string.template.transformers';
+import { JsonTransformerTraversal }                  from '~/transformer.traversal';
 
 function allTests(transformer: JsonTransformer)
 { test
@@ -24,7 +24,7 @@ function allTests(transformer: JsonTransformer)
   ( '"${abc(\'def\')}" should be transformed into "${abc(\'def\')}"', 
     () => { expect(transformer.transform("${abc('def')}")).toStrictEqual("${abc('def')}"); }
   );
-  
+
   test
   ( '"${hello}, ${name}!" should be transformed into "Hallo, Wolfgang!"', 
     () => { expect(transformer.transform("${hello}, ${name}!", {name: "Wolfgang"})
@@ -49,7 +49,7 @@ function allTests(transformer: JsonTransformer)
 
 allTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerStringTemplate())
+  .add(new JsonTransformerStringTemplateTransformers())
   .root
 );
 
@@ -57,7 +57,7 @@ allTests
 (      new JsonTransformer()
   .add(new JsonTransformerTraversal
        ({data:        { "abc": 123, "hello": "Hallo" },
-         transformer: new JsonTransformerStringTemplate()
+         transformer: new JsonTransformerStringTemplateTransformers()
        })
       )
   .root
@@ -66,13 +66,13 @@ allTests
 allTests
 (      new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
   .add(new JsonTransformerTraversal())
-  .add(new JsonTransformerStringTemplate())
+  .add(new JsonTransformerStringTemplateTransformers())
   .root
 )
 
 allTests
 (      new JsonTransformer()
   .add(new JsonTransformerTraversal({ data:{ "abc": 123, "hello": "Hallo" } }))
-  .add(new JsonTransformerStringTemplate())
+  .add(new JsonTransformerStringTemplateTransformers())
   .root
 );

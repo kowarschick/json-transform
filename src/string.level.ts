@@ -14,7 +14,7 @@ class JsonTransformerStringLevel extends JsonTransformer
   * The string <code>init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * $param init = '$level'
+  * $param options.init = '$level'
   */
   constructor
   ( options: JsonTransformerParameters = {}) 

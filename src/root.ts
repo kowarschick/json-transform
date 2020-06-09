@@ -104,8 +104,8 @@ class JsonTransformer
       c_data = transformer.data;
       Object.setPrototypeOf(c_data, this.data);
 
-    transformer._root = this;
-    this.transformer = transformer; 
+    transformer._root = this._root;
+    this.transformer  = transformer; 
 
     return transformer;
   }

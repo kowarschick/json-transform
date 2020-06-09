@@ -6,11 +6,13 @@
 
 /*
 import { JsonTransformer }               from '@wljkowa/json/transformer/root';
+import { JsonTransformerStringLevel }    from '@wljkowa/json/transformer/string.level';
 import { JsonTransformerStringTemplate } from '@wljkowa/json/transformer/string.template';
 import { JsonTransformerTraversal }      from '@wljkowa/json/transformer/traversal';
 */
 
 import { JsonTransformer }               from '~/root';
+import { JsonTransformerStringLevel }    from '~/string.level';
 import { JsonTransformerStringTemplate } from '~/string.template';
 import { JsonTransformerTraversal }      from '~/traversal';
 
@@ -72,7 +74,45 @@ allTests
 
 allTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal({ data:{ "abc": 123, "hello": "Hallo" } }))
+  .add(new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } }))
+  .add(new JsonTransformerStringTemplate())
+  .root
+);
+
+allTests
+( new JsonTransformerTraversal
+  ({ data:        
+      { "abc": 123, "hello": "Hallo" },
+     transformer:  
+       new JsonTransformerStringTemplate
+       ({ transformer:
+            new JsonTransformerStringLevel()
+       })
+  })
+);
+
+allTests
+(      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
+  .add(new JsonTransformerStringTemplate())
+  .add(new JsonTransformerStringLevel())
+  .root
+);
+
+allTests
+( new JsonTransformerTraversal
+  ({ data:        
+      { "abc": 123, "hello": "Hallo" },
+     transformer:  
+       new JsonTransformerStringLevel
+       ({ transformer:
+            new JsonTransformerStringTemplate()
+       })
+  })
+);
+
+allTests
+(      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
+  .add(new JsonTransformerStringLevel())
   .add(new JsonTransformerStringTemplate())
   .root
 );

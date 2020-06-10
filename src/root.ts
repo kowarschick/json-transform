@@ -5,6 +5,7 @@
  */
 
 import { JsonValue, JsonMap, JsonArray                                   } from "./interfaces";
+import { JsonFunctionParameters                                          } from "./interfaces";
 import { JsonTransformerProperties, JsonTransformerParameters            } from "./interfaces";
 import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from "./interfaces";
 import { Data } from "./interfaces";
@@ -52,7 +53,7 @@ class JsonTransformer
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
   protected readonly transformMapBefore:    JsonTransformerMap    = null;
   
-  protected pipe(value: JsonValue, data: Data, level: number): JsonValue
+  protected pipe({value, data, level}: JsonFunctionParameters): JsonValue
   { return this.transformer?.transform(value, data, level) ?? value; }
   
   protected readonly transformStringAfter: JsonTransformerString = null;
@@ -75,26 +76,26 @@ class JsonTransformer
 
     // Do transformations before passing the value to the pipe.
     if (this.transformStringBefore != null && typeof l_value === 'string')
-    { l_value = this.transformStringBefore(value as string, c_data, level); }
+    { l_value = this.transformStringBefore({value: value as string, data: c_data, level}); }
     else
     if (this.transformArrayBefore != null && Array.isArray(l_value))
-    { l_value = this.transformArrayBefore(l_value as JsonArray, c_data, level ); }
+    { l_value = this.transformArrayBefore({value: l_value as JsonArray, data: c_data, level}); }
     else
     if (this.transformMapBefore != null && typeof l_value === 'object')
-    { l_value = this.transformMapBefore(l_value as JsonMap, c_data, level ); }
+    { l_value = this.transformMapBefore({value: l_value as JsonMap, data: c_data, level}); }
 
     // Pipe
-    l_value = this.pipe(l_value, c_data, level);
+    l_value = this.pipe({value: l_value, data: c_data, level});
 
     // Do transformations after the value has been transformed by the pipe.
     if (this.transformStringAfter != null && typeof l_value === 'string')
-    { l_value = this.transformStringAfter(l_value as string, c_data, level); }
+    { l_value = this.transformStringAfter({value: l_value as string, data: c_data, level}); }
     else
     if (this.transformArrayAfter != null && Array.isArray(l_value))
-    { l_value = this.transformArrayAfter(l_value as JsonArray, c_data, level); }
+    { l_value = this.transformArrayAfter({value: l_value as JsonArray, data: c_data, level}); }
     else
     if (this.transformMapAfter != null && typeof l_value === 'object')
-    { l_value = this.transformMapAfter(l_value as JsonMap, c_data, level); }
+    { l_value = this.transformMapAfter({value: l_value as JsonMap, data: c_data, level}); }
 
     return l_value; 
   }

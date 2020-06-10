@@ -15,7 +15,6 @@
   "include": 
   [ "src/**/*",
     "test/**/*",
-    "examples.cjs/**/*", "../../../jsonPretty.js", "tmp/example.array.some.js", "tmp/example.string.template.js", "tmp/trace.js"
   ],
 
   "exclude": 

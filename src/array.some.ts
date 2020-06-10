@@ -4,7 +4,7 @@
  * $license   MIT
  */
 
-import { Data, JsonArray }                                 from './interfaces';
+import { JsonFunctionArrayParameters }                     from './interfaces';
 import { JsonTransformerParameters, JsonTransformerArray } from './interfaces';
 import { JsonTransformer }                                 from './root';
 
@@ -23,7 +23,7 @@ class JsonTransformerArraySome extends JsonTransformer
   { super( { ...options, init: options?.init ?? '$some'}); }
 
   protected transformArrayAfter: JsonTransformerArray = 
-  (value: JsonArray, data: Data, level: number) => 
+  ({value}: JsonFunctionArrayParameters) => 
   { const c_length = value.length;
     if (c_length === 0 || value[0] !== this.init)
     { return value; }

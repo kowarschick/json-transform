@@ -4,7 +4,8 @@
  * $license   MIT
  */
 
-import { Data, JsonValue, JsonArray, JsonMap }                                 from './interfaces';
+import { JsonValue }                                                           from './interfaces';
+import { JsonFunctionArrayParameters, JsonFunctionMapParameters}               from './interfaces';
 import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
 import { JsonTransformer }                                                     from './root';
 
@@ -19,7 +20,7 @@ class JsonTransformerTraversal extends JsonTransformer
   { super(options); }
 
   protected transformArrayAfter: JsonTransformerArray = 
-  (value: JsonArray, data: Data, level: number) => 
+  ({value, data, level}: JsonFunctionArrayParameters) => 
   { const
       c_level = level+1,
       c_result: JsonValue = [];
@@ -31,7 +32,7 @@ class JsonTransformerTraversal extends JsonTransformer
   }
 
   protected transformMapAfter: JsonTransformerMap = 
-  (value: JsonMap, data: Data, level: number) => 
+  ({value, data, level}: JsonFunctionMapParameters) => 
   { const
       c_level = level+1,
       c_result: JsonValue = {};

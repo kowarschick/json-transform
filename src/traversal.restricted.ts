@@ -4,9 +4,10 @@
  * $license   MIT
  */
 
-import { Data, JsonValue, JsonArray, JsonMap }                                 from './interfaces';
-import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
-import { JsonTransformer }                                                     from './root';
+import { JsonValue, Data }                                                               from './interfaces';
+import { JsonFunctionParameters, JsonFunctionArrayParameters, JsonFunctionMapParameters} from './interfaces';
+import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap }           from './interfaces';
+import { JsonTransformer }                                                               from './root';
 
 export 
 class JsonTransformerTraversalRestricted extends JsonTransformer
@@ -21,14 +22,14 @@ class JsonTransformerTraversalRestricted extends JsonTransformer
          }); 
   }
 
-  protected pipe(value: JsonValue, data: Data, level: number): JsonValue
+  protected pipe({value, data, level}: JsonFunctionParameters): JsonValue
   { return (this.init.minLevel <= level && level <= this.init.maxLevel)
-           ? super.pipe(value, data, level)
+           ? super.pipe({value, data, level})
            : value; 
   }
 
   protected transformArrayAfter: JsonTransformerArray = 
-  (value: JsonArray, data: Data, level: number) => 
+  ({value, data, level}: JsonFunctionArrayParameters) => 
   { const
       c_level = level+1,
       c_result: JsonValue = [];
@@ -40,7 +41,7 @@ class JsonTransformerTraversalRestricted extends JsonTransformer
   }
 
   protected transformMapAfter: JsonTransformerMap = 
-  (value: JsonMap, data: Data, level: number) => 
+  ({value, data, level}: JsonFunctionMapParameters) => 
   { const
       c_level = level+1,
       c_result: JsonValue = {};

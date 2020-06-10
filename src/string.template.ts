@@ -4,7 +4,8 @@
  * $license   MIT
  */
 
-import { Data, JsonValue }                                  from './interfaces';
+import { JsonValue }                                        from './interfaces';
+import { JsonFunctionStringParameters}                      from './interfaces';
 import { JsonTransformerParameters, JsonTransformerString } from './interfaces';
 import { JsonTransformer }                                  from './root';
 
@@ -20,7 +21,7 @@ class JsonTransformerStringTemplate extends JsonTransformer
   { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)}/}); }
 
   protected transformStringBefore: JsonTransformerString = 
-  (value: string, data: Data) => 
+  ({value, data}: JsonFunctionStringParameters) => 
   { const  
       c_regexp = new RegExp(this.init,'g'),
       c_value  = value as string,

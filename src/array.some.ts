@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonFunctionArrayParameters }                     from './interfaces';
@@ -19,7 +19,7 @@ class JsonTransformerArraySome extends JsonTransformer
   * 
   * Otherwise the Array itself is returned as value.
   *
-  * $param options.init = '$some'
+  * @param options.init = '$some'
   */
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? '$some'}); }

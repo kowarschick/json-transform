@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonValue, JsonMap, JsonArray                                   } from "./interfaces";
@@ -19,14 +19,14 @@ class JsonTransformer
   * A class to recursivley transform <code>JsonValue</code>s 
   * by applying <code>JsonTransformer</code>s.
   *
-  * $param init
+  * @param init
   *   An object that may be used to initialize the transformer.
-  * $param transformer
+  * @param transformer
   *   A transformer or an array of transformers to which the JSON value 
   *   are passed, after it may have been transformed by this transformer. 
   *   After that transformation, this transformer may transform the 
   *   result of <code>transformer</code> further. 
-  * $param data
+  * @param data
   *   A data object that is passed as environment to the
   *   transformers. If data doen not contain the property
   *   <code>$level</code>, that property is added and initialized
@@ -63,7 +63,7 @@ class JsonTransformer
  /**
   * Transforms a <code>JsonValue</code>.
   *
-  * $param value
+  * @param value
   *   The JSON value to be transformed.
   * $return
   *   A clone of <code>value</code> with the transformations done.

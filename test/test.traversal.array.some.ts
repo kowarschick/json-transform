@@ -1,11 +1,11 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa$hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa$hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 /*
-import { JsonTransformerArraySome } from '@wljkowa/json/transformer/array.some';import { JsonTransformerTraversal }   from '@wljkowa/json/transformer/traversal';
+import { JsonTransformerArraySome } from '@wljkowa/json/transformer/array.some';
 */
 
 import { JsonTransformerArraySome } from '~/array.some';

@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 const 

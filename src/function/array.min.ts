@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces';
@@ -19,7 +19,7 @@ export function JsonFunctionArrayMin({value}: JsonFunctionArrayParameters)
 { if (value.length === 0 || value[0] !== JsonFunctionArrayMin.init)
   { return value; }
 
-  return value.slice(1).reduce( (m, v) => (m as number) + (v as number), Infinity);
+  return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), Infinity);
 }
 
 JsonFunctionArrayMin.type = EnumJsonFunctionType.Array;

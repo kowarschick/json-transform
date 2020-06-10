@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonFunctionStringParameters, EnumJsonFunctionType } from '~/interfaces';
@@ -18,4 +18,4 @@ export function JsonFunctionStringLevel({value, level}: JsonFunctionStringParame
 JsonFunctionStringLevel.type = EnumJsonFunctionType.String;
 JsonFunctionStringLevel.init = "$level";
 
-export default JsonTransformerStringLevel;
+export default JsonFunctionStringLevel;

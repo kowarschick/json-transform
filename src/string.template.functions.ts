@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonValue }                                        from './interfaces';
@@ -15,7 +15,7 @@ class JsonTransformerStringTemplateFunctions extends JsonTransformer
   * The string <code>init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * $param init = '$level'
+  * @param init = '$level'
   */
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }); }

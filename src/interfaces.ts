@@ -1,7 +1,7 @@
 /**
- * $author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * $copyright 2020  Wolfgang Kowarschick
- * $license   MIT
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020  Wolfgang Kowarschick
+ * @license   MIT
  */
 
 import { JsonTransformer } from './root';
@@ -23,21 +23,24 @@ export enum EnumJsonFunctionType
 export type JsonFunctionParameters = 
             {value: JsonValue, data:  Data, level: number};
 export type JsonFunction = 
-            { (_: JsonFunctionParameters): JsonValue };
+            { (_: JsonFunctionParameters): JsonValue, 
+              type?: EnumJsonFunctionType, 
+              init?: any 
+            };
 
 export type JsonFunctionStringParameters =
             {value: string, data: Data, level: number};
 export type JsonFunctionString = 
             { (_: JsonFunctionStringParameters): JsonValue, 
               type: EnumJsonFunctionType /* = EnumJsonFunctionType.String */, 
-              init?: any 
+              init: string 
             }
 export type JsonFunctionArrayParameters = 
             {value: JsonArray, data: Data, level: number};
 export type JsonFunctionArray =
             { (_: JsonFunctionArrayParameters): JsonValue, 
               type: EnumJsonFunctionType /* = EnumJsonFunctionType.Array */, 
-              init?: any 
+              init: string 
             }
 
 export type JsonFunctionMapParameters = 
@@ -45,7 +48,7 @@ export type JsonFunctionMapParameters =
 export type JsonFunctionMap =
             { (_: JsonFunctionMapParameters): JsonValue, 
               type: EnumJsonFunctionType /* = EnumJsonFunctionType.Map */, 
-              init?: any 
+              init: string 
             }
 
 export type JsonTransformerProperties =

@@ -6,7 +6,7 @@ class JsonTransformerStringTemplate extends root_1.JsonTransformer {
     constructor(options = {}) {
         var _a;
         super(Object.assign(Object.assign({}, options), { init: (_a = options === null || options === void 0 ? void 0 : options.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)}/ }));
-        this.transformStringBefore = (value, data) => {
+        this.transformStringBefore = ({ value, data }) => {
             const c_regexp = new RegExp(this.init, 'g'), c_value = value, c_match = c_value.match(new RegExp(`^${this.init.toString().slice(1, -1)}$`)), f_replace_placeholders = (p_value) => {
                 const c_placeholders = p_value.matchAll(c_regexp), c_replacers = [];
                 let l_result = c_placeholders.next();

@@ -11,9 +11,11 @@ import { JsonTransformer }                                 from './root';
 export 
 class JsonTransformerArraySome extends JsonTransformer
 {/**
-  * If the first element of the Array is equal to <code>options.init<code> 
-  * some of the other elemnts is returned as values. If there are no other 
-  * elements, <code>undefined</code> is returned.
+  * If the first element of the Array is equal to 
+  * <code>JsonFunctionArraySome.init<code> (<code>$some</code>)
+  * some of the other elements is returned as value. 
+  * If there are no other elements, <code>undefined</code> 
+  * is returned.
   * 
   * Otherwise the Array itself is returned as value.
   *

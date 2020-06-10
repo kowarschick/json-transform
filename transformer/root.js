@@ -19,29 +19,29 @@ class JsonTransformer {
     }
     get root() { return this._root; }
     ;
-    pipe(value, data, level) { var _a, _b; return (_b = (_a = this.transformer) === null || _a === void 0 ? void 0 : _a.transform(value, data, level)) !== null && _b !== void 0 ? _b : value; }
-    transform(value, data = {}, level = 0) {
+    pipe(_) { var _a, _b; return (_b = (_a = this.transformer) === null || _a === void 0 ? void 0 : _a.transform(_)) !== null && _b !== void 0 ? _b : _.value; }
+    transform({ value, data = {}, level = 0 }) {
         const c_data = Object.assign({}, data);
         Object.setPrototypeOf(c_data, this.data);
         let l_value = value;
         if (this.transformStringBefore != null && typeof l_value === 'string') {
-            l_value = this.transformStringBefore(value, c_data, level);
+            l_value = this.transformStringBefore({ value: value, data: c_data, level });
         }
         else if (this.transformArrayBefore != null && Array.isArray(l_value)) {
-            l_value = this.transformArrayBefore(l_value, c_data, level);
+            l_value = this.transformArrayBefore({ value: l_value, data: c_data, level });
         }
         else if (this.transformMapBefore != null && typeof l_value === 'object') {
-            l_value = this.transformMapBefore(l_value, c_data, level);
+            l_value = this.transformMapBefore({ value: l_value, data: c_data, level });
         }
-        l_value = this.pipe(l_value, c_data, level);
+        l_value = this.pipe({ value: l_value, data: c_data, level });
         if (this.transformStringAfter != null && typeof l_value === 'string') {
-            l_value = this.transformStringAfter(l_value, c_data, level);
+            l_value = this.transformStringAfter({ value: l_value, data: c_data, level });
         }
         else if (this.transformArrayAfter != null && Array.isArray(l_value)) {
-            l_value = this.transformArrayAfter(l_value, c_data, level);
+            l_value = this.transformArrayAfter({ value: l_value, data: c_data, level });
         }
         else if (this.transformMapAfter != null && typeof l_value === 'object') {
-            l_value = this.transformMapAfter(l_value, c_data, level);
+            l_value = this.transformMapAfter({ value: l_value, data: c_data, level });
         }
         return l_value;
     }

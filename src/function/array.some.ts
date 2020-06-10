@@ -4,9 +4,18 @@
  * $license   MIT
  */
 
-import { Data, JsonArray } from '~/interfaces';
+import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces';
 
-export function JsonFunctionArraySome(value: JsonArray, data: Data, level: number)
+/**
+  * If the first element of the Array is equal to 
+  * <code>JsonFunctionArraySome.init<code> (<code>$some</code>)
+  * some of the other elements is returned as value. 
+  * If there are no other elements, <code>undefined</code> 
+  * is returned.
+  * 
+  * Otherwise the Array itself is returned as value.
+  */
+export function JsonFunctionArraySome({value}: JsonFunctionArrayParameters)
 { const c_length = value.length;
   
   if (c_length === 0 || value[0] !== JsonFunctionArraySome.init)
@@ -16,6 +25,8 @@ export function JsonFunctionArraySome(value: JsonArray, data: Data, level: numbe
          ? undefined
          : value[Math.floor(Math.random()*(c_length-1))+1];
 }
+
+JsonFunctionArraySome.type = EnumJsonFunctionType.Array;
 JsonFunctionArraySome.init = "$some";
 
 export default JsonFunctionArraySome;

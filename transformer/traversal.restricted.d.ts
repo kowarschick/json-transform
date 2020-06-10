@@ -1,10 +1,9 @@
-import { Data, JsonValue } from './interfaces';
-import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
-import { JsonTransformer } from './root';
-export declare class JsonTransformerTraversalRestricted extends JsonTransformer {
+import { JsonValue } from './interfaces';
+import { JsonFunctionParameters } from './interfaces';
+import { JsonTransformerParameters } from './interfaces';
+import { JsonTransformerTraversal } from './traversal';
+export declare class JsonTransformerTraversalRestricted extends JsonTransformerTraversal {
     constructor(options?: JsonTransformerParameters);
-    protected pipe(value: JsonValue, data: Data, level: number): JsonValue;
-    protected transformArrayAfter: JsonTransformerArray;
-    protected transformMapAfter: JsonTransformerMap;
+    protected pipe(_: JsonFunctionParameters): JsonValue;
 }
 export default JsonTransformerTraversalRestricted;

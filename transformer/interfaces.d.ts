@@ -20,6 +20,8 @@ export declare type JsonFunctionParameters = {
 };
 export declare type JsonFunction = {
     (_: JsonFunctionParameters): JsonValue;
+    type?: EnumJsonFunctionType;
+    init?: any;
 };
 export declare type JsonFunctionStringParameters = {
     value: string;
@@ -29,7 +31,7 @@ export declare type JsonFunctionStringParameters = {
 export declare type JsonFunctionString = {
     (_: JsonFunctionStringParameters): JsonValue;
     type: EnumJsonFunctionType;
-    init?: any;
+    init: string;
 };
 export declare type JsonFunctionArrayParameters = {
     value: JsonArray;
@@ -39,7 +41,7 @@ export declare type JsonFunctionArrayParameters = {
 export declare type JsonFunctionArray = {
     (_: JsonFunctionArrayParameters): JsonValue;
     type: EnumJsonFunctionType;
-    init?: any;
+    init: string;
 };
 export declare type JsonFunctionMapParameters = {
     value: JsonMap;
@@ -49,7 +51,7 @@ export declare type JsonFunctionMapParameters = {
 export declare type JsonFunctionMap = {
     (_: JsonFunctionMapParameters): JsonValue;
     type: EnumJsonFunctionType;
-    init?: any;
+    init: string;
 };
 export declare type JsonTransformerProperties = {
     readonly init: any;

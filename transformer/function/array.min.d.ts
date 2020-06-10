@@ -4,4 +4,4 @@ export declare namespace JsonFunctionArrayMin {
     var type: EnumJsonFunctionType;
     var init: string;
 }
-export default JsonFunctionArraySome;
+export default JsonFunctionArrayMin;

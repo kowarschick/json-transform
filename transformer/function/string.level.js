@@ -6,5 +6,5 @@ function JsonFunctionStringLevel({ value, level }) { return (value === JsonFunct
 exports.JsonFunctionStringLevel = JsonFunctionStringLevel;
 JsonFunctionStringLevel.type = interfaces_1.EnumJsonFunctionType.String;
 JsonFunctionStringLevel.init = "$level";
-exports.default = JsonTransformerStringLevel;
+exports.default = JsonFunctionStringLevel;
 //# sourceMappingURL=string.level.js.map

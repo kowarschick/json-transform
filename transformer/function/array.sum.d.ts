@@ -4,4 +4,4 @@ export declare namespace JsonFunctionArraySum {
     var type: EnumJsonFunctionType;
     var init: string;
 }
-export default JsonFunctionArraySome;
+export default JsonFunctionArraySum;

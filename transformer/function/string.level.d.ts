@@ -4,4 +4,4 @@ export declare namespace JsonFunctionStringLevel {
     var type: EnumJsonFunctionType;
     var init: string;
 }
-export default JsonTransformerStringLevel;
+export default JsonFunctionStringLevel;

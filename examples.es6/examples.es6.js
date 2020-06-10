@@ -11,3 +11,4 @@
 import './example.array.some.es6';
 import './example.string.level.es6';
 import './example.string.template.es6';
+import './example.string.template.functions.es6';

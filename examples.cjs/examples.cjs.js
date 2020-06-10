@@ -10,3 +10,4 @@
 require('./example.array.some.cjs');
 require('./example.string.level.cjs');
 require('./example.string.template.cjs');
+require('./example.string.template.functions.cjs');

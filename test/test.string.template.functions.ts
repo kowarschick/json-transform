@@ -5,14 +5,15 @@
  */
 
 /*
-import { JsonFunctionParameters, JsonValue, JsonMap, Data } from '@wljkowa/json';
+import { JsonValue, JsonMap, Data }                         from '@wljkowa/json';
+import { JsonFunctionParameters }                           from '@wljkowa/json';
 import { JsonTransformer }                                  from '@wljkowa/json/transformer/root';
 import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/transformer/string.template.functions';
 import { JsonTransformerTraversal }                         from '@wljkowa/json/transformer/traversal';
 */
 
 import { JsonValue, JsonMap, Data }               from '~/interfaces';
-import { JsonFunction, JsonFunctionParameters }   from '~/interfaces';
+import { JsonFunctionParameters }                 from '~/interfaces';
 import { JsonTransformer }                        from '~/root';
 import { JsonTransformerStringTemplateFunctions } from '~/string.template.functions';
 import { JsonTransformerTraversal }               from '~/traversal';
@@ -48,28 +49,28 @@ const
 
   test
   ( '"${vpf({\'x\':100, \'y\':200})" should be transformed into "{v: [2, 4]}"', 
-    () => { expect(c_transformer.transform( "${vpf({'x':100, 'y':200})}"))
+    () => { expect(c_transformer.transform( "${vpf({'x':100, 'y':200})}" ))
               .toStrictEqual([2, 4]); 
           }
   );
 
   test
   ( '"{v: ${vpf({\'x\':100, \'y\':200})}}" should be transformed into "{v: [2,4]}"', 
-    () => { expect(c_transformer.transform( "{v: ${vpf({'x':100, 'y':200})}}"))
+    () => { expect(c_transformer.transform( "{v: ${vpf({'x':100, 'y':200})}}" ))
               .toStrictEqual("{v: [2,4]}"); 
           }
   );
   
   test
   ( '{v: "${vpf({\'x\':100, \'y\':200})}"} should be transformed into {v: [2,4]}', 
-    () => { expect(c_transformer.transform( {v: "${vpf({'x':100, 'y':200})}"}))
+    () => { expect(c_transformer.transform( {v: "${vpf({'x':100, 'y':200})}"} ))
               .toStrictEqual({v: [2,4]}); 
           }
   );
 
   test
   ( 'complex nested objects should work, too', 
-    () => { expect(c_transformer.transform([{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}]))
+    () => { expect(c_transformer.transform( [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}] ))
               .toStrictEqual([{v: [2,4]}, {a: [4,8]}]); 
           }
   );

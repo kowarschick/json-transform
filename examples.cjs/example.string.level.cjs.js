@@ -4,19 +4,22 @@
  * $license   MIT
  */
 
-import JsonTransformerStringLevel from '@wljkowa/json/transformer/string.level.js';
-import JsonTransformerTraversal   from '@wljkowa/json/transformer/traversal.js';
-
-import trace from './trace';
+// run: 
+//   node examples.cjs/example.string.level.cjs.js
 
 const 
+  JsonTransformerTraversal   = require('@wljkowa/json/transformer/traversal')   .JsonTransformerTraversal,
+  JsonTransformerStringLevel = require('@wljkowa/json/transformer/string.level').JsonTransformerStringLevel,
+
+  trace                      = require('./trace.cjs'),
+  
   transformer =  
          new JsonTransformerTraversal()
     .add(new JsonTransformerStringLevel())
     .root
   ;
 
-trace.title('String: $level (cjs)');
+trace.title('String: $level (csj)');
 
 trace.transform(transformer, "$level");
 trace.transform(transformer, ["$level", {"level": "$level"}, ["$level", ["$level"]]]);

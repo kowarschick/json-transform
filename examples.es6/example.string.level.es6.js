@@ -4,14 +4,15 @@
  * $license   MIT
  */
 
- // run: node examples.cjs/example.string.level.js
+// build and run
+//   npm run examples:prod && node examples.es6/examples.bundle.es6.js
+
+import JsonTransformerTraversal   from '@wljkowa/json/transformer/traversal.js';
+import JsonTransformerStringLevel from '@wljkowa/json/transformer/string.level.js';
+
+import trace from './trace.es6';
 
 const 
-  JsonTransformerTraversal   = require('@wljkowa/json/transformer/traversal')   .JsonTransformerTraversal,
-  JsonTransformerStringLevel = require('@wljkowa/json/transformer/string.level').JsonTransformerStringLevel,
-
-  trace                      = require('./trace'),
-  
   transformer =  
          new JsonTransformerTraversal()
     .add(new JsonTransformerStringLevel())

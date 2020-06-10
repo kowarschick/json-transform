@@ -3,6 +3,7 @@
  * $copyright 2020  Wolfgang Kowarschick
  * $license   MIT
  */
+
 const 
   util          = require('util')
   inspectConfig = {compact: true, depth: 10, breakLength: 80, colors: true};

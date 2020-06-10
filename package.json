@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/jest": "25.1.4",
     "jest": "^26.0.1",
+    "p-limit": "^3.0.1",
     "ts-jest": "^26.0.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.9.3",

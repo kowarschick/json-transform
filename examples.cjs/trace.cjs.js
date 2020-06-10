@@ -22,7 +22,7 @@ module.exports =
     function(p_transform, p_json)
     { console.log(util.inspect(p_json, inspectConfig).replace(/'/g,'"'));
       console.log("→");
-      console.log(util.inspect(p_transform.transform(p_json), inspectConfig).replace(/'/g,'"'));
+      console.log(util.inspect(p_transform.transform({ value: p_json }), inspectConfig).replace(/'/g,'"'));
       console.log('------------------------------------------------------------------------------------------');
     }, 
   

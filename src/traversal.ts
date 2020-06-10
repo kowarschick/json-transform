@@ -26,7 +26,7 @@ class JsonTransformerTraversal extends JsonTransformer
       c_result: JsonValue = [];
 
     for (const c_json_value of value)
-    { c_result.push(this.transform(c_json_value, data, c_level)); }
+    { c_result.push(this.transform({value: c_json_value, data, level: c_level})); }
 
     return c_result;
   }
@@ -38,10 +38,9 @@ class JsonTransformerTraversal extends JsonTransformer
       c_result: JsonValue = {};
 
     for (const [c_key, c_value] of Object.entries(value))
-    { c_result[this.transform(c_key, data, c_level) as string] 
-        = this.transform(c_value, data, c_level); 
+    { c_result[this.transform({value: c_key, data, level: c_level}) as string] 
+        = this.transform({value: c_value, data, level: c_level}); 
     }
- 
     return c_result;
   }
 

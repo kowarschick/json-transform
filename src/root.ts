@@ -53,8 +53,8 @@ class JsonTransformer
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
   protected readonly transformMapBefore:    JsonTransformerMap    = null;
   
-  protected pipe({value, data, level}: JsonFunctionParameters): JsonValue
-  { return this.transformer?.transform(value, data, level) ?? value; }
+  protected pipe(_: JsonFunctionParameters): JsonValue
+  { return this.transformer?.transform(_) ?? _.value; }
   
   protected readonly transformStringAfter: JsonTransformerString = null;
   protected readonly transformArrayAfter:  JsonTransformerArray  = null;
@@ -68,7 +68,7 @@ class JsonTransformer
   * $return
   *   A clone of <code>value</code> with the transformations done.
   */
-  public transform (value: JsonValue, data: Data = {}, level = 0): JsonValue
+  public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters>): JsonValue
   { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 

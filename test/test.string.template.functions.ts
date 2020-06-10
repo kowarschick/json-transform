@@ -49,47 +49,47 @@ const
 
   test
   ( '"${vpf({\'x\':100, \'y\':200})" should be transformed into "{v: [2, 4]}"', 
-    () => { expect(c_transformer.transform( "${vpf({'x':100, 'y':200})}" ))
+    () => { expect(c_transformer.transform({ value: "${vpf({'x':100, 'y':200})}" }))
               .toStrictEqual([2, 4]); 
           }
   );
 
   test
   ( '"{v: ${vpf({\'x\':100, \'y\':200})}}" should be transformed into "{v: [2,4]}"', 
-    () => { expect(c_transformer.transform( "{v: ${vpf({'x':100, 'y':200})}}" ))
+    () => { expect(c_transformer.transform({ value: "{v: ${vpf({'x':100, 'y':200})}}" }))
               .toStrictEqual("{v: [2,4]}"); 
           }
   );
   
   test
   ( '{v: "${vpf({\'x\':100, \'y\':200})}"} should be transformed into {v: [2,4]}', 
-    () => { expect(c_transformer.transform( {v: "${vpf({'x':100, 'y':200})}"} ))
+    () => { expect(c_transformer.transform({ value: {v: "${vpf({'x':100, 'y':200})}"} }))
               .toStrictEqual({v: [2,4]}); 
           }
   );
 
   test
   ( 'complex nested objects should work, too', 
-    () => { expect(c_transformer.transform( [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}] ))
+    () => { expect(c_transformer.transform({ value:  [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}] }))
               .toStrictEqual([{v: [2,4]}, {a: [4,8]}]); 
           }
   );
 
   test
   ( '"${def()}" should be transformed into 123', 
-    () => { expect(c_transformer.transform("${def()}")).toBe(123); }
+    () => { expect(c_transformer.transform({ value: "${def()}" })).toBe(123); }
   );
 
   test
   ( '"${abc}" should be transformed into 234', 
-    () => { expect(c_transformer.transform("${abc}", { abc: 234 })
+    () => { expect(c_transformer.transform({ value: "${abc}", data: {abc: 234} })
                   ).toStrictEqual(234); 
           }
   );
 
   test
   ( '"${def()}" should be transformed into 234', 
-    () => { expect(c_transformer.transform("${def()}", { def: () => 234 })).toBe(234); }
+    () => { expect(c_transformer.transform({ value: "${def()}", data: {def: () => 234} })).toBe(234); }
   );
 
 
@@ -97,31 +97,31 @@ const
 function stringTests(transformer: JsonTransformer)
 { test
   ( '"${abc}" should be transformed into 123', 
-    () => { expect(transformer.transform("${abc}")).toStrictEqual(123); }
+    () => { expect(transformer.transform({ value: "${abc}" })).toStrictEqual(123); }
   );
 
   test
   ( '"${abc(\'def\')}" should be transformed into "${abc(\'def\')}"', 
-    () => { expect(transformer.transform("${abc('def')}")).toStrictEqual("${abc('def')}"); }
+    () => { expect(transformer.transform({ value: "${abc('def')}" })).toStrictEqual("${abc('def')}"); }
   );
 
   test
   ( '"${hello}, ${name}!" should be transformed into "Hallo, Wolfgang!"', 
-    () => { expect(transformer.transform("${hello}, ${name}!", {name: "Wolfgang"})
+    () => { expect(transformer.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
                   ).toStrictEqual("Hallo, Wolfgang!"); 
           }
   );
 
   test
   ( '"${hello}, ${name}! ${HowAreYou}" should be transformed into "Hallo, Wolfgang! ${HowAreYou}"', 
-    () => { expect(transformer.transform("${hello}, ${name}! ${HowAreYou}", {name: "Wolfgang"})
+    () => { expect(transformer.transform({ value: "${hello}, ${name}! ${HowAreYou}", data: {name: "Wolfgang"} })
                   ).toStrictEqual("Hallo, Wolfgang! ${HowAreYou}"); 
           }
   );
 
   test
   ( '[["${abc}"], {abc: "${abc}", "${abc}": "abc"}, "${name}"] should be transformed into [[123], {"abc": 123, "123": "abc"}, "Wolfgang"]', 
-    () => { expect(transformer.transform([["${abc}"], {abc: "${abc}", "${abc}": "abc"}, "${name}"], {name: "Wolfgang"})
+    () => { expect(transformer.transform({ value: [["${abc}"], {abc: "${abc}", "${abc}": "abc"}, "${name}"], data: {name: "Wolfgang"} })
                   ).toStrictEqual([[123], {"abc": 123, "123": "abc"}, "Wolfgang"]); 
           }
   );

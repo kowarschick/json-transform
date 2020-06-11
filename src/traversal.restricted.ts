@@ -22,9 +22,9 @@ class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
          }); 
   }
 
-  protected pipe(_: JsonFunctionParameters): JsonValue
+  protected transformPipe(_: JsonFunctionParameters): JsonValue
   { return (this.init.minLevel <= _.level && _.level <= this.init.maxLevel)
-           ? super.pipe(_)
+           ? super.transformPipe(_)
            : _.value; 
   }
 }

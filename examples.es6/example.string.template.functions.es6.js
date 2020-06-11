@@ -31,8 +31,8 @@ const
                   def:   () => 123,
                 }
              })
-    .add(new JsonTransformerStringLevel())
-    .add(new JsonTransformerStringTemplateFunctions())
+    .pipe(new JsonTransformerStringLevel())
+    .pipe(new JsonTransformerStringTemplateFunctions())
     .root
   ;
 

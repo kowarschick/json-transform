@@ -19,7 +19,7 @@ class JsonTransformer {
     }
     get root() { return this._root; }
     ;
-    pipe(_) { var _a, _b; return (_b = (_a = this.transformer) === null || _a === void 0 ? void 0 : _a.transform(_)) !== null && _b !== void 0 ? _b : _.value; }
+    transformPipe(_) { var _a, _b; return (_b = (_a = this.transformer) === null || _a === void 0 ? void 0 : _a.transform(_)) !== null && _b !== void 0 ? _b : _.value; }
     transform({ value, data = {}, level = 0 }) {
         const c_data = Object.assign({}, data);
         Object.setPrototypeOf(c_data, this.data);
@@ -33,7 +33,7 @@ class JsonTransformer {
         else if (this.transformMapBefore != null && typeof l_value === 'object') {
             l_value = this.transformMapBefore({ value: l_value, data: c_data, level });
         }
-        l_value = this.pipe({ value: l_value, data: c_data, level });
+        l_value = this.transformPipe({ value: l_value, data: c_data, level });
         if (this.transformStringAfter != null && typeof l_value === 'string') {
             l_value = this.transformStringAfter({ value: l_value, data: c_data, level });
         }
@@ -45,7 +45,7 @@ class JsonTransformer {
         }
         return l_value;
     }
-    add(transformer) {
+    pipe(transformer) {
         const c_data = transformer.data;
         Object.setPrototypeOf(c_data, this.data);
         transformer._root = this._root;

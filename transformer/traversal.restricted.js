@@ -9,9 +9,9 @@ class JsonTransformerTraversalRestricted extends traversal_1.JsonTransformerTrav
                 maxLevel: (_d = (_c = options === null || options === void 0 ? void 0 : options.init) === null || _c === void 0 ? void 0 : _c.maxLevel) !== null && _d !== void 0 ? _d : Infinity,
             } }));
     }
-    pipe(_) {
+    transformPipe(_) {
         return (this.init.minLevel <= _.level && _.level <= this.init.maxLevel)
-            ? super.pipe(_)
+            ? super.transformPipe(_)
             : _.value;
     }
 }

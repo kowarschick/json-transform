@@ -17,7 +17,7 @@ import { JsonTransformerTraversalRestricted } from '~/traversal.restricted';
 { const 
     c_transform = 
            new JsonTransformerTraversalRestricted({init: { minLevel: 2, maxLevel: 3}})
-      .add(new JsonTransformerStringLevel({init: '@level'}))
+      .pipe(new JsonTransformerStringLevel({init: '@level'}))
       .root;
 
   test
@@ -75,26 +75,26 @@ function traversalTests(transformer: JsonTransformer)
 traversalTests(new JsonTransformerTraversalRestricted({transformer: new JsonTransformerStringLevel()}));
 
 { const c_transformer = new JsonTransformerTraversalRestricted();
-  c_transformer.add(new JsonTransformerStringLevel());
+  c_transformer.pipe(new JsonTransformerStringLevel());
 
   traversalTests(c_transformer);
 }
 
 traversalTests
 (      new JsonTransformerTraversalRestricted()
-  .add(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerStringLevel())
   .root
 );
 
 traversalTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversalRestricted())
-  .add(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerTraversalRestricted())
+  .pipe(new JsonTransformerStringLevel())
   .root
 );
 
 { const c_transformer = new JsonTransformerTraversalRestricted();
-  c_transformer.add(new JsonTransformerStringLevel({init: '@level'}));
+  c_transformer.pipe(new JsonTransformerStringLevel({init: '@level'}));
 
   test
   ( '"$level" should be transformed into "$level"',

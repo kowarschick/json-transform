@@ -51,13 +51,13 @@ function allTests(transformer: JsonTransformer)
 
 allTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerStringTemplate())
+  .pipe(new JsonTransformerStringTemplate())
   .root
 );
 
 allTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal
+  .pipe(new JsonTransformerTraversal
        ({data:        { "abc": 123, "hello": "Hallo" },
          transformer: new JsonTransformerStringTemplate()
        })
@@ -67,15 +67,15 @@ allTests
 
 allTests
 (      new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerTraversal())
-  .add(new JsonTransformerStringTemplate())
+  .pipe(new JsonTransformerTraversal())
+  .pipe(new JsonTransformerStringTemplate())
   .root
 )
 
 allTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } }))
-  .add(new JsonTransformerStringTemplate())
+  .pipe(new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } }))
+  .pipe(new JsonTransformerStringTemplate())
   .root
 );
 
@@ -93,8 +93,8 @@ allTests
 
 allTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerStringTemplate())
-  .add(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerStringTemplate())
+  .pipe(new JsonTransformerStringLevel())
   .root
 );
 
@@ -112,7 +112,7 @@ allTests
 
 allTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerStringLevel())
-  .add(new JsonTransformerStringTemplate())
+  .pipe(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerStringTemplate())
   .root
 );

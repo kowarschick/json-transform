@@ -12,6 +12,12 @@
     "paths":              { "~/*": [ "./src/*" ] }
   },
 
+  "typedocOptions": 
+  { "inputFiles": ["./transformer/index.js"],
+    "mode": "file",
+    "out":  "doc/typedoc"
+  },
+
   "include": 
   [ "src/**/*",
     "test/**/*",
@@ -19,6 +25,7 @@
 
   "exclude": 
   [ "node_modules",
-    "lib"
+    "transformer",
+    "transformer.commented"
   ]
 }

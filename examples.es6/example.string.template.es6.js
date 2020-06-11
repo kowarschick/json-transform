@@ -21,8 +21,8 @@ const
                                           name:  "Wolfgang",
                                         }
                                      })
-    .add(new JsonTransformerStringLevel())
-    .add(new JsonTransformerStringTemplate())
+    .pipe(new JsonTransformerStringLevel())
+    .pipe(new JsonTransformerStringTemplate())
     .root
   ;
 

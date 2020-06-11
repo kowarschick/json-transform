@@ -44,7 +44,7 @@ const
   
   c_transformer =
          new JsonTransformerTraversal({ data: c_data })
-    .add(new JsonTransformerStringTemplateFunctions())
+    .pipe(new JsonTransformerStringTemplateFunctions())
     .root;
 
   test
@@ -129,13 +129,13 @@ function stringTests(transformer: JsonTransformer)
 
 stringTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerStringTemplateFunctions())
+  .pipe(new JsonTransformerStringTemplateFunctions())
   .root
 );
 
 stringTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal
+  .pipe(new JsonTransformerTraversal
        ({data:        { "abc": 123, "hello": "Hallo" },
          transformer: new JsonTransformerStringTemplateFunctions()
        })
@@ -145,14 +145,14 @@ stringTests
 
 stringTests
 (      new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
-  .add(new JsonTransformerTraversal())
-  .add(new JsonTransformerStringTemplateFunctions())
+  .pipe(new JsonTransformerTraversal())
+  .pipe(new JsonTransformerStringTemplateFunctions())
   .root
 )
 
 stringTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal({ data:{ "abc": 123, "hello": "Hallo" } }))
-  .add(new JsonTransformerStringTemplateFunctions())
+  .pipe(new JsonTransformerTraversal({ data:{ "abc": 123, "hello": "Hallo" } }))
+  .pipe(new JsonTransformerStringTemplateFunctions())
   .root
 );

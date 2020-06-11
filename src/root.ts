@@ -13,11 +13,16 @@ import { Data } from "./interfaces";
 export 
 interface JsonTransformer extends JsonTransformerProperties{};
 
+/**
+ * A class to recursivley transform <code>JsonValue</code>s 
+ * by applying <code>JsonTransformer</code>s.
+ * 
+ * @class
+ */
 export 
 class JsonTransformer
 {/**
-  * A class to recursivley transform <code>JsonValue</code>s 
-  * by applying <code>JsonTransformer</code>s.
+  * @constructor
   *
   * @param init
   *   An object that may be used to initialize the transformer.
@@ -53,7 +58,7 @@ class JsonTransformer
   protected readonly transformArrayBefore:  JsonTransformerArray  = null;
   protected readonly transformMapBefore:    JsonTransformerMap    = null;
   
-  protected pipe(_: JsonFunctionParameters): JsonValue
+  protected transformPipe(_: JsonFunctionParameters): JsonValue
   { return this.transformer?.transform(_) ?? _.value; }
   
   protected readonly transformStringAfter: JsonTransformerString = null;
@@ -62,7 +67,7 @@ class JsonTransformer
 
  /**
   * Transforms a <code>JsonValue</code>.
-  *
+  * @method
   * @param value
   *   The JSON value to be transformed.
   * $return
@@ -85,7 +90,7 @@ class JsonTransformer
     { l_value = this.transformMapBefore({value: l_value as JsonMap, data: c_data, level}); }
 
     // Pipe
-    l_value = this.pipe({value: l_value, data: c_data, level});
+    l_value = this.transformPipe({value: l_value, data: c_data, level});
 
     // Do transformations after the value has been transformed by the pipe.
     if (this.transformStringAfter != null && typeof l_value === 'string')
@@ -100,7 +105,11 @@ class JsonTransformer
     return l_value; 
   }
 
-  public add (transformer: JsonTransformer): JsonTransformer
+  /**
+   * @method
+   * @param transformer 
+   */
+  public pipe (transformer: JsonTransformer): JsonTransformer
   { const 
       c_data = transformer.data;
       Object.setPrototypeOf(c_data, this.data);

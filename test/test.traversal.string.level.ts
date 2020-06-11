@@ -56,26 +56,26 @@ function traversalTests(transformer: JsonTransformer)
 traversalTests(new JsonTransformerTraversal({transformer: new JsonTransformerStringLevel()}));
 
 { const c_transformer = new JsonTransformerTraversal();
-  c_transformer.add(new JsonTransformerStringLevel());
+  c_transformer.pipe(new JsonTransformerStringLevel());
 
   traversalTests(c_transformer);
 }
 
 traversalTests
 (      new JsonTransformerTraversal()
-  .add(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerStringLevel())
   .root
 );
 
 traversalTests
 (      new JsonTransformer()
-  .add(new JsonTransformerTraversal())
-  .add(new JsonTransformerStringLevel())
+  .pipe(new JsonTransformerTraversal())
+  .pipe(new JsonTransformerStringLevel())
   .root
 );
 
 { const c_transformer = new JsonTransformerTraversal();
-  c_transformer.add(new JsonTransformerStringLevel({init: '@level'}));
+  c_transformer.pipe(new JsonTransformerStringLevel({init: '@level'}));
 
   test
   ( '"$level" should be transformed into "$level"',

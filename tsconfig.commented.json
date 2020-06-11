@@ -1,0 +1,22 @@
+{ "extends": "./tsconfig.json",
+  
+  "compilerOptions": 
+  { "module": "CommonJS",
+    "outDir": "./transformer.commented",
+    "target":             "ES2020",
+    "declaration":        false,
+    "sourceMap":          false,
+    "removeComments":     false,
+  },
+    
+  "include": 
+  [ "src/**/*" ],
+  
+  "exclude": 
+  [ "node_modules",
+    "transformer",
+    "transformer.commented",
+    "test",
+    "examples"
+  ]
+}

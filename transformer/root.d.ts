@@ -11,11 +11,11 @@ export declare class JsonTransformer {
     protected readonly transformStringBefore: JsonTransformerString;
     protected readonly transformArrayBefore: JsonTransformerArray;
     protected readonly transformMapBefore: JsonTransformerMap;
-    protected pipe(_: JsonFunctionParameters): JsonValue;
+    protected transformPipe(_: JsonFunctionParameters): JsonValue;
     protected readonly transformStringAfter: JsonTransformerString;
     protected readonly transformArrayAfter: JsonTransformerArray;
     protected readonly transformMapAfter: JsonTransformerMap;
     transform({ value, data, level }: Partial<JsonFunctionParameters>): JsonValue;
-    add(transformer: JsonTransformer): JsonTransformer;
+    pipe(transformer: JsonTransformer): JsonTransformer;
 }
 export default JsonTransformer;

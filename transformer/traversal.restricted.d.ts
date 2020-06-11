@@ -4,6 +4,6 @@ import { JsonTransformerParameters } from './interfaces';
 import { JsonTransformerTraversal } from './traversal';
 export declare class JsonTransformerTraversalRestricted extends JsonTransformerTraversal {
     constructor(options?: JsonTransformerParameters);
-    protected pipe(_: JsonFunctionParameters): JsonValue;
+    protected transformPipe(_: JsonFunctionParameters): JsonValue;
 }
 export default JsonTransformerTraversalRestricted;

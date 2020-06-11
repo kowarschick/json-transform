@@ -15,7 +15,7 @@ const
   
   transformer =  
          new JsonTransformerTraversal()
-    .add(new JsonTransformerStringLevel())
+    .pipe(new JsonTransformerStringLevel())
     .root
   ;
 

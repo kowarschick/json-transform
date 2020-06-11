@@ -10,7 +10,8 @@
   
   "exclude": 
   [ "node_modules",
-    "lib",
+    "transformer",
+    "transformer.commented",
     "test",
     "examples"
   ]

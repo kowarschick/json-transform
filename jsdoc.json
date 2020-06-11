@@ -2,15 +2,25 @@
     { "allowUnknownTags": true },
     
     "source":
-    { "include":        ["./transformer.commented/"],
-      "includePattern": ".+\\.js$",
-      "excludePattern": ".+\\.(ts|map)$"
+    { "include":        ["./src/"],
+      "includePattern": ".+\\.(j|t)s$",
+      "excludePattern": ".+\\.map$"
+    },
+
+    "plugins": 
+    [ "node_modules/better-docs/typescript"
+    ],
+    
+    "opts":
+    { "template":    "node_modules/ink-docstrap/template",
+      "Xtemplate":   "node_modules/better-docs",
+      "encoding":    "utf8",
+      "destination": "doc/jsdoc",
+      "recurse":     true,
+      "private":     false
     },
     
-    "plugins":
-    [ ],
-    
-    "templates":
+    "templates": 
     { "systemName":        "@wljkowa/json",
       "footer":            "",
       "copyright":         "Copyright © 2020 by Wolfgang Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>",
@@ -22,15 +32,20 @@
       "collapseSymbols":   false,
       "inverseNav":        false,
       "outputSourceFiles": true,
-      "outputSourcePath":  false
-    },
-    
-    "opts":
-    { "template":    "node_modules/ink-docstrap/template",
-      "encoding":    "utf8",
-      "destination": "doc/jsdoc",
-      "recurse":     true,
-      "private":     false
+      "outputSourcePath":  false,
+
+      "better-docs": 
+      { "name": "AdminBro Documentation",
+          "Xlogo": "images/logo.png",
+          "title": "", 
+          "Xcss": "style.css",
+          "hideGenerator": true,
+          "navLinks": 
+          [ { "label": "Wolfgang L.J. Kowarschick",
+              "href": "https://kowa.hs-augsburg.de"
+            }
+          ]
+      }
     }
   }
   

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>@wljkowa/json Source: function/array.min.js</title>
+	<title>@wljkowa/json Source: root.ts</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -79,39 +79,135 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: function/array.min.js</h1>
+		<h1 class="page-title">Source: root.ts</h1>
     
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">"use strict";
-/**
+            class="sunlight-highlight-javascript linenums">/**
  * @author    Wolfgang L.J. Kowarschick &lt;kowa@hs-augsburg.de>
  * @copyright 2020  Wolfgang Kowarschick
  * @license   MIT
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionArrayMin = void 0;
-const interfaces_1 = require("~/interfaces");
+
+import { JsonValue, JsonMap, JsonArray                                   } from "./interfaces";
+import { JsonFunctionParameters                                          } from "./interfaces";
+import { JsonTransformerProperties, JsonTransformerParameters            } from "./interfaces";
+import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from "./interfaces";
+import { Data } from "./interfaces";
+
+export 
+interface JsonTransformer extends JsonTransformerProperties{};
+
 /**
-  * If the first element of the Array is equal to
-  * &lt;code>JsonFunctionArrayMin.init&lt;code> (&lt;code>$min&lt;/code>)
-  * the minimum element of the other elements, which should be numbers,
-  * is returned. If there are no other elements,
-  * &lt;code>0&lt;/code> is returned.
+ * A class to recursivley transform &lt;code>JsonValue&lt;/code>s 
+ * by applying &lt;code>JsonTransformer&lt;/code>s.
+ * 
+ * @class
+ */
+export 
+class JsonTransformer
+{/**
+  * @constructor
   *
-  * Otherwise the Array itself is returned as value.
+  * @param init
+  *   An object that may be used to initialize the transformer.
+  * @param transformer
+  *   A transformer or an array of transformers to which the JSON value 
+  *   are passed, after it may have been transformed by this transformer. 
+  *   After that transformation, this transformer may transform the 
+  *   result of &lt;code>transformer&lt;/code> further. 
+  * @param data
+  *   A data object that is passed as environment to the
+  *   transformers. If data doen not contain the property
+  *   &lt;code>$level&lt;/code>, that property is added and initialized
+  *   by &lt;code>0&lt;/code>.
+ */
+  constructor
+  ( { init        = undefined,
+      data        = {},
+      level       = 0,
+      transformer = undefined,
+    }: JsonTransformerParameters  
+    = {}
+  ) 
+  { Object.assign(this, {init, data, level, transformer});
+    this._root = this; 
+    if (transformer != null)
+    { Object.setPrototypeOf(this.transformer.data, this.data) };
+  }
+
+  private _root: JsonTransformer
+  public get root() { return this._root};
+
+  protected readonly transformStringBefore: JsonTransformerString = null;
+  protected readonly transformArrayBefore:  JsonTransformerArray  = null;
+  protected readonly transformMapBefore:    JsonTransformerMap    = null;
+  
+  protected transformPipe(_: JsonFunctionParameters): JsonValue
+  { return this.transformer?.transform(_) ?? _.value; }
+  
+  protected readonly transformStringAfter: JsonTransformerString = null;
+  protected readonly transformArrayAfter:  JsonTransformerArray  = null;
+  protected readonly transformMapAfter:    JsonTransformerMap    = null;
+
+ /**
+  * Transforms a &lt;code>JsonValue&lt;/code>.
+  * @method
+  * @param value
+  *   The JSON value to be transformed.
+  * $return
+  *   A clone of &lt;code>value&lt;/code> with the transformations done.
   */
-function JsonFunctionArrayMin({ value }) {
-    if (value.length === 0 || value[0] !== JsonFunctionArrayMin.init) {
-        return value;
-    }
-    return value.slice(1).reduce((m, v) => Math.min(m, v), Infinity);
+  public transform ({value, data = {}, level = 0}: Partial&lt;JsonFunctionParameters>): JsonValue
+  { const c_data = { ...data }; 
+    Object.setPrototypeOf(c_data, this.data );
+
+    let l_value = value;
+
+    // Do transformations before passing the value to the pipe.
+    if (this.transformStringBefore != null &amp;&amp; typeof l_value === 'string')
+    { l_value = this.transformStringBefore({value: value as string, data: c_data, level}); }
+    else
+    if (this.transformArrayBefore != null &amp;&amp; Array.isArray(l_value))
+    { l_value = this.transformArrayBefore({value: l_value as JsonArray, data: c_data, level}); }
+    else
+    if (this.transformMapBefore != null &amp;&amp; typeof l_value === 'object')
+    { l_value = this.transformMapBefore({value: l_value as JsonMap, data: c_data, level}); }
+
+    // Pipe
+    l_value = this.transformPipe({value: l_value, data: c_data, level});
+
+    // Do transformations after the value has been transformed by the pipe.
+    if (this.transformStringAfter != null &amp;&amp; typeof l_value === 'string')
+    { l_value = this.transformStringAfter({value: l_value as string, data: c_data, level}); }
+    else
+    if (this.transformArrayAfter != null &amp;&amp; Array.isArray(l_value))
+    { l_value = this.transformArrayAfter({value: l_value as JsonArray, data: c_data, level}); }
+    else
+    if (this.transformMapAfter != null &amp;&amp; typeof l_value === 'object')
+    { l_value = this.transformMapAfter({value: l_value as JsonMap, data: c_data, level}); }
+
+    return l_value; 
+  }
+
+  /**
+   * @method
+   * @param transformer 
+   */
+  public pipe (transformer: JsonTransformer): JsonTransformer
+  { const 
+      c_data = transformer.data;
+      Object.setPrototypeOf(c_data, this.data);
+
+    transformer._root = this._root;
+    this.transformer  = transformer; 
+
+    return transformer;
+  }
 }
-exports.JsonFunctionArrayMin = JsonFunctionArrayMin;
-JsonFunctionArrayMin.type = interfaces_1.EnumJsonFunctionType.Array;
-JsonFunctionArrayMin.init = "$min";
-exports.default = JsonFunctionArrayMin;
+
+export default JsonTransformer;
 </pre>
     </article>
 </section>
@@ -157,7 +253,7 @@ exports.default = JsonFunctionArrayMin;
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a>
 	
-		on 2020-06-11T11:20:13+02:00
+		on 2020-06-11T15:02:43+02:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -1,6 +1,6 @@
 import { JsonTransformer } from './root';
-export declare type JsonValue = JsonPrimitive | JsonMap | JsonArray;
-export declare type JsonPrimitive = string | number | boolean | null | undefined;
+export declare type JsonValue = JsonPrimitive | JsonArray | JsonMap | undefined;
+export declare type JsonPrimitive = (string | number | boolean | null);
 export declare type JsonMap = {
     [key: string]: JsonValue;
 };
@@ -69,3 +69,4 @@ export declare type JsonTransformerArray = {
 export declare type JsonTransformerMap = {
     (_: JsonFunctionMapParameters): JsonValue;
 } | null;
+export {};

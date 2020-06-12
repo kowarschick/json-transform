@@ -1,6 +1,6 @@
 /**
  * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020  Wolfgang Kowarschick
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 
@@ -8,36 +8,36 @@ import { JsonValue, JsonMap, JsonArray                                   } from 
 import { JsonFunctionParameters                                          } from "./interfaces";
 import { JsonTransformerProperties, JsonTransformerParameters            } from "./interfaces";
 import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from "./interfaces";
-import { Data } from "./interfaces";
 
 export 
 interface JsonTransformer extends JsonTransformerProperties{};
 
 /**
- * A class to recursivley transform <code>JsonValue</code>s 
- * by applying <code>JsonTransformer</code>s.
- * 
  * @class
+ * @classdesc
+ *   A class to recursivley transform JSON values 
+ *   by applying JSON transformers.
+ *
+ * @param {JsonTransformerParameters} _
+ *   An object containing the following attributes
+ * @param {any} [init = undefined]
+ *   An object that may be used to initialize the transformer. Used by subclasses.
+ * @param {Data} [_.data = {}]
+ *   A data object that is passed as environment to the
+ *   transformers. It can be used by transformers (defined via subclassing) 
+ *   to replace or compute certain JSON valuess.
+ * @param {number} [_.level = 0]
+ *   The current level of the JSON value. The level of the top JasonValue  
+ *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
+ *   the level of the grand children <code>2</code>, etc.
+ * @param {JsonTransformer} [transformer = undefined]
+ *   A transformer to which the JSON value is piped. This transformer
+ *   may transform the JSON value before it is piped. Moreover, the result 
+ *   of the pip etransformer may be transforemd further by this transfoer.
  */
 export 
 class JsonTransformer
-{/**
-  * @constructor
-  *
-  * @param init
-  *   An object that may be used to initialize the transformer.
-  * @param transformer
-  *   A transformer or an array of transformers to which the JSON value 
-  *   are passed, after it may have been transformed by this transformer. 
-  *   After that transformation, this transformer may transform the 
-  *   result of <code>transformer</code> further. 
-  * @param data
-  *   A data object that is passed as environment to the
-  *   transformers. If data doen not contain the property
-  *   <code>$level</code>, that property is added and initialized
-  *   by <code>0</code>.
- */
-  constructor
+{ constructor
   ( { init        = undefined,
       data        = {},
       level       = 0,
@@ -68,20 +68,20 @@ class JsonTransformer
  /**
   * @method
   * @description 
-  *   Transforms a <code>JsonValue</code> into the same or another <code>JsonValue</code>.
-  * @param {Partial<JsonFunctionParameters>} options
-  *   An object containing the following attributes
-  * @param {JsonValue} [options.value = null]
+  *   Transforms a JSON value into the same or another JSON value.
+  * @param {Partial<JsonFunctionParameters>} _
+  *   An object containing the following attributes.
+  * @param {JsonValue} [_.value = null]
   *   The JSON value to be transformed.
-  * @param {Data} [options.data = {}]
+  * @param {Data} [_.data = {}]
   *   A data object the members of which can be used by transformers to replace
-  *   or compute certain <code>JsonValue</code>s.
-  * @param {number} [options.level = 0]
-  *   The current level of the <code>JsonValue</code>. The level of the top JasonValue  
+  *   or compute certain JSON values.
+  * @param {number} [_.level = 0]
+  *   The current level of the JSON value. The level of the top JSON value  
   *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
   *   the level of the grand children <code>2</code>, etc.
-  * @return {JsonValue}
-  *   The resulting <code>JsonValue</code>.
+  * @returns {JsonValue}
+  *   The resulting JSON value.
   */
   public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters>): JsonValue
   { const c_data = { ...data }; 
@@ -117,7 +117,10 @@ class JsonTransformer
 
   /**
    * @method
-   * @param transformer 
+   * @param   {JsonTransformer} transformer
+   * @returns {JsonTransformer} 
+   *          Returns <code>transformer</code> after it has been
+   *          appended as pipe transformer to <code>this</code>. 
    */
   public pipe (transformer: JsonTransformer): JsonTransformer
   { const 

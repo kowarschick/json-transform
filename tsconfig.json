@@ -5,11 +5,11 @@
     "sourceMap":          true,
     "esModuleInterop":    true,
     "strict":             true,
-    "removeComments":     true,
     "lib":                ["es2020.string"],
     "downlevelIteration": true,
     "baseUrl":            "./",
-    "paths":              { "~/*": [ "./src/*" ] }
+    "paths":              { "~/*": [ "./src/*" ] },
+    "allowJs":            true,
   },
 
   "include": 
@@ -19,6 +19,7 @@
 
   "exclude": 
   [ "node_modules",
-    "transformer"
+    "transformer",
+    "transformer.commented",
   ]
 }

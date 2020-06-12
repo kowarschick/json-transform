@@ -4,7 +4,7 @@
 
 The ```wk-json-transform``` package is used to transform JSON template
 objects into JOSN objects. It is developed as part of the lecture
-"Web Programming" by [Wolfgang Kowarschick](https://kowa.hs-augsburg.de).
+"Web Programming" by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
 
 ## Installation
 

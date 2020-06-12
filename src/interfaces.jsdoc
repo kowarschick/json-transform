@@ -1,0 +1,73 @@
+/**
+ * @global
+ * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
+ * @license   MIT
+ */ 
+
+/*
+ * As better-docs ignores @typedef delarations stated within a
+ * .ts-file, the typedefs are stated in this .js-file.
+ * 
+ * The real typescript definitions can be found in the file 
+ * interfaces.ts. 
+ */
+
+/** 
+ * @typedef {(JsonPrimitive|JsonArray|JsonMap|undefined)} JsonValue
+ * @description 
+ *   A JSON value is either a primitive value 
+ *   ({@link JsonPrimitive}: string, number, boolean, or null), or 
+ *   an array of JSON values ({@link JsonArray}) or a
+ *   map object the members of which consist of a key string
+ *   and a JSON value ({@link JsonMap}) 
+ *   <p>
+ *   <code>undefined</code> is no regular JSON value. But it is needed
+ *   to be able to uses optional parameters within the JSON transformers.
+ */
+
+/**
+ * @typedef {(string|number|boolean|null)} JsonPrimitive 
+ * @description
+ *   A primitive JSON value is either a sring, a number, aboolean, 
+ *   or <code>null</code>.
+ */
+
+/**
+ * @typedef {Array<JsonValue>} JsonArray 
+ * @description
+ *   A JSON array is an array of JSON values.
+ */
+
+/** 
+ * @typedef {{key: JsonValue}} JsonMap 
+ * @description
+ *   A JSON map is an object whose whose attributes are key/value-pairs,
+ *   where the key is a string and the value is a JasonValue..
+ */
+
+/** 
+ * @typedef {String|Array|Map|Other} EnumJsonFunctionType  
+ * @description
+ *   This is a typescript enumaration type to distinguish the different 
+ *   types of JSON values ({@link JsonValue}). To access 
+ *   a value just type <code>EnumJsonFunctionType.String</code>,
+ *   or <code>EnumJsonFunctionType.Array</code> etc.
+ */
+
+/** 
+ * @typedef {{value: JsonValue, data: Data, level: number}} JsonFunctionParameters  
+ */
+
+/** 
+ * @callback JsonFunction
+ * @param    {JsonFunctionParameters} _
+ * @returns  {JsonValue}
+ * 
+ * @Xtypedef {(_: JsonFunctionParameters): JsonValue}    // Doen't work yet
+ * @Xtypedef {(_: JsonFunctionParameters) => JsonValue}  // Doesn't work either
+ * @Xtypedef {{ (_: JsonFunctionParameters): JsonValue}  // Nor does this work
+ *              ?type: EnumJsonFunctionType, 
+ *              ?init: any
+ *           }} JsonFunction  
+ */

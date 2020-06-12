@@ -1,16 +1,18 @@
 { "extends": "./tsconfig.json",
   
   "compilerOptions": 
-  { "module": "CommonJS",
-    "outDir": "./transformer"
+  { "module":         "CommonJS",
+    "outDir":         "./transformer",
+    "removeComments": true,
   },
     
   "include": 
-  [ "src/**/*" ],
+  [ "src/**/*.ts" ],
   
   "exclude": 
   [ "node_modules",
     "transformer",
+    "transformer.commented",
     "test",
     "examples"
   ]

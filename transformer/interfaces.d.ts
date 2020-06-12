@@ -5,10 +5,8 @@ export declare type JsonMap = {
     [key: string]: JsonValue;
 };
 export declare type JsonArray = JsonValue[];
-export interface Data {
-    [key: string]: JsonValue | JsonFunction | null;
-}
 export declare enum EnumJsonFunctionType {
+    Other = 0,
     String = 1,
     Array = 2,
     Map = 3
@@ -69,4 +67,6 @@ export declare type JsonTransformerArray = {
 export declare type JsonTransformerMap = {
     (_: JsonFunctionMapParameters): JsonValue;
 } | null;
-export {};
+export interface Data {
+    [key: string]: JsonValue | JsonFunction | null;
+}

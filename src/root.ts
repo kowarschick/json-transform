@@ -66,12 +66,22 @@ class JsonTransformer
   protected readonly transformMapAfter:    JsonTransformerMap    = null;
 
  /**
-  * Transforms a <code>JsonValue</code>.
   * @method
-  * @param value
+  * @description 
+  *   Transforms a <code>JsonValue</code> into the same or another <code>JsonValue</code>.
+  * @param {Partial<JsonFunctionParameters>} options
+  *   An object containing the following attributes
+  * @param {JsonValue} [options.value = null]
   *   The JSON value to be transformed.
-  * $return
-  *   A clone of <code>value</code> with the transformations done.
+  * @param {Data} [options.data = {}]
+  *   A data object the members of which can be used by transformers to replace
+  *   or compute certain <code>JsonValue</code>s.
+  * @param {number} [options.level = 0]
+  *   The current level of the <code>JsonValue</code>. The level of the top JasonValue  
+  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
+  *   the level of the grand children <code>2</code>, etc.
+  * @return {JsonValue}
+  *   The resulting <code>JsonValue</code>.
   */
   public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters>): JsonValue
   { const c_data = { ...data }; 

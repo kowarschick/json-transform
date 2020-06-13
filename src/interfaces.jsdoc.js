@@ -56,6 +56,10 @@
  */
 
 /** 
+ * @typedef {Partial<JsonTransformerProperties>} JsonTransformerParameters
+ */
+
+/** 
  * @typedef {{value: JsonValue, data: Data, level: number}} JsonFunctionParameters  
  */
 

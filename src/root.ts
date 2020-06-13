@@ -13,14 +13,14 @@ export
 interface JsonTransformer extends JsonTransformerProperties{};
 
 /**
- * @class
  * @classdesc
  *   A class to recursivley transform JSON values 
  *   by applying JSON transformers.
- *
+ * @extends JsonTransformerProperties
+ * 
  * @param {JsonTransformerParameters} _
- *   An object containing the following attributes
- * @param {any} [init = undefined]
+ *   An object containing the following attributes.
+ * @param {any} [_.init = undefined]
  *   An object that may be used to initialize the transformer. Used by subclasses.
  * @param {Data} [_.data = {}]
  *   A data object that is passed as environment to the
@@ -30,7 +30,7 @@ interface JsonTransformer extends JsonTransformerProperties{};
  *   The current level of the JSON value. The level of the top JasonValue  
  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
  *   the level of the grand children <code>2</code>, etc.
- * @param {JsonTransformer} [transformer = undefined]
+ * @param {JsonTransformer} [_.transformer = undefined]
  *   A transformer to which the JSON value is piped. This transformer
  *   may transform the JSON value before it is piped. Moreover, the result 
  *   of the pip etransformer may be transforemd further by this transfoer.

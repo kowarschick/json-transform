@@ -1,6 +1,6 @@
 { "source":
   { "include":        ["./src/"],
-    "includePattern": ".+\\.(j|t)s(doc)?$"
+    "includePattern": ".+\\.(j|t)s?$"
   },
 
   "tags":

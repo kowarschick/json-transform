@@ -60,9 +60,35 @@
  */
 
 /** 
+ * @description
+ *   A JSON function can be passed via the <code>data: {@link Data}</code> 
+ *   parameter passed to json transformers and other json functions to support
+ *   them in the transformation.
+ *   <p>
+ *   As each JavaScript function is an <code>Object</code>, too, it may
+ *   additionally have properties. There are two properties that are important
+ *   for json functions:
+ *   <ul>
+ *   <li><code>type?: {@link EnumJsonFunctionType}</code></li>
+ *   <li><code>init?: any</code></li>
+ *   </ul>
+ *   <p>
+ *   By means of the type property a transformer using a JSON function 
+ *   can determine to which types of JSON values the helper function 
+ *   can be applied.
+ *   <p>
+ *   The init parameter can be used to customize the function.
  * @callback JsonFunction
- * @param    {JsonFunctionParameters} _
- * @returns  {JsonValue}
+ * @param {JsonFunctionParameters} _
+ * @param {JsonValue} _.value
+ *   The JSON value to be transformed.
+ * @param {Data} _.data
+ *   A data object the members of which can be used by transformers to replace
+ *   or compute certain JSON values.
+ * @param {number} _.level
+ *   The current level of <code>_.value</code>
+ * @returns {JsonValue}
+ *   The resulting JSON value.
  * 
  * @Xtypedef {(_: JsonFunctionParameters): JsonValue}    // Doen't work yet
  * @Xtypedef {(_: JsonFunctionParameters) => JsonValue}  // Doesn't work either
@@ -70,4 +96,18 @@
  *              ?type: EnumJsonFunctionType, 
  *              ?init: any
  *           }} JsonFunction  
+ */
+
+/** 
+ * @typedef {{value: string, data: Data, level: number}} JsonFunctionStringParameters  
+ */
+
+/** 
+ * @description
+ *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
+ *   type <code>string</code>, and <code>callback.init === EnumJsonFunctionType.String</code>
+ * @callback JsonFunctionString
+ * @param {JsonFunctionStringParameters} _
+ * @returns {JsonValue}
+ *   The resulting JSON value.  
  */

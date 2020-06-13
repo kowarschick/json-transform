@@ -13,6 +13,12 @@ temp.*
 # ignore dependency directories
 node_modules/
 
+# ignore generated documentation
+
+transformer.commented
+doc/jsdoc_*
+doc/tsdoc_*
+
 # -------------------------
 # BEGIN Whitelisted Files
 # -------------------------

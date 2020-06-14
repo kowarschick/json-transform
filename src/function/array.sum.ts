@@ -31,7 +31,7 @@ export function JsonFunctionArraySum({value}: JsonFunctionArrayParameters)
   return value.slice(1).reduce( (s, v) => (s as number) + (v as number), 0);
 }
 
-JsonFunctionArraySum.type = EnumJsonFunctionType.Array;
+JsonFunctionArraySum.type = EnumJsonFunctionType.JsonArray;
 JsonFunctionArraySum.init = "$sum";
 
 export default JsonFunctionArraySum;

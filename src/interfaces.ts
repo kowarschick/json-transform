@@ -12,10 +12,10 @@ export type JsonMap = {[key: string]: JsonValue};
 export type JsonArray = JsonValue[];
 
 export enum EnumJsonFunctionType 
-{ Other  = 0,
-  String = 1, 
-  Array  = 2, 
-  Map    = 3
+{ Other     = 0,
+  String    = 1, 
+  JsonArray = 2, 
+  JsonMap   = 3
 }
 
 export type JsonFunctionParameters = 
@@ -27,37 +27,31 @@ export type JsonFunction =
   init?: any 
 };
 
-/** @type {JsonFunctionStringParameters} */
 export type JsonFunctionStringParameters =
 {value: string, data: Data, level: number};
 
-/** @type {JsonFunctionString} */
 export type JsonFunctionString = 
 { (_: JsonFunctionStringParameters): JsonValue, 
   type: EnumJsonFunctionType /* = EnumJsonFunctionType.String */, 
-  init: string 
+  init?: any  
 }
 
-/** @type {JsonFunctionArrayParameter} */
 export type JsonFunctionArrayParameters = 
 {value: JsonArray, data: Data, level: number};
 
-/** @type {JsonFunctionArray} */
 export type JsonFunctionArray =
 { (_: JsonFunctionArrayParameters): JsonValue, 
-  type: EnumJsonFunctionType /* = EnumJsonFunctionType.Array */, 
-  init: string 
+  type: EnumJsonFunctionType /* = EnumJsonFunctionType.JsonArray */, 
+  init?: any  
 }
 
-/** @type {JsonFunctionMapParameters} */
 export type JsonFunctionMapParameters = 
 {value: JsonMap, data: Data, level: number};
 
-/** @type {JsonFunctionMap} */
 export type JsonFunctionMap =
 { (_: JsonFunctionMapParameters): JsonValue, 
-  type: EnumJsonFunctionType /* = EnumJsonFunctionType.Map */, 
-  init: string 
+  type: EnumJsonFunctionType /* = EnumJsonFunctionType.JsonMap */, 
+  init?: any  
 }
 
 /** @interface JsonTransformerProperties */
@@ -71,17 +65,14 @@ export interface JsonTransformerProperties
 export type JsonTransformerParameters = 
 Partial<JsonTransformerProperties>;
 
-/** @type {JsonTransformerString} */
 export type JsonTransformerString = 
-{ (_: JsonFunctionStringParameters): JsonValue } | null;
+{ (_: JsonFunctionStringParameters): JsonValue };
 
-/** @type {JsonTransformerArray} */
 export type JsonTransformerArray = 
-{ (_: JsonFunctionArrayParameters):  JsonValue } | null;
+{ (_: JsonFunctionArrayParameters):  JsonValue };
 
-/** @type {JsonTransformerMap} */
 export type JsonTransformerMap =
-{ (_: JsonFunctionMapParameters):    JsonValue } | null;
+{ (_: JsonFunctionMapParameters):    JsonValue };
 
 /**
  * @interface   {Data} 

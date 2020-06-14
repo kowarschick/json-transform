@@ -43,7 +43,7 @@
  * @typedef {{key: JsonValue}} JsonMap 
  * @description
  *   A JSON map is an object whose whose attributes are key/value-pairs,
- *   where the key is a string and the value is a JasonValue..
+ *   where the key is a string and the value is a JsonValue..
  */
 
 /** 
@@ -52,11 +52,7 @@
  *   This is a typescript enumaration type to distinguish the different 
  *   types of JSON values ({@link JsonValue}). To access 
  *   a value just type <code>EnumJsonFunctionType.String</code>,
- *   or <code>EnumJsonFunctionType.Array</code> etc.
- */
-
-/** 
- * @typedef {Partial<JsonTransformerProperties>} JsonTransformerParameters
+ *   or <code>EnumJsonFunctionType.JsonArray</code> etc.
  */
 
 /** 
@@ -112,6 +108,53 @@
  *   type <code>string</code>, and <code>callback.init === EnumJsonFunctionType.String</code>
  * @callback JsonFunctionString
  * @param {JsonFunctionStringParameters} _
+ * @returns {JsonValue} 
+ */
+
+/** 
+ * @typedef {{value: JsonArray, data: Data, level: number}} JsonFunctionArrayParameters  
+ */
+
+/** 
+ * @description
+ *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
+ *   type <code>JsonArray</code>, and <code>callback.init === EnumJsonFunctionType.JsonArray</code>
+ * @callback JsonFunctionArray
+ * @param {JsonFunctionArrayParameters} _
+ * @returns {JsonValue} 
+ */ 
+
+/** 
+ * @typedef {{value: JsonMap, data: Data, level: number}} JsonFunctionMapParameters  
+ */
+
+/** 
+ * @description
+ *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
+ *   type <code>JsonMap</code>, and <code>callback.init === EnumJsonFunctionType.JsonMap</code>
+ * @callback JsonFunctionMap
+ * @param {JsonFunctionMapParameters} _
+ * @returns {JsonValue} 
+ */ 
+
+ /** 
+ * @typedef {Partial<JsonTransformerProperties>} JsonTransformerParameters
+ */
+
+/** 
+ * @callback JsonTransformerString
+ * @param {Partial<JsonFunctionStringParameters>} _
+ * @returns {JsonValue} 
+ */
+
+/** 
+ * @callback JsonTransformerArray
+ * @param {Partial<JsonFunctionArrayParameters>} _
  * @returns {JsonValue}
- *   The resulting JSON value.  
+ */
+
+/** 
+ * @callback JsonTransformerMap
+ * @param {Partial<JsonFunctionMapParameters>} _
+ * @returns {JsonValue}
  */

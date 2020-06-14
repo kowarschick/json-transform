@@ -63,15 +63,15 @@ class JsonTransformerFunction extends JsonTransformer
 
   private v_functions_before: { [key: string]: {[key: string]: JsonFunction} } =
           { [EnumJsonFunctionType.String]: {}, 
-            [EnumJsonFunctionType.Array]:  {},
-            [EnumJsonFunctionType.Map]:    {},
+            [EnumJsonFunctionType.JsonArray]:  {},
+            [EnumJsonFunctionType.JsonMap]:    {},
           }
   ;
 
   private v_functions_after: { [key: string]: {[key: string]: JsonFunction} } =
           { [EnumJsonFunctionType.String]: {}, 
-            [EnumJsonFunctionType.Array]:  {},
-            [EnumJsonFunctionType.Map]:    {},
+            [EnumJsonFunctionType.JsonArray]:  {},
+            [EnumJsonFunctionType.JsonMap]:    {},
           }
   ;
   
@@ -87,7 +87,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_before[EnumJsonFunctionType.Array][_.value[0] as string]
+    const f = this.v_functions_before[EnumJsonFunctionType.JsonArray][_.value[0] as string]
 
     return f == null ? _.value : f(_);
   }
@@ -96,7 +96,7 @@ class JsonTransformerFunction extends JsonTransformer
   (_: JsonFunctionMapParameters) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
-    { const f = this.v_functions_before[EnumJsonFunctionType.Map][c_function_name]
+    { const f = this.v_functions_before[EnumJsonFunctionType.JsonMap][c_function_name]
       return f == null ? _.value : f(_); 
     }
     else
@@ -115,7 +115,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_after[EnumJsonFunctionType.Array][_.value[0] as string]
+    const f = this.v_functions_after[EnumJsonFunctionType.JsonArray][_.value[0] as string]
 
     return f == null ? _.value : f(_);
   }
@@ -124,7 +124,7 @@ class JsonTransformerFunction extends JsonTransformer
   (_: JsonFunctionMapParameters) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
-    { const f = this.v_functions_after[EnumJsonFunctionType.Map][c_function_name]
+    { const f = this.v_functions_after[EnumJsonFunctionType.JsonMap][c_function_name]
       return f == null ? _.value : f(_); 
     }
     else

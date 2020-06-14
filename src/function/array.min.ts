@@ -32,7 +32,7 @@ export function JsonFunctionArrayMin({value}: JsonFunctionArrayParameters)
   return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), Infinity);
 }
 
-JsonFunctionArrayMin.type = EnumJsonFunctionType.Array;
+JsonFunctionArrayMin.type = EnumJsonFunctionType.JsonArray;
 JsonFunctionArrayMin.init = "$min";
 
 export default JsonFunctionArrayMin;

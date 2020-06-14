@@ -32,7 +32,7 @@ export function JsonFunctionArrayMax({value}: JsonFunctionArrayParameters)
   return value.slice(1).reduce( (m, v) => Math.max((m as number), (v as number)), -Infinity);
 }
 
-JsonFunctionArrayMax.type = EnumJsonFunctionType.Array;
+JsonFunctionArrayMax.type = EnumJsonFunctionType.JsonArray;
 JsonFunctionArrayMax.init = "$max";
 
 export default JsonFunctionArrayMax;

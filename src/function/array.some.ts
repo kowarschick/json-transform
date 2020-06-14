@@ -35,7 +35,7 @@ export function JsonFunctionArraySome({value}: JsonFunctionArrayParameters)
          : value[Math.floor(Math.random()*(c_length-1))+1];
 }
 
-JsonFunctionArraySome.type = EnumJsonFunctionType.Array;
+JsonFunctionArraySome.type = EnumJsonFunctionType.JsonArray;
 JsonFunctionArraySome.init = "$some";
 
 export default JsonFunctionArraySome;

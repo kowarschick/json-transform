@@ -31,7 +31,7 @@ export function JsonFunctionArrayCount({value}: JsonFunctionArrayParameters)
   return value.length-1;
 }
 
-JsonFunctionArrayCount.type = EnumJsonFunctionType.Array;
+JsonFunctionArrayCount.type = EnumJsonFunctionType.JsonArray;
 JsonFunctionArrayCount.init = "$count";
 
 export default JsonFunctionArrayCount;

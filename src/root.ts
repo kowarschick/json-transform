@@ -27,7 +27,7 @@ interface JsonTransformer extends JsonTransformerProperties{};
  *   transformers. It can be used by transformers (defined via subclassing) 
  *   to replace or compute certain JSON valuess.
  * @param {number} [_.level = 0]
- *   The current level of the JSON value. The level of the top JasonValue  
+ *   The current level of the JSON value. The level of the top JsonValue  
  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
  *   the level of the grand children <code>2</code>, etc.
  * @param {JsonTransformer} [_.transformer = undefined]
@@ -54,16 +54,16 @@ class JsonTransformer
   private _root: JsonTransformer
   public get root() { return this._root};
 
-  protected readonly transformStringBefore: JsonTransformerString = null;
-  protected readonly transformArrayBefore:  JsonTransformerArray  = null;
-  protected readonly transformMapBefore:    JsonTransformerMap    = null;
+  protected readonly transformStringBefore: JsonTransformerString | null = null;
+  protected readonly transformArrayBefore:  JsonTransformerArray  | null = null;
+  protected readonly transformMapBefore:    JsonTransformerMap    | null = null;
   
   protected transformPipe(_: JsonFunctionParameters): JsonValue
   { return this.transformer?.transform(_) ?? _.value; }
   
-  protected readonly transformStringAfter: JsonTransformerString = null;
-  protected readonly transformArrayAfter:  JsonTransformerArray  = null;
-  protected readonly transformMapAfter:    JsonTransformerMap    = null;
+  protected readonly transformStringAfter: JsonTransformerString | null = null;
+  protected readonly transformArrayAfter:  JsonTransformerArray  | null = null;
+  protected readonly transformMapAfter:    JsonTransformerMap    | null = null;
 
  /**
   * @method

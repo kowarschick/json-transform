@@ -12,10 +12,13 @@ export type JsonMap = {[key: string]: JsonValue};
 export type JsonArray = JsonValue[];
 
 export enum EnumJsonFunctionType 
-{ Other     = 0,
-  String    = 1, 
-  JsonArray = 2, 
-  JsonMap   = 3
+{ String    = 1,
+  //JsonPrimitive = 4,
+  JsonArray     = 2, 
+  JsonMap       = 3,
+  //JsonNumber    = 5,
+  //JsonBoolean   = 6,
+  //JsonNull      = 7
 }
 
 export type JsonFunctionParameters = 

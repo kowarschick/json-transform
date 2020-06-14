@@ -9,9 +9,21 @@ import { JsonFunctionParameters                               } from "./interfac
 import { JsonTransformerProperties, JsonTransformerParameters } from "./interfaces";
 
 const c_transformer_tests =
-{ [EnumJsonFunctionType.String]:    (_: JsonValue) => (typeof _ === 'string'), 
-  [EnumJsonFunctionType.JsonArray]: (_: JsonValue) => (Array.isArray(_)),
-  [EnumJsonFunctionType.JsonMap]:   (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
+{ [EnumJsonFunctionType.JsonArray]:  (_: JsonValue) => (Array.isArray(_)),
+  [EnumJsonFunctionType.JsonMap]:    (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
+  [EnumJsonFunctionType.String]: (_: JsonValue) => (typeof _ === 'string'),
+};
+
+const c_transformer_tests_before =
+{ transformerJsonArrayBefore: c_transformer_tests[EnumJsonFunctionType.JsonArray],
+  transformerJsonMapBefore:   c_transformer_tests[EnumJsonFunctionType.JsonMap],  
+  transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.String], 
+};
+
+const c_transformer_tests_after =
+{ transformerJsonArrayAfter:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
+  transformerJsonMapAfter:    c_transformer_tests[EnumJsonFunctionType.JsonMap], 
+  transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.String], 
 };
 
 export 
@@ -60,18 +72,6 @@ class JsonTransformer
 
   private _root: JsonTransformer
   public get root() { return this._root};
-
-  private _transformer_tests_before =
-  { transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.String], 
-    transformerJsonArrayBefore: c_transformer_tests[EnumJsonFunctionType.JsonArray],
-    transformerJsonMapBefore:   c_transformer_tests[EnumJsonFunctionType.JsonMap],  
-  };
-
-  private _transformer_tests_after =
-  { transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.String], 
-    transformerJsonArrayAfter:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
-    transformerJsonMapAfter:    c_transformer_tests[EnumJsonFunctionType.JsonMap], 
-  };
   
   protected transformPipe(_: JsonFunctionParameters): JsonValue
   { return this.transformer?.transform(_) ?? _.value; }
@@ -101,7 +101,7 @@ class JsonTransformer
     let l_value = value;
 
     // Do transformations before passing the value to the pipe.
-    for (const [c_key, c_test] of Object.entries(this._transformer_tests_before))
+    for (const [c_key, c_test] of Object.entries(c_transformer_tests_before))
     { const c_transformer = this[c_key];
       if (c_transformer != null && c_test(l_value))
       { l_value = c_transformer({value: value, data: c_data, level}); }
@@ -111,7 +111,7 @@ class JsonTransformer
     l_value = this.transformPipe({value: l_value, data: c_data, level});
 
     // Do transformations after the value has been transformed by the pipe.
-    for (const [c_key, c_test] of Object.entries(this._transformer_tests_after))
+    for (const [c_key, c_test] of Object.entries(c_transformer_tests_after))
     { const c_transformer = this[c_key];
       if (c_transformer != null && c_test(l_value))
       { l_value = c_transformer({value: l_value, data: c_data, level}); }

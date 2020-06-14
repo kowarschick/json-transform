@@ -38,8 +38,8 @@ class JsonTransformerFunction extends JsonTransformer
   * is returned unchanged.
   * 
   * @param options.init.functionAttribute: string = '$function'
-  * @param options.init.before: JsonFunction[] = []
-  * @param options.init.after:  JsonFunction[] = []
+  * @param options.init.before:            JsonFunction[] = []
+  * @param options.init.after:             JsonFunction[] = []
   */
   constructor (options: JsonTransformerParameters = {}) 
   { super({ ...options, 
@@ -77,8 +77,7 @@ class JsonTransformerFunction extends JsonTransformer
   
   transformerStringBefore: JsonTransformerString = 
   (_: JsonFunctionStringParameters) => 
-  { const f = this.v_functions_before[EnumJsonFunctionType.String][_.value as string]
-
+  { const f = this.v_functions_before[EnumJsonFunctionType.String][_.value as string];
     return f == null ? _.value : f(_);
   }
 
@@ -87,8 +86,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_before[EnumJsonFunctionType.JsonArray][_.value[0] as string]
-
+    const f = this.v_functions_before[EnumJsonFunctionType.JsonArray][_.value[0] as string];
     return f == null ? _.value : f(_);
   }
 
@@ -105,8 +103,7 @@ class JsonTransformerFunction extends JsonTransformer
   
   transformerStringAfter: JsonTransformerString = 
   (_: JsonFunctionStringParameters) => 
-  { const f = this.v_functions_after[EnumJsonFunctionType.String][_.value as string]
-
+  { const f = this.v_functions_after[EnumJsonFunctionType.String][_.value as string];
     return f == null ? _.value : f(_);
   }
 
@@ -115,8 +112,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_after[EnumJsonFunctionType.JsonArray][_.value[0] as string]
-
+    const f = this.v_functions_after[EnumJsonFunctionType.JsonArray][_.value[0] as string];
     return f == null ? _.value : f(_);
   }
 

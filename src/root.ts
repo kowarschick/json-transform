@@ -4,10 +4,15 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonMap, JsonArray                                   } from "./interfaces";
-import { JsonFunctionParameters                                          } from "./interfaces";
-import { JsonTransformerProperties, JsonTransformerParameters            } from "./interfaces";
-import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from "./interfaces";
+import { JsonValue, JsonMap, JsonArray, EnumJsonFunctionType  } from "./interfaces";
+import { JsonFunctionParameters                               } from "./interfaces";
+import { JsonTransformerProperties, JsonTransformerParameters } from "./interfaces";
+
+const c_transformer_tests =
+{ [EnumJsonFunctionType.String]:    (_: JsonValue) => (typeof _ === 'string'), 
+  [EnumJsonFunctionType.JsonArray]: (_: JsonValue) => (Array.isArray(_)),
+  [EnumJsonFunctionType.JsonMap]:   (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
+};
 
 export 
 interface JsonTransformer extends JsonTransformerProperties{};
@@ -46,7 +51,9 @@ class JsonTransformer
     = {}
   ) 
   { Object.assign(this, {init, data, level, transformer});
+    
     this._root = this; 
+    
     if (transformer != null)
     { Object.setPrototypeOf(this.transformer.data, this.data) };
   }
@@ -54,16 +61,20 @@ class JsonTransformer
   private _root: JsonTransformer
   public get root() { return this._root};
 
-  protected readonly transformStringBefore: JsonTransformerString | null = null;
-  protected readonly transformArrayBefore:  JsonTransformerArray  | null = null;
-  protected readonly transformMapBefore:    JsonTransformerMap    | null = null;
+  private _transformer_tests_before =
+  { transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.String], 
+    transformerJsonArrayBefore: c_transformer_tests[EnumJsonFunctionType.JsonArray],
+    transformerJsonMapBefore:   c_transformer_tests[EnumJsonFunctionType.JsonMap],  
+  };
+
+  private _transformer_tests_after =
+  { transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.String], 
+    transformerJsonArrayAfter:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
+    transformerJsonMapAfter:    c_transformer_tests[EnumJsonFunctionType.JsonMap], 
+  };
   
   protected transformPipe(_: JsonFunctionParameters): JsonValue
   { return this.transformer?.transform(_) ?? _.value; }
-  
-  protected readonly transformStringAfter: JsonTransformerString | null = null;
-  protected readonly transformArrayAfter:  JsonTransformerArray  | null = null;
-  protected readonly transformMapAfter:    JsonTransformerMap    | null = null;
 
  /**
   * @method
@@ -90,27 +101,21 @@ class JsonTransformer
     let l_value = value;
 
     // Do transformations before passing the value to the pipe.
-    if (this.transformStringBefore != null && typeof l_value === 'string')
-    { l_value = this.transformStringBefore({value: value as string, data: c_data, level}); }
-    else
-    if (this.transformArrayBefore != null && Array.isArray(l_value))
-    { l_value = this.transformArrayBefore({value: l_value as JsonArray, data: c_data, level}); }
-    else
-    if (this.transformMapBefore != null && typeof l_value === 'object')
-    { l_value = this.transformMapBefore({value: l_value as JsonMap, data: c_data, level}); }
+    for (const [c_key, c_test] of Object.entries(this._transformer_tests_before))
+    { const c_transformer = this[c_key];
+      if (c_transformer != null && c_test(l_value))
+      { l_value = c_transformer({value: value, data: c_data, level}); }
+    }
 
     // Pipe
     l_value = this.transformPipe({value: l_value, data: c_data, level});
 
     // Do transformations after the value has been transformed by the pipe.
-    if (this.transformStringAfter != null && typeof l_value === 'string')
-    { l_value = this.transformStringAfter({value: l_value as string, data: c_data, level}); }
-    else
-    if (this.transformArrayAfter != null && Array.isArray(l_value))
-    { l_value = this.transformArrayAfter({value: l_value as JsonArray, data: c_data, level}); }
-    else
-    if (this.transformMapAfter != null && typeof l_value === 'object')
-    { l_value = this.transformMapAfter({value: l_value as JsonMap, data: c_data, level}); }
+    for (const [c_key, c_test] of Object.entries(this._transformer_tests_after))
+    { const c_transformer = this[c_key];
+      if (c_transformer != null && c_test(l_value))
+      { l_value = c_transformer({value: l_value, data: c_data, level}); }
+    }
 
     return l_value; 
   }

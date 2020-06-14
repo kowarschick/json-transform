@@ -19,7 +19,7 @@ class JsonTransformerStringLevel extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? '$level'}); }
 
-  protected transformStringBefore: JsonTransformerString = 
+  transformerStringBefore: JsonTransformerString = 
   ({value, level}: JsonFunctionStringParameters) => 
   { return (value === this.init) ? level : value; }
 }

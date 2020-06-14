@@ -5,11 +5,11 @@
  */
 
 /*
-import { JsonValue, JsonMap, Data }                         from '@wljkowa/json';
-import { JsonFunctionParameters }                           from '@wljkowa/json';
-import { JsonTransformer }                                  from '@wljkowa/json/transformer/root';
-import { JsonTransformerStringTemplateFunctions }           from '@wljkowa/json/transformer/string.template.functions';
-import { JsonTransformerTraversal }                         from '@wljkowa/json/transformer/traversal';
+import { JsonValue, JsonMap, Data }               from '@wljkowa/json/interfaces';
+import { JsonFunctionParameters }                 from '@wljkowa/json/interfaces';
+import { JsonTransformer }                        from '@wljkowa/json/transformer/root';
+import { JsonTransformerStringTemplateFunctions } from '@wljkowa/json/transformer/string.template.functions';
+import { JsonTransformerTraversal }               from '@wljkowa/json/transformer/traversal';
 */
 
 import { JsonValue, JsonMap, Data }               from '~/interfaces';

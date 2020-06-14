@@ -24,7 +24,7 @@ class JsonTransformerArraySome extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? '$some'}); }
 
-  protected transformArrayAfter: JsonTransformerArray = 
+  transformerJsonArrayAfter: JsonTransformerArray = 
   ({value}: JsonFunctionArrayParameters) => 
   { const c_length = value.length;
     if (c_length === 0 || value[0] !== this.init)

@@ -1,6 +1,6 @@
 module.exports = 
 { rootDir:         'test',
-  testRegex:       '.(j|t)s$',
+  testRegex:       '.ts$',
   testEnvironment: 'node',
   preset:          'ts-jest',
   resolver:        null, 

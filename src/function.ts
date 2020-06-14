@@ -75,14 +75,14 @@ class JsonTransformerFunction extends JsonTransformer
           }
   ;
   
-  protected transformStringBefore: JsonTransformerString = 
+  transformerStringBefore: JsonTransformerString = 
   (_: JsonFunctionStringParameters) => 
   { const f = this.v_functions_before[EnumJsonFunctionType.String][_.value as string]
 
     return f == null ? _.value : f(_);
   }
 
-  protected transformArrayBefore: JsonTransformerArray = 
+  transformerJsonArrayBefore: JsonTransformerArray = 
   (_: JsonFunctionArrayParameters) => 
   { if (_.value.length === 0)
     { return _.value; }
@@ -92,7 +92,7 @@ class JsonTransformerFunction extends JsonTransformer
     return f == null ? _.value : f(_);
   }
 
-  protected transformMapBefore: JsonTransformerMap = 
+  transformerJsonMapBefore: JsonTransformerMap = 
   (_: JsonFunctionMapParameters) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
@@ -103,14 +103,14 @@ class JsonTransformerFunction extends JsonTransformer
     { return _.value; }
   }
   
-  protected transformStringAfter: JsonTransformerString = 
+  transformerStringAfter: JsonTransformerString = 
   (_: JsonFunctionStringParameters) => 
   { const f = this.v_functions_after[EnumJsonFunctionType.String][_.value as string]
 
     return f == null ? _.value : f(_);
   }
 
-  protected transformArrayAfter: JsonTransformerArray = 
+  transformerJsonArrayAfter: JsonTransformerArray = 
   (_: JsonFunctionArrayParameters) => 
   { if (_.value.length === 0)
     { return _.value; }
@@ -120,7 +120,7 @@ class JsonTransformerFunction extends JsonTransformer
     return f == null ? _.value : f(_);
   }
 
-  protected transformMapAfter: JsonTransformerMap = 
+  transformerJsonMapAfter: JsonTransformerMap = 
   (_: JsonFunctionMapParameters) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)

@@ -59,7 +59,18 @@ export interface JsonTransformerProperties
 { readonly init:        any,
   readonly data:        Data,
   readonly level:       number,
+  
            transformer: JsonTransformer
+         
+  readonly transformerStringBefore:    JsonTransformerString | null;
+  readonly transformerJsonArrayBefore: JsonTransformerArray  | null;
+  readonly transformerJsonMapBefore:   JsonTransformerMap    | null;
+          
+  readonly transformerStringAfter:     JsonTransformerString | null;
+  readonly transformerJsonArrayAfter:  JsonTransformerArray  | null;
+  readonly transformerJsonMapAfter:    JsonTransformerMap    | null;
+
+  readonly [key: string]: any; // to be able to 
 };
             
 export type JsonTransformerParameters = 

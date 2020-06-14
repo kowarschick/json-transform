@@ -19,7 +19,7 @@ class JsonTransformerTraversal extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
 
-  protected transformArrayAfter: JsonTransformerArray = 
+  transformerJsonArrayAfter: JsonTransformerArray = 
   ({value, data, level}: JsonFunctionArrayParameters) => 
   { const
       c_level = level+1,
@@ -31,7 +31,7 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
-  protected transformMapAfter: JsonTransformerMap = 
+  transformerJsonMapAfter: JsonTransformerMap = 
   ({value, data, level}: JsonFunctionMapParameters) => 
   { const
       c_level = level+1,

@@ -62,25 +62,19 @@ class JsonTransformerFunction extends JsonTransformer
   }
 
   private v_functions_before: { [key: string]: {[key: string]: JsonFunction} } =
-          { [EnumJsonFunctionType.String]: {}, 
-            [EnumJsonFunctionType.JsonArray]:  {},
+          { [EnumJsonFunctionType.JsonArray]:  {},
             [EnumJsonFunctionType.JsonMap]:    {},
+            [EnumJsonFunctionType.JsonString]: {}, 
           }
   ;
 
   private v_functions_after: { [key: string]: {[key: string]: JsonFunction} } =
-          { [EnumJsonFunctionType.String]: {}, 
-            [EnumJsonFunctionType.JsonArray]:  {},
+          { [EnumJsonFunctionType.JsonArray]:  {},
             [EnumJsonFunctionType.JsonMap]:    {},
+            [EnumJsonFunctionType.JsonString]: {},
           }
   ;
   
-  transformerStringBefore: JsonTransformerString = 
-  (_: JsonFunctionStringParameters) => 
-  { const f = this.v_functions_before[EnumJsonFunctionType.String][_.value as string];
-    return f == null ? _.value : f(_);
-  }
-
   transformerJsonArrayBefore: JsonTransformerArray = 
   (_: JsonFunctionArrayParameters) => 
   { if (_.value.length === 0)
@@ -100,13 +94,14 @@ class JsonTransformerFunction extends JsonTransformer
     else
     { return _.value; }
   }
-  
-  transformerStringAfter: JsonTransformerString = 
+
+  transformerStringBefore: JsonTransformerString = 
   (_: JsonFunctionStringParameters) => 
-  { const f = this.v_functions_after[EnumJsonFunctionType.String][_.value as string];
+  { const f = this.v_functions_before[EnumJsonFunctionType.JsonString][_.value as string];
     return f == null ? _.value : f(_);
   }
 
+  
   transformerJsonArrayAfter: JsonTransformerArray = 
   (_: JsonFunctionArrayParameters) => 
   { if (_.value.length === 0)
@@ -125,6 +120,12 @@ class JsonTransformerFunction extends JsonTransformer
     }
     else
     { return _.value; }
+  }
+
+  transformerStringAfter: JsonTransformerString = 
+  (_: JsonFunctionStringParameters) => 
+  { const f = this.v_functions_after[EnumJsonFunctionType.JsonString][_.value as string];
+    return f == null ? _.value : f(_);
   }
 }
 

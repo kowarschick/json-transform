@@ -26,7 +26,7 @@ import { JsonFunctionStringParameters, EnumJsonFunctionType } from '~/interfaces
 export function JsonFunctionStringLevel({value, level}: JsonFunctionStringParameters)
 { return (value === JsonFunctionStringLevel.init) ? level : value; }
 
-JsonFunctionStringLevel.type = EnumJsonFunctionType.String;
+JsonFunctionStringLevel.type = EnumJsonFunctionType.JsonString;
 JsonFunctionStringLevel.init = "$level";
 
 export default JsonFunctionStringLevel;

@@ -11,19 +11,19 @@ import { JsonTransformerProperties, JsonTransformerParameters } from "./interfac
 const c_transformer_tests =
 { [EnumJsonFunctionType.JsonArray]:  (_: JsonValue) => (Array.isArray(_)),
   [EnumJsonFunctionType.JsonMap]:    (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
-  [EnumJsonFunctionType.String]: (_: JsonValue) => (typeof _ === 'string'),
+  [EnumJsonFunctionType.JsonString]: (_: JsonValue) => (typeof _ === 'string'),
 };
 
 const c_transformer_tests_before =
 { transformerJsonArrayBefore: c_transformer_tests[EnumJsonFunctionType.JsonArray],
   transformerJsonMapBefore:   c_transformer_tests[EnumJsonFunctionType.JsonMap],  
-  transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.String], 
+  transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.JsonString], 
 };
 
 const c_transformer_tests_after =
 { transformerJsonArrayAfter:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
   transformerJsonMapAfter:    c_transformer_tests[EnumJsonFunctionType.JsonMap], 
-  transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.String], 
+  transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.JsonString], 
 };
 
 export 

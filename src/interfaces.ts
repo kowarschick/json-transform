@@ -4,12 +4,18 @@
  * @license   MIT
  */
 
- import { JsonTransformer } from './root';
+import { JsonTransformer } from './root';
 
-export type JsonValue = JsonPrimitive | JsonArray | JsonMap | undefined ;
-export type JsonPrimitive = (string | number | boolean | null);
-export type JsonMap = {[key: string]: JsonValue};
-export type JsonArray = JsonValue[];
+export type JsonString    = string;
+export type JsonNumber    = number;
+export type JsonBoolean   = boolean;
+export type JsonNull      = null | undefined;
+
+export type JsonPrimitive = (JsonString | JsonNumber | JsonBoolean | JsonNull);
+export type JsonArray     = JsonValue[];
+export type JsonMap       = {[key: string]: JsonValue};
+
+export type JsonValue     = JsonPrimitive | JsonArray | JsonMap ;
 
 export enum EnumJsonFunctionType 
 { JsonPrimitive = 1,
@@ -21,73 +27,34 @@ export enum EnumJsonFunctionType
   JsonNull      = 7
 }
 
-export type JsonFunctionParameters = 
-{value: JsonValue, data: Data, level: number};
+export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
+{value: T, data: Data, level: number};
 
-export type JsonFunction = 
-{ (_: JsonFunctionParameters): JsonValue, 
+export type JsonFunction<T extends JsonValue = JsonValue> = 
+{ (_: JsonFunctionParameters<T>): JsonValue, 
   type?: EnumJsonFunctionType, 
   init?: any 
 };
 
-export type JsonFunctionStringParameters =
-{value: string, data: Data, level: number};
-
-export type JsonFunctionString = 
-{ (_: JsonFunctionStringParameters): JsonValue, 
-  type: EnumJsonFunctionType /* = EnumJsonFunctionType.String */, 
-  init?: any  
-}
-
-export type JsonFunctionArrayParameters = 
-{value: JsonArray, data: Data, level: number};
-
-export type JsonFunctionArray =
-{ (_: JsonFunctionArrayParameters): JsonValue, 
-  type: EnumJsonFunctionType /* = EnumJsonFunctionType.JsonArray */, 
-  init?: any  
-}
-
-export type JsonFunctionMapParameters = 
-{value: JsonMap, data: Data, level: number};
-
-export type JsonFunctionMap =
-{ (_: JsonFunctionMapParameters): JsonValue, 
-  type: EnumJsonFunctionType /* = EnumJsonFunctionType.JsonMap */, 
-  init?: any  
-}
-
 /** @interface JsonTransformerProperties */
-export interface JsonTransformerProperties
+export interface JsonTransformerProperties 
 { readonly init:        any,
   readonly data:        Data,
   readonly level:       number,
   
-           transformer: JsonTransformer
+           transformer: JsonTransformer<JsonValue>
          
-  readonly transformerStringBefore:    JsonTransformerString | null;
-  readonly transformerJsonArrayBefore: JsonTransformerArray  | null;
-  readonly transformerJsonMapBefore:   JsonTransformerMap    | null;
+  readonly transformerJsonArrayBefore:  JsonFunction<JsonArray>  | null;
+  readonly transformerJsonMapBefore:    JsonFunction<JsonMap>    | null;
+  readonly transformerJsonStringBefore: JsonFunction<JsonString> | null;
           
-  readonly transformerStringAfter:     JsonTransformerString | null;
-  readonly transformerJsonArrayAfter:  JsonTransformerArray  | null;
-  readonly transformerJsonMapAfter:    JsonTransformerMap    | null;
-
-  readonly [key: string]: any; // to be able to 
+  readonly transformerJsonArrayAfter:   JsonFunction<JsonArray>  | null;
+  readonly transformerJsonMapAfter:     JsonFunction<JsonMap>    | null;
+  readonly transformerJsonStringAfter:  JsonFunction<JsonString> | null;
+  
+  readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 };
             
-export type JsonTransformerParameters = 
-Partial<JsonTransformerProperties>;
-
-export type JsonTransformerString = 
-{ (_: JsonFunctionStringParameters): JsonValue };
-
-export type JsonTransformerArray = 
-{ (_: JsonFunctionArrayParameters):  JsonValue };
-
-export type JsonTransformerMap =
-{ (_: JsonFunctionMapParameters):    JsonValue };
-
 /**
  * @interface   {Data} 
  * @description 

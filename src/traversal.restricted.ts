@@ -4,18 +4,20 @@
  * @license   MIT
  */
 
-import { JsonValue }                                                                     from './interfaces';
-import { JsonFunctionParameters, JsonFunctionArrayParameters, JsonFunctionMapParameters} from './interfaces';
-import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap }           from './interfaces';
-import { JsonTransformerTraversal }                                                      from './traversal';
+import { JsonValue }                 from './interfaces';
+import { JsonFunctionParameters, }   from './interfaces';
+import { JsonTransformerTraversal }  from './traversal';
+import { JsonTransformerParameters } from './root';
 
-export 
-class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
-{/**
+/**
+  * @class
+  * @classdesc
   * This transformers applies the transformer passed recursively to
   * all elements of the JSON value. 
   */
-  constructor (options: JsonTransformerParameters = {}) 
+export 
+class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
+{ constructor (options: JsonTransformerParameters = {}) 
   { super({ ...options, init: { minLevel: options?.init?.minLevel ?? 0,
                                 maxLevel: options?.init?.maxLevel ?? Infinity,
                               }

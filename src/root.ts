@@ -4,9 +4,9 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonMap, JsonArray, EnumJsonFunctionType  } from "./interfaces";
-import { JsonFunctionParameters                               } from "./interfaces";
-import { JsonTransformerProperties, JsonTransformerParameters } from "./interfaces";
+import { JsonValue, EnumJsonFunctionType } from "./interfaces";
+import { JsonFunctionParameters          } from "./interfaces";
+import { JsonTransformerProperties       } from "./interfaces";
 
 const c_transformer_tests =
 { [EnumJsonFunctionType.JsonArray]:  (_: JsonValue) => (Array.isArray(_)),
@@ -15,19 +15,23 @@ const c_transformer_tests =
 };
 
 const c_transformer_tests_before =
-{ transformerJsonArrayBefore: c_transformer_tests[EnumJsonFunctionType.JsonArray],
-  transformerJsonMapBefore:   c_transformer_tests[EnumJsonFunctionType.JsonMap],  
-  transformerStringBefore:    c_transformer_tests[EnumJsonFunctionType.JsonString], 
+{ transformerJsonArrayBefore:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
+  transformerJsonMapBefore:    c_transformer_tests[EnumJsonFunctionType.JsonMap],  
+  transformerJsonStringBefore: c_transformer_tests[EnumJsonFunctionType.JsonString], 
 };
 
 const c_transformer_tests_after =
 { transformerJsonArrayAfter:  c_transformer_tests[EnumJsonFunctionType.JsonArray],
   transformerJsonMapAfter:    c_transformer_tests[EnumJsonFunctionType.JsonMap], 
-  transformerStringAfter:     c_transformer_tests[EnumJsonFunctionType.JsonString], 
+  transformerJsonStringAfter: c_transformer_tests[EnumJsonFunctionType.JsonString], 
 };
 
 export 
-interface JsonTransformer extends JsonTransformerProperties{};
+type JsonTransformerParameters = Partial<JsonTransformerProperties>;
+
+export 
+interface JsonTransformer<T extends JsonValue> extends JsonTransformerProperties
+{};
 
 /**
  * @classdesc
@@ -53,13 +57,13 @@ interface JsonTransformer extends JsonTransformerProperties{};
  *   of the pip etransformer may be transforemd further by this transfoer.
  */
 export 
-class JsonTransformer
+class JsonTransformer<T extends JsonValue = JsonValue>
 { constructor
   ( { init        = undefined,
       data        = {},
       level       = 0,
       transformer = undefined,
-    }: JsonTransformerParameters  
+    }: JsonTransformerParameters 
     = {}
   ) 
   { Object.assign(this, {init, data, level, transformer});
@@ -80,7 +84,7 @@ class JsonTransformer
   * @method
   * @description 
   *   Transforms a JSON value into the same or another JSON value.
-  * @param {Partial<JsonFunctionParameters>} _
+  * @param {Partial<JsonFunctionParameters<T>>} _
   *   An object containing the following attributes.
   * @param {JsonValue} [_.value = null]
   *   The JSON value to be transformed.
@@ -94,15 +98,16 @@ class JsonTransformer
   * @returns {JsonValue}
   *   The resulting JSON value.
   */
-  public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters>): JsonValue
+  public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters<T>>): JsonValue
   { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 
-    let l_value = value;
+    let l_value: JsonValue = value;
 
     // Do transformations before passing the value to the pipe.
     for (const [c_key, c_test] of Object.entries(c_transformer_tests_before))
     { const c_transformer = this[c_key];
+    
       if (c_transformer != null && c_test(l_value))
       { l_value = c_transformer({value: value, data: c_data, level}); }
     }
@@ -113,6 +118,7 @@ class JsonTransformer
     // Do transformations after the value has been transformed by the pipe.
     for (const [c_key, c_test] of Object.entries(c_transformer_tests_after))
     { const c_transformer = this[c_key];
+
       if (c_transformer != null && c_test(l_value))
       { l_value = c_transformer({value: l_value, data: c_data, level}); }
     }

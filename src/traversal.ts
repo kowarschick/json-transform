@@ -4,11 +4,9 @@
  * @license   MIT
  */
 
-import { JsonValue }                                                           from './interfaces';
-import { JsonFunctionArrayParameters, JsonFunctionMapParameters}               from './interfaces';
-import { JsonTransformerParameters, JsonTransformerArray, JsonTransformerMap } from './interfaces';
-import { JsonTransformer }                                                     from './root';
-
+import { JsonValue, JsonArray, JsonMap}               from './interfaces';
+import { JsonFunction, JsonFunctionParameters }       from './interfaces';
+import { JsonTransformer, JsonTransformerParameters } from './root';
 
 export 
 class JsonTransformerTraversal extends JsonTransformer
@@ -19,8 +17,8 @@ class JsonTransformerTraversal extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
 
-  transformerJsonArrayAfter: JsonTransformerArray = 
-  ({value, data, level}: JsonFunctionArrayParameters) => 
+  transformerJsonArrayAfter: JsonFunction<JsonArray> = 
+  ({value, data, level}: JsonFunctionParameters<JsonArray>) => 
   { const
       c_level = level+1,
       c_result: JsonValue = [];
@@ -31,8 +29,8 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
-  transformerJsonMapAfter: JsonTransformerMap = 
-  ({value, data, level}: JsonFunctionMapParameters) => 
+  transformerJsonMapAfter:  JsonFunction<JsonMap> = 
+  ({value, data, level}: JsonFunctionParameters<JsonMap>) => 
   { const
       c_level = level+1,
       c_result: JsonValue = {};

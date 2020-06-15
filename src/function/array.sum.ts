@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces';
+import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '~/interfaces';
 
 /**
   * @function 
@@ -24,7 +24,7 @@ import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces'
   * @param {JsonArray} _.value
   *   The JSON array to be transformed.
   */
-export function JsonFunctionArraySum({value}: JsonFunctionArrayParameters)
+export function JsonFunctionArraySum({value}: JsonFunctionParameters<JsonArray>)
 { if (value.length === 0 || value[0] !== JsonFunctionArraySum.init)
   { return value; }
 

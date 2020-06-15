@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces';
+import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '~/interfaces';
 
 /**
   * @function 
@@ -24,7 +24,7 @@ import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces'
   * @param {JsonArray} _value
   *   The JSON array to be transformed.
   */
-export function JsonFunctionArraySome({value}: JsonFunctionArrayParameters)
+export function JsonFunctionArraySome({value}: JsonFunctionParameters<JsonArray>)
 { const c_length = value.length;
   
   if (c_length === 0 || value[0] !== JsonFunctionArraySome.init)

@@ -4,12 +4,12 @@
  * @license   MIT
  */
 
-import { JsonFunctionStringParameters }                     from './interfaces';
-import { JsonTransformerParameters, JsonTransformerString } from './interfaces';
-import { JsonTransformer }                                  from './root';
+import { JsonString }                                 from './interfaces';
+import { JsonFunction, JsonFunctionParameters }       from './interfaces';
+import { JsonTransformer, JsonTransformerParameters } from './root';
 
 export 
-class JsonTransformerStringLevel extends JsonTransformer
+class JsonTransformerStringLevel extends JsonTransformer<JsonString>
 {/**
   * The string <code>option.init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
@@ -19,8 +19,8 @@ class JsonTransformerStringLevel extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? '$level'}); }
 
-  transformerStringBefore: JsonTransformerString = 
-  ({value, level}: JsonFunctionStringParameters) => 
+  transformerJsonStringBefore: JsonFunction<JsonString> = 
+  ({value, level}: JsonFunctionParameters<JsonString>) => 
   { return (value === this.init) ? level : value; }
 }
 

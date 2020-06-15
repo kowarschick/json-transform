@@ -6,7 +6,7 @@
  * 
  */
 
-import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces';
+import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '~/interfaces';
 
 /**
   * @function 
@@ -24,7 +24,7 @@ import { JsonFunctionArrayParameters, EnumJsonFunctionType } from '~/interfaces'
   *   The JSON array to be transformed.
   * @returns {JsonValue}
   */
-export function JsonFunctionArrayCount({value}: JsonFunctionArrayParameters)
+export function JsonFunctionArrayCount({value}: JsonFunctionParameters<JsonArray>)
 { if (value.length === 0 || value[0] !== JsonFunctionArrayCount.init)
   { return value; }
 

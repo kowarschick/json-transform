@@ -11,7 +11,7 @@ import { JsonTransformerStringTemplate } from '@wljkowa/json/transformer/string.
 import { JsonTransformerTraversal }      from '@wljkowa/json/transformer/traversal';
 */
 
-import { JsonTransformer }               from '~/root';
+import { JsonTransformer }               from '~/transformer';
 import { JsonTransformerStringLevel }    from '~/string.level';
 import { JsonTransformerStringTemplate } from '~/string.template';
 import { JsonTransformerTraversal }      from '~/traversal';

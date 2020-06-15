@@ -10,7 +10,7 @@ import { JsonTransformerStringLevel }         from '@wljkowa/json/transformer/st
 import { JsonTransformerTraversalRestricted } from '@wljkowa/json/transformer/traversal.restricted';
 */
 
-import { JsonTransformer }                    from '~/root';
+import { JsonTransformer }                    from '~/transformer';
 import { JsonTransformerStringLevel }         from '~/string.level';
 import { JsonTransformerTraversalRestricted } from '~/traversal.restricted';
 
@@ -33,21 +33,21 @@ import { JsonTransformerTraversalRestricted } from '~/traversal.restricted';
   );
 }
 
-{ const c_transformer: JsonTransformer = new JsonTransformerStringLevel();
+{ const c_t: JsonTransformer = new JsonTransformerStringLevel();
 
   test
   ( '"$level" should be transformed into 0',
-    () => { expect(c_transformer.transform({ value: "$level" })).toStrictEqual(0); }      
+    () => { expect(c_t.transform({ value: "$level" })).toStrictEqual(0); }      
   ); 
 
   test
   ( '"@level" should not be transformed',
-    () => { expect(c_transformer.transform({ value: "@level" })).toStrictEqual("@level"); }        
+    () => { expect(c_t.transform({ value: "@level" })).toStrictEqual("@level"); }        
   );
 
   test
   ( '["$level", {"level": "$level"}, ["$level", ["$level"]]] should not be transformed',
-    () => { expect(c_transformer.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level"]]] })
+    () => { expect(c_t.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level"]]] })
                   ).toStrictEqual(["$level", {"level": "$level"}, ["$level", ["$level"]]]); 
           }      
   );
@@ -74,10 +74,10 @@ function traversalTests(transformer: JsonTransformer)
 
 traversalTests(new JsonTransformerTraversalRestricted({transformer: new JsonTransformerStringLevel()}));
 
-{ const c_transformer = new JsonTransformerTraversalRestricted();
-  c_transformer.pipe(new JsonTransformerStringLevel());
+{ const c_t = new JsonTransformerTraversalRestricted();
+  c_t.pipe(new JsonTransformerStringLevel());
 
-  traversalTests(c_transformer);
+  traversalTests(c_t);
 }
 
 traversalTests
@@ -93,22 +93,22 @@ traversalTests
   .root
 );
 
-{ const c_transformer = new JsonTransformerTraversalRestricted();
-  c_transformer.pipe(new JsonTransformerStringLevel({init: '@level'}));
+{ const c_t = new JsonTransformerTraversalRestricted();
+  c_t.pipe(new JsonTransformerStringLevel({init: '@level'}));
 
   test
   ( '"$level" should be transformed into "$level"',
-    () => { expect(c_transformer.transform({ value: "$level" })).toStrictEqual("$level"); }      
+    () => { expect(c_t.transform({ value: "$level" })).toStrictEqual("$level"); }      
   ); 
   
   test
   ( '"@level" should be transformed into 0',
-    () => { expect(c_transformer.transform({ value: "@level" })).toStrictEqual(0); }      
+    () => { expect(c_t.transform({ value: "@level" })).toStrictEqual(0); }      
   );
   
   test
   ( '["@level", {"level": "@level"}, ["@level", ["@level"]]] should be transformed into [1, {"level": 2}, [2, [3]]]',
-    () => { expect(c_transformer.transform({ value: ["@level", {"level": "@level"}, ["@level", ["@level"]]] })
+    () => { expect(c_t.transform({ value: ["@level", {"level": "@level"}, ["@level", ["@level"]]] })
                   ).toStrictEqual([1, {"level": 2}, [2, [3]]]); 
           }      
   );

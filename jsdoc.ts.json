@@ -12,32 +12,29 @@
 
   "plugins": 
   [ "node_modules/better-docs/typescript",
-    "jsdoc-plugin-intersection"
+    "jsdoc-plugin-intersection",
+    "plugins/markdown"
   ],
   
   "opts":
-  { "template":    "node_modules/ink-docstrap/template",
-    "Xtemplate":   "node_modules/better-docs",
-    "encoding":    "utf8",
-    "destination": "doc/jsdoc_ts",
-    "recurse":     true,
-    "private":     false
+  { "Xtemplate":     "node_modules/@jood/jsdoc-theme",
+    "NOPEtemplate": "node_modules/better-docs",
+    "encoding":     "utf8",
+    "destination":  "doc/jsdoc_ts",
+    "recurse":      true,
+    "private":      false
   },
   
   "templates": 
-  { "systemName":        "@wljkowa/json",
-    "footer":            "",
-    "copyright":         "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>",
-    "navType":           "horizontal",
-    "theme":             "cosmo",
-    "linenums":          false,
-    "cleverLinks":       true,
-    "monospaceLinks":    false,
-    "collapseSymbols":   false,
-    "inverseNav":        false,
-    "outputSourceFiles": true,
-    "outputSourcePath":  false,
-
+  { "default":
+    { "layoutFile": "./jsdoc.tmpl"
+    },
+ 
+    "wljkowa":
+    { "title": "@wljkowa/json",
+      "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
+    },
+    
     "better-docs": 
     { "name": "@wljkowa/json",
         "Xlogo": "images/logo.png",

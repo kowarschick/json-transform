@@ -6,8 +6,7 @@
 
 import { JsonValue, JsonString }                      from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
-import { JsonTransformer, JsonTransformerParameters } from './root';
-
+import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 export 
 class JsonTransformerStringTemplateFunctions extends JsonTransformer

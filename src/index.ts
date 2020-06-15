@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-import { JsonTransformer }                        from './root'; 
+import { JsonTransformer }                        from './transformer'; 
 import { JsonTransformerFunction }                from './function'; 
 import { JsonTransformerTraversal }               from './traversal'; 
 import { JsonTransformerTraversalRestricted }     from './traversal.restricted'; 

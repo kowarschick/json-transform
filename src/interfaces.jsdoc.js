@@ -14,23 +14,48 @@
  */
 
 /** 
- * @typedef {(JsonPrimitive|JsonArray|JsonMap|undefined)} JsonValue
+ * @typedef {string} JsonString 
  * @description 
- *   A JSON value is either a primitive value 
- *   ({@link JsonPrimitive}: string, number, boolean, or null), or 
- *   an array of JSON values ({@link JsonArray}) or a
- *   map object the members of which consist of a key string
- *   and a JSON value ({@link JsonMap}) 
+ *   <code>JsonString</code> is an alias for <code>string</code>; 
+ */
+
+/** 
+ * @typedef {string} JsonNumber 
+ * @description 
+ *   <code>JsonNumber</code> is an alias for <code>number</code>; 
+ */
+
+/** 
+ * @typedef {string} JsonBoolean 
+ * @description 
+ *   <code>JsonBoolean</code> is an alias for <code>boolean</code>; 
+ */
+
+/** 
+ * @typedef {string} JsonNull 
+ * @description 
+ *   <code>JsonNull</code> is an alias for <code>null | undefined</code>; 
  *   <p>
  *   <code>undefined</code> is no regular JSON value. But it is needed
  *   to be able to uses optional parameters within the JSON transformers.
  */
 
 /**
- * @typedef {(string|number|boolean|null)} JsonPrimitive 
+ * @typedef {(JsonString | JsonNumber | JsonBoolean | JsonNull)} JsonPrimitive 
  * @description
- *   A primitive JSON value is either a sring, a number, aboolean, 
- *   or <code>null</code>.
+ *   A primitive JSON value is either a sring, a number, a boolean, 
+ *   or <code>null</code>/<code>undefined</code>.
+ */
+
+/** 
+ * @typedef {(JsonPrimitive|JsonArray|JsonMap)} JsonValue
+ * @description 
+ *   A JSON value is either a primitive value 
+ *   ({@link JsonPrimitive}), or 
+ *   an array of JSON values ({@link JsonArray}) or a
+ *   map object the members of which consist of a key string
+ *   and a JSON value ({@link JsonMap}) 
+ *   <p>
  */
 
 /**
@@ -40,27 +65,40 @@
  */
 
 /** 
- * @typedef {{key: JsonValue}} JsonMap 
+ * @typedef {{KEY: JsonValue}} JsonMap 
  * @description
  *   A JSON map is an object whose whose attributes are key/value-pairs,
- *   where the key is a string and the value is a JsonValue..
+ *   where the key is a string and the value is a JsonValue.
+ *   <code>KEY</code> denotes <code>[key: string]</code>.
  */
 
-/** 
- * @typedef {String|Array|Map|Other} EnumJsonFunctionType  
+ /** 
+ * @typedef {JsonPrimitive | JsonArray | JsonMap | JsonString | JsonNumber | JsonBoolean | JsonNull} EnumJsonFunctionType  
  * @description
  *   This is a typescript enumaration type to distinguish the different 
  *   types of JSON values ({@link JsonValue}). To access 
- *   a value just type <code>EnumJsonFunctionType.String</code>,
+ *   a value just type <code>EnumJsonFunctionType.JsonString</code>,
  *   or <code>EnumJsonFunctionType.JsonArray</code> etc.
  */
 
 /** 
- * @typedef {{value: JsonValue, data: Data, level: number}} JsonFunctionParameters  
+ * @description
+ *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
+ * @typedef {{value: T, data: Data, level: number}} JsonFunctionParameters
+ * @property {JsonValue} value
+ *   The JSON value to be transformed.
+ * @property {Data} data
+ *   A data object the members of which can be used by transformers to replace
+ *   or compute certain JSON values.
+ * @property {number} level
+ *   The current level of <code>value</code> within the JSON value passed to 
+ *    the root transformer.
  */
 
 /** 
  * @description
+ *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
+ *   <p>
  *   A JSON function can be passed via the <code>data: {@link Data}</code> 
  *   parameter passed to json transformers and other json functions to support
  *   them in the transformation.
@@ -79,82 +117,16 @@
  *   <p>
  *   The init parameter can be used to customize the function.
  * @callback JsonFunction
- * @param {JsonFunctionParameters} _
- * @param {JsonValue} _.value
- *   The JSON value to be transformed.
- * @param {Data} _.data
- *   A data object the members of which can be used by transformers to replace
- *   or compute certain JSON values.
- * @param {number} _.level
- *   The current level of <code>_.value</code>
- * @returns {JsonValue}
- *   The resulting JSON value.
+ * @param    {JsonFunctionParameters} _
+ * @param    {JsonValue} _.value  see {@link JsonFunctionParameters}
+ * @param    {Data}      _.data   see {@link JsonFunctionParameters}
+ * @param    {number}    _.level  see {@link JsonFunctionParameters}
+ * @returns  {JsonValue}
  * 
  * @Xtypedef {(_: JsonFunctionParameters): JsonValue}    // Doen't work yet
  * @Xtypedef {(_: JsonFunctionParameters) => JsonValue}  // Doesn't work either
- * @Xtypedef {{ (_: JsonFunctionParameters): JsonValue}  // Nor does this work
+ * @Xtypedef {{ (_: JsonFunctionParameters): JsonValue}  // Nor this does work
  *              ?type: EnumJsonFunctionType, 
  *              ?init: any
  *           }} JsonFunction  
- */
-
-/** 
- * @typedef {{value: string, data: Data, level: number}} JsonFunctionStringParameters  
- */
-
-/** 
- * @description
- *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
- *   type <code>string</code>, and <code>callback.init === EnumJsonFunctionType.String</code>
- * @callback JsonFunctionString
- * @param {JsonFunctionStringParameters} _
- * @returns {JsonValue} 
- */
-
-/** 
- * @typedef {{value: JsonArray, data: Data, level: number}} JsonFunctionArrayParameters  
- */
-
-/** 
- * @description
- *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
- *   type <code>JsonArray</code>, and <code>callback.init === EnumJsonFunctionType.JsonArray</code>
- * @callback JsonFunctionArray
- * @param {JsonFunctionArrayParameters} _
- * @returns {JsonValue} 
- */ 
-
-/** 
- * @typedef {{value: JsonMap, data: Data, level: number}} JsonFunctionMapParameters  
- */
-
-/** 
- * @description
- *   This is a special case of {@link JsonFunction}: <code>_.value</code> must be of
- *   type <code>JsonMap</code>, and <code>callback.init === EnumJsonFunctionType.JsonMap</code>
- * @callback JsonFunctionMap
- * @param {JsonFunctionMapParameters} _
- * @returns {JsonValue} 
- */ 
-
- /** 
- * @typedef {Partial<JsonTransformerProperties>} JsonTransformerParameters
- */
-
-/** 
- * @callback JsonTransformerString
- * @param {Partial<JsonFunctionStringParameters>} _
- * @returns {JsonValue} 
- */
-
-/** 
- * @callback JsonTransformerArray
- * @param {Partial<JsonFunctionArrayParameters>} _
- * @returns {JsonValue}
- */
-
-/** 
- * @callback JsonTransformerMap
- * @param {Partial<JsonFunctionMapParameters>} _
- * @returns {JsonValue}
  */

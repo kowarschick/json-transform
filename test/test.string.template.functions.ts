@@ -14,7 +14,7 @@ import { JsonTransformerTraversal }               from '@wljkowa/json/transforme
 
 import { JsonValue, JsonMap, Data }               from '~/interfaces';
 import { JsonFunctionParameters }                 from '~/interfaces';
-import { JsonTransformer }                        from '~/root';
+import { JsonTransformer }                        from '~/transformer';
 import { JsonTransformerStringTemplateFunctions } from '~/string.template.functions';
 import { JsonTransformerTraversal }               from '~/traversal';
 
@@ -42,54 +42,54 @@ const
       def:   () => 123
     },
   
-  c_transformer =
+  c_t =
          new JsonTransformerTraversal({ data: c_data })
     .pipe(new JsonTransformerStringTemplateFunctions())
     .root;
 
   test
   ( '"${vpf({\'x\':100, \'y\':200})" should be transformed into "{v: [2, 4]}"', 
-    () => { expect(c_transformer.transform({ value: "${vpf({'x':100, 'y':200})}" }))
+    () => { expect(c_t.transform({ value: "${vpf({'x':100, 'y':200})}" }))
               .toStrictEqual([2, 4]); 
           }
   );
 
   test
   ( '"{v: ${vpf({\'x\':100, \'y\':200})}}" should be transformed into "{v: [2,4]}"', 
-    () => { expect(c_transformer.transform({ value: "{v: ${vpf({'x':100, 'y':200})}}" }))
+    () => { expect(c_t.transform({ value: "{v: ${vpf({'x':100, 'y':200})}}" }))
               .toStrictEqual("{v: [2,4]}"); 
           }
   );
   
   test
   ( '{v: "${vpf({\'x\':100, \'y\':200})}"} should be transformed into {v: [2,4]}', 
-    () => { expect(c_transformer.transform({ value: {v: "${vpf({'x':100, 'y':200})}"} }))
+    () => { expect(c_t.transform({ value: {v: "${vpf({'x':100, 'y':200})}"} }))
               .toStrictEqual({v: [2,4]}); 
           }
   );
 
   test
   ( 'complex nested objects should work, too', 
-    () => { expect(c_transformer.transform({ value:  [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}] }))
+    () => { expect(c_t.transform({ value:  [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}] }))
               .toStrictEqual([{v: [2,4]}, {a: [4,8]}]); 
           }
   );
 
   test
   ( '"${def()}" should be transformed into 123', 
-    () => { expect(c_transformer.transform({ value: "${def()}" })).toBe(123); }
+    () => { expect(c_t.transform({ value: "${def()}" })).toBe(123); }
   );
 
   test
   ( '"${abc}" should be transformed into 234', 
-    () => { expect(c_transformer.transform({ value: "${abc}", data: {abc: 234} })
+    () => { expect(c_t.transform({ value: "${abc}", data: {abc: 234} })
                   ).toStrictEqual(234); 
           }
   );
 
   test
   ( '"${def()}" should be transformed into 234', 
-    () => { expect(c_transformer.transform({ value: "${def()}", data: {def: () => 234} })).toBe(234); }
+    () => { expect(c_t.transform({ value: "${def()}", data: {def: () => 234} })).toBe(234); }
   );
 
 

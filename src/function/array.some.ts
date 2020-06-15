@@ -31,7 +31,7 @@ export function JsonFunctionArraySome({value}: JsonFunctionParameters<JsonArray>
   { return value; }
 
   return (c_length === 1) 
-         ? undefined
+         ? null
          : value[Math.floor(Math.random()*(c_length-1))+1];
 }
 

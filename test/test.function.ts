@@ -55,7 +55,7 @@ function functionTests(transformer: JsonTransformerFunction)
   
   test
   ( '["$some"] should be transformed into null', 
-    () => { expect(transformer.transform({ value: ["$some"] })).toBe(undefined); }
+    () => { expect(transformer.transform({ value: ["$some"] })).toBe(null); }
   );
   
   test

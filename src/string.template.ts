@@ -6,7 +6,7 @@
 
 import { JsonValue, JsonString }                      from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
-import { JsonTransformer, JsonTransformerParameters } from './root';
+import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 export 
 class JsonTransformerStringTemplate extends JsonTransformer
@@ -19,7 +19,7 @@ class JsonTransformerStringTemplate extends JsonTransformer
   constructor (options: JsonTransformerParameters = {}) 
   { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)}/}); }
 
- transformerJsonStringBefore: JsonFunction<JsonString> = 
+  transformerJsonStringBefore: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 
   { const  
       c_regexp = new RegExp(this.init,'g'),

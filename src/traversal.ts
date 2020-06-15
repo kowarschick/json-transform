@@ -6,15 +6,21 @@
 
 import { JsonValue, JsonArray, JsonMap}               from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
-import { JsonTransformer, JsonTransformerParameters } from './root';
+import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
+/**
+ * @class
+ * @Xextends JsonTransformer
+ * @description
+ *   extends {@link JsonTransformer}
+ *   <p>
+ *   This transformer applies the transformer passed as argument
+ *   to the constructor or added by means of the <code>pipe</code>
+ *   method recursively to all elements of the JSON value. 
+ */
 export 
 class JsonTransformerTraversal extends JsonTransformer
-{/**
-  * This transformers applies the transformer passed recursively to
-  * all elements of the JSON value. 
-  */
-  constructor (options: JsonTransformerParameters = {}) 
+{ constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
 
   transformerJsonArrayAfter: JsonFunction<JsonArray> = 

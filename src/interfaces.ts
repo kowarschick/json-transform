@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-import { JsonTransformer } from './root';
+import { JsonTransformer } from './transformer';
 
 export type JsonString    = string;
 export type JsonNumber    = number;
@@ -14,7 +14,6 @@ export type JsonNull      = null | undefined;
 export type JsonPrimitive = (JsonString | JsonNumber | JsonBoolean | JsonNull);
 export type JsonArray     = JsonValue[];
 export type JsonMap       = {[key: string]: JsonValue};
-
 export type JsonValue     = JsonPrimitive | JsonArray | JsonMap ;
 
 export enum EnumJsonFunctionType 
@@ -36,22 +35,50 @@ export type JsonFunction<T extends JsonValue = JsonValue> =
   init?: any 
 };
 
-/** @interface JsonTransformerProperties */
+/**
+ *  @interface JsonTransformerProperties 
+ *  @description
+ *    This interface defines all transformer properties 
+ *    that can be overridden in subclasses. You should never override
+ *    BOTH <code>transformerJsonPartialXXX</code> and some 
+ *    of the functions <code>transformerJsonStringXXX</code>,
+ *    <code>transformerJsonNumberXXX</code>, <code>transformerJsonBooleanXXX</code>,
+ *    or <code>transformerJsonNumberNull</code> within the same transformer.
+ *  @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveBefore
+ *  @property { JsonFunction<JsonArray>     | null } transformerJsonArrayBefore
+ *  @property { JsonFunction<JsonMap>       | null } transformerJsonMapBefore
+ *  @property { JsonFunction<JsonString>    | null } transformerJsonStringBefore
+ *  @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberBefore
+ *  @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanBefore
+ *  @property { JsonFunction<JsonNull>      | null } transformerJsonNullBefore
+ *  @property { JsonFunction }                       transformerPipe invoke the child transformer
+ *  @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
+ *  @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
+ *  @property { JsonFunction<JsonMap>       | null } transformerJsonMapAfter
+ *  @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
+ *  @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
+ *  @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter
+ *  @property { JsonFunction<JsonNull>      | null } transformerJsonNullAfter 
+ */
 export interface JsonTransformerProperties 
-{ readonly init:        any,
-  readonly data:        Data,
-  readonly level:       number,
-  
-           transformer: JsonTransformer<JsonValue>
-         
-  readonly transformerJsonArrayBefore:  JsonFunction<JsonArray>  | null;
-  readonly transformerJsonMapBefore:    JsonFunction<JsonMap>    | null;
-  readonly transformerJsonStringBefore: JsonFunction<JsonString> | null;
+{ readonly transformerJsonPrimitiveBefore: JsonFunction<JsonArray>   | null;
+  readonly transformerJsonArrayBefore:     JsonFunction<JsonArray>   | null;
+  readonly transformerJsonMapBefore:       JsonFunction<JsonMap>     | null;
+  readonly transformerJsonStringBefore:    JsonFunction<JsonString>  | null;
+  readonly transformerJsonNumberBefore:    JsonFunction<JsonNumber>  | null;
+  readonly transformerJsonBooleanBefore:   JsonFunction<JsonBoolean> | null;
+  readonly transformerJsonNullBefore:      JsonFunction<JsonNull>    | null;
           
-  readonly transformerJsonArrayAfter:   JsonFunction<JsonArray>  | null;
-  readonly transformerJsonMapAfter:     JsonFunction<JsonMap>    | null;
-  readonly transformerJsonStringAfter:  JsonFunction<JsonString> | null;
+           transformerPipe:                JsonFunction;
   
+  readonly transformerJsonPrimitiveAfter:  JsonFunction<JsonArray>   | null;
+  readonly transformerJsonArrayAfter:      JsonFunction<JsonArray>   | null;
+  readonly transformerJsonMapAfter:        JsonFunction<JsonMap>     | null;
+  readonly transformerJsonStringAfter:     JsonFunction<JsonString>  | null;
+  readonly transformerJsonNumberAfter:     JsonFunction<JsonNumber>  | null;
+  readonly transformerJsonBooleanAfter:    JsonFunction<JsonBoolean> | null;
+  readonly transformerJsonNullAfter:       JsonFunction<JsonNull>    | null;
+ 
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 };
             

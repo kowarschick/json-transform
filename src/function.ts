@@ -6,8 +6,7 @@
 
 import { JsonString, JsonArray, JsonMap}                              from './interfaces';
 import { EnumJsonFunctionType, JsonFunction, JsonFunctionParameters } from './interfaces';
-import { JsonTransformer, JsonTransformerParameters }                 from './root';
-
+import { JsonTransformer, JsonTransformerParameters }                 from './transformer';
 
 export 
 class JsonTransformerFunction extends JsonTransformer

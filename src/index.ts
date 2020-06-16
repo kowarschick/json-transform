@@ -1,35 +1,31 @@
 /**
  * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L. J. Kowarschick
+ * @copyright 2020 © Wolfgang L.J. Kowarschick
  * @license   MIT
  */
 
-import { JsonTransformer }                        from './transformer'; 
-import { JsonTransformerFunction }                from './function'; 
-import { JsonTransformerTraversal }               from './traversal'; 
-import { JsonTransformerTraversalRestricted }     from './traversal.restricted'; 
+export { JsonString, JsonNumber, JsonBoolean, JsonNull,
+         JsonPrimitive, JsonArray, JsonMap, JsonValue,
+         EnumJsonFunctionType,
+         JsonFunctionParameters, JsonFunction, 
+         JsonTransformerProperties, 
+         Data
+       }                                          from './interfaces' 
+export { JsonTransformer }                        from './transformer'; 
+export { JsonTransformerFunction }                from './function'; 
+export { JsonTransformerTraversal }               from './traversal'; 
+export { JsonTransformerTraversalRestricted }     from './traversal_restricted'; 
 
-import { JsonTransformerArraySome }               from './array.some'; 
+export { JsonTransformerArraySome }               from './array_some'; 
 
-import { JsonTransformerStringLevel }             from './string.level';
-import { JsonTransformerStringTemplate }          from './string.template'; 
-import { JsonTransformerStringTemplateFunctions } from './string.template.functions'; 
+export { JsonTransformerStringLevel }             from './string_level';
+export { JsonTransformerStringTemplate }          from './string_template'; 
+export { JsonTransformerStringTemplateFunctions } from './string_template_functions'; 
 
-import { JsonFunctionArraySome }                  from './function/array.some'; 
-import { JsonFunctionArrayCount }                 from './function/array.count'; 
-import { JsonFunctionArraySum }                   from './function/array.sum'; 
-import { JsonFunctionArrayMin }                   from './function/array.min'; 
-import { JsonFunctionArrayMax }                   from './function/array.max'; 
+export { JsonFunctionArraySome }                  from './function/array_some'; 
+export { JsonFunctionArrayCount }                 from './function/array_count'; 
+export { JsonFunctionArraySum }                   from './function/array_sum'; 
+export { JsonFunctionArrayMin }                   from './function/array_min'; 
+export { JsonFunctionArrayMax }                   from './function/array_max'; 
 
-import { JsonFunctionStringLevel }                from './function/string.level'; 
-
-export { JsonTransformer,
-         JsonTransformerFunction,
-         JsonTransformerTraversal, JsonTransformerTraversalRestricted,
-         JsonTransformerArraySome,
-         JsonTransformerStringLevel,
-         JsonTransformerStringTemplate, JsonTransformerStringTemplateFunctions,
-         JsonFunctionArraySome, JsonFunctionArrayCount,
-         JsonFunctionArraySum, JsonFunctionArrayMin, JsonFunctionArrayMax,
-         JsonFunctionStringLevel
-       }
+export { JsonFunctionStringLevel }                from './function/string_level'; 

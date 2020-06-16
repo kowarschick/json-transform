@@ -1,15 +1,15 @@
-import { JsonTransformerParameters } from './interfaces';
-import { JsonTransformerString, JsonTransformerArray, JsonTransformerMap } from './interfaces';
-import { JsonTransformer } from './root';
+import { JsonString, JsonArray, JsonMap } from './interfaces';
+import { JsonFunction } from './interfaces';
+import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerFunction extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);
     private v_functions_before;
     private v_functions_after;
-    protected transformStringBefore: JsonTransformerString;
-    protected transformArrayBefore: JsonTransformerArray;
-    protected transformMapBefore: JsonTransformerMap;
-    protected transformStringAfter: JsonTransformerString;
-    protected transformArrayAfter: JsonTransformerArray;
-    protected transformMapAfter: JsonTransformerMap;
+    transformerJsonArrayBefore: JsonFunction<JsonArray>;
+    transformerJsonMapBefore: JsonFunction<JsonMap>;
+    transformerJsonStringBefore: JsonFunction<JsonString>;
+    transformerJsonArrayAfter: JsonFunction<JsonArray>;
+    transformerJsonMapAfter: JsonFunction<JsonMap>;
+    transformerJsonStringAfter: JsonFunction<JsonString>;
 }
 export default JsonTransformerFunction;

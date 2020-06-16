@@ -28,8 +28,8 @@
     "jsdoc:ts": "jsdoc -c jsdoc.ts.json",
     "prelink": "npm run build",
     "link": "npm link  && npm i && npm link @wljkowa/json",
-    "examples:dev": "webpack --mode development",
-    "examples:prod": "webpack --mode production"
+    "examples:dev": "webpack --mode development --config webpack.config.examples.js",
+    "examples:prod": "webpack --mode production --config webpack.config.examples.js"
   },
   "devDependencies": {
     "@jood/jsdoc-theme": "^0.1.14",

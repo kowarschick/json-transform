@@ -1,72 +1,50 @@
-import { JsonTransformer } from './root';
-export declare type JsonValue = JsonPrimitive | JsonArray | JsonMap | undefined;
-export declare type JsonPrimitive = (string | number | boolean | null);
+export declare type JsonString = string;
+export declare type JsonNumber = number;
+export declare type JsonBoolean = boolean;
+export declare type JsonNull = null | undefined;
+export declare type JsonPrimitive = (JsonString | JsonNumber | JsonBoolean | JsonNull);
+export declare type JsonArray = JsonValue[];
 export declare type JsonMap = {
     [key: string]: JsonValue;
 };
-export declare type JsonArray = JsonValue[];
+export declare type JsonValue = JsonPrimitive | JsonArray | JsonMap;
 export declare enum EnumJsonFunctionType {
-    Other = 0,
-    String = 1,
-    Array = 2,
-    Map = 3
+    JsonPrimitive = 1,
+    JsonArray = 2,
+    JsonMap = 3,
+    JsonString = 4,
+    JsonNumber = 5,
+    JsonBoolean = 6,
+    JsonNull = 7
 }
-export declare type JsonFunctionParameters = {
-    value: JsonValue;
+export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
+    value: T;
     data: Data;
     level: number;
 };
-export declare type JsonFunction = {
-    (_: JsonFunctionParameters): JsonValue;
+export declare type JsonFunction<T extends JsonValue = JsonValue> = {
+    (_: JsonFunctionParameters<T>): JsonValue;
     type?: EnumJsonFunctionType;
     init?: any;
 };
-export declare type JsonFunctionStringParameters = {
-    value: string;
-    data: Data;
-    level: number;
-};
-export declare type JsonFunctionString = {
-    (_: JsonFunctionStringParameters): JsonValue;
-    type: EnumJsonFunctionType;
-    init: string;
-};
-export declare type JsonFunctionArrayParameters = {
-    value: JsonArray;
-    data: Data;
-    level: number;
-};
-export declare type JsonFunctionArray = {
-    (_: JsonFunctionArrayParameters): JsonValue;
-    type: EnumJsonFunctionType;
-    init: string;
-};
-export declare type JsonFunctionMapParameters = {
-    value: JsonMap;
-    data: Data;
-    level: number;
-};
-export declare type JsonFunctionMap = {
-    (_: JsonFunctionMapParameters): JsonValue;
-    type: EnumJsonFunctionType;
-    init: string;
-};
-export declare type JsonTransformerProperties = {
-    readonly init: any;
-    readonly data: Data;
-    readonly level: number;
-    transformer: JsonTransformer;
-};
-export declare type JsonTransformerParameters = Partial<JsonTransformerProperties>;
-export declare type JsonTransformerString = {
-    (_: JsonFunctionStringParameters): JsonValue;
-} | null;
-export declare type JsonTransformerArray = {
-    (_: JsonFunctionArrayParameters): JsonValue;
-} | null;
-export declare type JsonTransformerMap = {
-    (_: JsonFunctionMapParameters): JsonValue;
-} | null;
+export interface JsonTransformerProperties {
+    readonly transformerJsonPrimitiveBefore: JsonFunction<JsonArray> | null;
+    readonly transformerJsonArrayBefore: JsonFunction<JsonArray> | null;
+    readonly transformerJsonMapBefore: JsonFunction<JsonMap> | null;
+    readonly transformerJsonStringBefore: JsonFunction<JsonString> | null;
+    readonly transformerJsonNumberBefore: JsonFunction<JsonNumber> | null;
+    readonly transformerJsonBooleanBefore: JsonFunction<JsonBoolean> | null;
+    readonly transformerJsonNullBefore: JsonFunction<JsonNull> | null;
+    transformerPipe: JsonFunction;
+    readonly transformerJsonPrimitiveAfter: JsonFunction<JsonArray> | null;
+    readonly transformerJsonArrayAfter: JsonFunction<JsonArray> | null;
+    readonly transformerJsonMapAfter: JsonFunction<JsonMap> | null;
+    readonly transformerJsonStringAfter: JsonFunction<JsonString> | null;
+    readonly transformerJsonNumberAfter: JsonFunction<JsonNumber> | null;
+    readonly transformerJsonBooleanAfter: JsonFunction<JsonBoolean> | null;
+    readonly transformerJsonNullAfter: JsonFunction<JsonNull> | null;
+    readonly [key: string]: any;
+}
 export interface Data {
     [key: string]: JsonValue | JsonFunction | null;
 }

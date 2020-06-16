@@ -4,23 +4,22 @@
  * @license   MIT
  */
 
-import { JsonString, JsonFunction }                   from './interfaces';
-import { JsonTransformer, JsonTransformerParameters } from './transformer';
-import { JsonTransformerStringTemplate }              from './string_template'
+import { JsonString, JsonFunction }      from './interfaces';
+import { JsonTransformerParameters }     from './transformer';
+import { JsonTransformerStringTemplate } from './string_template'
 
 export 
-class JsonTransformerStringTemplateAfter extends JsonTransformer
+class JsonTransformerStringTemplateAfter extends JsonTransformerStringTemplate
 {/**
   * The string <code>init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * @param init = '$level'
+  * @param init = /\${([\w\d@_-]+)}/
   */
-  constructor (options: JsonTransformerParameters = {}) 
-  { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)}/}); }
+  constructor (_: JsonTransformerParameters = {}) { super(_); }
 
   transformerJsonStringAfter: JsonFunction<JsonString> = 
-    new JsonTransformerStringTemplate().transformerJsonStringBefore;
+    this.transformerJsonStringBefore;
 }
 
 export default JsonTransformerStringTemplate;

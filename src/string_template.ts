@@ -14,10 +14,10 @@ class JsonTransformerStringTemplate extends JsonTransformer
   * The string <code>init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * @param init = '$level'
+  * @param _.init = /\${([\w\d@_-]+)}/
   */
-  constructor (options: JsonTransformerParameters = {}) 
-  { super( { ...options, init: options?.init ?? /\${([\w\d@_-]+)}/}); }
+  constructor (_: JsonTransformerParameters = {}) 
+  { super( { ..._, init:_?.init ?? /\${([\w\d@_-]+)}/ }); }
 
   transformerJsonStringBefore: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 

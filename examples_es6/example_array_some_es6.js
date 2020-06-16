@@ -7,8 +7,11 @@
 // build and run
 //   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
-import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
-import JsonTransformerArraySome     from '@wljkowa/json-transformer/transformer/array_some.js';
+//import { JsonTransformerTraversal } from '@wljkowa/json-transformer/transformer/traversal';
+//import JsonTransformerTraversal     from '@wljkowa/json-transformer/transformer/traversal';
+import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
+import { JsonTransformerArraySome }   from '@wljkowa/json-transformer';
+import { JsonTransformerStringLevel } from '@wljkowa/json-transformer';
 
 import trace from './trace_es6';
 
@@ -25,5 +28,18 @@ trace.transform(transformer, ["$some"]);
 trace.transform(transformer, ["$some", 5]);
 for (let i = 0; i < 5; i++)
 { trace.transform(transformer, ["$some", 5, 7, 9]); }
+
+const
+  transformer2 =
+          new JsonTransformerTraversal()
+    .pipe(new JsonTransformerStringLevel())
+    .pipe(new JsonTransformerArraySome())
+    .root;
+
+for (let i = 0; i < 3; i++)
+{ trace.transform(transformer2, ["$some", "$level", ["$level"], [["$level"]]] ); }
+
+for (let i = 0; i < 3; i++)
+{ trace.transform(transformer2, { someValue: ["$some", "$level", ["$level"], [["$level"]]] }); }
 
 trace.end();

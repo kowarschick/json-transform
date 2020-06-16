@@ -46,7 +46,7 @@ class JsonTransformerArraySome extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
   { super( { ..._, init: _?.init ?? '$some'}); }
 
-  transformerJsonArrayAfter: JsonFunction<JsonArray> = 
+  transformerJsonArrayBefore: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 
   { const c_length = value.length;
     if (c_length === 0 || value[0] !== this.init)
@@ -56,6 +56,9 @@ class JsonTransformerArraySome extends JsonTransformer
            ? null
            : value[Math.floor(Math.random()*(c_length-1))+1];
   }
+
+  transformerJsonArrayAfter: JsonFunction<JsonArray> =
+    this.transformerJsonArrayBefore;
 }
 
 export default JsonTransformerArraySome;

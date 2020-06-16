@@ -5,13 +5,48 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonArray, JsonMap}               from './interfaces';
-import { JsonFunction, JsonFunctionParameters }       from './interfaces';
-import { JsonTransformer, JsonTransformerParameters } from './transformer';
+import { JsonValue, JsonPrimitive, JsonArray, JsonMap} from './interfaces';
+import { JsonFunction, JsonFunctionParameters }        from './interfaces';
+import { JsonTransformer, JsonTransformerParameters }  from './transformer';
 
 /**
  * This transformer applies its pipe transformer 
  * recursively to all elements of the JSON value. 
+ * 
+ * ```ts
+ * import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
+ * import { JsonTransformerStringLevel } from '@wljkowa/json-transformer';
+ * import { JsonTransformerArraySome }   from '@wljkowa/json-transformer';
+* 
+ * const t1 = new JsonTransformerTraversal();
+ * t1.pipe(new JsonTransformerStringLevel());
+ * 
+ * // // or:
+ * //
+ * //  const
+ * //    t1 =       new JsonTransformerTraversal()
+ * //         .pipe(new JsonTransformerStringLevel())
+ * //         .root;
+ * //
+ * //  // or:
+ * //  const t1 = new JsonTransformerTraversal
+ * //             ({ transformer: new JsonTransformerStringLevel() });
+ * 
+ * t1.transform({ value: $level }) 
+ * // => 0
+ * t1.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level"]]] })   
+ * // => [1, {"level": 2}, [2, [3]]] 
+ *  
+ * 
+ * const
+ *   t2 =       new JsonTransformerTraversal()
+ *        .pipe(new JsonTransformerStringLevel())
+ *        .pipe(new JsonTransformerArraySome())
+ *        .root;
+ * 
+ * t2.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] });
+ * // => 0, [1], or [[2]] 
+ * ```
  * 
  * @extends module:transformer.JsonTransformer
  *
@@ -21,6 +56,9 @@ export
 class JsonTransformerTraversal extends JsonTransformer
 { constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
+
+  transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive> =
+  ({value}: JsonFunctionParameters<JsonPrimitive>) => value;
 
   transformerJsonArrayAfter: JsonFunction<JsonArray> = 
   ({value, data, level}: JsonFunctionParameters<JsonArray>) => 

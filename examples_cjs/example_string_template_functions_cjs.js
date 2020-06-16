@@ -8,10 +8,10 @@
 //   node examples_cjs/example_string_template_functions_cjs.js
 
 const 
-  WLJKOWA_JSON                           = require('@wljkowa/json-transformer')
-  JsonTransformerTraversal               = WLJKOWA_JSON.JsonTransformerTraversal,
-  JsonTransformerStringLevel             = WLJKOWA_JSON.JsonTransformerStringLevel,
-  JsonTransformerStringTemplateFunctions = WLJKOWA_JSON.JsonTransformerStringTemplateFunctions,
+  JT                                     = require('@wljkowa/json-transformer')
+  JsonTransformerTraversal               = JT.JsonTransformerTraversal,
+  JsonTransformerStringLevel             = JT.JsonTransformerStringLevel,
+  JsonTransformerStringTemplateFunctions = JT.JsonTransformerStringTemplateFunctions,
 //JsonTransformerTraversal               = require('@wljkowa/json-transformer/transformer/traversal')
 //                                           .JsonTransformerTraversal,
 //JsonTransformerStringLevel             = require('@wljkowa/json-transformer/transformer/string_level')

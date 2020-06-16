@@ -28,7 +28,7 @@ export declare type JsonFunction<T extends JsonValue = JsonValue> = {
     init?: any;
 };
 export interface JsonTransformerProperties {
-    readonly transformerJsonPrimitiveBefore: JsonFunction<JsonArray> | null;
+    readonly transformerJsonPrimitiveBefore: JsonFunction<JsonPrimitive> | null;
     readonly transformerJsonArrayBefore: JsonFunction<JsonArray> | null;
     readonly transformerJsonMapBefore: JsonFunction<JsonMap> | null;
     readonly transformerJsonStringBefore: JsonFunction<JsonString> | null;
@@ -36,7 +36,7 @@ export interface JsonTransformerProperties {
     readonly transformerJsonBooleanBefore: JsonFunction<JsonBoolean> | null;
     readonly transformerJsonNullBefore: JsonFunction<JsonNull> | null;
     transformerPipe: JsonFunction;
-    readonly transformerJsonPrimitiveAfter: JsonFunction<JsonArray> | null;
+    readonly transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive> | null;
     readonly transformerJsonArrayAfter: JsonFunction<JsonArray> | null;
     readonly transformerJsonMapAfter: JsonFunction<JsonMap> | null;
     readonly transformerJsonStringAfter: JsonFunction<JsonString> | null;

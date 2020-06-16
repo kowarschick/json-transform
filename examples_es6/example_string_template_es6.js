@@ -7,16 +7,16 @@
 // build and run
 //   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
-//import JsonTransformerTraversal      from '@wljkowa/json/transformer/traversal.js';
-//import JsonTransformerStringLevel    from '@wljkowa/json/transformer/string_level.js';
-//import JsonTransformerStringTemplate from '@wljkowa/json/transformer/string_template.js';
+//import JsonTransformerTraversal      from '@wljkowa/json-transformer/transformer/traversal.js';
+//import JsonTransformerStringLevel    from '@wljkowa/json-transformer/transformer/string_level.js';
+//import JsonTransformerStringTemplate from '@wljkowa/json-transformer/transformer/string_template.js';
 
 import 
 { JsonTransformerTraversal, 
   JsonTransformerStringLevel,
   JsonTransformerStringTemplate
 } 
-from '@wljkowa/json';
+from '@wljkowa/json-transformer';
 
 import trace from './trace_es6';
  

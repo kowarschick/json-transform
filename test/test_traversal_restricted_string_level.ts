@@ -5,9 +5,9 @@
  */
 
 /*
-import { JsonTransformer }                    from '@wljkowa/json';
-import { JsonTransformerStringLevel }         from '@wljkowa/json';
-import { JsonTransformerTraversalRestricted } from '@wljkowa/json';
+import { JsonTransformer }                    from '@wljkowa/json-transformer';
+import { JsonTransformerStringLevel }         from '@wljkowa/json-transformer';
+import { JsonTransformerTraversalRestricted } from '@wljkowa/json-transformer';
 */
 
 import { JsonTransformer }                    from '~/transformer';

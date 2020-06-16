@@ -5,7 +5,7 @@
  */
 
 // run: 
-//   node examples_cjs/examples_cjs_js
+//   node examples_cjs/examples_cjs.js
 
 require('./example_array_some_cjs');
 require('./example_string_level_cjs');

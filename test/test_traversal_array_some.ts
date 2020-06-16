@@ -5,7 +5,7 @@
  */
 
 /*
-import { JsonTransformerArraySome } from '@wljkowa/json';
+import { JsonTransformerArraySome } from '@wljkowa/json-transformer';
 */
 
 import { JsonTransformerArraySome } from '~/array_some';

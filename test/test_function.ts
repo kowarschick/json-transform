@@ -5,13 +5,13 @@
  */
 
 /*
-import { JsonTransformerFunction }  from '@wljkowa/json';
-import { JsonFunctionStringLevel }  from '@wljkowa/json'
-import { JsonFunctionArraySome }    from '@wljkowa/json'
-import { JsonFunctionArrayCount }   from '@wljkowa/json'
-import { JsonFunctionArraySum }     from '@wljkowa/json'
-import { JsonFunctionArrayMin }     from '@wljkowa/json'
-import { JsonFunctionArrayMax }     from '@wljkowa/json'
+import { JsonTransformerFunction }  from '@wljkowa/json-transformer';
+import { JsonFunctionStringLevel }  from '@wljkowa/json-transformer'
+import { JsonFunctionArraySome }    from '@wljkowa/json-transformer'
+import { JsonFunctionArrayCount }   from '@wljkowa/json-transformer'
+import { JsonFunctionArraySum }     from '@wljkowa/json-transformer'
+import { JsonFunctionArrayMin }     from '@wljkowa/json-transformer'
+import { JsonFunctionArrayMax }     from '@wljkowa/json-transformer'
 */
 
 import { JsonTransformerFunction }  from '~/function';

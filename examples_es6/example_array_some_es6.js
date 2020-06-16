@@ -7,8 +7,8 @@
 // build and run
 //   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
-import { JsonTransformerTraversal } from '@wljkowa/json';
-import JsonTransformerArraySome     from '@wljkowa/json/transformer/array_some.js';
+import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+import JsonTransformerArraySome     from '@wljkowa/json-transformer/transformer/array_some.js';
 
 import trace from './trace_es6';
 

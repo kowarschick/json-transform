@@ -8,11 +8,11 @@
 //   node examples_cjs/example_array_some_cjs.js
 
 const 
-  WLJKOWA_JSON             = require('@wljkowa/json')
+  WLJKOWA_JSON             = require('@wljkowa/json-transformer')
   JsonTransformerTraversal = WLJKOWA_JSON.JsonTransformerTraversal,
   JsonTransformerArraySome = WLJKOWA_JSON.JsonTransformerArraySome,
-//JsonTransformerTraversal = require('@wljkowa/json/transformer/traversal') .JsonTransformerTraversal,
-//JsonTransformerArraySome = require('@wljkowa/json/transformer/array_some').JsonTransformerArraySome,
+//JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal') .JsonTransformerTraversal,
+//JsonTransformerArraySome = require('@wljkowa/json-transformer/transformer/array_some').JsonTransformerArraySome,
 
   trace                    = require('./trace_cjs'),
   

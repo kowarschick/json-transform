@@ -23,8 +23,8 @@ In addition, an environment object can be passed to both methods.
 The transformer functions can access the enviroment objects.
 
 ```bash
-import { JsonTransform }        from '@wljkowa/json-transform/json.transform';
-import { transformerArraySome } from '@wljkowa/json-transform/transformer/transformer.array.some'
+import { JsonTransform }        from '@wljkowa/json-transformer-transform/json.transform';
+import { transformerArraySome } from '@wljkowa/json-transformer-transform/transformer/transformer.array.some'
 
 let jsonTransform = new JsonTransform({}, [transformerArraySome]);
 

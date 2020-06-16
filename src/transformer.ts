@@ -87,6 +87,8 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * <h4>Examples</h4>
  *
  * ```ts
+ * import { JsonTransformer } from '@wljkowa/json-transformer';
+ * 
  * const t1 = new JsonTransformer();
  * 
  * t1.transform({ value: null })        // => null

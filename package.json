@@ -1,5 +1,5 @@
 {
-  "name": "@wljkowa/json",
+  "name": "@wljkowa/json-transformer",
   "version": "0.5.0",
   "author": "Wolfgang L. J. Kowarschick",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "prejsdoc:ts": "rm -rf doc/jsdoc_ts",
     "jsdoc:ts": "echo \"WARNING: Doen't work as expected\" && jsdoc -c jsdoc.ts.json",
     "prelink": "npm run build",
-    "link": "npm link  && npm i && npm link @wljkowa/json",
+    "link": "npm link  && npm i && npm link @wljkowa/json-transformer",
     "examples:dev": "webpack --mode development --config webpack.config.examples.js",
     "examples:prod": "webpack --mode production --config webpack.config.examples.js"
   },

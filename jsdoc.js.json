@@ -26,7 +26,7 @@
     },
  
     "wljkowa":
-    { "title": "@wljkowa/json",
+    { "title": "@wljkowa/json-transformer",
       "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
     }
   }

@@ -21,6 +21,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * <h4>Examples</h4>
  * 
  * ```ts
+ * import { JsonTransformerArraySome } from '@wljkowa/json-transformer';
+ * 
  * const t1 = new JsonTransformerArraySome();
  * 
  * t1.transform({ value: [ "$some", 4, 5] }) // => 4 or 5

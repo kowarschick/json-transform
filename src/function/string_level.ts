@@ -1,7 +1,7 @@
 /**
- * @module    'function/string.level'
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    module:function/string_level
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 

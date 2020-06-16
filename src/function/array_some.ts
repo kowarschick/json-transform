@@ -1,7 +1,7 @@
 /**
- * @module    'function/array.some'
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    module:function/array_some
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 

@@ -1,52 +1,34 @@
-{ "tags":
-    { "allowUnknownTags": true },
-    
-    "source":
-    { "include":        ["./transformer.commented/"],
-      "includePattern": ".+\\.(j|t)s$"
-    },
+{ "source":
+  { "include":        ["./transformer.commented/"],
+    "includePattern": ".+\\.js$"
+  },
 
-    "plugins": 
-    [ "node_modules/better-docs/typescript",
-      "jsdoc-plugin-intersection",
-      "plugins/markdown"
-    ],
-    
-    "opts":
-    { "template":    "node_modules/ink-docstrap/template",
-      "Xtemplate":   "node_modules/better-docs",
-      "encoding":    "utf8",
-      "destination": "doc/jsdoc_js",
-      "recurse":     true,
-      "private":     false
-    },
-    
-    "templates": 
-    { "systemName":        "@wljkowa/json",
-      "footer":            "",
-      "copyright":         "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>",
-      "navType":           "horizontal",
-      "theme":             "cosmo",
-      "linenums":          true,
-      "cleverLinks":       true,
-      "monospaceLinks":    false,
-      "collapseSymbols":   false,
-      "inverseNav":        false,
-      "outputSourceFiles": true,
-      "outputSourcePath":  false,
+  "tags":
+  { "allowUnknownTags": true,
+    "dictionaries":     ["jsdoc","closure"]
+  },
 
-      "better-docs": 
-      { "name": "AdminBro Documentation",
-          "Xlogo": "images/logo.png",
-          "title": "", 
-          "Xcss": "style.css",
-          "hideGenerator": true,
-          "navLinks": 
-          [ { "label": "Wolfgang L.J. Kowarschick",
-              "href": "https://kowa.hs-augsburg.de"
-            }
-          ]
-      }
+  "plugins": 
+  [ "plugins/markdown"
+  ],
+  
+  "opts":
+  { "NOPEtemplate": "node_modules/better-docs",
+    "encoding":     "utf8",
+    "destination":  "doc/jsdoc_js",
+    "recurse":      true,
+    "private":      true
+  },
+  
+  "templates": 
+  { "default":
+    { "layoutFile": "./jsdoc.tmpl"
+    },
+ 
+    "wljkowa":
+    { "title": "@wljkowa/json",
+      "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
     }
   }
+}
   

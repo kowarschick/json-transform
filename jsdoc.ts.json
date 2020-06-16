@@ -17,8 +17,7 @@
   ],
   
   "opts":
-  { "Xtemplate":     "node_modules/@jood/jsdoc-theme",
-    "NOPEtemplate": "node_modules/better-docs",
+  { "NOPEtemplate": "node_modules/better-docs",
     "encoding":     "utf8",
     "destination":  "doc/jsdoc_ts",
     "recurse":      true,
@@ -33,19 +32,6 @@
     "wljkowa":
     { "title": "@wljkowa/json",
       "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
-    },
-    
-    "better-docs": 
-    { "name": "@wljkowa/json",
-        "Xlogo": "images/logo.png",
-        "title": "", 
-        "Xcss": "style.css",
-        "hideGenerator": true,
-        "navLinks": 
-        [ { "label": "Wolfgang L.J. Kowarschick",
-            "href": "https://kowa.hs-augsburg.de"
-          }
-        ]
     }
   }
 }

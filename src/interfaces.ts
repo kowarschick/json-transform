@@ -1,10 +1,8 @@
 /**
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
-
-import { JsonTransformer } from './transformer';
 
 export type JsonString    = string;
 export type JsonNumber    = number;
@@ -16,6 +14,16 @@ export type JsonArray     = JsonValue[];
 export type JsonMap       = {[key: string]: JsonValue};
 export type JsonValue     = JsonPrimitive | JsonArray | JsonMap ;
 
+/**
+ * This is a typescript enumaration type to distinguish the different 
+ * types of JSON values ({@link JsonValue}). To access 
+ * a value just type <code>EnumJsonFunctionType.JsonString</code>,
+ * or <code>EnumJsonFunctionType.JsonArray</code> etc.
+ * <p>
+ * Values: <code>JsonPrimitive</code>, <code>JsonArray</code>, <code>JsonMap</code>, 
+ *         <code>JsonString</code>, <code>JsonNumber</code>, <code>JsonBoolean</code>,
+ *         <code>JsonNull</code>
+ */
 export enum EnumJsonFunctionType 
 { JsonPrimitive = 1,
   JsonArray     = 2, 
@@ -35,31 +43,6 @@ export type JsonFunction<T extends JsonValue = JsonValue> =
   init?: any 
 };
 
-/**
- *  @interface JsonTransformerProperties 
- *  @description
- *    This interface defines all transformer properties 
- *    that can be overridden in subclasses. You should never override
- *    BOTH <code>transformerJsonPartialXXX</code> and some 
- *    of the functions <code>transformerJsonStringXXX</code>,
- *    <code>transformerJsonNumberXXX</code>, <code>transformerJsonBooleanXXX</code>,
- *    or <code>transformerJsonNumberNull</code> within the same transformer.
- *  @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveBefore
- *  @property { JsonFunction<JsonArray>     | null } transformerJsonArrayBefore
- *  @property { JsonFunction<JsonMap>       | null } transformerJsonMapBefore
- *  @property { JsonFunction<JsonString>    | null } transformerJsonStringBefore
- *  @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberBefore
- *  @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanBefore
- *  @property { JsonFunction<JsonNull>      | null } transformerJsonNullBefore
- *  @property { JsonFunction }                       transformerPipe invoke the child transformer
- *  @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
- *  @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
- *  @property { JsonFunction<JsonMap>       | null } transformerJsonMapAfter
- *  @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
- *  @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
- *  @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter
- *  @property { JsonFunction<JsonNull>      | null } transformerJsonNullAfter 
- */
 export interface JsonTransformerProperties 
 { readonly transformerJsonPrimitiveBefore: JsonFunction<JsonArray>   | null;
   readonly transformerJsonArrayBefore:     JsonFunction<JsonArray>   | null;
@@ -82,14 +65,5 @@ export interface JsonTransformerProperties
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 };
             
-/**
- * @interface   {Data} 
- * @description 
- *   To JSON transformers and to JSON transformer functions
- *   data objects can be passed. The keys of those data objects
- *   must be strings, the values either JSON values ({@Link JsonValue})
- *   or JSON functions ({@Link JsonFunction}). Those values are nullable.
- * @property {(JsonValue|JsonFunction|null)} [key: string]
- */
 export interface Data 
 { [key: string]: JsonValue | JsonFunction | null; }

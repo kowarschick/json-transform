@@ -1,19 +1,14 @@
 /**
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    array_some
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
+
 
 import { JsonArray }                                  from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
-
-/**
- * @module module:array_some
- * @description
- * This module contains the class <code>JsonTransformerArraySome</code>.
- */
-
 
 /**
  * If the first element of the Array is equal to 
@@ -38,12 +33,9 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * t2.transform({ value: [ "@some", 4, 5 ] }) // => 4 or 5
  * t2.transform({ value: [ "$some", 4, 5 ] }) // => [ "$some", 4, 5 ]
  * ```
- *
- * @class
- * @extends  transformer.JsonTransformer
- * @memberof module:array_some
- * @exports  JsonTransformerArraySome
  * 
+ * @extends  module:transformer.JsonTransformer
+ *
  * @param {JsonTransformerParameters} _
  * @param {string} [_.init = '$some']
  */

@@ -1,6 +1,7 @@
 /**
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    traversal_restricted
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 
@@ -10,17 +11,13 @@ import { JsonTransformerTraversal }  from './traversal';
 import { JsonTransformerParameters } from './transformer';
 
 /**
- * @class
- * @Xextends JsonTransformer
- * @description
- *   extends {@link JsonTransformer}
- *   <p>
- *   This transformer applies the transformer passed as argument
- *   to the constructor or added by means of the <code>pipe</code>
- *   method recursively to elements of the JSON value that fulfil
- *   the following condition:
+ * This transformer applies its pipe transformer 
+ * recursively to all elements of the JSON value 
+ * that fulfil the following condition:
  * 
- *   ```this.init.minLevel <= _.level && _.level <= this.init.maxLevel``` 
+ * ```_.init.minLevel <= _.level && _.level <= _.init.maxLevel``` 
+ * 
+ * @extends module:traversal.JsonTransformerTraversal
  * 
  * @param {JsonTransformerParameters} _
  * @param {Object} _.init

@@ -1,37 +1,40 @@
 /**
- * @global
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */ 
 
 /*
- * As better-docs ignores @typedef delarations stated within a
- * .ts-file, the typedefs are stated in this .js-file.
+ * As @typedef declarations stated within a .ts-file are ignored, 
+ * the typedefs are stated in this .js-file.
  * 
  * The real typescript definitions can be found in the file 
  * interfaces.ts. 
  */
 
 /** 
+ * @global
  * @typedef {string} JsonString 
  * @description 
  *   <code>JsonString</code> is an alias for <code>string</code>; 
  */
 
 /** 
+ * @global
  * @typedef {string} JsonNumber 
  * @description 
  *   <code>JsonNumber</code> is an alias for <code>number</code>; 
  */
 
-/** 
+/**
+ * @global 
  * @typedef {string} JsonBoolean 
  * @description 
  *   <code>JsonBoolean</code> is an alias for <code>boolean</code>; 
  */
 
-/** 
+/**
+ * @global 
  * @typedef {string} JsonNull 
  * @description 
  *   <code>JsonNull</code> is an alias for <code>null | undefined</code>; 
@@ -41,13 +44,15 @@
  */
 
 /**
+ * @global
  * @typedef {(JsonString | JsonNumber | JsonBoolean | JsonNull)} JsonPrimitive 
  * @description
  *   A primitive JSON value is either a sring, a number, a boolean, 
  *   or <code>null</code>/<code>undefined</code>.
  */
 
-/** 
+/**
+ * @global 
  * @typedef {(JsonPrimitive|JsonArray|JsonMap)} JsonValue
  * @description 
  *   A JSON value is either a primitive value 
@@ -59,12 +64,14 @@
  */
 
 /**
+ * @global
  * @typedef {Array<JsonValue>} JsonArray 
  * @description
  *   A JSON array is an array of JSON values.
  */
 
 /** 
+ * @global 
  * @typedef {{KEY: JsonValue}} JsonMap 
  * @description
  *   A JSON map is an object whose whose attributes are key/value-pairs,
@@ -72,16 +79,8 @@
  *   <code>KEY</code> denotes <code>[key: string]</code>.
  */
 
- /** 
- * @typedef {JsonPrimitive | JsonArray | JsonMap | JsonString | JsonNumber | JsonBoolean | JsonNull} EnumJsonFunctionType  
- * @description
- *   This is a typescript enumaration type to distinguish the different 
- *   types of JSON values ({@link JsonValue}). To access 
- *   a value just type <code>EnumJsonFunctionType.JsonString</code>,
- *   or <code>EnumJsonFunctionType.JsonArray</code> etc.
- */
-
 /** 
+ * @global 
  * @description
  *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
  * @typedef {{value: T, data: Data, level: number}} JsonFunctionParameters
@@ -96,6 +95,7 @@
  */
 
 /** 
+ * @global 
  * @description
  *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
  *   <p>
@@ -129,4 +129,42 @@
  *              ?type: EnumJsonFunctionType, 
  *              ?init: any
  *           }} JsonFunction  
+ */
+
+/**
+ * @global 
+ * @interface JsonTransformerProperties
+ * @description
+ * This interface defines all transformer properties 
+ * that can be overridden in subclasses. You should never override
+ * BOTH <code>transformerJsonPartialXXX</code> and some 
+ * of the functions <code>transformerJsonStringXXX</code>,
+ * <code>transformerJsonNumberXXX</code>, <code>transformerJsonBooleanXXX</code>,
+ * or <code>transformerJsonNumberNull</code> within the same transformer.
+ * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveBefore
+ * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayBefore
+ * @property { JsonFunction<JsonMap>       | null } transformerJsonMapBefore
+ * @property { JsonFunction<JsonString>    | null } transformerJsonStringBefore
+ * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberBefore
+ * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanBefore
+ * @property { JsonFunction<JsonNull>      | null } transformerJsonNullBefore
+ * @property { JsonFunction }                       transformerPipe invoke the child transformer
+ * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
+ * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
+ * @property { JsonFunction<JsonMap>       | null } transformerJsonMapAfter
+ * @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
+ * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
+ * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter
+ * @property { JsonFunction<JsonNull>      | null } transformerJsonNullAfter 
+ */
+
+/**
+ * @global 
+ * @interface   Data 
+ * @description 
+ *   To JSON transformers and to JSON transformer functions
+ *   data objects can be passed. The keys of those data objects
+ *   must be strings, the values either JSON values ({@Link JsonValue})
+ *   or JSON functions ({@Link JsonFunction}). Those values are nullable.
+ * @property {(JsonValue|JsonFunction|null)} [key: string]
  */

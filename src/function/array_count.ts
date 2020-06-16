@@ -1,9 +1,8 @@
 /**
- * @module    'function/array.count'
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    module:function/array_count
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
- * 
  */
 
 import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '../interfaces';

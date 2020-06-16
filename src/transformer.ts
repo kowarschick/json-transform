@@ -1,6 +1,7 @@
 /**
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    transformer
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 
@@ -60,12 +61,6 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
 {};
 
 /**
- * @module transformer
- * @description
- * This module contains the class <code>JsonTransformer</code>.
- */
-
-/**
  * Objects of the class <code>JsonTransformer</code> recursivley transform JSON values 
  * in the same or other JSON values by applying JSON transformers. 
  * <p>
@@ -90,7 +85,7 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * methods that can be overridden are defined in
  * {@link JsonTransformerProperties}.
  * <h4>Examples</h4>
- * 
+ *
  * ```ts
  * const t1 = new JsonTransformer();
  * 
@@ -99,10 +94,8 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * t1.transform({ value: "abc" })       // => "abc"
  * t1.transform({ value: [ 1, 2, 3 ] }) // => [ 1, 2, 3 ] 
  * ```
- * @class    
+ * 
  * @extends JsonTransformerProperties
- * @memberof module:transformer
- * @exports  transformer.JsonTransformer
  * 
  * @param {JsonTransformerParameters} _
  *   An object containing the following attributes.
@@ -145,9 +138,8 @@ class JsonTransformer<T extends JsonValue = JsonValue>
   { return this.transformer?.transform(_) ?? _.value; }
 
  /**
+  * Transforms a JSON value into the same or another JSON value.
   * @method
-  * @description 
-  *   Transforms a JSON value into the same or another JSON value.
   * @param {Partial<JsonFunctionParameters<T>>} _
   *   An object containing the following attributes.
   * @param {JsonValue} [_.value = null]
@@ -191,6 +183,8 @@ class JsonTransformer<T extends JsonValue = JsonValue>
   }
 
   /**
+   * Replaces <code>this.transformer</code>, which is used for piping,
+   * by <code>transformer</code>.
    * @method
    * @param   {JsonTransformer} transformer
    * @returns {JsonTransformer} 
@@ -213,4 +207,5 @@ class JsonTransformer<T extends JsonValue = JsonValue>
   { return null; }
 }
 
+/** @export  JsonTransformer*/
 export default JsonTransformer;

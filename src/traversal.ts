@@ -1,6 +1,7 @@
 /**
- * @author    Wolfgang L.J. Kowarschick <kowa@hs-augsburg.de>
- * @copyright 2020 © Wolfgang L.J. Kowarschick
+ * @module    traversal
+ * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 
@@ -9,14 +10,12 @@ import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
- * @class
- * @Xextends JsonTransformer
- * @description
- *   extends {@link JsonTransformer}
- *   <p>
- *   This transformer applies the transformer passed as argument
- *   to the constructor or added by means of the <code>pipe</code>
- *   method recursively to all elements of the JSON value. 
+ * This transformer applies its pipe transformer 
+ * recursively to all elements of the JSON value. 
+ * 
+ * @extends module:transformer.JsonTransformer
+ *
+ * @param {JsonTransformerParameters} _
  */
 export 
 class JsonTransformerTraversal extends JsonTransformer
@@ -35,7 +34,7 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
-  transformerJsonMapAfter:  JsonFunction<JsonMap> = 
+  transformerJsonMapAfter: JsonFunction<JsonMap> = 
   ({value, data, level}: JsonFunctionParameters<JsonMap>) => 
   { const
       c_level = level+1,

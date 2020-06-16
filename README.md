@@ -37,7 +37,7 @@ See directories ```test``` and ```examples``` for more examples.
 
 The MIT License (MIT, <https://opensource.org/licenses/MIT>)
 
-Copyright © 2020 Wolfgang L.J. Kowarschick
+Copyright © 2020 Wolfgang L. J. Kowarschick
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

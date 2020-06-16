@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright © 2020 Wolfgang L.J. Kowarschick
+Copyright © 2020 Wolfgang L. J. Kowarschick
 
 All rights reserved.
 

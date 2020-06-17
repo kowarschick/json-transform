@@ -58,10 +58,10 @@ allTests
 allTests
 (      new JsonTransformer()
   .pipe(new JsonTransformerTraversal
-       ({data:        { "abc": 123, "hello": "Hallo" },
-         transformer: new JsonTransformerStringTemplate()
-       })
-      )
+         ({data:        { "abc": 123, "hello": "Hallo" },
+           transformer: new JsonTransformerStringTemplate()
+         })
+       )
   .root
 );
 

@@ -5,14 +5,12 @@
  */
 
 /*
-import { JsonTransformer }                        from '@wljkowa/json-transformer';
-import { JsonTransformerNull }                    from '@wljkowa/json-transformer';
-import { JsonTransformerStringTemplateFunctions } from '@wljkowa/json-transformer';
+import { JsonTransformer }     from '@wljkowa/json-transformer';
+import { JsonTransformerNull } from '@wljkowa/json-transformer';
 */
 
-import { JsonTransformer }                        from '~/transformer';
-import { JsonTransformerNull }                    from '~/null';
-import { JsonTransformerStringTemplateFunctions } from '~/string_template_functions';
+import { JsonTransformer }     from '~/transformer';
+import { JsonTransformerNull } from '~/null';
 
 { const c_t = new JsonTransformer();
 

@@ -27,7 +27,7 @@ function functionTests(transformer: JsonTransformerFunction)
   ( '"$level" should be transformed into 0', 
     () => { expect(transformer.transform({ value: "$level" })).toBe(0); }
   );
-/*s
+
   test
   ( '["$level"] should be transformed into ["$level"]', 
     () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
@@ -96,7 +96,7 @@ function functionTests(transformer: JsonTransformerFunction)
   test
   ( '["$max] should be transformed into -Infinity', 
     () => { expect(transformer.transform({ value: ["$max"] })).toBe(-Infinity); }
-  );*/
+  );
 }
 
 functionTests

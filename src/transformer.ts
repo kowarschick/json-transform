@@ -15,8 +15,8 @@ interface JsonTransformerInitProperties
 { readonly init:        any,
   readonly data:        Data,
   readonly level:       number,
-           transformer: JsonTransformer // The transformer may be added afterwards        
-};                                      // by means of the method "pipe".
+           transformer: JsonTransformer      
+};
 
 export 
 type JsonTransformerParameters = Partial<JsonTransformerInitProperties>;
@@ -135,7 +135,7 @@ class JsonTransformer
    *          Returns <code>transformer</code> after it has been
    *          appended as pipe transformer to <code>this</code>. 
    */
-  public pipe (transformer: JsonTransformer): JsonTransformer
+  public pipe(transformer: JsonTransformer): JsonTransformer
   { const 
       c_data = transformer.data;
       Object.setPrototypeOf(c_data, this.data);

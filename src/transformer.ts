@@ -5,45 +5,22 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonNull             } from "./interfaces";
-import { EJsonType            } from "./interfaces";
-import { JsonFunctionParameters          } from "./interfaces";
-import { JsonTransformerProperties, Data } from "./interfaces";
-
-const c_transformer_tests =
-{ [EJsonType.Primitive]: (_: JsonValue) => 
-                                        { const t = typeof _;
-                                          return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
-                                        },
-  [EJsonType.Array]:     (_: JsonValue) => (Array.isArray(_)),
-  [EJsonType.Object]:    (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
-  [EJsonType.String]:    (_: JsonValue) => (typeof _ === 'string'),
-  [EJsonType.Number]:    (_: JsonValue) => (typeof _ === 'number'),
-  [EJsonType.Boolean]:   (_: JsonValue) => (typeof _ === 'boolean'),
-  [EJsonType.Null]:      (_: JsonValue) => (_ == null),
-};
-
-const c_transformer_tests_after =
-{ transformerJsonPrimitiveAfter: c_transformer_tests[EJsonType.Primitive],
-  transformerJsonArrayAfter:     c_transformer_tests[EJsonType.Array],
-  transformerJsonObjectAfter:    c_transformer_tests[EJsonType.Object], 
-  transformerJsonStringAfter:    c_transformer_tests[EJsonType.String], 
-  transformerJsonNumberAfter:    c_transformer_tests[EJsonType.Number], 
-  transformerJsonBooleanAfter:   c_transformer_tests[EJsonType.Boolean], 
-  transformerJsonNullAfter:      c_transformer_tests[EJsonType.Null], 
-};
-
-export 
-type JsonTransformerParameters = Partial<JsonTransformerProperties>;
+import { DoIt, Data }                from "./interfaces";
+import { JsonValue }                 from "./interfaces";
+import { JsonFunctionParameters }    from "./interfaces";
+import { JsonTransformerProperties } from "./interfaces";
 
 export 
 interface JsonTransformerInitProperties 
 { readonly init:        any,
   readonly data:        Data,
   readonly level:       number,
-  
-  transformer: JsonTransformer            
-};         
+  readonly doit:        DoIt,
+           transformer: JsonTransformer // The transformer may be added afterwards        
+};                                      // by means of the method "pipe".
+
+export 
+type JsonTransformerParameters = Partial<JsonTransformerInitProperties>;
 
 export 
 interface JsonTransformer
@@ -82,6 +59,13 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * @param {JsonTransformer} [_.transformer = undefined]
  *   A transformer to which the JSON value is piped after it may have been transformed 
  *   by some before transformer. 
+ * @param {DoIt}  [_.doit = DoIt.Before]
+ *   States when the local transformations are to be done: 
+ *   <ul>
+ *   <li><code>DoIt.Before</code>: before the transformer pipe</li>
+ *   <li><code>DoIt.After</code>: after the transformer pipe</li>
+ *   <li><code>DoIt.Twice</code>: before and after the transformer pipe</li>
+ *   </ul>
  */
 export 
 class JsonTransformer
@@ -90,10 +74,11 @@ class JsonTransformer
       data        = {},
       level       = 0,
       transformer = undefined,
+      doit        = DoIt.Before,
     }: JsonTransformerParameters 
     = {}
   ) 
-  { Object.assign(this, {init, data, level, transformer});
+  { Object.assign(this, {init, data, level, transformer, doit});
     
     this._root = this; 
     
@@ -128,26 +113,29 @@ class JsonTransformer
   { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 
+    const
+      f_apply_functions = 
+      () =>
+      {  for (const [c_key, c_test] of Object.entries(c_transformer_tests))
+        { const c_transformer = this[c_key];
+        
+          if (c_transformer != null && c_test(l_value))
+          { l_value = c_transformer({value: value, data: c_data, level}); }
+        }
+  
+      }
     let l_value: JsonValue = value;
 
     // Do transformations before passing the value to the pipe.
-    for (const [c_key, c_test] of Object.entries(c_transformer_tests_before))
-    { const c_transformer = this[c_key];
-    
-      if (c_transformer != null && c_test(l_value))
-      { l_value = c_transformer({value: value, data: c_data, level}); }
-    }
+    if (this.doit === DoIt.Before || this.doit === DoIt.Twice)
+    f_apply_functions();
 
     // Pipe
     l_value = this.transformerPipe({value: l_value, data: c_data, level});
 
     // Do transformations after the value has been transformed by the pipe.
-    for (const [c_key, c_test] of Object.entries(c_transformer_tests_after))
-    { const c_transformer = this[c_key];
-
-      if (c_transformer != null && c_test(l_value))
-      { l_value = c_transformer({value: l_value, data: c_data, level}); }
-    }
+    if (this.doit === DoIt.After || this.doit === DoIt.Twice)
+    f_apply_functions();
 
     return l_value; 
   }
@@ -252,7 +240,7 @@ class JsonTransformer
   { return value == null; }
 }
 
-const c_transformer_tests_before =
+const c_transformer_tests =
 { transformerJsonPrimitive: JsonTransformer.isJsonPrimitive,
   transformerJsonArray:     JsonTransformer.isJsonArray,
   transformerJsonObject:    JsonTransformer.isJsonObject,  

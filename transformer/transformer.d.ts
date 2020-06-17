@@ -1,21 +1,30 @@
+import { DoIt, Data } from "./interfaces";
 import { JsonValue } from "./interfaces";
 import { JsonFunctionParameters } from "./interfaces";
-import { JsonTransformerProperties, Data } from "./interfaces";
-export declare type JsonTransformerParameters = Partial<JsonTransformerProperties>;
+import { JsonTransformerProperties } from "./interfaces";
 export interface JsonTransformerInitProperties {
     readonly init: any;
     readonly data: Data;
     readonly level: number;
-    transformer: JsonTransformer<JsonValue>;
+    readonly doit: DoIt;
+    transformer: JsonTransformer;
 }
-export interface JsonTransformer<T extends JsonValue> extends JsonTransformerInitProperties, JsonTransformerProperties {
+export declare type JsonTransformerParameters = Partial<JsonTransformerInitProperties>;
+export interface JsonTransformer extends JsonTransformerInitProperties, JsonTransformerProperties {
 }
-export declare class JsonTransformer<T extends JsonValue = JsonValue> {
-    constructor({ init, data, level, transformer, }?: JsonTransformerParameters);
+export declare class JsonTransformer {
+    constructor({ init, data, level, transformer, doit, }?: JsonTransformerParameters);
     private _root;
-    get root(): JsonTransformer<JsonValue>;
+    get root(): JsonTransformer;
     transformerPipe(_: JsonFunctionParameters): JsonValue;
-    transform({ value, data, level }: Partial<JsonFunctionParameters<T>>): JsonValue;
+    transform({ value, data, level }: Partial<JsonFunctionParameters<JsonValue>>): JsonValue;
     pipe(transformer: JsonTransformer): JsonTransformer;
+    static isJsonPrimitive(value: JsonValue): boolean;
+    static isJsonArray(value: JsonValue): boolean;
+    static isJsonObject(value: JsonValue): boolean;
+    static isJsonString(value: JsonValue): boolean;
+    static isJsonNumber(value: JsonValue): boolean;
+    static isJsonBoolean(value: JsonValue): boolean;
+    static isJsonNull(value: JsonValue): boolean;
 }
 export default JsonTransformer;

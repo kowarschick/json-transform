@@ -4,6 +4,5 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerArraySome extends JsonTransformer {
     constructor(_?: JsonTransformerParameters);
     transformerJsonArray: JsonFunction<JsonArray>;
-    transformerJsonArrayAfter: JsonFunction<JsonArray>;
 }
 export default JsonTransformerArraySome;

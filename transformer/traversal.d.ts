@@ -3,8 +3,8 @@ import { JsonFunction } from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerTraversal extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);
-    transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive>;
-    transformerJsonArrayAfter: JsonFunction<JsonArray>;
-    transformerJsonObjectAfter: JsonFunction<JsonObject>;
+    transformerJsonPrimitive: JsonFunction<JsonPrimitive>;
+    transformerJsonArray: JsonFunction<JsonArray>;
+    transformerJsonObject: JsonFunction<JsonObject>;
 }
 export default JsonTransformerTraversal;

@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
 
 /**
   * @function 
@@ -30,7 +30,7 @@ export function JsonFunctionArrayCount({value}: JsonFunctionParameters<JsonArray
   return value.length-1;
 }
 
-JsonFunctionArrayCount.type = EJsonType.Array;
+JsonFunctionArrayCount.type = JsonType.Array;
 JsonFunctionArrayCount.init = "$count";
 
 export default JsonFunctionArrayCount;

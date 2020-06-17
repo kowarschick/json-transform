@@ -1,7 +1,7 @@
-import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
 export declare function JsonFunctionArraySome({ value }: JsonFunctionParameters<JsonArray>): import("../interfaces").JsonValue;
 export declare namespace JsonFunctionArraySome {
-    var type: EJsonType;
+    var type: JsonType;
     var init: string;
 }
 export default JsonFunctionArraySome;

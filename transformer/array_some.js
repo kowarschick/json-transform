@@ -15,7 +15,6 @@ class JsonTransformerArraySome extends transformer_1.JsonTransformer {
                 ? null
                 : value[Math.floor(Math.random() * (c_length - 1)) + 1];
         };
-        this.transformerJsonArrayAfter = this.transformerJsonArray;
     }
 }
 exports.JsonTransformerArraySome = JsonTransformerArraySome;

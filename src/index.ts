@@ -6,7 +6,7 @@
 
 export { JsonString, JsonNumber, JsonBoolean, JsonNull,
          JsonPrimitive, JsonArray, JsonObject, JsonValue,
-         EJsonType,
+         JsonType, DoIt,
          JsonFunctionParameters, JsonFunction, 
          JsonTransformerProperties, 
          Data

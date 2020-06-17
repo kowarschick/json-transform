@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonTransformerStringTemplateFunctions = void 0;
 const transformer_1 = require("./transformer");
 class JsonTransformerStringTemplateFunctions extends transformer_1.JsonTransformer {
-    constructor(options = {}) {
+    constructor(_ = {}) {
         var _a;
-        super(Object.assign(Object.assign({}, options), { init: (_a = options === null || options === void 0 ? void 0 : options.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }));
+        super(Object.assign(Object.assign({}, _), { init: (_a = _ === null || _ === void 0 ? void 0 : _.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }));
         this.transformerJsonString = ({ value, data }) => {
             const c_regexp = new RegExp(this.init, 'g'), c_value = value, c_match = c_value.match(new RegExp(`^${this.init.toString().slice(1, -1)}$`)), f_split_placeholder = (p_name, p_arguments) => {
                 var _a;

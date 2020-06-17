@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-import { JsonString }                                 from './interfaces';
+import { DoIt, JsonString }                           from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -14,12 +14,13 @@ class JsonTransformerStringLevel extends JsonTransformer
   * The string <code>option.init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * @param options.init = '$level'
+  * @param _.init = '$level'
   */
-  constructor (options: JsonTransformerParameters = {}) 
-  { super( { ...options, init: options?.init ?? '$level'}); }
+  constructor (_: JsonTransformerParameters = {}) 
+  { super({ ..._, init: _?.init ?? '$level' });
+  }
 
-  transformerJsonStringAfter: JsonFunction<JsonString> = 
+  transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 
   { return (value === this.init) ? level : value; }
 }

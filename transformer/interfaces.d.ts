@@ -8,7 +8,7 @@ export declare type JsonObject = {
     [key: string]: JsonValue;
 };
 export declare type JsonValue = JsonPrimitive | JsonArray | JsonObject;
-export declare enum EJsonType {
+export declare enum JsonType {
     Primitive = 1,
     Array = 2,
     Object = 3,
@@ -17,6 +17,11 @@ export declare enum EJsonType {
     Boolean = 6,
     Null = 7
 }
+export declare enum DoIt {
+    Before = 1,
+    After = 2,
+    Twice = 3
+}
 export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
     value: T;
     data: Data;
@@ -24,7 +29,7 @@ export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
 };
 export declare type JsonFunction<T extends JsonValue = JsonValue> = {
     (_: JsonFunctionParameters<T>): JsonValue;
-    type?: EJsonType;
+    type?: JsonType;
     init?: any;
 };
 export interface JsonTransformerProperties {
@@ -36,13 +41,6 @@ export interface JsonTransformerProperties {
     readonly transformerJsonBoolean: JsonFunction<JsonBoolean> | null;
     readonly transformerJsonNull: JsonFunction<JsonNull> | null;
     transformerPipe: JsonFunction;
-    readonly transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive> | null;
-    readonly transformerJsonArrayAfter: JsonFunction<JsonArray> | null;
-    readonly transformerJsonObjectAfter: JsonFunction<JsonObject> | null;
-    readonly transformerJsonStringAfter: JsonFunction<JsonString> | null;
-    readonly transformerJsonNumberAfter: JsonFunction<JsonNumber> | null;
-    readonly transformerJsonBooleanAfter: JsonFunction<JsonBoolean> | null;
-    readonly transformerJsonNullAfter: JsonFunction<JsonNull> | null;
     readonly [key: string]: any;
 }
 export interface Data {

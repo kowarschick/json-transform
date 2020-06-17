@@ -15,23 +15,37 @@ export type JsonObject    = {[key: string]: JsonValue};
 export type JsonValue     = JsonPrimitive | JsonArray | JsonObject ;
 
 /**
- * This is a typescript enumaration type to distinguish the different 
- * types of JSON values ({@link JsonValue}). To access 
- * a value just type <code>EJsonType.String</code>,
- * or <code>EJsonType.Array</code> etc.
+ * This is a enumaration type to distinguish the different 
+ * types of JSON values ({@link JsonValue}).
  * <p>
- * Values: <code>Primitive</code>, <code>Array</code>, <code>Object</code>, 
- *         <code>String</code>, <code>Number</code>, <code>Boolean</code>,
- *         <code>Null</code>
+ * Values: <code>JsonType.Primitive</code>, <code>JsonType.Array</code>, 
+ *         <code>JsonType.Object</code>, <code>String.JsonType</code>, 
+ *         <code>JsonType.Number</code>, <code>JsonType.Boolean</code>,
+ *         <code>JsonType.Null</code>
  */
-export enum EJsonType 
+export enum JsonType 
 { Primitive = 1,
   Array     = 2, 
   Object    = 3,
   String    = 4,
   Number    = 5,
   Boolean   = 6,
-  Null      = 7
+  Null      = 7,
+}
+
+/**
+ * This is a enumaration type to state when the local transformers
+ * of a {@link JsonTransformers} should be applied.
+ * <ul>
+ *   <li><code>DoIt.Before</code>: before the transformer pipe</li>
+ *   <li><code>DoIt.After</code>: after the transformer pipe</li>
+ *   <li><code>DoIt.Twice</code>: before and after the transformer pipe</li>
+ * </ul>
+ */
+export enum DoIt 
+{ Before  = 1,
+  After   = 2, 
+  Twice   = 3,
 }
 
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
@@ -39,29 +53,21 @@ export type JsonFunctionParameters<T extends JsonValue = JsonValue> =
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
 { (_: JsonFunctionParameters<T>): JsonValue, 
-  type?: EJsonType, 
+  type?: JsonType, 
   init?: any 
 };
 
 export interface JsonTransformerProperties 
 { readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
   readonly transformerJsonArray:     JsonFunction<JsonArray>     | null;
-  readonly transformerJsonObject:    JsonFunction<JsonObject>       | null;
+  readonly transformerJsonObject:    JsonFunction<JsonObject>    | null;
   readonly transformerJsonString:    JsonFunction<JsonString>    | null;
   readonly transformerJsonNumber:    JsonFunction<JsonNumber>    | null;
   readonly transformerJsonBoolean:   JsonFunction<JsonBoolean>   | null;
   readonly transformerJsonNull:      JsonFunction<JsonNull>      | null;
           
-           transformerPipe:                JsonFunction;
-  
-  readonly transformerJsonPrimitiveAfter:  JsonFunction<JsonPrimitive> | null;
-  readonly transformerJsonArrayAfter:      JsonFunction<JsonArray>     | null;
-  readonly transformerJsonObjectAfter:     JsonFunction<JsonObject>       | null;
-  readonly transformerJsonStringAfter:     JsonFunction<JsonString>    | null;
-  readonly transformerJsonNumberAfter:     JsonFunction<JsonNumber>    | null;
-  readonly transformerJsonBooleanAfter:    JsonFunction<JsonBoolean>   | null;
-  readonly transformerJsonNullAfter:       JsonFunction<JsonNull>      | null;
- 
+           transformerPipe:          JsonFunction;
+
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 };
             

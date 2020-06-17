@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
 
 /**
   * @function 
@@ -32,7 +32,7 @@ export function JsonFunctionArrayMin({value}: JsonFunctionParameters<JsonArray>)
   return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), Infinity);
 }
 
-JsonFunctionArrayMin.type = EJsonType.Array;
+JsonFunctionArrayMin.type = JsonType.Array;
 JsonFunctionArrayMin.init = "$min";
 
 export default JsonFunctionArrayMin;

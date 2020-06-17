@@ -9,7 +9,7 @@ function JsonFunctionArrayMin({ value }) {
     return value.slice(1).reduce((m, v) => Math.min(m, v), Infinity);
 }
 exports.JsonFunctionArrayMin = JsonFunctionArrayMin;
-JsonFunctionArrayMin.type = interfaces_1.EJsonType.Array;
+JsonFunctionArrayMin.type = interfaces_1.JsonType.Array;
 JsonFunctionArrayMin.init = "$min";
 exports.default = JsonFunctionArrayMin;
 //# sourceMappingURL=array_min.js.map

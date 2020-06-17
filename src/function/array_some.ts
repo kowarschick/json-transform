@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
 
 /**
   * @function 
@@ -35,7 +35,7 @@ export function JsonFunctionArraySome({value}: JsonFunctionParameters<JsonArray>
          : value[Math.floor(Math.random()*(c_length-1))+1];
 }
 
-JsonFunctionArraySome.type = EJsonType.Array;
+JsonFunctionArraySome.type = JsonType.Array;
 JsonFunctionArraySome.init = "$some";
 
 export default JsonFunctionArraySome;

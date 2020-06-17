@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var interfaces_1 = require("./interfaces");
-Object.defineProperty(exports, "EJsonType", { enumerable: true, get: function () { return interfaces_1.EJsonType; } });
+Object.defineProperty(exports, "JsonType", { enumerable: true, get: function () { return interfaces_1.JsonType; } });
+Object.defineProperty(exports, "DoIt", { enumerable: true, get: function () { return interfaces_1.DoIt; } });
 var transformer_1 = require("./transformer");
 Object.defineProperty(exports, "JsonTransformer", { enumerable: true, get: function () { return transformer_1.JsonTransformer; } });
 var function_1 = require("./function");

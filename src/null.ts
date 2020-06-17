@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonNull }                                   from './interfaces';
+import { DoIt, JsonNull }                             from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -42,12 +42,13 @@ class JsonTransformerNull extends JsonTransformer
   * The string <code>option.init<code> is transformed into the current level number.
   * All other Templates are returned without modification.
   *
-  * @param options.init = '$level'
+  * @param _.init = '$level'
+  * @param _.doit = DoIt.After
   */
   constructor (_: JsonTransformerParameters = {}) 
   { super(_); }
 
-  transformerJsonNullAfter: JsonFunction<JsonNull> = 
+  transformerJsonNull: JsonFunction<JsonNull> = 
   ({value, level}: JsonFunctionParameters<JsonNull>) => 
   { return null; }
 }

@@ -1,7 +1,7 @@
-import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
 export declare function JsonFunctionArrayMax({ value }: JsonFunctionParameters<JsonArray>): import("../interfaces").JsonValue;
 export declare namespace JsonFunctionArrayMax {
-    var type: EJsonType;
+    var type: JsonType;
     var init: string;
 }
 export default JsonFunctionArrayMax;

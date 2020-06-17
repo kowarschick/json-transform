@@ -107,7 +107,7 @@
  *   additionally have properties. There are two properties that are important
  *   for json functions:
  *   <ul>
- *   <li><code>type?: {@link EJsonType}</code></li>
+ *   <li><code>type?: {@link JsonType}</code></li>
  *   <li><code>init?: any</code></li>
  *   </ul>
  *   <p>
@@ -126,7 +126,7 @@
  * @Xtypedef {(_: JsonFunctionParameters): JsonValue}    // Doen't work yet
  * @Xtypedef {(_: JsonFunctionParameters) => JsonValue}  // Doesn't work either
  * @Xtypedef {{ (_: JsonFunctionParameters): JsonValue}  // Nor this does work
- *              ?type: EJsonType, 
+ *              ?type: JsonType, 
  *              ?init: any
  *           }} JsonFunction  
  */

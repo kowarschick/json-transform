@@ -5,7 +5,7 @@ const transformer_1 = require("./transformer");
 class JsonTransformerNull extends transformer_1.JsonTransformer {
     constructor(_ = {}) {
         super(_);
-        this.transformerJsonNullAfter = ({ value, level }) => { return null; };
+        this.transformerJsonNull = ({ value, level }) => { return null; };
     }
 }
 exports.JsonTransformerNull = JsonTransformerNull;

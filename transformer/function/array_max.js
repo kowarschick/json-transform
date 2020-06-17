@@ -9,7 +9,7 @@ function JsonFunctionArrayMax({ value }) {
     return value.slice(1).reduce((m, v) => Math.max(m, v), -Infinity);
 }
 exports.JsonFunctionArrayMax = JsonFunctionArrayMax;
-JsonFunctionArrayMax.type = interfaces_1.EJsonType.Array;
+JsonFunctionArrayMax.type = interfaces_1.JsonType.Array;
 JsonFunctionArrayMax.init = "$max";
 exports.default = JsonFunctionArrayMax;
 //# sourceMappingURL=array_max.js.map

@@ -6,7 +6,7 @@
  */
 
 
-import { JsonArray }                                  from './interfaces';
+import { JsonArray, JsonValue }                       from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -44,7 +44,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export 
 class JsonTransformerArraySome extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super( { ..._, init: _?.init ?? '$some'}); }
+  { super({ ..._, init: _?.init ?? '$some' }); }
 
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 
@@ -56,9 +56,6 @@ class JsonTransformerArraySome extends JsonTransformer
            ? null
            : value[Math.floor(Math.random()*(c_length-1))+1];
   }
-
-  transformerJsonArrayAfter: JsonFunction<JsonArray> =
-    this.transformerJsonArray;
 }
 
 export default JsonTransformerArraySome;

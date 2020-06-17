@@ -53,6 +53,26 @@ import { JsonTransformerTraversalRestricted } from '~/traversal_restricted';
   );
 }
 
+{ const c_t: JsonTransformer = new JsonTransformerStringLevel({ transformer: new JsonTransformerStringLevel() });
+
+  test
+  ( '"$level" should be transformed into 0',
+    () => { expect(c_t.transform({ value: "$level" })).toStrictEqual(0); }      
+  ); 
+
+  test
+  ( '"@level" should not be transformed',
+    () => { expect(c_t.transform({ value: "@level" })).toStrictEqual("@level"); }        
+  );
+
+  test
+  ( '["$level", {"level": "$level"}, ["$level", ["$level"]]] should not be transformed',
+    () => { expect(c_t.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level"]]] })
+                  ).toStrictEqual(["$level", {"level": "$level"}, ["$level", ["$level"]]]); 
+          }      
+  );
+}
+
 function traversalTests(transformer: JsonTransformer)
 { test
   ( '"$level" should be transformed into 0',

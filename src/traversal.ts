@@ -45,7 +45,7 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  *        .root;
  * 
  * t2.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] });
- * // => 0, [1], or [[2]] 
+ * // => 1, [2], or [[3]] 
  * ```
  * 
  * @extends module:transformer.JsonTransformer
@@ -57,10 +57,10 @@ class JsonTransformerTraversal extends JsonTransformer
 { constructor (options: JsonTransformerParameters = {}) 
   { super(options); }
 
-  transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive> =
+  transformerJsonPrimitive: JsonFunction<JsonPrimitive> =
   ({value}: JsonFunctionParameters<JsonPrimitive>) => value;
 
-  transformerJsonArrayAfter: JsonFunction<JsonArray> = 
+  transformerJsonArray: JsonFunction<JsonArray> = 
   ({value, data, level}: JsonFunctionParameters<JsonArray>) => 
   { const
       c_level = level+1,
@@ -72,7 +72,7 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
-  transformerJsonObjectAfter: JsonFunction<JsonObject> = 
+  transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
   { const
       c_level = level+1,

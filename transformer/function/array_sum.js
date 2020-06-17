@@ -9,7 +9,7 @@ function JsonFunctionArraySum({ value }) {
     return value.slice(1).reduce((s, v) => s + v, 0);
 }
 exports.JsonFunctionArraySum = JsonFunctionArraySum;
-JsonFunctionArraySum.type = interfaces_1.EJsonType.Array;
+JsonFunctionArraySum.type = interfaces_1.JsonType.Array;
 JsonFunctionArraySum.init = "$sum";
 exports.default = JsonFunctionArraySum;
 //# sourceMappingURL=array_sum.js.map

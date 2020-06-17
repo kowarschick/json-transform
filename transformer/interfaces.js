@@ -1,15 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EJsonType = void 0;
-var EJsonType;
-(function (EJsonType) {
-    EJsonType[EJsonType["Primitive"] = 1] = "Primitive";
-    EJsonType[EJsonType["Array"] = 2] = "Array";
-    EJsonType[EJsonType["Object"] = 3] = "Object";
-    EJsonType[EJsonType["String"] = 4] = "String";
-    EJsonType[EJsonType["Number"] = 5] = "Number";
-    EJsonType[EJsonType["Boolean"] = 6] = "Boolean";
-    EJsonType[EJsonType["Null"] = 7] = "Null";
-})(EJsonType = exports.EJsonType || (exports.EJsonType = {}));
+exports.DoIt = exports.JsonType = void 0;
+var JsonType;
+(function (JsonType) {
+    JsonType[JsonType["Primitive"] = 1] = "Primitive";
+    JsonType[JsonType["Array"] = 2] = "Array";
+    JsonType[JsonType["Object"] = 3] = "Object";
+    JsonType[JsonType["String"] = 4] = "String";
+    JsonType[JsonType["Number"] = 5] = "Number";
+    JsonType[JsonType["Boolean"] = 6] = "Boolean";
+    JsonType[JsonType["Null"] = 7] = "Null";
+})(JsonType = exports.JsonType || (exports.JsonType = {}));
+var DoIt;
+(function (DoIt) {
+    DoIt[DoIt["Before"] = 1] = "Before";
+    DoIt[DoIt["After"] = 2] = "After";
+    DoIt[DoIt["Twice"] = 3] = "Twice";
+})(DoIt = exports.DoIt || (exports.DoIt = {}));
 ;
 //# sourceMappingURL=interfaces.js.map

@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonString, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonString, JsonFunctionParameters, JsonType } from '../interfaces';
 
 /**
   * @function 
@@ -26,7 +26,7 @@ import { JsonString, JsonFunctionParameters, EJsonType } from '../interfaces';
 export function JsonFunctionStringLevel({value, level}: JsonFunctionParameters<JsonString>)
 { return (value === JsonFunctionStringLevel.init) ? level : value; }
 
-JsonFunctionStringLevel.type = EJsonType.String;
+JsonFunctionStringLevel.type = JsonType.String;
 JsonFunctionStringLevel.init = "$level";
 
 export default JsonFunctionStringLevel;

@@ -5,15 +5,15 @@ const transformer_1 = require("./transformer");
 class JsonTransformerTraversal extends transformer_1.JsonTransformer {
     constructor(options = {}) {
         super(options);
-        this.transformerJsonPrimitiveAfter = ({ value }) => value;
-        this.transformerJsonArrayAfter = ({ value, data, level }) => {
+        this.transformerJsonPrimitive = ({ value }) => value;
+        this.transformerJsonArray = ({ value, data, level }) => {
             const c_level = level + 1, c_result = [];
             for (const c_json_value of value) {
                 c_result.push(this.transform({ value: c_json_value, data, level: c_level }));
             }
             return c_result;
         };
-        this.transformerJsonObjectAfter = ({ value, data, level }) => {
+        this.transformerJsonObject = ({ value, data, level }) => {
             const c_level = level + 1, c_result = {};
             for (const [c_key, c_value] of Object.entries(value)) {
                 c_result[this.transform({ value: c_key, data, level: c_level })]

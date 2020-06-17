@@ -3,6 +3,6 @@ import { JsonFunction } from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerNull extends JsonTransformer {
     constructor(_?: JsonTransformerParameters);
-    transformerJsonNullAfter: JsonFunction<JsonNull>;
+    transformerJsonNull: JsonFunction<JsonNull>;
 }
 export default JsonTransformerNull;

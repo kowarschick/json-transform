@@ -1,7 +1,7 @@
-import { JsonString, JsonFunctionParameters, EJsonType } from '../interfaces';
+import { JsonString, JsonFunctionParameters, JsonType } from '../interfaces';
 export declare function JsonFunctionStringLevel({ value, level }: JsonFunctionParameters<JsonString>): string | number;
 export declare namespace JsonFunctionStringLevel {
-    var type: EJsonType;
+    var type: JsonType;
     var init: string;
 }
 export default JsonFunctionStringLevel;

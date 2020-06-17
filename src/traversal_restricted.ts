@@ -29,13 +29,14 @@ import { JsonTransformerParameters } from './transformer';
  */
 export 
 class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
-{constructor (options: JsonTransformerParameters = {}) 
-  { super({ ...options, init: { minLevel: options?.init?.minLevel ?? 0,
-                                maxLevel: options?.init?.maxLevel ?? Infinity,
-                              }
+{constructor (_: JsonTransformerParameters = {}) 
+  { super({ ..._, init: { minLevel: _?.init?.minLevel ?? 0,
+                          maxLevel: _?.init?.maxLevel ?? Infinity,
+                        }
          }); 
   }
 
+  /** @override */
   transformerPipe(_: JsonFunctionParameters): JsonValue
   { return (this.init.minLevel <= _.level && _.level <= this.init.maxLevel)
            ? super.transformerPipe(_)

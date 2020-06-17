@@ -53,7 +53,7 @@ import { JsonTransformerTraversalRestricted } from '~/traversal_restricted';
   );
 }
 
-{ const c_t: JsonTransformer = new JsonTransformerStringLevel({ transformer: new JsonTransformerStringLevel() });
+{ const c_t: JsonTransformer = new JsonTransformerStringLevel().pipe(new JsonTransformerStringLevel()).root;
 
   test
   ( '"$level" should be transformed into 0',
@@ -92,7 +92,7 @@ function traversalTests(transformer: JsonTransformer)
   );
 }
 
-traversalTests(new JsonTransformerTraversalRestricted({transformer: new JsonTransformerStringLevel()}));
+traversalTests(new JsonTransformerTraversalRestricted().pipe(new JsonTransformerStringLevel()).root);
 
 { const c_t = new JsonTransformerTraversalRestricted();
   c_t.pipe(new JsonTransformerStringLevel());

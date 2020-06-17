@@ -5,14 +5,12 @@
  */
 
 /*
-import { DoIt }                       from '@wljkowa/json-transformer';
 import { JsonTransformer }            from '@wljkowa/json-transformer';
 import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
 import { JsonTransformerStringLevel } from '@wljkowa/json-transformer';
 import { JsonTransformerArraySome }   from '@wljkowa/json-transformer';
 */
 
-import { DoIt }                       from '~/interfaces';
 import { JsonTransformer }            from '~/transformer';
 import { JsonTransformerTraversal }   from '~/traversal';
 import { JsonTransformerStringLevel } from '~/string_level';
@@ -57,7 +55,7 @@ function traversalTests(transformer: JsonTransformer)
   );
 }
 
-traversalTests(new JsonTransformerTraversal({transformer: new JsonTransformerStringLevel()}));
+traversalTests(new JsonTransformerTraversal().pipe(new JsonTransformerStringLevel()).root);
 
 { const c_t = new JsonTransformerTraversal();
   c_t.pipe(new JsonTransformerStringLevel());

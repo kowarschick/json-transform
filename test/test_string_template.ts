@@ -56,16 +56,6 @@ allTests
 );
 
 allTests
-(      new JsonTransformer()
-  .pipe(new JsonTransformerTraversal
-         ({data:        { "abc": 123, "hello": "Hallo" },
-           transformer: new JsonTransformerStringTemplate()
-         })
-       )
-  .root
-);
-
-allTests
 (      new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerStringTemplate())
@@ -80,34 +70,10 @@ allTests
 );
 
 allTests
-( new JsonTransformerTraversal
-  ({ data:        
-      { "abc": 123, "hello": "Hallo" },
-     transformer:  
-       new JsonTransformerStringTemplate
-       ({ transformer:
-            new JsonTransformerStringLevel()
-       })
-  })
-);
-
-allTests
 (      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerStringTemplate())
   .pipe(new JsonTransformerStringLevel())
   .root
-);
-
-allTests
-( new JsonTransformerTraversal
-  ({ data:        
-      { "abc": 123, "hello": "Hallo" },
-     transformer:  
-       new JsonTransformerStringLevel
-       ({ transformer:
-            new JsonTransformerStringTemplate()
-       })
-  })
 );
 
 allTests

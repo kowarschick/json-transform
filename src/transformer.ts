@@ -12,10 +12,9 @@ import { JsonTransformerProperties } from "./interfaces";
 
 export 
 interface JsonTransformerInitProperties 
-{ readonly init:        any,
-  readonly data:        Data,
-  readonly level:       number,
-           transformer: JsonTransformer      
+{ readonly init:  any,
+  readonly data:  Data,
+  readonly level: number      
 };
 
 export 
@@ -55,9 +54,6 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  *   The current level of the JSON value. The level of the top JsonValue  
  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
  *   the level of the grand children is <code>2</code>, etc.
- * @param {JsonTransformer} [_.transformer = undefined]
- *   A transformer to which the JSON value is piped after it may have been transformed 
- *   by some before transformer. 
  */
 export 
 class JsonTransformer
@@ -65,23 +61,20 @@ class JsonTransformer
   ( { init        = undefined,
       data        = {},
       level       = 0,
-      transformer = undefined,
     }: JsonTransformerParameters 
     = {}
   ) 
-  { Object.assign(this, {init, data, level, transformer});
-    
+  { Object.assign(this, {init, data, level});
     this._root = this; 
-    
-    if (transformer != null)
-    { Object.setPrototypeOf(this.transformer.data, this.data) };
   }
+
+  protected pipeTransformer: JsonTransformer | null = null;
 
   private _root: JsonTransformer
   public get root() { return this._root};
   
   public transformerPipe(_: JsonFunctionParameters): JsonValue
-  { return this.transformer?.transform(_) ?? _.value; }
+  { return this.pipeTransformer?.transform(_) ?? _.value; }
 
  /**
   * Transforms a JSON value into the same or another JSON value.
@@ -141,7 +134,7 @@ class JsonTransformer
       Object.setPrototypeOf(c_data, this.data);
 
     transformer._root = this._root;
-    this.transformer  = transformer; 
+    this.pipeTransformer = transformer; 
 
     return transformer;
   }

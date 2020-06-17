@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
 
 /**
   * @function 
@@ -32,7 +32,7 @@ export function JsonFunctionArrayMin({value}: JsonFunctionParameters<JsonArray>)
   return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), Infinity);
 }
 
-JsonFunctionArrayMin.type = EnumJsonFunctionType.JsonArray;
+JsonFunctionArrayMin.type = EJsonType.Array;
 JsonFunctionArrayMin.init = "$min";
 
 export default JsonFunctionArrayMin;

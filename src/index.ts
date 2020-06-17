@@ -6,7 +6,7 @@
 
 export { JsonString, JsonNumber, JsonBoolean, JsonNull,
          JsonPrimitive, JsonArray, JsonMap, JsonValue,
-         EnumJsonFunctionType,
+         EJsonType,
          JsonFunctionParameters, JsonFunction, 
          JsonTransformerProperties, 
          Data

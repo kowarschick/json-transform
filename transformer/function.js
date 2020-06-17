@@ -8,26 +8,26 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
         var _a, _b, _c, _d;
         super(Object.assign(Object.assign({}, options), { init: Object.assign(Object.assign({}, options.init), { functionAttribute: (_b = (_a = options === null || options === void 0 ? void 0 : options.init) === null || _a === void 0 ? void 0 : _a.functionAttribute) !== null && _b !== void 0 ? _b : '$function' })
         }));
-        this.v_functions_before = { [interfaces_1.EnumJsonFunctionType.JsonArray]: {},
-            [interfaces_1.EnumJsonFunctionType.JsonMap]: {},
-            [interfaces_1.EnumJsonFunctionType.JsonString]: {},
+        this.v_functions_before = { [interfaces_1.EJsonType.Array]: {},
+            [interfaces_1.EJsonType.Object]: {},
+            [interfaces_1.EJsonType.String]: {},
         };
-        this.v_functions_after = { [interfaces_1.EnumJsonFunctionType.JsonArray]: {},
-            [interfaces_1.EnumJsonFunctionType.JsonMap]: {},
-            [interfaces_1.EnumJsonFunctionType.JsonString]: {},
+        this.v_functions_after = { [interfaces_1.EJsonType.Array]: {},
+            [interfaces_1.EJsonType.Object]: {},
+            [interfaces_1.EJsonType.String]: {},
         };
         this.transformerJsonArrayBefore = (_) => {
             if (_.value.length === 0) {
                 return _.value;
             }
-            const f = this.v_functions_before[interfaces_1.EnumJsonFunctionType.JsonArray][_.value[0]];
+            const f = this.v_functions_before[interfaces_1.EJsonType.Array][_.value[0]];
             return f == null ? _.value : f(_);
         };
         this.transformerJsonMapBefore = (_) => {
             var _a;
             const c_function_name = (_a = _.value[this.init.functionAttribute]) !== null && _a !== void 0 ? _a : '';
             if (typeof c_function_name === 'string' && _.value[c_function_name] != null) {
-                const f = this.v_functions_before[interfaces_1.EnumJsonFunctionType.JsonMap][c_function_name];
+                const f = this.v_functions_before[interfaces_1.EJsonType.Object][c_function_name];
                 return f == null ? _.value : f(_);
             }
             else {
@@ -35,21 +35,21 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
             }
         };
         this.transformerJsonStringBefore = (_) => {
-            const f = this.v_functions_before[interfaces_1.EnumJsonFunctionType.JsonString][_.value];
+            const f = this.v_functions_before[interfaces_1.EJsonType.String][_.value];
             return f == null ? _.value : f(_);
         };
         this.transformerJsonArrayAfter = (_) => {
             if (_.value.length === 0) {
                 return _.value;
             }
-            const f = this.v_functions_after[interfaces_1.EnumJsonFunctionType.JsonArray][_.value[0]];
+            const f = this.v_functions_after[interfaces_1.EJsonType.Array][_.value[0]];
             return f == null ? _.value : f(_);
         };
         this.transformerJsonMapAfter = (_) => {
             var _a;
             const c_function_name = (_a = _.value[this.init.functionAttribute]) !== null && _a !== void 0 ? _a : '';
             if (typeof c_function_name === 'string' && _.value[c_function_name] != null) {
-                const f = this.v_functions_after[interfaces_1.EnumJsonFunctionType.JsonMap][c_function_name];
+                const f = this.v_functions_after[interfaces_1.EJsonType.Object][c_function_name];
                 return f == null ? _.value : f(_);
             }
             else {
@@ -57,7 +57,7 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
             }
         };
         this.transformerJsonStringAfter = (_) => {
-            const f = this.v_functions_after[interfaces_1.EnumJsonFunctionType.JsonString][_.value];
+            const f = this.v_functions_after[interfaces_1.EJsonType.String][_.value];
             return f == null ? _.value : f(_);
         };
         if (Array.isArray((_c = options === null || options === void 0 ? void 0 : options.init) === null || _c === void 0 ? void 0 : _c.before)) {

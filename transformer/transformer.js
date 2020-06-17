@@ -2,32 +2,32 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonTransformer = void 0;
 const interfaces_1 = require("./interfaces");
-const c_transformer_tests = { [interfaces_1.EnumJsonFunctionType.JsonPrimitive]: (_) => {
+const c_transformer_tests = { [interfaces_1.EJsonType.Primitive]: (_) => {
         const t = typeof _;
         return t == null || t === 'string' || t === 'number' || t === 'boolean';
     },
-    [interfaces_1.EnumJsonFunctionType.JsonArray]: (_) => (Array.isArray(_)),
-    [interfaces_1.EnumJsonFunctionType.JsonMap]: (_) => (_ != null && typeof _ === 'object' && !Array.isArray(_)),
-    [interfaces_1.EnumJsonFunctionType.JsonString]: (_) => (typeof _ === 'string'),
-    [interfaces_1.EnumJsonFunctionType.JsonNumber]: (_) => (typeof _ === 'number'),
-    [interfaces_1.EnumJsonFunctionType.JsonBoolean]: (_) => (typeof _ === 'boolean'),
-    [interfaces_1.EnumJsonFunctionType.JsonNull]: (_) => (_ == null),
+    [interfaces_1.EJsonType.Array]: (_) => (Array.isArray(_)),
+    [interfaces_1.EJsonType.Object]: (_) => (_ != null && typeof _ === 'object' && !Array.isArray(_)),
+    [interfaces_1.EJsonType.String]: (_) => (typeof _ === 'string'),
+    [interfaces_1.EJsonType.Number]: (_) => (typeof _ === 'number'),
+    [interfaces_1.EJsonType.Boolean]: (_) => (typeof _ === 'boolean'),
+    [interfaces_1.EJsonType.Null]: (_) => (_ == null),
 };
-const c_transformer_tests_before = { transformerJsonPrimitiveBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonPrimitive],
-    transformerJsonArrayBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonArray],
-    transformerJsonMapBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonMap],
-    transformerJsonStringBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonString],
-    transformerJsonNumberBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonNumber],
-    transformerJsonBooleanBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonBoolean],
-    transformerJsonNullBefore: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonNull],
+const c_transformer_tests_before = { transformerJsonPrimitiveBefore: c_transformer_tests[interfaces_1.EJsonType.Primitive],
+    transformerJsonArrayBefore: c_transformer_tests[interfaces_1.EJsonType.Array],
+    transformerJsonMapBefore: c_transformer_tests[interfaces_1.EJsonType.Object],
+    transformerJsonStringBefore: c_transformer_tests[interfaces_1.EJsonType.String],
+    transformerJsonNumberBefore: c_transformer_tests[interfaces_1.EJsonType.Number],
+    transformerJsonBooleanBefore: c_transformer_tests[interfaces_1.EJsonType.Boolean],
+    transformerJsonNullBefore: c_transformer_tests[interfaces_1.EJsonType.Null],
 };
-const c_transformer_tests_after = { transformerJsonPrimitiveAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonPrimitive],
-    transformerJsonArrayAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonArray],
-    transformerJsonMapAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonMap],
-    transformerJsonStringAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonString],
-    transformerJsonNumberAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonNumber],
-    transformerJsonBooleanAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonBoolean],
-    transformerJsonNullAfter: c_transformer_tests[interfaces_1.EnumJsonFunctionType.JsonNull],
+const c_transformer_tests_after = { transformerJsonPrimitiveAfter: c_transformer_tests[interfaces_1.EJsonType.Primitive],
+    transformerJsonArrayAfter: c_transformer_tests[interfaces_1.EJsonType.Array],
+    transformerJsonMapAfter: c_transformer_tests[interfaces_1.EJsonType.Object],
+    transformerJsonStringAfter: c_transformer_tests[interfaces_1.EJsonType.String],
+    transformerJsonNumberAfter: c_transformer_tests[interfaces_1.EJsonType.Number],
+    transformerJsonBooleanAfter: c_transformer_tests[interfaces_1.EJsonType.Boolean],
+    transformerJsonNullAfter: c_transformer_tests[interfaces_1.EJsonType.Null],
 };
 ;
 ;

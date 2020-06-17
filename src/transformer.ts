@@ -6,41 +6,41 @@
  */
 
 import { JsonValue, JsonNull             } from "./interfaces";
-import { EnumJsonFunctionType            } from "./interfaces";
+import { EJsonType            } from "./interfaces";
 import { JsonFunctionParameters          } from "./interfaces";
 import { JsonTransformerProperties, Data } from "./interfaces";
 
 const c_transformer_tests =
-{ [EnumJsonFunctionType.JsonPrimitive]: (_: JsonValue) => 
+{ [EJsonType.Primitive]: (_: JsonValue) => 
                                         { const t = typeof _;
                                           return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
                                         },
-  [EnumJsonFunctionType.JsonArray]:     (_: JsonValue) => (Array.isArray(_)),
-  [EnumJsonFunctionType.JsonMap]:       (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
-  [EnumJsonFunctionType.JsonString]:    (_: JsonValue) => (typeof _ === 'string'),
-  [EnumJsonFunctionType.JsonNumber]:    (_: JsonValue) => (typeof _ === 'number'),
-  [EnumJsonFunctionType.JsonBoolean]:   (_: JsonValue) => (typeof _ === 'boolean'),
-  [EnumJsonFunctionType.JsonNull]:      (_: JsonValue) => (_ == null),
+  [EJsonType.Array]:     (_: JsonValue) => (Array.isArray(_)),
+  [EJsonType.Object]:       (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
+  [EJsonType.String]:    (_: JsonValue) => (typeof _ === 'string'),
+  [EJsonType.Number]:    (_: JsonValue) => (typeof _ === 'number'),
+  [EJsonType.Boolean]:   (_: JsonValue) => (typeof _ === 'boolean'),
+  [EJsonType.Null]:      (_: JsonValue) => (_ == null),
 };
 
 const c_transformer_tests_before =
-{ transformerJsonPrimitiveBefore: c_transformer_tests[EnumJsonFunctionType.JsonPrimitive],
-  transformerJsonArrayBefore:     c_transformer_tests[EnumJsonFunctionType.JsonArray],
-  transformerJsonMapBefore:       c_transformer_tests[EnumJsonFunctionType.JsonMap],  
-  transformerJsonStringBefore:    c_transformer_tests[EnumJsonFunctionType.JsonString], 
-  transformerJsonNumberBefore:    c_transformer_tests[EnumJsonFunctionType.JsonNumber], 
-  transformerJsonBooleanBefore:   c_transformer_tests[EnumJsonFunctionType.JsonBoolean], 
-  transformerJsonNullBefore:      c_transformer_tests[EnumJsonFunctionType.JsonNull], 
+{ transformerJsonPrimitiveBefore: c_transformer_tests[EJsonType.Primitive],
+  transformerJsonArrayBefore:     c_transformer_tests[EJsonType.Array],
+  transformerJsonMapBefore:       c_transformer_tests[EJsonType.Object],  
+  transformerJsonStringBefore:    c_transformer_tests[EJsonType.String], 
+  transformerJsonNumberBefore:    c_transformer_tests[EJsonType.Number], 
+  transformerJsonBooleanBefore:   c_transformer_tests[EJsonType.Boolean], 
+  transformerJsonNullBefore:      c_transformer_tests[EJsonType.Null], 
 };
 
 const c_transformer_tests_after =
-{ transformerJsonPrimitiveAfter: c_transformer_tests[EnumJsonFunctionType.JsonPrimitive],
-  transformerJsonArrayAfter:     c_transformer_tests[EnumJsonFunctionType.JsonArray],
-  transformerJsonMapAfter:       c_transformer_tests[EnumJsonFunctionType.JsonMap], 
-  transformerJsonStringAfter:    c_transformer_tests[EnumJsonFunctionType.JsonString], 
-  transformerJsonNumberAfter:    c_transformer_tests[EnumJsonFunctionType.JsonNumber], 
-  transformerJsonBooleanAfter:   c_transformer_tests[EnumJsonFunctionType.JsonBoolean], 
-  transformerJsonNullAfter:      c_transformer_tests[EnumJsonFunctionType.JsonNull], 
+{ transformerJsonPrimitiveAfter: c_transformer_tests[EJsonType.Primitive],
+  transformerJsonArrayAfter:     c_transformer_tests[EJsonType.Array],
+  transformerJsonMapAfter:       c_transformer_tests[EJsonType.Object], 
+  transformerJsonStringAfter:    c_transformer_tests[EJsonType.String], 
+  transformerJsonNumberAfter:    c_transformer_tests[EJsonType.Number], 
+  transformerJsonBooleanAfter:   c_transformer_tests[EJsonType.Boolean], 
+  transformerJsonNullAfter:      c_transformer_tests[EJsonType.Null], 
 };
 
 export 
@@ -61,11 +61,12 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
 {};
 
 /**
- * Objects of the class <code>JsonTransformer</code> recursivley transform JSON values 
- * in the same or other JSON values by applying JSON transformers. 
+ * Objects of the class <code>JsonTransformer</code> transform JSON values 
+ * into the same or other JSON values by applying JSON transformers. 
  * <p>
- * The main purpose of this class is to work as a superclass
- * for other, more elaborate transformers.
+ * The only purpose of this class is to work as a superclass
+ * for other, more elaborate transformers. It doesn't make 
+ * transformations by itself.
  * <p>
  * The transformation process is as follows: First this transformer
  * may transform the JSON value by one of its before-transformers. 
@@ -73,29 +74,6 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * Afterwards the resulting value may be transformed further by one of the 
  * after-transformers. Finally, the resulting JOSN value is returned to 
  * the caller.
- * <p>
- * This root transformer defines only one trivial transformer for
- * <code>null</code> values: The non JSON value <code>undefined</code>
- * is transformed into the JSON value <code>null</code>.
- * That transformation is usful as <code>undefined</code> 
- * should not e returned as JSON value. However, if
- * you don't like tha transformation, you can simply define
- * a subclass that overrides the method 
- * <code>transformerJsonNullAfter</code>. All transformer
- * methods that can be overridden are defined in
- * {@link JsonTransformerProperties}.
- * <h4>Examples</h4>
- *
- * ```ts
- * import { JsonTransformer } from '@wljkowa/json-transformer';
- * 
- * const t1 = new JsonTransformer();
- * 
- * t1.transform({ value: null })        // => null
- * t1.transform({ value: undefined })   // => undefined
- * t1.transform({ value: "abc" })       // => "abc"
- * t1.transform({ value: [ 1, 2, 3 ] }) // => [ 1, 2, 3 ] 
- * ```
  * 
  * @extends JsonTransformerProperties
  * 
@@ -203,10 +181,6 @@ class JsonTransformer<T extends JsonValue = JsonValue>
 
     return transformer;
   }
-
-  // replace the non JSON value undefined by the jason value null
-  public transformerJsonNullAfter (_: JsonFunctionParameters<JsonNull>): JsonValue
-  { return null; }
 }
 
 /** @export  JsonTransformer*/

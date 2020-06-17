@@ -8,7 +8,7 @@ export declare type JsonMap = {
     [key: string]: JsonValue;
 };
 export declare type JsonValue = JsonPrimitive | JsonArray | JsonMap;
-export declare enum EnumJsonFunctionType {
+export declare enum EJsonType {
     JsonPrimitive = 1,
     JsonArray = 2,
     JsonMap = 3,
@@ -24,7 +24,7 @@ export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
 };
 export declare type JsonFunction<T extends JsonValue = JsonValue> = {
     (_: JsonFunctionParameters<T>): JsonValue;
-    type?: EnumJsonFunctionType;
+    type?: EJsonType;
     init?: any;
 };
 export interface JsonTransformerProperties {

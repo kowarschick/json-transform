@@ -17,21 +17,21 @@ export type JsonValue     = JsonPrimitive | JsonArray | JsonMap ;
 /**
  * This is a typescript enumaration type to distinguish the different 
  * types of JSON values ({@link JsonValue}). To access 
- * a value just type <code>EnumJsonFunctionType.JsonString</code>,
- * or <code>EnumJsonFunctionType.JsonArray</code> etc.
+ * a value just type <code>EJsonType.String</code>,
+ * or <code>EJsonType.Array</code> etc.
  * <p>
- * Values: <code>JsonPrimitive</code>, <code>JsonArray</code>, <code>JsonMap</code>, 
- *         <code>JsonString</code>, <code>JsonNumber</code>, <code>JsonBoolean</code>,
- *         <code>JsonNull</code>
+ * Values: <code>Primitive</code>, <code>Array</code>, <code>Map</code>, 
+ *         <code>String</code>, <code>Number</code>, <code>Boolean</code>,
+ *         <code>Null</code>
  */
-export enum EnumJsonFunctionType 
-{ JsonPrimitive = 1,
-  JsonArray     = 2, 
-  JsonMap       = 3,
-  JsonString    = 4,
-  JsonNumber    = 5,
-  JsonBoolean   = 6,
-  JsonNull      = 7
+export enum EJsonType 
+{ Primitive = 1,
+  Array     = 2, 
+  Object    = 3,
+  String    = 4,
+  Number    = 5,
+  Boolean   = 6,
+  Null      = 7
 }
 
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
@@ -39,7 +39,7 @@ export type JsonFunctionParameters<T extends JsonValue = JsonValue> =
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
 { (_: JsonFunctionParameters<T>): JsonValue, 
-  type?: EnumJsonFunctionType, 
+  type?: EJsonType, 
   init?: any 
 };
 

@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
 
 /**
   * @function 
@@ -32,7 +32,7 @@ export function JsonFunctionArrayMax({value}: JsonFunctionParameters<JsonArray>)
   return value.slice(1).reduce( (m, v) => Math.max((m as number), (v as number)), -Infinity);
 }
 
-JsonFunctionArrayMax.type = EnumJsonFunctionType.JsonArray;
+JsonFunctionArrayMax.type = EJsonType.Array;
 JsonFunctionArrayMax.init = "$max";
 
 export default JsonFunctionArrayMax;

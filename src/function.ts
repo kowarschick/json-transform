@@ -5,7 +5,7 @@
  */
 
 import { JsonString, JsonArray, JsonMap}                              from './interfaces';
-import { EnumJsonFunctionType, JsonFunction, JsonFunctionParameters } from './interfaces';
+import { EJsonType, JsonFunction, JsonFunctionParameters } from './interfaces';
 import { JsonTransformer, JsonTransformerParameters }                 from './transformer';
 
 export 
@@ -59,16 +59,16 @@ class JsonTransformerFunction extends JsonTransformer
   }
 
   private v_functions_before: { [key: string]: {[key: string]: JsonFunction} } =
-          { [EnumJsonFunctionType.JsonArray]:  {},
-            [EnumJsonFunctionType.JsonMap]:    {},
-            [EnumJsonFunctionType.JsonString]: {}, 
+          { [EJsonType.Array]:  {},
+            [EJsonType.Object]:    {},
+            [EJsonType.String]: {}, 
           }
   ;
 
   private v_functions_after: { [key: string]: {[key: string]: JsonFunction} } =
-          { [EnumJsonFunctionType.JsonArray]:  {},
-            [EnumJsonFunctionType.JsonMap]:    {},
-            [EnumJsonFunctionType.JsonString]: {},
+          { [EJsonType.Array]:  {},
+            [EJsonType.Object]:    {},
+            [EJsonType.String]: {},
           }
   ;
   
@@ -77,7 +77,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_before[EnumJsonFunctionType.JsonArray][_.value[0] as string];
+    const f = this.v_functions_before[EJsonType.Array][_.value[0] as string];
     return f == null ? _.value : f(_);
   }
 
@@ -85,7 +85,7 @@ class JsonTransformerFunction extends JsonTransformer
   (_: JsonFunctionParameters<JsonMap>) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
-    { const f = this.v_functions_before[EnumJsonFunctionType.JsonMap][c_function_name]
+    { const f = this.v_functions_before[EJsonType.Object][c_function_name]
       return f == null ? _.value : f(_); 
     }
     else
@@ -94,7 +94,7 @@ class JsonTransformerFunction extends JsonTransformer
 
   transformerJsonStringBefore: JsonFunction<JsonString> = 
   (_: JsonFunctionParameters<JsonString>) => 
-  { const f = this.v_functions_before[EnumJsonFunctionType.JsonString][_.value as string];
+  { const f = this.v_functions_before[EJsonType.String][_.value as string];
     return f == null ? _.value : f(_);
   }
 
@@ -104,7 +104,7 @@ class JsonTransformerFunction extends JsonTransformer
   { if (_.value.length === 0)
     { return _.value; }
     
-    const f = this.v_functions_after[EnumJsonFunctionType.JsonArray][_.value[0] as string];
+    const f = this.v_functions_after[EJsonType.Array][_.value[0] as string];
     return f == null ? _.value : f(_);
   }
 
@@ -112,7 +112,7 @@ class JsonTransformerFunction extends JsonTransformer
   (_: JsonFunctionParameters<JsonMap>) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
-    { const f = this.v_functions_after[EnumJsonFunctionType.JsonMap][c_function_name]
+    { const f = this.v_functions_after[EJsonType.Object][c_function_name]
       return f == null ? _.value : f(_); 
     }
     else
@@ -121,7 +121,7 @@ class JsonTransformerFunction extends JsonTransformer
 
   transformerJsonStringAfter: JsonFunction<JsonString> = 
   (_: JsonFunctionParameters<JsonString>) => 
-  { const f = this.v_functions_after[EnumJsonFunctionType.JsonString][_.value as string];
+  { const f = this.v_functions_after[EJsonType.String][_.value as string];
     return f == null ? _.value : f(_);
   }
 }

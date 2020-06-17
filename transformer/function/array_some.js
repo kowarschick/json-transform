@@ -12,7 +12,7 @@ function JsonFunctionArraySome({ value }) {
         : value[Math.floor(Math.random() * (c_length - 1)) + 1];
 }
 exports.JsonFunctionArraySome = JsonFunctionArraySome;
-JsonFunctionArraySome.type = interfaces_1.EnumJsonFunctionType.JsonArray;
+JsonFunctionArraySome.type = interfaces_1.EJsonType.Array;
 JsonFunctionArraySome.init = "$some";
 exports.default = JsonFunctionArraySome;
 //# sourceMappingURL=array_some.js.map

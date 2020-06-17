@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonString, JsonFunctionParameters, EnumJsonFunctionType } from '../interfaces';
+import { JsonString, JsonFunctionParameters, EJsonType } from '../interfaces';
 
 /**
   * @function 
@@ -26,7 +26,7 @@ import { JsonString, JsonFunctionParameters, EnumJsonFunctionType } from '../int
 export function JsonFunctionStringLevel({value, level}: JsonFunctionParameters<JsonString>)
 { return (value === JsonFunctionStringLevel.init) ? level : value; }
 
-JsonFunctionStringLevel.type = EnumJsonFunctionType.JsonString;
+JsonFunctionStringLevel.type = EJsonType.String;
 JsonFunctionStringLevel.init = "$level";
 
 export default JsonFunctionStringLevel;

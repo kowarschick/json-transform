@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EnumJsonFunctionType = void 0;
-var EnumJsonFunctionType;
-(function (EnumJsonFunctionType) {
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonPrimitive"] = 1] = "JsonPrimitive";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonArray"] = 2] = "JsonArray";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonMap"] = 3] = "JsonMap";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonString"] = 4] = "JsonString";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonNumber"] = 5] = "JsonNumber";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonBoolean"] = 6] = "JsonBoolean";
-    EnumJsonFunctionType[EnumJsonFunctionType["JsonNull"] = 7] = "JsonNull";
-})(EnumJsonFunctionType = exports.EnumJsonFunctionType || (exports.EnumJsonFunctionType = {}));
+exports.EJsonType = void 0;
+var EJsonType;
+(function (EJsonType) {
+    EJsonType[EJsonType["JsonPrimitive"] = 1] = "JsonPrimitive";
+    EJsonType[EJsonType["JsonArray"] = 2] = "JsonArray";
+    EJsonType[EJsonType["JsonMap"] = 3] = "JsonMap";
+    EJsonType[EJsonType["JsonString"] = 4] = "JsonString";
+    EJsonType[EJsonType["JsonNumber"] = 5] = "JsonNumber";
+    EJsonType[EJsonType["JsonBoolean"] = 6] = "JsonBoolean";
+    EJsonType[EJsonType["JsonNull"] = 7] = "JsonNull";
+})(EJsonType = exports.EJsonType || (exports.EJsonType = {}));
 ;
 //# sourceMappingURL=interfaces.js.map

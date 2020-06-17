@@ -9,7 +9,7 @@ function JsonFunctionArrayCount({ value }) {
     return value.length - 1;
 }
 exports.JsonFunctionArrayCount = JsonFunctionArrayCount;
-JsonFunctionArrayCount.type = interfaces_1.EnumJsonFunctionType.JsonArray;
+JsonFunctionArrayCount.type = interfaces_1.EJsonType.Array;
 JsonFunctionArrayCount.init = "$count";
 exports.default = JsonFunctionArrayCount;
 //# sourceMappingURL=array_count.js.map

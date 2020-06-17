@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, EnumJsonFunctionType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, EJsonType } from '../interfaces';
 
 /**
   * @function 
@@ -31,7 +31,7 @@ export function JsonFunctionArraySum({value}: JsonFunctionParameters<JsonArray>)
   return value.slice(1).reduce( (s, v) => (s as number) + (v as number), 0);
 }
 
-JsonFunctionArraySum.type = EnumJsonFunctionType.JsonArray;
+JsonFunctionArraySum.type = EJsonType.Array;
 JsonFunctionArraySum.init = "$sum";
 
 export default JsonFunctionArraySum;

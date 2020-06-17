@@ -16,14 +16,14 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
             [interfaces_1.EJsonType.Object]: {},
             [interfaces_1.EJsonType.String]: {},
         };
-        this.transformerJsonArrayBefore = (_) => {
+        this.transformerJsonArray = (_) => {
             if (_.value.length === 0) {
                 return _.value;
             }
             const f = this.v_functions_before[interfaces_1.EJsonType.Array][_.value[0]];
             return f == null ? _.value : f(_);
         };
-        this.transformerJsonObjectBefore = (_) => {
+        this.transformerJsonObject = (_) => {
             var _a;
             const c_function_name = (_a = _.value[this.init.functionAttribute]) !== null && _a !== void 0 ? _a : '';
             if (typeof c_function_name === 'string' && _.value[c_function_name] != null) {
@@ -34,7 +34,7 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
                 return _.value;
             }
         };
-        this.transformerJsonStringBefore = (_) => {
+        this.transformerJsonString = (_) => {
             const f = this.v_functions_before[interfaces_1.EJsonType.String][_.value];
             return f == null ? _.value : f(_);
         };

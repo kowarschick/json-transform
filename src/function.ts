@@ -72,7 +72,7 @@ class JsonTransformerFunction extends JsonTransformer
           }
   ;
   
-  transformerJsonArrayBefore: JsonFunction<JsonArray> = 
+  transformerJsonArray: JsonFunction<JsonArray> = 
   (_: JsonFunctionParameters<JsonArray>) => 
   { if (_.value.length === 0)
     { return _.value; }
@@ -81,7 +81,7 @@ class JsonTransformerFunction extends JsonTransformer
     return f == null ? _.value : f(_);
   }
 
-  transformerJsonObjectBefore: JsonFunction<JsonObject> = 
+  transformerJsonObject: JsonFunction<JsonObject> = 
   (_: JsonFunctionParameters<JsonObject>) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
@@ -92,7 +92,7 @@ class JsonTransformerFunction extends JsonTransformer
     { return _.value; }
   }
 
-  transformerJsonStringBefore: JsonFunction<JsonString> = 
+  transformerJsonString: JsonFunction<JsonString> = 
   (_: JsonFunctionParameters<JsonString>) => 
   { const f = this.v_functions_before[EJsonType.String][_.value as string];
     return f == null ? _.value : f(_);

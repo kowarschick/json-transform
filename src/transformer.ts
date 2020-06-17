@@ -16,27 +16,17 @@ const c_transformer_tests =
                                           return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
                                         },
   [EJsonType.Array]:     (_: JsonValue) => (Array.isArray(_)),
-  [EJsonType.Object]:       (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
+  [EJsonType.Object]:    (_: JsonValue) => (_ != null && typeof _ === 'object' && !Array.isArray(_)), 
   [EJsonType.String]:    (_: JsonValue) => (typeof _ === 'string'),
   [EJsonType.Number]:    (_: JsonValue) => (typeof _ === 'number'),
   [EJsonType.Boolean]:   (_: JsonValue) => (typeof _ === 'boolean'),
   [EJsonType.Null]:      (_: JsonValue) => (_ == null),
 };
 
-const c_transformer_tests_before =
-{ transformerJsonPrimitiveBefore: c_transformer_tests[EJsonType.Primitive],
-  transformerJsonArrayBefore:     c_transformer_tests[EJsonType.Array],
-  transformerJsonObjectBefore:       c_transformer_tests[EJsonType.Object],  
-  transformerJsonStringBefore:    c_transformer_tests[EJsonType.String], 
-  transformerJsonNumberBefore:    c_transformer_tests[EJsonType.Number], 
-  transformerJsonBooleanBefore:   c_transformer_tests[EJsonType.Boolean], 
-  transformerJsonNullBefore:      c_transformer_tests[EJsonType.Null], 
-};
-
 const c_transformer_tests_after =
 { transformerJsonPrimitiveAfter: c_transformer_tests[EJsonType.Primitive],
   transformerJsonArrayAfter:     c_transformer_tests[EJsonType.Array],
-  transformerJsonObjectAfter:       c_transformer_tests[EJsonType.Object], 
+  transformerJsonObjectAfter:    c_transformer_tests[EJsonType.Object], 
   transformerJsonStringAfter:    c_transformer_tests[EJsonType.String], 
   transformerJsonNumberAfter:    c_transformer_tests[EJsonType.Number], 
   transformerJsonBooleanAfter:   c_transformer_tests[EJsonType.Boolean], 
@@ -52,11 +42,11 @@ interface JsonTransformerInitProperties
   readonly data:        Data,
   readonly level:       number,
   
-  transformer: JsonTransformer<JsonValue>             
+  transformer: JsonTransformer            
 };         
 
 export 
-interface JsonTransformer<T extends JsonValue> 
+interface JsonTransformer
 extends   JsonTransformerInitProperties, JsonTransformerProperties
 {};
 
@@ -94,7 +84,7 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  *   by some before transformer. 
  */
 export 
-class JsonTransformer<T extends JsonValue = JsonValue>
+class JsonTransformer
 { constructor
   ( { init        = undefined,
       data        = {},
@@ -122,7 +112,7 @@ class JsonTransformer<T extends JsonValue = JsonValue>
   * @method
   * @param {Partial<JsonFunctionParameters<T>>} _
   *   An object containing the following attributes.
-  * @param {JsonValue} [_.value = null]
+  * @param {T} [_.value = null]
   *   The JSON value to be transformed.
   * @param {Data} [_.data = {}]
   *   A data object the members of which can be used by transformers to replace
@@ -134,7 +124,7 @@ class JsonTransformer<T extends JsonValue = JsonValue>
   * @returns {JsonValue}
   *   The resulting JSON value.
   */
-  public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters<T>>): JsonValue
+  public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters<JsonValue>>): JsonValue
   { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 
@@ -181,7 +171,96 @@ class JsonTransformer<T extends JsonValue = JsonValue>
 
     return transformer;
   }
+
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonPrimitive}</code>.
+   */
+  public static isJsonPrimitive(value: JsonValue): boolean 
+  { const t = typeof value;
+    return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
+  }
+
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonArray}</code>.
+   */
+  public static isJsonArray(value: JsonValue): boolean
+  { return Array.isArray(value); }
+
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonObject}</code>.
+   */
+  public static isJsonObject(value: JsonValue): boolean
+  { return value != null && typeof value === 'object' && !Array.isArray(value); }
+  
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonString}</code>.
+   */
+  public static isJsonString(value: JsonValue): boolean
+  { return typeof value === 'string'; }
+  
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonNumber}</code>.
+   */
+  public static isJsonNumber(value: JsonValue): boolean
+  { return typeof value === 'number'; }
+  
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonBoolean}</code>.
+   */
+  public static isJsonBoolean(value: JsonValue): boolean
+  { return typeof value === 'boolean'; }
+  
+  /**
+   * @static
+   * @method
+   * @param   {JsonValue} value
+   * @returns {boolean} 
+   *          Returns <code>true</code> is <code>value</code> 
+   *          is a member of <code>{@link JsonNull}</code>.
+   */
+  public static isJsonNull(value: JsonValue): boolean
+  { return value == null; }
 }
+
+const c_transformer_tests_before =
+{ transformerJsonPrimitive: JsonTransformer.isJsonPrimitive,
+  transformerJsonArray:     JsonTransformer.isJsonArray,
+  transformerJsonObject:    JsonTransformer.isJsonObject,  
+  transformerJsonString:    JsonTransformer.isJsonString, 
+  transformerJsonNumber:    JsonTransformer.isJsonNumber, 
+  transformerJsonBoolean:   JsonTransformer.isJsonBoolean, 
+  transformerJsonNull:      JsonTransformer.isJsonNull, 
+};
 
 /** @export  JsonTransformer*/
 export default JsonTransformer;

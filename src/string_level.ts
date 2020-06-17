@@ -9,7 +9,7 @@ import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 export 
-class JsonTransformerStringLevel extends JsonTransformer<JsonString>
+class JsonTransformerStringLevel extends JsonTransformer
 {/**
   * The string <code>option.init<code> is transformed into the current level number.
   * All other Templates are returned without modification.

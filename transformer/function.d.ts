@@ -5,9 +5,9 @@ export declare class JsonTransformerFunction extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);
     private v_functions_before;
     private v_functions_after;
-    transformerJsonArrayBefore: JsonFunction<JsonArray>;
-    transformerJsonObjectBefore: JsonFunction<JsonObject>;
-    transformerJsonStringBefore: JsonFunction<JsonString>;
+    transformerJsonArray: JsonFunction<JsonArray>;
+    transformerJsonObject: JsonFunction<JsonObject>;
+    transformerJsonString: JsonFunction<JsonString>;
     transformerJsonArrayAfter: JsonFunction<JsonArray>;
     transformerJsonObjectAfter: JsonFunction<JsonObject>;
     transformerJsonStringAfter: JsonFunction<JsonString>;

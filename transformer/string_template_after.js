@@ -5,7 +5,7 @@ const string_template_1 = require("./string_template");
 class JsonTransformerStringTemplateAfter extends string_template_1.JsonTransformerStringTemplate {
     constructor(_ = {}) {
         super(_);
-        this.transformerJsonStringAfter = this.transformerJsonStringBefore;
+        this.transformerJsonStringAfter = this.transformerJsonString;
     }
 }
 exports.JsonTransformerStringTemplateAfter = JsonTransformerStringTemplateAfter;

@@ -141,13 +141,13 @@
  * of the functions <code>transformerJsonStringXXX</code>,
  * <code>transformerJsonNumberXXX</code>, <code>transformerJsonBooleanXXX</code>,
  * or <code>transformerJsonNumberNull</code> within the same transformer.
- * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveBefore
- * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayBefore
- * @property { JsonFunction<JsonObject>       | null } transformerJsonObjectBefore
- * @property { JsonFunction<JsonString>    | null } transformerJsonStringBefore
- * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberBefore
- * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanBefore
- * @property { JsonFunction<JsonNull>      | null } transformerJsonNullBefore
+ * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitive
+ * @property { JsonFunction<JsonArray>     | null } transformerJsonArray
+ * @property { JsonFunction<JsonObject>       | null } transformerJsonObject
+ * @property { JsonFunction<JsonString>    | null } transformerJsonString
+ * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumber
+ * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBoolean
+ * @property { JsonFunction<JsonNull>      | null } transformerJsonNull
  * @property { JsonFunction }                       transformerPipe invoke the child transformer
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter

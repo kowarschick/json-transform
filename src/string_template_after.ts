@@ -19,7 +19,7 @@ class JsonTransformerStringTemplateAfter extends JsonTransformerStringTemplate
   constructor (_: JsonTransformerParameters = {}) { super(_); }
 
   transformerJsonStringAfter: JsonFunction<JsonString> = 
-    this.transformerJsonStringBefore;
+    this.transformerJsonString;
 }
 
 export default JsonTransformerStringTemplate;

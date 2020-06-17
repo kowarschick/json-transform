@@ -19,7 +19,7 @@ class JsonTransformerStringTemplate extends JsonTransformer
   constructor (_: JsonTransformerParameters = {}) 
   { super( { ..._, init:_?.init ?? /\${([\w\d@_-]+)}/ }); }
 
-  transformerJsonStringBefore: JsonFunction<JsonString> = 
+  transformerJsonString: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 
   { const  
       c_regexp = new RegExp(this.init,'g'),

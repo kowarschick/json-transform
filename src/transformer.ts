@@ -58,9 +58,9 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
 export 
 class JsonTransformer
 { constructor
-  ( { init        = undefined,
-      data        = {},
-      level       = 0,
+  ( { init  = undefined,
+      data  = {},
+      level = 0,
     }: JsonTransformerParameters 
     = {}
   ) 
@@ -68,13 +68,19 @@ class JsonTransformer
     this._root = this; 
   }
 
-  protected pipeTransformer: JsonTransformer | null = null;
-
   private _root: JsonTransformer
   public get root() { return this._root};
-  
+ 
+  private _pipe_transformers: JsonTransformer[] = [];
+
   public transformerPipe(_: JsonFunctionParameters): JsonValue
-  { return this.pipeTransformer?.transform(_) ?? _.value; }
+  { let l_value: JsonValue = _.value
+    
+    for (const t of this._pipe_transformers)
+    { l_value = t.transform({value: l_value, data: _.data, level: _.level}); }; 
+
+    return l_value
+  }
 
  /**
   * Transforms a JSON value into the same or another JSON value.
@@ -97,21 +103,15 @@ class JsonTransformer
   { const c_data = { ...data }; 
     Object.setPrototypeOf(c_data, this.data );
 
-    const
-      f_apply_functions = 
-      () =>
-      {  for (const [c_key, c_test] of Object.entries(c_transformer_tests))
-        { const c_transformer = this[c_key];
-        
-          if (c_transformer != null && c_test(l_value))
-          { l_value = c_transformer({value: value, data: c_data, level}); }
-        }
-  
-      }
     let l_value: JsonValue = value;
 
-    // Do transformations before passing the value to the pipe.
-    f_apply_functions();
+    // Do local transformations before passing the value to the pipe.
+    for (const [c_key, c_test] of Object.entries(c_transformer_tests))
+    { const c_transformer = this[c_key];
+    
+      if (c_transformer != null && c_test(l_value))
+      { l_value = c_transformer({value: value, data: c_data, level}); }
+    }
 
     // Pipe
     l_value = this.transformerPipe({value: l_value, data: c_data, level});
@@ -128,15 +128,24 @@ class JsonTransformer
    *          Returns <code>transformer</code> after it has been
    *          appended as pipe transformer to <code>this</code>. 
    */
-  public pipe(transformer: JsonTransformer): JsonTransformer
+  public pipe(transformers: JsonTransformer | JsonTransformer[]): JsonTransformer
   { const 
-      c_data = transformer.data;
+      c_transformers = Array.isArray(transformers) ? transformers : [transformers];
+
+    if (c_transformers.length === 0)
+    { this._pipe_transformers = [];
+      return this; 
+    }
+
+    for (const t of c_transformers)
+    { const c_data = t.data;
       Object.setPrototypeOf(c_data, this.data);
+      t._root = this._root;
+    }
+     
+    this._pipe_transformers = c_transformers; 
 
-    transformer._root = this._root;
-    this.pipeTransformer = transformer; 
-
-    return transformer;
+    return c_transformers[0];
   }
 
   /**

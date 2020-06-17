@@ -33,21 +33,6 @@ export enum JsonType
   Null      = 7,
 }
 
-/**
- * This is a enumaration type to state when the local transformers
- * of a {@link JsonTransformers} should be applied.
- * <ul>
- *   <li><code>DoIt.Before</code>: before the transformer pipe</li>
- *   <li><code>DoIt.After</code>: after the transformer pipe</li>
- *   <li><code>DoIt.Twice</code>: before and after the transformer pipe</li>
- * </ul>
- */
-export enum DoIt 
-{ Before  = 1,
-  After   = 2, 
-  Twice   = 3,
-}
-
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
 {value: T, data: Data, level: number};
 

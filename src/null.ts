@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { DoIt, JsonNull }                             from './interfaces';
+import { JsonNull }                                   from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -43,7 +43,6 @@ class JsonTransformerNull extends JsonTransformer
   * All other Templates are returned without modification.
   *
   * @param _.init = '$level'
-  * @param _.doit = DoIt.After
   */
   constructor (_: JsonTransformerParameters = {}) 
   { super(_); }

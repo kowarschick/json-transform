@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-import { DoIt, JsonString }                           from './interfaces';
+import { JsonString }                                 from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 

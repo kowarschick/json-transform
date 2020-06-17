@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { DoIt, Data }                from "./interfaces";
+import { Data }                      from "./interfaces";
 import { JsonValue }                 from "./interfaces";
 import { JsonFunctionParameters }    from "./interfaces";
 import { JsonTransformerProperties } from "./interfaces";
@@ -15,7 +15,6 @@ interface JsonTransformerInitProperties
 { readonly init:        any,
   readonly data:        Data,
   readonly level:       number,
-  readonly doit:        DoIt,
            transformer: JsonTransformer // The transformer may be added afterwards        
 };                                      // by means of the method "pipe".
 
@@ -59,13 +58,6 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * @param {JsonTransformer} [_.transformer = undefined]
  *   A transformer to which the JSON value is piped after it may have been transformed 
  *   by some before transformer. 
- * @param {DoIt}  [_.doit = DoIt.Before]
- *   States when the local transformations are to be done: 
- *   <ul>
- *   <li><code>DoIt.Before</code>: before the transformer pipe</li>
- *   <li><code>DoIt.After</code>: after the transformer pipe</li>
- *   <li><code>DoIt.Twice</code>: before and after the transformer pipe</li>
- *   </ul>
  */
 export 
 class JsonTransformer
@@ -74,11 +66,10 @@ class JsonTransformer
       data        = {},
       level       = 0,
       transformer = undefined,
-      doit        = DoIt.Before,
     }: JsonTransformerParameters 
     = {}
   ) 
-  { Object.assign(this, {init, data, level, transformer, doit});
+  { Object.assign(this, {init, data, level, transformer});
     
     this._root = this; 
     
@@ -127,15 +118,10 @@ class JsonTransformer
     let l_value: JsonValue = value;
 
     // Do transformations before passing the value to the pipe.
-    if (this.doit === DoIt.Before || this.doit === DoIt.Twice)
     f_apply_functions();
 
     // Pipe
     l_value = this.transformerPipe({value: l_value, data: c_data, level});
-
-    // Do transformations after the value has been transformed by the pipe.
-    if (this.doit === DoIt.After || this.doit === DoIt.Twice)
-    f_apply_functions();
 
     return l_value; 
   }

@@ -5,20 +5,20 @@
  */
 
 /*
-import { JsonValue, JsonMap, Data }               from '@wljkowa/json-transformer';
+import { JsonValue, JsonObject, Data }               from '@wljkowa/json-transformer';
 import { JsonFunctionParameters }                 from '@wljkowa/json-transformer';
 import { JsonTransformer }                        from '@wljkowa/json-transformer';
 import { JsonTransformerStringTemplateFunctions } from '@wljkowa/json-transformer';
 import { JsonTransformerTraversal }               from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, JsonMap, Data }               from '~/interfaces';
+import { JsonValue, JsonObject, Data }               from '~/interfaces';
 import { JsonFunctionParameters }                 from '~/interfaces';
 import { JsonTransformer }                        from '~/transformer';
 import { JsonTransformerStringTemplateFunctions } from '~/string_template_functions';
 import { JsonTransformerTraversal }               from '~/traversal';
 
-interface Point extends JsonMap
+interface Point extends JsonObject
 { x: number,
   y: number
 }

@@ -1,4 +1,4 @@
-export { JsonString, JsonNumber, JsonBoolean, JsonNull, JsonPrimitive, JsonArray, JsonMap, JsonValue, EJsonType, JsonFunctionParameters, JsonFunction, JsonTransformerProperties, Data } from './interfaces';
+export { JsonString, JsonNumber, JsonBoolean, JsonNull, JsonPrimitive, JsonArray, JsonObject, JsonValue, EJsonType, JsonFunctionParameters, JsonFunction, JsonTransformerProperties, Data } from './interfaces';
 export { JsonTransformer } from './transformer';
 export { JsonTransformerFunction } from './function';
 export { JsonTransformerTraversal } from './traversal';

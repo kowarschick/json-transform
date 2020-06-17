@@ -26,7 +26,7 @@ const c_transformer_tests =
 const c_transformer_tests_before =
 { transformerJsonPrimitiveBefore: c_transformer_tests[EJsonType.Primitive],
   transformerJsonArrayBefore:     c_transformer_tests[EJsonType.Array],
-  transformerJsonMapBefore:       c_transformer_tests[EJsonType.Object],  
+  transformerJsonObjectBefore:       c_transformer_tests[EJsonType.Object],  
   transformerJsonStringBefore:    c_transformer_tests[EJsonType.String], 
   transformerJsonNumberBefore:    c_transformer_tests[EJsonType.Number], 
   transformerJsonBooleanBefore:   c_transformer_tests[EJsonType.Boolean], 
@@ -36,7 +36,7 @@ const c_transformer_tests_before =
 const c_transformer_tests_after =
 { transformerJsonPrimitiveAfter: c_transformer_tests[EJsonType.Primitive],
   transformerJsonArrayAfter:     c_transformer_tests[EJsonType.Array],
-  transformerJsonMapAfter:       c_transformer_tests[EJsonType.Object], 
+  transformerJsonObjectAfter:       c_transformer_tests[EJsonType.Object], 
   transformerJsonStringAfter:    c_transformer_tests[EJsonType.String], 
   transformerJsonNumberAfter:    c_transformer_tests[EJsonType.Number], 
   transformerJsonBooleanAfter:   c_transformer_tests[EJsonType.Boolean], 

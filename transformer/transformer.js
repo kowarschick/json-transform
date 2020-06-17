@@ -15,7 +15,7 @@ const c_transformer_tests = { [interfaces_1.EJsonType.Primitive]: (_) => {
 };
 const c_transformer_tests_before = { transformerJsonPrimitiveBefore: c_transformer_tests[interfaces_1.EJsonType.Primitive],
     transformerJsonArrayBefore: c_transformer_tests[interfaces_1.EJsonType.Array],
-    transformerJsonMapBefore: c_transformer_tests[interfaces_1.EJsonType.Object],
+    transformerJsonObjectBefore: c_transformer_tests[interfaces_1.EJsonType.Object],
     transformerJsonStringBefore: c_transformer_tests[interfaces_1.EJsonType.String],
     transformerJsonNumberBefore: c_transformer_tests[interfaces_1.EJsonType.Number],
     transformerJsonBooleanBefore: c_transformer_tests[interfaces_1.EJsonType.Boolean],
@@ -23,7 +23,7 @@ const c_transformer_tests_before = { transformerJsonPrimitiveBefore: c_transform
 };
 const c_transformer_tests_after = { transformerJsonPrimitiveAfter: c_transformer_tests[interfaces_1.EJsonType.Primitive],
     transformerJsonArrayAfter: c_transformer_tests[interfaces_1.EJsonType.Array],
-    transformerJsonMapAfter: c_transformer_tests[interfaces_1.EJsonType.Object],
+    transformerJsonObjectAfter: c_transformer_tests[interfaces_1.EJsonType.Object],
     transformerJsonStringAfter: c_transformer_tests[interfaces_1.EJsonType.String],
     transformerJsonNumberAfter: c_transformer_tests[interfaces_1.EJsonType.Number],
     transformerJsonBooleanAfter: c_transformer_tests[interfaces_1.EJsonType.Boolean],
@@ -69,7 +69,6 @@ class JsonTransformer {
         this.transformer = transformer;
         return transformer;
     }
-    transformerJsonNullAfter(_) { return null; }
 }
 exports.JsonTransformer = JsonTransformer;
 exports.default = JsonTransformer;

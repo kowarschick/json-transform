@@ -3,13 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EJsonType = void 0;
 var EJsonType;
 (function (EJsonType) {
-    EJsonType[EJsonType["JsonPrimitive"] = 1] = "JsonPrimitive";
-    EJsonType[EJsonType["JsonArray"] = 2] = "JsonArray";
-    EJsonType[EJsonType["JsonMap"] = 3] = "JsonMap";
-    EJsonType[EJsonType["JsonString"] = 4] = "JsonString";
-    EJsonType[EJsonType["JsonNumber"] = 5] = "JsonNumber";
-    EJsonType[EJsonType["JsonBoolean"] = 6] = "JsonBoolean";
-    EJsonType[EJsonType["JsonNull"] = 7] = "JsonNull";
+    EJsonType[EJsonType["Primitive"] = 1] = "Primitive";
+    EJsonType[EJsonType["Array"] = 2] = "Array";
+    EJsonType[EJsonType["Object"] = 3] = "Object";
+    EJsonType[EJsonType["String"] = 4] = "String";
+    EJsonType[EJsonType["Number"] = 5] = "Number";
+    EJsonType[EJsonType["Boolean"] = 6] = "Boolean";
+    EJsonType[EJsonType["Null"] = 7] = "Null";
 })(EJsonType = exports.EJsonType || (exports.EJsonType = {}));
 ;
 //# sourceMappingURL=interfaces.js.map

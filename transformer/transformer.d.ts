@@ -1,4 +1,4 @@
-import { JsonValue, JsonNull } from "./interfaces";
+import { JsonValue } from "./interfaces";
 import { JsonFunctionParameters } from "./interfaces";
 import { JsonTransformerProperties, Data } from "./interfaces";
 export declare type JsonTransformerParameters = Partial<JsonTransformerProperties>;
@@ -17,6 +17,5 @@ export declare class JsonTransformer<T extends JsonValue = JsonValue> {
     transformerPipe(_: JsonFunctionParameters): JsonValue;
     transform({ value, data, level }: Partial<JsonFunctionParameters<T>>): JsonValue;
     pipe(transformer: JsonTransformer): JsonTransformer;
-    transformerJsonNullAfter(_: JsonFunctionParameters<JsonNull>): JsonValue;
 }
 export default JsonTransformer;

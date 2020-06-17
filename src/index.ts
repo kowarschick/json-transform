@@ -5,7 +5,7 @@
  */
 
 export { JsonString, JsonNumber, JsonBoolean, JsonNull,
-         JsonPrimitive, JsonArray, JsonMap, JsonValue,
+         JsonPrimitive, JsonArray, JsonObject, JsonValue,
          EJsonType,
          JsonFunctionParameters, JsonFunction, 
          JsonTransformerProperties, 

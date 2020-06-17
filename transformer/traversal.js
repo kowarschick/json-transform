@@ -13,7 +13,7 @@ class JsonTransformerTraversal extends transformer_1.JsonTransformer {
             }
             return c_result;
         };
-        this.transformerJsonMapAfter = ({ value, data, level }) => {
+        this.transformerJsonObjectAfter = ({ value, data, level }) => {
             const c_level = level + 1, c_result = {};
             for (const [c_key, c_value] of Object.entries(value)) {
                 c_result[this.transform({ value: c_key, data, level: c_level })]

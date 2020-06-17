@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonPrimitive, JsonArray, JsonMap} from './interfaces';
+import { JsonValue, JsonPrimitive, JsonArray, JsonObject} from './interfaces';
 import { JsonFunction, JsonFunctionParameters }        from './interfaces';
 import { JsonTransformer, JsonTransformerParameters }  from './transformer';
 
@@ -72,8 +72,8 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
-  transformerJsonMapAfter: JsonFunction<JsonMap> = 
-  ({value, data, level}: JsonFunctionParameters<JsonMap>) => 
+  transformerJsonObjectAfter: JsonFunction<JsonObject> = 
+  ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
   { const
       c_level = level+1,
       c_result: JsonValue = {};

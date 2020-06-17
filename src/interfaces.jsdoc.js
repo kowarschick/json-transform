@@ -53,13 +53,13 @@
 
 /**
  * @global 
- * @typedef {(JsonPrimitive|JsonArray|JsonMap)} JsonValue
+ * @typedef {(JsonPrimitive|JsonArray|JsonObject)} JsonValue
  * @description 
  *   A JSON value is either a primitive value 
  *   ({@link JsonPrimitive}), or 
  *   an array of JSON values ({@link JsonArray}) or a
  *   map object the members of which consist of a key string
- *   and a JSON value ({@link JsonMap}) 
+ *   and a JSON value ({@link JsonObject}) 
  *   <p>
  */
 
@@ -72,7 +72,7 @@
 
 /** 
  * @global 
- * @typedef {{KEY: JsonValue}} JsonMap 
+ * @typedef {{KEY: JsonValue}} JsonObject 
  * @description
  *   A JSON map is an object whose whose attributes are key/value-pairs,
  *   where the key is a string and the value is a JsonValue.
@@ -143,7 +143,7 @@
  * or <code>transformerJsonNumberNull</code> within the same transformer.
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveBefore
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayBefore
- * @property { JsonFunction<JsonMap>       | null } transformerJsonMapBefore
+ * @property { JsonFunction<JsonObject>       | null } transformerJsonObjectBefore
  * @property { JsonFunction<JsonString>    | null } transformerJsonStringBefore
  * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberBefore
  * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanBefore
@@ -151,7 +151,7 @@
  * @property { JsonFunction }                       transformerPipe invoke the child transformer
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
- * @property { JsonFunction<JsonMap>       | null } transformerJsonMapAfter
+ * @property { JsonFunction<JsonObject>       | null } transformerJsonObjectAfter
  * @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
  * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
  * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter

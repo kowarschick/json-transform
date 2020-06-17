@@ -4,18 +4,18 @@ export declare type JsonBoolean = boolean;
 export declare type JsonNull = null | undefined;
 export declare type JsonPrimitive = (JsonString | JsonNumber | JsonBoolean | JsonNull);
 export declare type JsonArray = JsonValue[];
-export declare type JsonMap = {
+export declare type JsonObject = {
     [key: string]: JsonValue;
 };
-export declare type JsonValue = JsonPrimitive | JsonArray | JsonMap;
+export declare type JsonValue = JsonPrimitive | JsonArray | JsonObject;
 export declare enum EJsonType {
-    JsonPrimitive = 1,
-    JsonArray = 2,
-    JsonMap = 3,
-    JsonString = 4,
-    JsonNumber = 5,
-    JsonBoolean = 6,
-    JsonNull = 7
+    Primitive = 1,
+    Array = 2,
+    Object = 3,
+    String = 4,
+    Number = 5,
+    Boolean = 6,
+    Null = 7
 }
 export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
     value: T;
@@ -30,7 +30,7 @@ export declare type JsonFunction<T extends JsonValue = JsonValue> = {
 export interface JsonTransformerProperties {
     readonly transformerJsonPrimitiveBefore: JsonFunction<JsonPrimitive> | null;
     readonly transformerJsonArrayBefore: JsonFunction<JsonArray> | null;
-    readonly transformerJsonMapBefore: JsonFunction<JsonMap> | null;
+    readonly transformerJsonObjectBefore: JsonFunction<JsonObject> | null;
     readonly transformerJsonStringBefore: JsonFunction<JsonString> | null;
     readonly transformerJsonNumberBefore: JsonFunction<JsonNumber> | null;
     readonly transformerJsonBooleanBefore: JsonFunction<JsonBoolean> | null;
@@ -38,7 +38,7 @@ export interface JsonTransformerProperties {
     transformerPipe: JsonFunction;
     readonly transformerJsonPrimitiveAfter: JsonFunction<JsonPrimitive> | null;
     readonly transformerJsonArrayAfter: JsonFunction<JsonArray> | null;
-    readonly transformerJsonMapAfter: JsonFunction<JsonMap> | null;
+    readonly transformerJsonObjectAfter: JsonFunction<JsonObject> | null;
     readonly transformerJsonStringAfter: JsonFunction<JsonString> | null;
     readonly transformerJsonNumberAfter: JsonFunction<JsonNumber> | null;
     readonly transformerJsonBooleanAfter: JsonFunction<JsonBoolean> | null;

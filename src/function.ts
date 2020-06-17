@@ -4,7 +4,7 @@
  * @license   MIT
  */
 
-import { JsonString, JsonArray, JsonMap}                              from './interfaces';
+import { JsonString, JsonArray, JsonObject}                              from './interfaces';
 import { EJsonType, JsonFunction, JsonFunctionParameters } from './interfaces';
 import { JsonTransformer, JsonTransformerParameters }                 from './transformer';
 
@@ -20,7 +20,7 @@ class JsonTransformerFunction extends JsonTransformer
   * which is equal to the first element of the array, it is invoked. 
   * For JSON Map that contain an attribute named 
   * <code>options.init.functionAttribute</code> (<code>$function</code>) 
-  * a <code>JsonMapFunction</code> with the name <code>options.value['$function']<code>
+  * a <code>JsonObjectFunction</code> with the name <code>options.value['$function']<code>
   * is invoked.
   * 
   * Functions that are passed to the transformer via
@@ -81,8 +81,8 @@ class JsonTransformerFunction extends JsonTransformer
     return f == null ? _.value : f(_);
   }
 
-  transformerJsonMapBefore: JsonFunction<JsonMap> = 
-  (_: JsonFunctionParameters<JsonMap>) => 
+  transformerJsonObjectBefore: JsonFunction<JsonObject> = 
+  (_: JsonFunctionParameters<JsonObject>) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
     { const f = this.v_functions_before[EJsonType.Object][c_function_name]
@@ -108,8 +108,8 @@ class JsonTransformerFunction extends JsonTransformer
     return f == null ? _.value : f(_);
   }
 
-  transformerJsonMapAfter: JsonFunction<JsonMap> = 
-  (_: JsonFunctionParameters<JsonMap>) => 
+  transformerJsonObjectAfter: JsonFunction<JsonObject> = 
+  (_: JsonFunctionParameters<JsonObject>) => 
   { const c_function_name = _.value[this.init.functionAttribute] ?? '';
     if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
     { const f = this.v_functions_after[EJsonType.Object][c_function_name]

@@ -128,24 +128,20 @@ class JsonTransformer
    *          Returns <code>transformer</code> after it has been
    *          appended as pipe transformer to <code>this</code>. 
    */
-  public pipe(transformers: JsonTransformer | JsonTransformer[]): JsonTransformer
-  { const 
-      c_transformers = Array.isArray(transformers) ? transformers : [transformers];
-
-    if (c_transformers.length === 0)
+  public pipe(...transformers: JsonTransformer[]): JsonTransformer
+  { if (transformers.length === 0)
     { this._pipe_transformers = [];
       return this; 
     }
 
-    for (const t of c_transformers)
-    { const c_data = t.data;
-      Object.setPrototypeOf(c_data, this.data);
+    for (const t of transformers)
+    { Object.setPrototypeOf(t.data, this.data);
       t._root = this._root;
     }
      
-    this._pipe_transformers = c_transformers; 
+    this._pipe_transformers = transformers; 
 
-    return c_transformers[0];
+    return transformers[0];
   }
 
   /**

@@ -124,3 +124,77 @@ traversalTests
           }
   );
 }
+
+{ const
+    c_t =   new JsonTransformer()
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerStringLevel()).root,
+            new JsonTransformerArraySome(),
+           )
+      .root;
+
+
+  test
+  ( '["$some", "$level", ["$level"], [["$level"]]] should be transformed either into 1 or [2] or [[3]]', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(c_t.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] })); } 
+            expect([1, [2], [[3]]]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([1, [2], [[3]]])); 
+          }
+  );
+}
+
+{ const
+    c_t =   new JsonTransformer()
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerStringLevel()).root,
+            new JsonTransformerTraversal().pipe(new JsonTransformerArraySome()).root,
+           )
+      .root;
+
+  test
+  ( '{a: ["$some", "$level", ["$level"], [["$level"]]]} should be transformed either into {a:1} or {a:[2]} or {a:[[3]]}', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(c_t.transform({ value: {a: ["$some", "$level", ["$level"], [["$level"]]]} })); } 
+            expect([{a:2}, {a:[3]}, {a:[[4]]}]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([{a:2}, {a:[3]}, {a:[[4]]}])); 
+          }
+  );
+}
+
+{ const
+    c_t =   new JsonTransformer()
+      .pipe(new JsonTransformerArraySome(),
+            new JsonTransformerTraversal().pipe(new JsonTransformerStringLevel()).root,           
+           )
+      .root;
+
+
+  test
+  ( '["$some", "$level", ["$level"], [["$level"]]] should be transformed either into 0 or [1] or [[2]]', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(c_t.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] })); } 
+            expect([0, [1], [[2]]]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([0, [1], [[2]]])); 
+          }
+  );
+}
+
+{ const
+    c_t =   new JsonTransformer()
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerArraySome()).root,
+            new JsonTransformerTraversal().pipe(new JsonTransformerStringLevel()).root, 
+           )
+      .root;
+
+  test
+  ( '{a: ["$some", "$level", ["$level"], [["$level"]]]} should be transformed either into {a:1} or {a:[2]} or {a:[[3]]}', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(c_t.transform({ value: {a: ["$some", "$level", ["$level"], [["$level"]]]} })); } 
+            expect([{a:1}, {a:[2]}, {a:[[3]]}]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([{a:1}, {a:[2]}, {a:[[3]]}])); 
+          }
+  );
+}

@@ -16,7 +16,7 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
             if (_.value.length === 0) {
                 return _.value;
             }
-            const f = this.v_functions_before[interfaces_1.JsonType.Array][_.value[0]];
+            const f = this.v_functions[interfaces_1.JsonType.Array][_.value[0]];
             return f == null ? _.value : f(_);
         };
         this.transformerJsonObject = (_) => {

@@ -17,11 +17,6 @@ export declare enum JsonType {
     Boolean = 6,
     Null = 7
 }
-export declare enum DoIt {
-    Before = 1,
-    After = 2,
-    Twice = 3
-}
 export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
     value: T;
     data: Data;

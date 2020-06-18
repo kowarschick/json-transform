@@ -5,22 +5,22 @@
  */
 
 /*
-import { JsonTransformerFunction }  from '@wljkowa/json-transformer';
-import { JsonFunctionStringLevel }  from '@wljkowa/json-transformer'
-import { JsonFunctionArraySome }    from '@wljkowa/json-transformer'
-import { JsonFunctionArrayCount }   from '@wljkowa/json-transformer'
-import { JsonFunctionArraySum }     from '@wljkowa/json-transformer'
-import { JsonFunctionArrayMin }     from '@wljkowa/json-transformer'
-import { JsonFunctionArrayMax }     from '@wljkowa/json-transformer'
+import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+import { JsonFunctionLevel }       from '@wljkowa/json-transformer'
+import { JsonFunctionSome }        from '@wljkowa/json-transformer'
+import { JsonFunctionCount }       from '@wljkowa/json-transformer'
+import { JsonFunctionSum }         from '@wljkowa/json-transformer'
+import { JsonFunctionMin }         from '@wljkowa/json-transformer'
+import { JsonFunctionMax }         from '@wljkowa/json-transformer'
 */
 
-import { JsonTransformerFunction }  from '~/function';
-import { JsonFunctionStringLevel }  from '~/function/string_level'
-import { JsonFunctionArraySome }    from '~/function/array_some'
-import { JsonFunctionArrayCount }   from '~/function/array_count'
-import { JsonFunctionArraySum }     from '~/function/array_sum'
-import { JsonFunctionArrayMin }     from '~/function/array_min'
-import { JsonFunctionArrayMax }     from '~/function/array_max'
+import { JsonTransformerFunction } from '~/function';
+import { JsonFunctionLevel }       from '~/function/level'
+import { JsonFunctionSome }        from '~/function/some'
+import { JsonFunctionCount }       from '~/function/count'
+import { JsonFunctionSum }         from '~/function/sum'
+import { JsonFunctionMin }         from '~/function/min'
+import { JsonFunctionMax }         from '~/function/max'
 
 function functionTests(transformer: JsonTransformerFunction)
 { test
@@ -103,9 +103,9 @@ functionTests
 ( new JsonTransformerFunction
   ({init:
     { functions: 
-      [ JsonFunctionStringLevel, 
-        JsonFunctionArraySome, JsonFunctionArrayCount,
-        JsonFunctionArraySum, JsonFunctionArrayMin, JsonFunctionArrayMax
+      [ JsonFunctionLevel, 
+        JsonFunctionSome, JsonFunctionCount,
+        JsonFunctionSum, JsonFunctionMin, JsonFunctionMax
       ] 
     }
   })

@@ -4,11 +4,10 @@
  * @license   MIT
  */
 
-// build: 
-//   npm run examples:prod
-//   node examples_es6/examples_bundle_es6_js
+// build and run
+//   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
-import './example_array_some_es6';
-import './example_string_level_es6';
-import './example_string_template_es6';
-import './example_string_template_functions_es6';
+import './example_some_es6';
+import './example_level_es6';
+import './example_template_es6';
+import './example_template_functions_es6';

@@ -15,22 +15,22 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  * 
  * ```ts
  * import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
- * import { JsonTransformerStringLevel } from '@wljkowa/json-transformer';
- * import { JsonTransformerArraySome }   from '@wljkowa/json-transformer';
+ * import { JsonTransformerLevel } from '@wljkowa/json-transformer';
+ * import { JsonTransformerSome }   from '@wljkowa/json-transformer';
 * 
  * const t1 = new JsonTransformerTraversal();
- * t1.pipe(new JsonTransformerStringLevel());
+ * t1.pipe(new JsonTransformerLevel());
  * 
  * // // or:
  * //
  * //  const
  * //    t1 =       new JsonTransformerTraversal()
- * //         .pipe(new JsonTransformerStringLevel())
+ * //         .pipe(new JsonTransformerLevel())
  * //         .root;
  * //
  * //  // or:
  * //  const t1 = new JsonTransformerTraversal
- * //             ({ transformer: new JsonTransformerStringLevel() });
+ * //             ({ transformer: new JsonTransformerLevel() });
  * 
  * t1.transform({ value: $level }) 
  * // => 0
@@ -40,8 +40,8 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  * 
  * const
  *   t2 =       new JsonTransformerTraversal()
- *        .pipe(new JsonTransformerStringLevel())
- *        .pipe(new JsonTransformerArraySome())
+ *        .pipe(new JsonTransformerLevel())
+ *        .pipe(new JsonTransformerSome())
  *        .root;
  * 
  * t2.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] });

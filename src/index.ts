@@ -16,16 +16,16 @@ export { JsonTransformerFunction }                from './function';
 export { JsonTransformerTraversal }               from './traversal'; 
 export { JsonTransformerTraversalRestricted }     from './traversal_restricted'; 
 
-export { JsonTransformerArraySome }               from './array_some'; 
+export { JsonTransformerSome }               from './some'; 
 
-export { JsonTransformerStringLevel }             from './string_level';
-export { JsonTransformerStringTemplate }          from './string_template'; 
-export { JsonTransformerStringTemplateFunctions } from './string_template_functions'; 
+export { JsonTransformerLevel }             from './level';
+export { JsonTransformerTemplate }          from './template'; 
+export { JsonTransformerTemplateFunctions } from './template_functions'; 
 
-export { JsonFunctionArraySome }                  from './function/array_some'; 
-export { JsonFunctionArrayCount }                 from './function/array_count'; 
-export { JsonFunctionArraySum }                   from './function/array_sum'; 
-export { JsonFunctionArrayMin }                   from './function/array_min'; 
-export { JsonFunctionArrayMax }                   from './function/array_max'; 
+export { JsonFunctionSome }                  from './function/some'; 
+export { JsonFunctionCount }                 from './function/count'; 
+export { JsonFunctionSum }                   from './function/sum'; 
+export { JsonFunctionMin }                   from './function/min'; 
+export { JsonFunctionMax }                   from './function/max'; 
 
-export { JsonFunctionStringLevel }                from './function/string_level'; 
+export { JsonFunctionLevel }                from './function/level'; 

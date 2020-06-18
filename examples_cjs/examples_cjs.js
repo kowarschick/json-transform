@@ -7,7 +7,7 @@
 // run: 
 //   node examples_cjs/examples_cjs.js
 
-require('./example_array_some_cjs');
-require('./example_string_level_cjs');
-require('./example_string_template_cjs');
-require('./example_string_template_functions_cjs');
+require('./example_some_cjs');
+require('./example_level_cjs');
+require('./example_template_cjs');
+require('./example_template_functions_cjs');

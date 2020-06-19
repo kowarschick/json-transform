@@ -1,5 +1,5 @@
 /**
- * @module    module:function/array_sum
+ * @module    function/sum
  * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
  * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
@@ -19,7 +19,7 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
   * <p>
   * Otherwise the Array itself is returned as value.
   *
-  * @param {Partial<JsonFunctionArrayParameters>} _
+  * @param {Partial<JsonFunctionParameters<JsonArray>>} _
   *   An object containing the following attributes.
   * @param {JsonArray} _.value
   *   The JSON array to be transformed.

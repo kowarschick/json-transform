@@ -30,8 +30,8 @@ const
                   name:  "Wolfgang",
                   fps:    50, 
                   vpf:   ({value, data}) => 
-                         [ value.x/data.fps,
-                           value.y/data.fps,
+                         [ value.vx/data.fps,
+                           value.vy/data.fps,
                          ],
                   def:   () => 123,
                 }
@@ -48,9 +48,9 @@ trace.transform(transformer, "${hello}, ${name}!");
 trace.transform(transformer, "${hello}, ${name}! ${HowAreYou}");
 trace.transform(transformer, [["${abc}"], {abc: "${abc}", "${abc}": "abc"}, "${name}"]);
 trace.transform(transformer, "${vpf({'x':100, 'y':200})}");
-trace.transform(transformer, "{v: ${vpf({'x':100, 'y':200})}}");
-trace.transform(transformer, {v: "${vpf({'x':100, 'y':200})}"});
-trace.transform(transformer, [{v: "${vpf({'x':100, 'y':200})}"}, {a: "${vpf({'x':200, 'y':400})}"}]);
+trace.transform(transformer, "{v: ${vpf({'vx':100, 'vy':200})}}");
+trace.transform(transformer, {v: "${vpf({'vx':100, 'vy':200})}"});
+trace.transform(transformer, [{v: "${vpf({'vx':100, 'vy':200})}"}, {a: "${vpf({'vx':200, 'vy':400})}"}]);
 trace.transform(transformer, "${def()}");
 
 trace.end();

@@ -20,19 +20,21 @@ import { JsonTransformerParameters } from './transformer';
  * @extends module:traversal.JsonTransformerTraversal
  * 
  * @param {JsonTransformerParameters} _
- * @param {Object} _.init
- * @param {number} [_.init.minLevel = 0]
- * @param {number} [_.init.maxLevel = Infinity]
- * @param {Data} [_.data = {}]
- * @param {number} [_.level = 0]
+ * @param {Object}          _.init
+ * @param {number}          [_.init.minLevel = 0]
+ * @param {number}          [_.init.maxLevel = Infinity]
+ * @param {Data}            [_.data = {}]
+ * @param {number}          [_.level = 0]
  * @param {JsonTransformer} [_.transformer = undefined]
  */
 export 
 class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
 {constructor (_: JsonTransformerParameters = {}) 
-  { super({ ..._, init: { minLevel: _?.init?.minLevel ?? 0,
-                          maxLevel: _?.init?.maxLevel ?? Infinity,
-                        }
+  { super({ ..._, 
+            init: 
+            { minLevel: _?.init?.minLevel ?? 0,
+              maxLevel: _?.init?.maxLevel ?? Infinity,
+            }
          }); 
   }
 

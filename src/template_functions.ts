@@ -1,4 +1,5 @@
 /**
+ * @module    template_functions
  * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
  * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
@@ -8,15 +9,91 @@ import { JsonValue, JsonString }                      from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
+/**
+ * Strings that match the regular expression 
+ * <code>_.init</code> are replaced by values 
+ * found in <code>_.data</code>.
+ * <p>
+ * For instance, the string <code>"${abc}"</code> is
+ * replaced by <code>_.data["abc"]</code>, if that
+ * value is defined. 
+ * <p>
+ * If <code>_.value</code> consists only
+ * of such a string, the replacement value
+ * may be of any {@link JsonType}. If 
+ * <code>_.value</code>, on the other hand,
+ * contains further characters, <code>_.data["abc"]</code>
+ * should be of type <code>string</code>. 
+ * <code>_.value</code>
+ * <p>
+ * In contrast to <code>{@link JsonTransformerTemplate}</code>
+ * this transformer supports also function calls. 
+ * If, e. g., <code>_.data["f"]</code> is a {@link JsonFunction},
+ * it can be invoked by <code>"...${f(</code>&lt;jsonvalue&gt;<code>)}..."</code>.
+ * <p>
+ * Please note, as a regular expression instead of a parser is used to 
+ * detect function calls, there <strong>must be no space</strong>
+ * before the opening bracket and between the closing 
+ * curly bracket and the closing bracket of the function call 
+ * (do: <code>"...${f(...)}..."</code>, don't: <code>"...${f (...) }..."</code>).
+ * 
+ * ```ts
+ * // es6; for typescript see test/test_traversal_template_functions.ts
+ * import { JsonTransformerTraversal,
+ *          JsonTransformerTemplate 
+ *        } from '@wljkowa/json-transformer';
+ * 
+ * const 
+ *   t1 = new JsonTransformerTemplate
+ *        ({ data: { abc:   [123], 
+ *                   hello: "Hallo",
+ *                   fps:    50, 
+ *                   vpf:   ({value, data}) => 
+ *                          [ value.x/data.fps,
+ *                            value.y/data.fps,
+ *                          ],
+ *                   def:   () => 123,
+ *                 }
+ *        });
+ * 
+ * t1.transform({ value: "${abc}" }) 
+ *    // => [123]
+ * t1.transform({ value: " ${abc} " })
+ *    // => " [123] "
+ * t1.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
+ *    // => "Hallo, Wolfgang!"
+ * t1.transform({ value: "${def()}" })
+ *    // => 123
+ * t1.transform({ value: "{v: ${vpf({"vx":100, "vy":200})}}" })
+ *    // => "{v: [2,4]}"
+ * 
+ * const 
+ *   t2 = new JsonTransformerTraversal
+ *            ({ data: { abc:   [123], 
+ *                       hello: "Hallo",
+ *                       fps:    50, 
+ *                       vpf:   ({value, data}) => 
+ *                              [ value.x/data.fps,
+ *                                value.y/data.fps,
+ *                              ],
+ *                       def:   () => 123,
+ *                     }
+ *             })
+ *        .pipe(new JsonTransformerTemplateFunctions())
+ *        .root;
+* 
+ * t2.transform({ value: {v: ${vpf({"vx":100, "vy":200})}} })
+ *    // => {v: [2,4]}
+ * ```
+ *
+ * @extends  module:transformer.JsonTransformer
+ *
+ * @param {JsonTransformerParameters} _
+ * @param {string} [_.init = <complex regular expression>]
+ */
 export 
 class JsonTransformerTemplateFunctions extends JsonTransformer
-{/**
-  * The string <code>init<code> is transformed into the current level number.
-  * All other Templates are returned without modification.
-  *
-  * @param init = '$level'
-  */
-  constructor (_: JsonTransformerParameters = {}) 
+{ constructor (_: JsonTransformerParameters = {}) 
   { super( { ..._, init: _?.init ?? /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }); }
 
   transformerJsonString: JsonFunction<JsonString> = 

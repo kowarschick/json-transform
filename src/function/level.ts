@@ -1,5 +1,5 @@
 /**
- * @module    module:function/string_level
+ * @module    function/level
  * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
  * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
@@ -16,7 +16,7 @@ import { JsonString, JsonFunctionParameters, JsonType } from '../interfaces';
   * <p>
   * All other Templates are returned without modification.
   * 
-  * @param {Partial<JsonFunctionArrayParameters>} _
+  * @param {Partial<JsonFunctionParameters<JsonString>>} _
   *   An object containing the following attributes.
   * @param {string} _.value
   *   The string to be transformed into the lenumber.

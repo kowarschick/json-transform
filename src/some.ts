@@ -1,10 +1,9 @@
 /**
- * @module    array_some
+ * @module    some
  * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
  * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
-
 
 import { JsonArray }                                 from './interfaces';
 import { JsonFunction, JsonFunctionParameters }       from './interfaces';

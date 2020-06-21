@@ -14,9 +14,9 @@ class JsonTransformerTemplate extends transformer_1.JsonTransformer {
                     return p_value;
                 }
                 while (!l_result.done) {
-                    const c_match = l_result.value, c_data = data[c_match[1]];
+                    const c_match = l_result.value, c_data = data[c_match[1]], c_data_string = typeof c_data === 'string' ? c_data : JSON.stringify(c_data);
                     if (c_data != null) {
-                        c_replacers.push([c_match[0], f_replace_placeholders(c_data)]);
+                        c_replacers.push([c_match[0], f_replace_placeholders(c_data_string)]);
                     }
                     l_result = c_placeholders.next();
                 }

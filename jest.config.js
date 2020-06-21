@@ -1,9 +1,9 @@
 module.exports = 
 { rootDir:         'test',
-  testRegex:       '.ts$',
+  testRegex:       '^[^\.]+\.ts$',
   testEnvironment: 'node',
   preset:          'ts-jest',
-  resolver:        null, 
+  resolver:        null,
   globals: 
   { 'ts-jest': { tsconfig: './tsconfig.json' },
   },

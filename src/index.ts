@@ -18,14 +18,14 @@ export { JsonTransformerTraversalRestricted } from './traversal_restricted';
 
 export { JsonTransformerSome }                from './some'; 
 
+export { JsonTransformerRandom }              from './random';
+
 export { JsonTransformerLevel }               from './level';
 export { JsonTransformerTemplate }            from './template'; 
 export { JsonTransformerTemplateFunctions }   from './template_functions'; 
 
 export { JsonFunctionCount }                  from './function/count'; 
 export { JsonFunctionLevel }                  from './function/level'; 
-export { JsonFunctionMin }                    from './function/min'; 
-export { JsonFunctionMax }                    from './function/max';
-export { JsonFunctionRandom }                 from './function/random';
+export { JsonFunctionMin }                    from './function/min'; export { JsonFunctionMax }                    from './function/max';
 export { JsonFunctionSome }                   from './function/some'; 
 export { JsonFunctionSum }                    from './function/sum'; 

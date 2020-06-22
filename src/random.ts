@@ -40,18 +40,18 @@ class JsonTransformerRandom extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
   { super({ ..._,
             init: 
-            { functionAttr:  _?.init?.functionAttr ?? "$function",
-              function:      _?.init?.function     ?? "$random",
-              minAttr:       _?.init?.minAttr      ?? "$min",
-              min:           _?.init?.min          ?? 0,
-              maxAttr:       _?.init?.maxAttr      ?? "$max",
-              max:           _?.init?.max          ?? 1,
-              isIntegerAttr: _?.init?.isInteger    ?? "$isInteger",
-              isInteger:     _?.init?.isInteger    ?? false,
-              sacleAttr:     _?.init?.sacle        ?? "$sacle",
-              sacle:         _?.init?.sacle        ?? null,
-              gzpAttr:       _?.init?.gzp          ?? "$gzp",
-              gzp:           _?.init?.gzp          ?? 1,
+            { functionAttr:  _?.init?.functionAttr   ?? "$function",
+              function:      _?.init?.function       ?? "$random",
+              minAttr:       _?.init?.minAttr        ?? "$min",
+              min:           _?.init?.min            ?? 0,
+              maxAttr:       _?.init?.maxAttr        ?? "$max",
+              max:           _?.init?.max            ?? 1,
+              isIntegerAttr: _?.init?.isIntegerAttr  ?? "$isInteger",
+              isInteger:     _?.init?.isInteger      ?? false,
+              sacleAttr:     _?.init?.sacle          ?? "$sacle",
+              sacle:         _?.init?.sacle          ?? null,
+              gzpAttr:       _?.init?.gzp            ?? "$gzp",
+              gzp:           _?.init?.gzp            ?? 1,
             }   
          }); 
   }
@@ -61,7 +61,7 @@ class JsonTransformerRandom extends JsonTransformer
   { const 
       c_init = this.init,
       c_min  = value?.[c_init.minAttr] ?? c_init.min,
-      c_max  = value?.[c_init.maxAttt] ?? c_init.max;
+      c_max  = value?.[c_init.maxAttr] ?? c_init.max;
 
     if (   value?.[c_init.functionAttr] !== c_init.function 
         || !Number.isFinite(c_min)
@@ -71,12 +71,12 @@ class JsonTransformerRandom extends JsonTransformer
 
     { const
         c_is_integer =            value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
-        c_gzp        =            value?.[c_init.gzpr]          ??c_init.gzp,
+        c_gzp        =            value?.[c_init.gzpr]          ?? c_init.gzp,
         c_scale      = this.data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ];
       let
         l_result;
-  
-      if (c_is_integer === true)
+
+      if (c_is_integer)
       { l_result = Math.floor(c_min + Math.random() * (c_max + 1 - c_min)); }
       else
       { l_result = c_min + Math.random() * (c_max - c_min); }

@@ -19,8 +19,8 @@
   "scripts": {
     "prebuild": "rm -rf transformer",
     "build": "tsc -p tsconfig.cjs.json",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest -i",
+    "test:watch": "jest -i --watch",
     "examples": "node examples/examples.js",
     "prejsdoc": "rm -rf doc/jsdoc transformer.commented",
     "jsdoc": "tsc -p tsconfig.commented.json && cp src/interfaces.jsdoc.js transformer.commented && jsdoc -c jsdoc.json",

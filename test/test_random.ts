@@ -37,7 +37,7 @@ const f_test =
 
   for (let i = 0, n = v_random_values.length; i<n; i++)
   { test
-    ( `${v_json} should be transformed into ${v_result_values[i]}`, 
+    ( `${JSON.stringify(v_json)} should be transformed into ${v_result_values[i]}`, 
       () => { mockRandom(v_random_values[i]); 
               expect(c_t.transform({ value: v_json, data: v_data })).toBeCloseTo(v_result_values[i], 5); 
             }

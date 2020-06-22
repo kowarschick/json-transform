@@ -24,7 +24,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @param {string}          [_.init.max           = 1]
  * @param {string}          [_.init.isIntegerAttr = "$isInteger"]
  * @param {string}          [_.init.isInteger     = false]
- * @param {string}          [_.init.scaleAttr     = "$sacle"]
+ * @param {string}          [_.init.scaleAttr     = "$scale"]
  * @param {string}          [_.init.scale         = null]
  * @param {string}          [_.init.gzpAttr       = "$gzp" ] 
  * @param {string}          [_.init.gzp           = 1 ] 
@@ -48,8 +48,8 @@ class JsonTransformerRandom extends JsonTransformer
               max:           _?.init?.max            ?? 1,
               isIntegerAttr: _?.init?.isIntegerAttr  ?? "$isInteger",
               isInteger:     _?.init?.isInteger      ?? false,
-              sacleAttr:     _?.init?.sacle          ?? "$sacle",
-              sacle:         _?.init?.sacle          ?? null,
+              scaleAttr:     _?.init?.scale          ?? "$scale",
+              scale:         _?.init?.scale          ?? null,
               gzpAttr:       _?.init?.gzp            ?? "$gzp",
               gzp:           _?.init?.gzp            ?? 1,
             }   
@@ -57,7 +57,7 @@ class JsonTransformerRandom extends JsonTransformer
   }
 
   transformerJsonObject: JsonFunction<JsonObject> = 
-  ({value}: JsonFunctionParameters<JsonObject>) => 
+  ({value, data}: JsonFunctionParameters<JsonObject>) => 
   { const 
       c_init = this.init,
       c_min  = value?.[c_init.minAttr] ?? c_init.min,
@@ -70,24 +70,23 @@ class JsonTransformerRandom extends JsonTransformer
     return value;
 
     { const
-        c_is_integer =            value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
-        c_gzp        =            value?.[c_init.gzpr]          ?? c_init.gzp,
-        c_scale      = this.data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ];
+        c_is_integer =       value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
+        c_gzp        =       value?.[c_init.gzpAttr]       ?? c_init.gzp,
+        c_scale      = data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ],
+        c_random     = Math.random();
       let
         l_result;
 
       if (c_is_integer)
-      { l_result = Math.floor(c_min + Math.random() * (c_max + 1 - c_min)); }
+      { l_result = Math.floor(c_min + c_random * (c_max + 1 - c_min)); }
       else
-      { l_result = c_min + Math.random() * (c_max - c_min); }
+      { l_result = c_min + c_random * (c_max - c_min); }
   
       if (Number.isFinite(c_gzp) && 0 <= c_gzp && c_gzp < 1)
       { l_result *= (Math.random() >= c_gzp) ? 1 : -1; }
   
       return Number.isFinite(c_scale) ? l_result * (c_scale as number) : l_result;
     }
-    
-    return value;
   }
 }
 

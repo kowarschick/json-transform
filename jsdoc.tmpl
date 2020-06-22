@@ -7,23 +7,30 @@
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
-      <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
 <body>
-<div id="main">  
-    <h1 class="page-title"><?js= title ?></h1>
-    <?js= content ?>
-</div>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><?js= wljkowa.title ?></h2>
     <?js= this.nav ?>
-    <ul>
-      <li><a href="global.html">Type Definitions</a></li>
-    </ul>
 </nav>
+
+<div id="main">
+    <?js if (title != 'Home') { ?>
+    <h1 class="page-title"><?js= title ?></h1>
+    <?js } ?>
+
+    <?js= content ?>
+</div>
 
 <br class="clear">
 

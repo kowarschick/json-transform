@@ -83,7 +83,7 @@ describe
 )
 
 describe
-( '$min, $max, $integer, $scale', 
+( '$min, $max, $integer, $scale, $gzp', 
   () => 
   f_test( {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor', $gzp: 0.5},
           [[0, 0.3], [0.102, 0.6], [0.275, 0], [0.321, 0.5], [0.411, 0.1], [0.565, 0.9], [0.600, 0.3], [0.703, 0.7],  [0.877, 0.2],  [0.999, 0.8]],

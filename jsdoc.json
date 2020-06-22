@@ -1,5 +1,5 @@
 { "source":
-  { "include":        ["./transformer.commented/"],
+  { "include":        ["./transformer.commented/", "package.json", "README.md"],
     "includePattern": ".+\\.js$"
   },
 
@@ -14,8 +14,9 @@
   
   "opts":
   { "NOPEtemplate": "node_modules/better-docs",
+    "template":     "node_modules/postman-jsdoc-theme",
     "encoding":     "utf8",
-    "destination":  "doc/jsdoc",
+    "destination":  "docs",
     "recurse":      true,
     "private":      true
   },
@@ -26,8 +27,7 @@
     },
  
     "wljkowa":
-    { "title": "@wljkowa/json-transformer",
-      "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
+    { "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
     }
   }
 }

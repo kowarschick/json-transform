@@ -1,21 +1,18 @@
-# ```json-transform```
+# @wljkowa/json-transformer
 
-## Zweck
-
-The ```wk-json-transform``` package is used to transform JSON template
+The ```@wljkowa/json-transformer``` package is used to transform JSON template
 objects into JOSN objects. It is developed as part of the lecture
 "Web Programming" by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
 
 ## Installation
 
 ```bash
-cd ...
-git clone https://github.com/wljkowa/json-transform.git
+npm install --save @wljkowa/json-transformer
 ```
 
-## Verwendung
+## Usage
 
-Objects of the class ```JsonTransform``` transform JSON objects
+Objects of the class ```JsonTransformer``` transform JSON objects
 by means of the method ```transform```. Which transformers are
 applied in wich ordering is determined by passing transformer
 functions either to the constructor or to the method ```transform```.
@@ -23,12 +20,11 @@ In addition, an environment object can be passed to both methods.
 The transformer functions can access the enviroment objects.
 
 ```bash
-import { JsonTransform }        from '@wljkowa/json-transformer-transform/json.transform';
-import { transformerArraySome } from '@wljkowa/json-transformer-transform/transformer/transformer.array.some'
+Import { JsonTransformerSome } from '@wljkowa/json-transformer';
 
-let jsonTransform = new JsonTransform({}, [transformerArraySome]);
+const t1 = new JsonTransformerSome();
 
-console.log(jsonTransform.transform(['$some', 5, 7, 9])) -> 5 or 7 or 9 (randomly)
+t1.transform({ value: [ "$some", 5, 7, 9] }) // => 5 or 7 or 9
 ```
 
 See directories ```test``` and ```examples``` for more examples.

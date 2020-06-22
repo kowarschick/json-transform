@@ -5,4 +5,4 @@ export declare class JsonTransformerRandom extends JsonTransformer {
     constructor(_?: JsonTransformerParameters);
     transformerJsonObject: JsonFunction<JsonObject>;
 }
-export default JsonTransformerSome;
+export default JsonTransformerRandom;

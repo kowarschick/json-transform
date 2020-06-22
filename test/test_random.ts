@@ -57,7 +57,7 @@ describe
 describe
 ( '$min, $max', 
   () => 
-  f_test( {"$function":"$random", $min: 1, $max: 11},
+  f_test( {"$function":"$random", "$min": 1, "$max": 11},
           [0, 0.33, 0.49999999, 0.5, 0.66,  0.99999999],
           [1, 4.3,  5.9999999,  6,   7.6,  10.9999999]
         )
@@ -66,7 +66,7 @@ describe
 describe
 ( '$min, $max, $integer', 
   () => 
-  f_test( {"$function":"$random", $min: 2, $max: 11, $isInteger: true},
+  f_test( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true},
           [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
           [2, 3,     4,     5,     6,     7,     8,     9,     10,     11    ]
         )
@@ -75,7 +75,7 @@ describe
 describe
 ( '$min, $max, $integer, $scale', 
   () => 
-  f_test( {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor'},
+  f_test( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true, "$scale": "factor"},
           [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
           [1, 1.5,   2,     2.5,   3,     3.5,   4,     4.5,    5,      5.5  ],
           {factor: 0.5}

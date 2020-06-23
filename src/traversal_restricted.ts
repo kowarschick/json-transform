@@ -5,8 +5,8 @@
  * @license   MIT
  */
 
-import { JsonValue }                 from './interfaces';
-import { JsonFunctionParameters, }   from './interfaces';
+import { JsonValue }                 from './types';
+import { JsonFunctionParameters, }   from './types';
 import { JsonTransformerTraversal }  from './traversal';
 import { JsonTransformerParameters } from './transformer';
 

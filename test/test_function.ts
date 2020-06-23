@@ -16,7 +16,7 @@ import { JsonFunctionMax }         from '@wljkowa/json-transformer'
 import { JsonFunctionRandom }      from '@wljkowa/json-transformer'
 */
 
-import { JsonValue, Data }         from '~/interfaces';
+import { JsonValue, Data }         from '~/types';
 import { JsonTransformerFunction } from '~/function';
 import { JsonFunctionLevel }       from '~/function/level'
 import { JsonFunctionSome }        from '~/function/some'
@@ -40,7 +40,7 @@ function f_random_test
 
   for (let i = 0, n = random_values.length; i<n; i++)
   { test
-    ( `${JSON.stringify(json)} should be transformed into ${result_values[i]}`, 
+    ( `${JSON.stringify(json)} should be transformed to ${result_values[i]}`, 
       () => { mockRandom(random_values[i]); 
               expect(transformer.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
             }
@@ -50,22 +50,22 @@ function f_random_test
 
 function f_test(transformer: JsonTransformerFunction)
 { test
-  ( '"$level" should be transformed into 0', 
+  ( '"$level" should be transformed to 0', 
     () => { expect(transformer.transform({ value: "$level" })).toBe(0); }
   );
 
   test
-  ( '["$level"] should be transformed into ["$level"]', 
+  ( '["$level"] should be transformed to ["$level"]', 
     () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );
 
   test
-  ( '["$some", 5] should be transformed into 5', 
+  ( '["$some", 5] should be transformed to 5', 
     () => { expect(transformer.transform({ value: ["$some", 5] })).toBe(5); }
   );
 
   test
-  ( '"$some" should be transformed into "$some"', 
+  ( '"$some" should be transformed to "$some"', 
     () => { expect(transformer.transform({ value: "$some" })).toBe("$some"); }
   );
 
@@ -80,47 +80,47 @@ function f_test(transformer: JsonTransformerFunction)
   );
   
   test
-  ( '["$some"] should be transformed into null', 
+  ( '["$some"] should be transformed to null', 
     () => { expect(transformer.transform({ value: ["$some"] })).toBe(null); }
   );
   
   test
-  ( '[] should be transformed into []', 
+  ( '[] should be transformed to []', 
     () => { expect(transformer.transform({ value: [] })).toEqual([]); }
   );
   
   test
-  ( '"abc" should be transformed into "abc"', 
+  ( '"abc" should be transformed to "abc"', 
     () => { expect(transformer.transform({ value: "abc" })).toBe("abc"); }
   );
 
   test
-  ( '["$sum, 1, 5, 3, 4, 2] should be transformed into 15', 
+  ( '["$sum, 1, 5, 3, 4, 2] should be transformed to 15', 
     () => { expect(transformer.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
   );
 
   test
-  ( '["$count, 1, 5, 3, 4, 2] should be transformed into 5', 
+  ( '["$count, 1, 5, 3, 4, 2] should be transformed to 5', 
     () => { expect(transformer.transform({ value: ["$count", 1, 5, 3, 4, 2] })).toBe(5); }
   );
  
   test
-  ( '["$min, 1, 5, 3, 4, 2] should be transformed into 1', 
+  ( '["$min, 1, 5, 3, 4, 2] should be transformed to 1', 
     () => { expect(transformer.transform({ value: ["$min", 1, 5, 3, 4, 2] })).toBe(1); }
   );
 
   test
-  ( '["$min] should be transformed into Infinity', 
+  ( '["$min] should be transformed to Infinity', 
     () => { expect(transformer.transform({ value: ["$min"] })).toBe(Infinity); }
   );
    
   test
-  ( '["$max, 1, 5, 3, 4, 2] should be transformed into 5', 
+  ( '["$max, 1, 5, 3, 4, 2] should be transformed to 5', 
     () => { expect(transformer.transform({ value: ["$max", 1, 5, 3, 4, 2] })).toBe(5); }
   );
 
   test
-  ( '["$max] should be transformed into -Infinity', 
+  ( '["$max] should be transformed to -Infinity', 
     () => { expect(transformer.transform({ value: ["$max"] })).toBe(-Infinity); }
   );
 

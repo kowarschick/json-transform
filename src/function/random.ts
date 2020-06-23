@@ -5,8 +5,8 @@
  * @license   MIT
  */
 
-import { JsonObject, JsonType }    from '../interfaces';
-import { JsonFunctionParameters }  from '../interfaces'
+import { JsonObject, JsonType }    from '../types';
+import { JsonFunctionParameters }  from '../types'
 import { JsonTransformerFunction } from '../function';
 
 /**
@@ -50,8 +50,6 @@ export function JsonFunctionRandom({value, data}: JsonFunctionParameters<JsonObj
     c_min  = (value?.[c_init.minAttr] ?? c_init.min) as number,
     c_max  = (value?.[c_init.maxAttr] ?? c_init.max) as number;
 
-//  console.log(JsonTransformerFunction.functionAttribute, c_init.function, value)
-//  return 0;
   if (   value?.[JsonTransformerFunction.functionAttribute] !== c_init.function 
       || !Number.isFinite(c_min)
       || !Number.isFinite(c_max)

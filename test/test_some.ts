@@ -13,7 +13,7 @@ import { JsonTransformerSome } from '~/some';
 { const c_t = new JsonTransformerSome();
 
   test
-  ( '["$some", 5] should be transformed into 5', 
+  ( '["$some", 5] should be transformed to 5', 
     () => { expect(c_t.transform({ value: ["$some", 5] })).toBe(5); }
   );
 
@@ -28,17 +28,17 @@ import { JsonTransformerSome } from '~/some';
   );
   
   test
-  ( '["$some"] should be transformed into null', 
+  ( '["$some"] should be transformed to null', 
     () => { expect(c_t.transform({ value: ["$some"] })).toBe(null); }
   );
   
   test
-  ( '[] should be transformed into []', 
+  ( '[] should be transformed to []', 
     () => { expect(c_t.transform({ value: [] })).toEqual([]); }
   );
   
   test
-  ( '"abc" should be transformed into "abc"', 
+  ( '"abc" should be transformed to "abc"', 
     () => { expect(c_t.transform({ value: "abc" })).toBe("abc"); }
   );
 }
@@ -46,12 +46,12 @@ import { JsonTransformerSome } from '~/some';
 { const c_t = new JsonTransformerSome({ init: '@some'});
 
   test
-  ( '["@some", 5] should be transformed into 5', 
+  ( '["@some", 5] should be transformed to 5', 
     () => { expect(c_t.transform({ value: ["@some", 5] })).toBe(5); }
   );
 
   test
-  ( '["$some", 5] should be transformed into ["$some", 5]', 
+  ( '["$some", 5] should be transformed to ["$some", 5]', 
     () => { expect(c_t.transform({ value: ["$some", 5] })).toStrictEqual(["$some", 5]); }
   );
 
@@ -68,12 +68,12 @@ import { JsonTransformerSome } from '~/some';
   );
   
   test
-  ( '["@some"] should be transformed into null', 
+  ( '["@some"] should be transformed to null', 
     () => { expect(c_t.transform({ value: ["@some"] })).toBe(null); }
   );
   
   test
-  ( '[] should be transformed into []', 
+  ( '[] should be transformed to []', 
     () => { expect(c_t.transform({ value: [] })).toEqual([]); }
   );
 }

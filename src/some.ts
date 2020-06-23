@@ -5,8 +5,8 @@
  * @license   MIT
  */
 
-import { JsonArray }                                 from './interfaces';
-import { JsonFunction, JsonFunctionParameters }       from './interfaces';
+import { JsonArray }                                 from './types';
+import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**

@@ -9,7 +9,7 @@
  * the typedefs are stated in this .js-file.
  * 
  * The real typescript definitions can be found in the file 
- * interfaces.ts. 
+ * .ts. 
  */
 
 /** 

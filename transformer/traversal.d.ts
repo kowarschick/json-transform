@@ -1,5 +1,5 @@
-import { JsonPrimitive, JsonArray, JsonObject } from './interfaces';
-import { JsonFunction } from './interfaces';
+import { JsonPrimitive, JsonArray, JsonObject } from './types';
+import { JsonFunction } from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerTraversal extends JsonTransformer {
     constructor(options?: JsonTransformerParameters);

@@ -1,5 +1,5 @@
-import { JsonObject } from './interfaces';
-import { JsonFunction } from './interfaces';
+import { JsonObject } from './types';
+import { JsonFunction } from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerRandom extends JsonTransformer {
     constructor(_?: JsonTransformerParameters);

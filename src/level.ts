@@ -5,12 +5,12 @@
  * @license   MIT
  */
 
-import { JsonString }                                 from './interfaces';
-import { JsonFunction, JsonFunctionParameters }       from './interfaces';
+import { JsonString }                                 from './types';
+import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
- * The string <code>_.init<code> is transformed into the current level number.
+ * The string <code>_.init<code> is transformed to the current level number.
  * All other Templates are returned without modification.
  *
  * @extends  module:transformer.JsonTransformer

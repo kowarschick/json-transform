@@ -9,7 +9,7 @@ import { JsonValue, Data }       from '@wljkowa/json-transformer';
 import { JsonTransformerRandom } from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, Data }       from '~/interfaces';
+import { JsonValue, Data }       from '~/types';
 import { JsonTransformerRandom } from '~/random';
 
 /// <reference path="./jest-mock-random.d.ts" />
@@ -18,12 +18,12 @@ import { mockRandom, resetMockRandom } from 'jest-mock-random';
 const c_t = new JsonTransformerRandom();
 
 test
-( '{"function":"$random"} should be transformed into {"function":"$random"}', 
+( '{"function":"$random"} should be transformed to {"function":"$random"}', 
   () => { expect(c_t.transform({ value: {"function":"$random"} })).toStrictEqual({"function":"$random"}); }
 );
 
 test
-( '{"$function":"random"} should be transformed into {"$function":"random"}', 
+( '{"$function":"random"} should be transformed to {"$function":"random"}', 
   () => { expect(c_t.transform({ value: {"$function":"random"} })).toStrictEqual({"$function":"random"}); }
 );
 
@@ -37,7 +37,7 @@ const f_test =
 
   for (let i = 0, n = random_values.length; i<n; i++)
   { test
-    ( `${JSON.stringify(json)} should be transformed into ${result_values[i]}`, 
+    ( `${JSON.stringify(json)} should be transformed to ${result_values[i]}`, 
       () => { mockRandom(random_values[i]); 
               expect(c_t.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
             }

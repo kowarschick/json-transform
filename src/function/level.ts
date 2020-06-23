@@ -5,21 +5,21 @@
  * @license   MIT
  */
 
-import { JsonString, JsonFunctionParameters, JsonType } from '../interfaces';
+import { JsonString, JsonFunctionParameters, JsonType } from '../types';
 
 /**
   * @function 
   * @description
   * The string <code>JsonFunctionLevel.init</code> 
   * (default: <code>'$level'</code>) 
-  * is transformed into the current level number.
+  * is transformed to the current level number.
   * <p>
-  * All other Templates are returned without modification.
+  * All other strings are returned without modification.
   * 
   * @param {Partial<JsonFunctionParameters<JsonString>>} _
   *   An object containing the following attributes.
   * @param {string} _.value
-  *   The string to be transformed into the lenumber.
+  *   The string to be transformed to the number of the curernt level.
   * @param {number}_.level
   *   The current level of <code>_.value</code>
   */

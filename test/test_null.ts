@@ -15,17 +15,17 @@ import { JsonTransformerNull } from '~/null';
 { const c_t = new JsonTransformer();
 
   test
-  ( 'null should be transformed into null', 
+  ( 'null should be transformed to null', 
     () => { expect(c_t.transform({ value: null })).toBe(null); }
   );
 
   test
-  ( 'undefined should be transformed into null', 
+  ( 'undefined should be transformed to null', 
     () => { expect(c_t.transform({ value: undefined })).toBe(undefined); }
   );
 
   test
-  ( '"abc" should be transformed into "abc"', 
+  ( '"abc" should be transformed to "abc"', 
     () => { expect(c_t.transform({ value: "abc" })).toBe("abc"); }
   );
 }
@@ -33,17 +33,17 @@ import { JsonTransformerNull } from '~/null';
 { const c_t = new JsonTransformerNull();
 
   test
-  ( 'null should be transformed into null', 
+  ( 'null should be transformed to null', 
     () => { expect(c_t.transform({ value: null })).toBe(null); }
   );
 
   test
-  ( 'undefined should be transformed into null', 
+  ( 'undefined should be transformed to null', 
     () => { expect(c_t.transform({ value: undefined })).toBe(null); }
   );
 
   test
-  ( '"abc" should be transformed into "abc"', 
+  ( '"abc" should be transformed to "abc"', 
     () => { expect(c_t.transform({ value: "abc" })).toBe("abc"); }
   );
 }

@@ -10,7 +10,7 @@ export { JsonString, JsonNumber, JsonBoolean, JsonNull,
          JsonFunctionParameters, JsonFunction, 
          JsonTransformerProperties, 
          Data
-       }                                      from './interfaces' 
+       }                                      from './types' 
 export { JsonTransformer }                    from './transformer'; 
 export { JsonTransformerFunction }            from './function'; 
 export { JsonTransformerTraversal }           from './traversal'; 

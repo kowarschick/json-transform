@@ -1,5 +1,5 @@
-import { JsonString } from './interfaces';
-import { JsonFunction } from './interfaces';
+import { JsonString } from './types';
+import { JsonFunction } from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export declare class JsonTransformerTemplateFunctions extends JsonTransformer {
     constructor(_?: JsonTransformerParameters);

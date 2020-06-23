@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
+import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
 
 /**
  * @function 

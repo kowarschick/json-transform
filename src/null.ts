@@ -5,14 +5,14 @@
  * @license   MIT
  */
 
-import { JsonNull }                                   from './interfaces';
-import { JsonFunction, JsonFunctionParameters }       from './interfaces';
+import { JsonNull }                                   from './types';
+import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
  * This transformer does only one trivial transformtion for
  * <code>null</code> values: The non JSON value <code>undefined</code>
- * is transformed into the JSON value <code>null</code>.
+ * is transformed to the JSON value <code>null</code>.
  * That transformation is usful as <code>undefined</code> 
  * should not e returned as JSON value. However, if
  * you don't like tha transformation, you can simply define
@@ -39,7 +39,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export 
 class JsonTransformerNull extends JsonTransformer
 {/**
-  * The string <code>option.init<code> is transformed into the current level number.
+  * The string <code>option.init<code> is transformed to the current level number.
   * All other Templates are returned without modification.
   *
   * @param _.init = '$level'

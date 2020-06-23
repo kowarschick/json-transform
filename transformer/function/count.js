@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonFunctionCount = void 0;
-const interfaces_1 = require("../interfaces");
+const types_1 = require("../types");
 function JsonFunctionCount({ value }) {
-    if (value.length === 0 || value[0] !== JsonFunctionCount.init) {
+    if (value.length === 0 || value[0] !== JsonFunctionCount.init.function) {
         return value;
     }
     return value.length - 1;
 }
 exports.JsonFunctionCount = JsonFunctionCount;
-JsonFunctionCount.type = interfaces_1.JsonType.Array;
-JsonFunctionCount.init = "$count";
+JsonFunctionCount.type = types_1.JsonType.Array;
+JsonFunctionCount.init = { function: "$count" };
 exports.default = JsonFunctionCount;
 //# sourceMappingURL=count.js.map

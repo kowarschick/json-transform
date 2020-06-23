@@ -12,4 +12,4 @@ var JsonType;
     JsonType[JsonType["Null"] = 7] = "Null";
 })(JsonType = exports.JsonType || (exports.JsonType = {}));
 ;
-//# sourceMappingURL=interfaces.js.map
+//# sourceMappingURL=types.js.map

@@ -5,10 +5,10 @@
  * @license   MIT
  */
 
-import { Data }                      from "./interfaces";
-import { JsonValue }                 from "./interfaces";
-import { JsonFunctionParameters }    from "./interfaces";
-import { JsonTransformerProperties } from "./interfaces";
+import { Data }                      from "./types";
+import { JsonValue }                 from "./types";
+import { JsonFunctionParameters }    from "./types";
+import { JsonTransformerProperties } from "./types";
 
 export 
 interface JsonTransformerInitProperties 

@@ -24,9 +24,9 @@ import { JsonString, JsonFunctionParameters, JsonType } from '../interfaces';
   *   The current level of <code>_.value</code>
   */
 export function JsonFunctionLevel({value, level}: JsonFunctionParameters<JsonString>)
-{ return (value === JsonFunctionLevel.init) ? level : value; }
+{ return (value === JsonFunctionLevel.init.function) ? level : value; }
 
 JsonFunctionLevel.type = JsonType.String;
-JsonFunctionLevel.init = "$level";
+JsonFunctionLevel.init = { function: "$level" };
 
 export default JsonFunctionLevel;

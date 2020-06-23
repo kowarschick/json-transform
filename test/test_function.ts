@@ -5,6 +5,7 @@
  */
 
 /*
+import { JsonValue, Data }         from '@wljkowa/json-transformer';
 import { JsonTransformerFunction } from '@wljkowa/json-transformer';
 import { JsonFunctionLevel }       from '@wljkowa/json-transformer'
 import { JsonFunctionSome }        from '@wljkowa/json-transformer'
@@ -12,8 +13,10 @@ import { JsonFunctionCount }       from '@wljkowa/json-transformer'
 import { JsonFunctionSum }         from '@wljkowa/json-transformer'
 import { JsonFunctionMin }         from '@wljkowa/json-transformer'
 import { JsonFunctionMax }         from '@wljkowa/json-transformer'
+import { JsonFunctionRandom }      from '@wljkowa/json-transformer'
 */
 
+import { JsonValue, Data }         from '~/interfaces';
 import { JsonTransformerFunction } from '~/function';
 import { JsonFunctionLevel }       from '~/function/level'
 import { JsonFunctionSome }        from '~/function/some'
@@ -21,8 +24,31 @@ import { JsonFunctionCount }       from '~/function/count'
 import { JsonFunctionSum }         from '~/function/sum'
 import { JsonFunctionMin }         from '~/function/min'
 import { JsonFunctionMax }         from '~/function/max'
+import { JsonFunctionRandom }      from '~/function/random'
 
-function functionTests(transformer: JsonTransformerFunction)
+/// <reference path="./jest-mock-random.d.ts" />
+import { mockRandom, resetMockRandom } from 'jest-mock-random';
+
+function f_random_test 
+( transformer:   JsonTransformerFunction,
+  json:          JsonValue,
+  random_values: number[] | number[][], 
+  result_values: number[],
+  data?:         Data
+)  
+{ afterAll(() => { resetMockRandom(); jest.restoreAllMocks()});
+
+  for (let i = 0, n = random_values.length; i<n; i++)
+  { test
+    ( `${JSON.stringify(json)} should be transformed into ${result_values[i]}`, 
+      () => { mockRandom(random_values[i]); 
+              expect(transformer.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
+            }
+    );
+  }
+}
+
+function f_test(transformer: JsonTransformerFunction)
 { test
   ( '"$level" should be transformed into 0', 
     () => { expect(transformer.transform({ value: "$level" })).toBe(0); }
@@ -97,15 +123,73 @@ function functionTests(transformer: JsonTransformerFunction)
   ( '["$max] should be transformed into -Infinity', 
     () => { expect(transformer.transform({ value: ["$max"] })).toBe(-Infinity); }
   );
+
+  describe
+  ( 'random default', 
+    () => 
+    f_random_test
+    ( transformer,
+      {"$function":"$random"},
+      [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999],
+      [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999]
+    )
+  );
+
+  describe
+  ( 'random $min, $max', 
+    () => 
+    f_random_test
+    ( transformer,
+      {"$function":"$random", "$min": 1, "$max": 11},
+      [0, 0.33, 0.49999999, 0.5, 0.66,  0.99999999],
+      [1, 4.3,  5.9999999,  6,   7.6,  10.9999999]
+    )
+  );
+  
+  describe
+  ( 'random $min, $max, $integer', 
+    () => 
+    f_random_test
+    ( transformer,
+      {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true},
+      [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
+      [2, 3,     4,     5,     6,     7,     8,     9,     10,     11    ]
+    )
+  );
+  
+  describe
+  ( 'random $min, $max, $integer, $scale', 
+    () => 
+    f_random_test
+    ( transformer,
+      {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true, "$scale": "factor"},
+      [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
+      [1, 1.5,   2,     2.5,   3,     3.5,   4,     4.5,    5,      5.5  ],
+      {factor: 0.5}
+    )
+  );
+  
+  describe
+  ( 'random $min, $max, $integer, $scale, $gzp', 
+    () => 
+    f_random_test
+    ( transformer,
+      {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor', $gzp: 0.5},
+      [[0, 0.3], [0.102, 0.6], [0.275, 0], [0.321, 0.5], [0.411, 0.1], [0.565, 0.9], [0.600, 0.3], [0.703, 0.7],  [0.877, 0.2],  [0.999, 0.8]],
+      [-1,       +1.5,         -2,         +2.5,         -3,           +3.5,         -4,           +4.5,          -5,            +5.5        ],
+      {factor: 0.5}
+    )
+  );
 }
 
-functionTests
+f_test
 ( new JsonTransformerFunction
   ({init:
     { functions: 
       [ JsonFunctionLevel, 
         JsonFunctionSome, JsonFunctionCount,
-        JsonFunctionSum, JsonFunctionMin, JsonFunctionMax
+        JsonFunctionSum, JsonFunctionMin, JsonFunctionMax,
+        JsonFunctionRandom
       ] 
     }
   })

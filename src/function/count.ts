@@ -24,13 +24,13 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
   * @returns {JsonValue}
   */
 export function JsonFunctionCount({value}: JsonFunctionParameters<JsonArray>)
-{ if (value.length === 0 || value[0] !== JsonFunctionCount.init)
+{ if (value.length === 0 || value[0] !== JsonFunctionCount.init.function)
   { return value; }
 
   return value.length-1;
 }
 
 JsonFunctionCount.type = JsonType.Array;
-JsonFunctionCount.init = "$count";
+JsonFunctionCount.init = { function: "$count" };
 
 export default JsonFunctionCount;

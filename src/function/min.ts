@@ -26,13 +26,13 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
   *   The JSON array to be transformed.
   */
 export function JsonFunctionMin({value}: JsonFunctionParameters<JsonArray>)
-{ if (value.length === 0 || value[0] !== JsonFunctionMin.init)
+{ if (value.length === 0 || value[0] !== JsonFunctionMin.init.function)
   { return value; }
 
   return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), Infinity);
 }
 
 JsonFunctionMin.type = JsonType.Array;
-JsonFunctionMin.init = "$min";
+JsonFunctionMin.init = { function: "$min" };
 
 export default JsonFunctionMin;

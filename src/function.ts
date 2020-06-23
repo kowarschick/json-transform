@@ -50,7 +50,7 @@ class JsonTransformerFunction extends JsonTransformer
     if (Array.isArray(_?.init?.functions))
     { for (const c_function of _.init.functions)
       if (c_function.type != null)
-      { this.a_functions[c_function.type][c_function.init] = c_function; }
+      { this.a_functions[c_function.type][c_function.init.function] = c_function; }
     }   
   }
 
@@ -73,7 +73,8 @@ class JsonTransformerFunction extends JsonTransformer
   transformerJsonObject: JsonFunction<JsonObject> = 
   (_: JsonFunctionParameters<JsonObject>) => 
   { const c_function_name = _.value[JsonTransformerFunction.functionAttribute] ?? '';
-    if (typeof c_function_name === 'string' && _.value[c_function_name] != null)
+
+    if (typeof c_function_name === 'string')
     { const f = this.a_functions[JsonType.Object][c_function_name]
       return f == null ? _.value : f(_); 
     }

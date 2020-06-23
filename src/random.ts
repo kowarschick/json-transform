@@ -61,15 +61,15 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @param {string}          [_.init.functionAttr  = "$function"]
  * @param {string}          [_.init.function      = "$random"]
  * @param {string}          [_.init.minAttr       = "$min"]
- * @param {string}          [_.init.min           = 0]
+ * @param {number}          [_.init.min           = 0]
  * @param {string}          [_.init.maxAttr       = "$max"]
- * @param {string}          [_.init.max           = 1]
+ * @param {number}          [_.init.max           = 1]
  * @param {string}          [_.init.isIntegerAttr = "$isInteger"]
- * @param {string}          [_.init.isInteger     = false]
+ * @param {boolean}         [_.init.isInteger     = false]
  * @param {string}          [_.init.scaleAttr     = "$scale"]
- * @param {string}          [_.init.scale         = null]
+ * @param {number|null}     [_.init.scale         = null]
  * @param {string}          [_.init.gzpAttr       = "$gzp" ] 
- * @param {string}          [_.init.gzp           = 1 ] 
+ * @param {numbers}          [_.init.gzp           = 1 ] 
  *                          the „greater zero prabability“ defines 
  *                          the propability that the resulting value
  *                          is not multiplied by <code>-1</code> 
@@ -109,26 +109,25 @@ class JsonTransformerRandom extends JsonTransformer
         || !Number.isFinite(c_min)
         || !Number.isFinite(c_max)
        )
-    return value;
+    { return value; }
 
-    { const
-        c_is_integer =       value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
-        c_gzp        =       value?.[c_init.gzpAttr]       ?? c_init.gzp,
-        c_scale      = data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ],
-        c_random     = Math.random();
-      let
-        l_result;
+    const
+      c_is_integer =       value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
+      c_gzp        =       value?.[c_init.gzpAttr]       ?? c_init.gzp,
+      c_scale      = data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ],
+      c_random     = Math.random();
+    let
+      l_result: number;
 
-      if (c_is_integer)
-      { l_result = Math.floor(c_min + c_random * (c_max + 1 - c_min)); }
-      else
-      { l_result = c_min + c_random * (c_max - c_min); }
-  
-      if (Number.isFinite(c_gzp) && 0 <= c_gzp && c_gzp < 1)
-      { l_result *= (Math.random() >= c_gzp) ? 1 : -1; }
-  
+    if (c_is_integer)
+    { l_result = Math.floor(c_min + c_random * (c_max + 1 - c_min)); }
+    else
+    { l_result = c_min + c_random * (c_max - c_min); }
+
+    if (Number.isFinite(c_gzp) && 0 <= c_gzp && c_gzp < 1)
+    { l_result *= (Math.random() >= c_gzp) ? 1 : -1; }
+
       return Number.isFinite(c_scale) ? l_result * (c_scale as number) : l_result;
-    }
   }
 }
 

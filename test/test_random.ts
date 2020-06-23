@@ -28,18 +28,18 @@ test
 );
 
 const f_test =
-( v_json:          JsonValue,
-  v_random_values: number[] | number[][], 
-  v_result_values: number[],
-  v_data?:         Data
+( json:          JsonValue,
+  random_values: number[] | number[][], 
+  result_values: number[],
+  data?:         Data
 ) => 
 { afterAll(() => { resetMockRandom(); jest.restoreAllMocks()});
 
-  for (let i = 0, n = v_random_values.length; i<n; i++)
+  for (let i = 0, n = random_values.length; i<n; i++)
   { test
-    ( `${JSON.stringify(v_json)} should be transformed into ${v_result_values[i]}`, 
-      () => { mockRandom(v_random_values[i]); 
-              expect(c_t.transform({ value: v_json, data: v_data })).toBeCloseTo(v_result_values[i], 5); 
+    ( `${JSON.stringify(json)} should be transformed into ${result_values[i]}`, 
+      () => { mockRandom(random_values[i]); 
+              expect(c_t.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
             }
     );
   }
@@ -48,46 +48,51 @@ const f_test =
 describe
 ( 'default', 
   () => 
-  f_test( {"$function":"$random"},
-          [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999],
-          [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999]
-        )
-)
+  f_test
+  ( {"$function":"$random"},
+    [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999],
+    [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999]
+  )
+);
 
 describe
 ( '$min, $max', 
   () => 
-  f_test( {"$function":"$random", "$min": 1, "$max": 11},
-          [0, 0.33, 0.49999999, 0.5, 0.66,  0.99999999],
-          [1, 4.3,  5.9999999,  6,   7.6,  10.9999999]
-        )
-)
+  f_test
+  ( {"$function":"$random", "$min": 1, "$max": 11},
+    [0, 0.33, 0.49999999, 0.5, 0.66,  0.99999999],
+    [1, 4.3,  5.9999999,  6,   7.6,  10.9999999]
+  )
+);
 
 describe
 ( '$min, $max, $integer', 
   () => 
-  f_test( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true},
-          [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
-          [2, 3,     4,     5,     6,     7,     8,     9,     10,     11    ]
-        )
-)
+  f_test
+  ( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true},
+    [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
+    [2, 3,     4,     5,     6,     7,     8,     9,     10,     11    ]
+  )
+);
 
 describe
 ( '$min, $max, $integer, $scale', 
   () => 
-  f_test( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true, "$scale": "factor"},
-          [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
-          [1, 1.5,   2,     2.5,   3,     3.5,   4,     4.5,    5,      5.5  ],
-          {factor: 0.5}
-        )
-)
+  f_test
+  ( {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true, "$scale": "factor"},
+    [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
+    [1, 1.5,   2,     2.5,   3,     3.5,   4,     4.5,    5,      5.5  ],
+    {factor: 0.5}
+  )
+);
 
 describe
 ( '$min, $max, $integer, $scale, $gzp', 
   () => 
-  f_test( {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor', $gzp: 0.5},
-          [[0, 0.3], [0.102, 0.6], [0.275, 0], [0.321, 0.5], [0.411, 0.1], [0.565, 0.9], [0.600, 0.3], [0.703, 0.7],  [0.877, 0.2],  [0.999, 0.8]],
-          [-1,       +1.5,         -2,         +2.5,         -3,           +3.5,         -4,           +4.5,          -5,            +5.5        ],
-          {factor: 0.5}
-        )
-)
+  f_test
+  ( {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor', $gzp: 0.5},
+    [[0, 0.3], [0.102, 0.6], [0.275, 0], [0.321, 0.5], [0.411, 0.1], [0.565, 0.9], [0.600, 0.3], [0.703, 0.7],  [0.877, 0.2],  [0.999, 0.8]],
+    [-1,       +1.5,         -2,         +2.5,         -3,           +3.5,         -4,           +4.5,          -5,            +5.5        ],
+    {factor: 0.5}
+  )
+);

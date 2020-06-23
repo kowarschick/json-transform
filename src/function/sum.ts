@@ -25,13 +25,13 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
   *   The JSON array to be transformed.
   */
 export function JsonFunctionSum({value}: JsonFunctionParameters<JsonArray>)
-{ if (value.length === 0 || value[0] !== JsonFunctionSum.init)
+{ if (value.length === 0 || value[0] !== JsonFunctionSum.init.function)
   { return value; }
 
   return value.slice(1).reduce( (s, v) => (s as number) + (v as number), 0);
 }
 
 JsonFunctionSum.type = JsonType.Array;
-JsonFunctionSum.init = "$sum";
+JsonFunctionSum.init = { function: "$sum" };
 
 export default JsonFunctionSum;

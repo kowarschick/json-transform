@@ -26,13 +26,13 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../interfaces';
   *   The JSON array to be transformed.
   */
 export function JsonFunctionMax({value}: JsonFunctionParameters<JsonArray>)
-{ if (value.length === 0 || value[0] !== JsonFunctionMax.init)
+{ if (value.length === 0 || value[0] !== JsonFunctionMax.init.function)
   { return value; }
 
   return value.slice(1).reduce( (m, v) => Math.max((m as number), (v as number)), -Infinity);
 }
 
 JsonFunctionMax.type = JsonType.Array;
-JsonFunctionMax.init = "$max";
+JsonFunctionMax.init = { function: "$max" };
 
 export default JsonFunctionMax;

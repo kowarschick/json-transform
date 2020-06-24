@@ -21,6 +21,7 @@ export { JsonTransformerSome }                from './some';
 export { JsonTransformerRandom }              from './random';
 
 export { JsonTransformerLevel }               from './level';
+export { JsonTransformerStringReplace }       from './string_replace';
 export { JsonTransformerTemplate }            from './template'; 
 export { JsonTransformerTemplateFunctions }   from './template_functions'; 
 

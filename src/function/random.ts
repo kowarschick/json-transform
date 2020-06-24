@@ -12,31 +12,51 @@ import { JsonTransformerFunction } from '../function';
 /**
  * @function 
  * @description
- * If the first element of the Array is equal to 
- * <code>JsonFunctionRandom.init</code> (default: <code>$random</code>)
- * random of the other elements is returned as value. 
- * If there are no other elements, <code>null</code> 
- * is returned.
- * <p>
- * Otherwise the Array itself is returned as value.
+ * Computes random numbers within intervals.
+ * 
  * <h4>Examples</h4>
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
  * import { JsonTransformerRandom }   from '@wljkowa/json-transformer';
-  * 
+ * 
  * const t = new JsonTransformerFunction
  *           ({init: { functions: [ JsonFunctionRandom ] } })
  * 
- * t.transform({ value: [ "$random", 4, 5] }) // => 4 or 5
- * t.transform({ value: [ "$random", 4 ] })   // => 4 
- * t.transform({ value: [ "$random" ] })      // => null 
- * t.transform({ value: "abc" })              // => "abc"
- * 
- * JsonFunctionRandom.init = "@random";
- * 
- * t.transform({ value: [ "@random", 4, 5 ] }) // => 4 or 5
- * t.transform({ value: [ "$random", 4, 5 ] }) // => [ "$random", 4, 5 ]
+ * t.transform({ value: { "$function": "$random" } }) 
+ * // => 0.54567  (random result in [0, 1[; half open interval)
+ *
+ * t.transform({ value: { "$function": "$random",
+ *                        "$min": 1, "$max": 11
+ *                      }
+ *             }) 
+ * // => 7.23488  (random result in [1, 11[; half open interval)
+ *
+ * t.transform({ value: { "$function": "$random", 
+ *                        "$min": 1, "$max": 11, 
+ *                        "$isInteger": true
+ *                      }
+ *            }) 
+ * // => 7 (random integer result in [1, 11]; closed interval!)
+ *
+ * t.transform({ value: { "$function":"$random", 
+                          "$min": 1, "$max": 11, 
+                          "$isInteger": true,
+                          "$scale": "factor"
+                        },
+                 data:  { factor: 0.5 } 
+              }) 
+ * // => 3.5 (random result in [0.5, 5.5]; step size 0.5)
+ *
+ * t.transform({ value: { "$function":"$random", 
+                          "$min": 1, "$max": 11, 
+                          "$isInteger": true,
+                          "$scale": "factor",
+                          "$gzp": 0.5
+                        },
+                 data:  { factor: 0.5 } 
+              }) 
+ * // => -3.5 (random result in [-5.5, -0.5] union [0.5, 5.5])
  * ```
  * 
  * @param {Partial<JsonFunctionParameters<JsonArray>>} _

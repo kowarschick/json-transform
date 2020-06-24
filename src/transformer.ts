@@ -81,7 +81,7 @@ class JsonTransformer
     for (const t of this._pipe_transformers)
     { l_value = t.transform({value: l_value, data: _.data, level: _.level}); }; 
 
-    return l_value
+    return l_value;
   }
 
  /**

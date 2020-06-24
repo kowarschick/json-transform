@@ -12,6 +12,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 /**
  * Computes random numbers within intervals.
  *
+ * <h4>Examples</h4>
  * ```ts
  * import { JsonTransformerRandom } from '@wljkowa/json-transformer';
  * 
@@ -41,7 +42,6 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
                   data:  { factor: 0.5 } 
                }) 
  * // => 3.5 (random result in [0.5, 5.5]; step size 0.5)
- *
  *
  * t1.transform({ value: { "$function":"$random", 
                            "$min": 1, "$max": 11, 

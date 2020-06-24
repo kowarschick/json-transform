@@ -5,51 +5,57 @@
  */
 
 /*
-import { JsonValue, Data }         from '@wljkowa/json-transformer';
-import { JsonTransformerFunction } from '@wljkowa/json-transformer';
-import { JsonFunctionLevel }       from '@wljkowa/json-transformer'
-import { JsonFunctionSome }        from '@wljkowa/json-transformer'
-import { JsonFunctionCount }       from '@wljkowa/json-transformer'
-import { JsonFunctionSum }         from '@wljkowa/json-transformer'
-import { JsonFunctionMin }         from '@wljkowa/json-transformer'
-import { JsonFunctionMax }         from '@wljkowa/json-transformer'
-import { JsonFunctionRandom }      from '@wljkowa/json-transformer'
+import { JsonValue, Data }             from '@wljkowa/json-transformer';
+import { JsonTransformerFunction }     from '@wljkowa/json-transformer';
+import { JsonFunctionArrayCount }      from '@wljkowa/json-transformer';
+import { JsonFunctionArrayMin }        from '@wljkowa/json-transformer';
+import { JsonFunctionArrayMax }        from '@wljkowa/json-transformer';
+import { JsonFunctionArrayShuffle }    from '@wljkowa/json-transformer';
+import { JsonFunctionArraySome }       from '@wljkowa/json-transformer';
+import { JsonFunctionArraySum }        from '@wljkowa/json-transformer';
+import { JsonFunctionArrayUnnest }     from '@wljkowa/json-transformer';
+import { JsonFunctionObjectDuplicate } from '@wljkowa/json-transformer';
+import { JsonFunctionObjectRandom }    from '@wljkowa/json-transformer';
+import { JsonFunctionObjectSequence }  from '@wljkowa/json-transformer';
+import { JsonFunctionObjectShuffle }   from '@wljkowa/json-transformer';
+import { JsonFunctionObjectUnnest }    from '@wljkowa/json-transformer';
+import { JsonFunctionStringLevel }     from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, Data }         from '~/types';
-import { JsonTransformerFunction } from '~/function';
-import { JsonFunctionLevel }       from '~/function/level'
-import { JsonFunctionSome }        from '~/function/some'
-import { JsonFunctionCount }       from '~/function/count'
-import { JsonFunctionSum }         from '~/function/sum'
-import { JsonFunctionMin }         from '~/function/min'
-import { JsonFunctionMax }         from '~/function/max'
-import { JsonFunctionRandom }      from '~/function/random'
+import { JsonValue, Data }             from '~/types';
+import { JsonTransformerFunction }     from '~/function';
+import { JsonFunctionArrayCount }      from '~/function/array_count';
+import { JsonFunctionArrayMin }        from '~/function/array_min';
+import { JsonFunctionArrayMax }        from '~/function/array_max';
+import { JsonFunctionArrayShuffle }    from '~/function/array_shuffle';
+import { JsonFunctionArraySome }       from '~/function/array_some';
+import { JsonFunctionArraySum }        from '~/function/array_sum';
+import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
+import { JsonFunctionObjectDuplicate } from '~/function/object_duplicate';
+import { JsonFunctionObjectRandom }    from '~/function/object_random';
+import { JsonFunctionObjectSequence }  from '~/function/object_sequence';
+import { JsonFunctionObjectShuffle }   from '~/function/object_shuffle';
+import { JsonFunctionObjectUnnest }    from '~/function/object_unnest';
+import { JsonFunctionStringLevel }     from '~/function/string_level';
 
 /// <reference path="./jest-mock-random.d.ts" />
 import { mockRandom, resetMockRandom } from 'jest-mock-random';
-
-function f_random_test 
-( transformer:   JsonTransformerFunction,
-  json:          JsonValue,
-  random_values: number[] | number[][], 
-  result_values: number[],
-  data?:         Data
-)  
-{ afterAll(() => { resetMockRandom(); jest.restoreAllMocks()});
-
-  for (let i = 0, n = random_values.length; i<n; i++)
-  { test
-    ( `${JSON.stringify(json)} should be transformed to ${result_values[i]}`, 
-      () => { mockRandom(random_values[i]); 
-              expect(transformer.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
-            }
-    );
-  }
-}
+import { JsonArray } from '../../nestjs_hello_world_dev_02/server/lib/wk/json/json';
 
 function f_test(transformer: JsonTransformerFunction)
 { test
+  ( '{"$function":"$duplicate", "$value":{}, "$times":3} should be transformed to [{},{},{}]', 
+    () => { expect(transformer.transform({ value: {"$function":"$duplicate", "$value":{}, "$times":3} }))
+              .toStrictEqual([{},{},{}]); 
+          }
+  );
+
+  test
+  ( '["$level"] should be transformed to ["$level"]', 
+    () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
+  );
+
+  test
   ( '"$level" should be transformed to 0', 
     () => { expect(transformer.transform({ value: "$level" })).toBe(0); }
   );
@@ -59,51 +65,6 @@ function f_test(transformer: JsonTransformerFunction)
     () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );
 
-  test
-  ( '["$some", 5] should be transformed to 5', 
-    () => { expect(transformer.transform({ value: ["$some", 5] })).toBe(5); }
-  );
-
-  test
-  ( '"$some" should be transformed to "$some"', 
-    () => { expect(transformer.transform({ value: "$some" })).toBe("$some"); }
-  );
-
-  test
-  ( '["$some", 5, 7, 9] should be transformed either into 5 or 7 or 9', 
-    () => { const c_result = [];
-            for (let i = 0; i < 100; i++)
-            { c_result.push(transformer.transform({ value: ["$some", 5, 7, 9] })); } 
-            expect([5, 7, 9]).toEqual(expect.arrayContaining(c_result)); 
-            expect(c_result).toEqual(expect.arrayContaining([5, 7, 9])); 
-          }
-  );
-  
-  test
-  ( '["$some"] should be transformed to null', 
-    () => { expect(transformer.transform({ value: ["$some"] })).toBe(null); }
-  );
-  
-  test
-  ( '[] should be transformed to []', 
-    () => { expect(transformer.transform({ value: [] })).toEqual([]); }
-  );
-  
-  test
-  ( '"abc" should be transformed to "abc"', 
-    () => { expect(transformer.transform({ value: "abc" })).toBe("abc"); }
-  );
-
-  test
-  ( '["$sum, 1, 5, 3, 4, 2] should be transformed to 15', 
-    () => { expect(transformer.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
-  );
-
-  test
-  ( '["$count, 1, 5, 3, 4, 2] should be transformed to 5', 
-    () => { expect(transformer.transform({ value: ["$count", 1, 5, 3, 4, 2] })).toBe(5); }
-  );
- 
   test
   ( '["$min, 1, 5, 3, 4, 2] should be transformed to 1', 
     () => { expect(transformer.transform({ value: ["$min", 1, 5, 3, 4, 2] })).toBe(1); }
@@ -180,16 +141,126 @@ function f_test(transformer: JsonTransformerFunction)
       {factor: 0.5}
     )
   );
+
+  test
+  ( '{"$function":"$sequence", "$min":2, "$max":5} should be transformed to [2, 3, 4, 5]', 
+    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5} }))
+             .toStrictEqual([2, 3, 4, 5]); 
+          }
+  );
+
+  test
+  ( '{"$function":"$sequence", "$min":2, "$max":5, "$prefix":"image"} should be transformed to ["image2","image3","image4","image5"]', 
+    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$prefix":"image"} }))
+              .toStrictEqual(["image2","image3","image4","image5"]);
+          }
+  );
+
+  test
+  ( '["$some", 5] should be transformed to 5', 
+    () => { expect(transformer.transform({ value: ["$some", 5] })).toBe(5); }
+  );
+
+  test
+  ( '"$some" should be transformed to "$some"', 
+    () => { expect(transformer.transform({ value: "$some" })).toBe("$some"); }
+  );
+
+  test
+  ( '["$some", 5, 7, 9] should be transformed either into 5 or 7 or 9', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(transformer.transform({ value: ["$some", 5, 7, 9] })); } 
+            expect([5, 7, 9]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([5, 7, 9])); 
+          }
+  );
+  
+  test
+  ( '["$some"] should be transformed to null', 
+    () => { expect(transformer.transform({ value: ["$some"] })).toBe(null); }
+  );
+
+  test
+  ( '["$shuffle",1,2,3,4,5] should be transformed to [5,3,1,4,2] or similar', 
+    () => { const c_result = transformer.transform({ value: ["$shuffle", 1, 2, 3, 4, 5] });
+            expect([5, 3, 1, 4, 2]).toEqual(expect.arrayContaining(c_result as JsonArray)); 
+            expect(c_result).toEqual(expect.arrayContaining([5, 3, 1, 4, 2])); 
+          }
+  );
+
+  test
+  ( '{"$function":"$shuffle","$value":[1,2,3,4,5]} should be transformed to [5,3,1,4,2] or similar', 
+    () => { const c_result = transformer.transform({ value: {"$function":"$shuffle","$value":[1,2,3,4,5]} });
+            expect([5, 3, 1, 4, 2]).toEqual(expect.arrayContaining(c_result as JsonArray)); 
+            expect(c_result).toEqual(expect.arrayContaining([5, 3, 1, 4, 2])); 
+          }
+  );
+
+  test
+  ( '["$unnest", [1, 2], 3, [[4]], [5], [{}]] should be transformed to [1, 2, 3, [4], 5, {}]', 
+    () => { expect(transformer.transform({ value: ["$unnest", [1, 2], 3, [[4]], [5], [{}]] }))
+              .toStrictEqual([1, 2, 3, [4], 5, {}]); 
+          }
+  );
+
+  test
+  ( '{"$function":"$unnest","$value":[[1, 2],3,[[4]],[5],[{}]]} should be transformed to [1, 2, 3, [4], 5, {}]', 
+    () => { expect(transformer.transform({ value: {"$function":"$unnest", "$value":[[1, 2],3,[[4]],[5],[{}]]} }))
+              .toStrictEqual([1, 2, 3, [4], 5, {}]); 
+          }
+  );
+
+  test
+  ( '["$sum, 1, 5, 3, 4, 2] should be transformed to 15', 
+    () => { expect(transformer.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
+  );
+
+  test
+  ( '"abc" should be transformed to "abc"', 
+    () => { expect(transformer.transform({ value: "abc" })).toBe("abc"); }
+  );
+
+  test
+  ( '[] should be transformed to []', 
+    () => { expect(transformer.transform({ value: [] })).toEqual([]); }
+  );
+}
+
+function f_random_test 
+( transformer:   JsonTransformerFunction,
+  json:          JsonValue,
+  random_values: number[] | number[][], 
+  result_values: number[],
+  data?:         Data
+)  
+{ afterAll(() => { resetMockRandom(); jest.restoreAllMocks()});
+
+  for (let i = 0, n = random_values.length; i<n; i++)
+  { test
+    ( `${JSON.stringify(json)} should be transformed to ${result_values[i]}`, 
+      () => { mockRandom(random_values[i]); 
+              expect(transformer.transform({ value: json, data })).toBeCloseTo(result_values[i], 5); 
+            }
+    );
+  }
 }
 
 f_test
 ( new JsonTransformerFunction
   ({init:
     { functions: 
-      [ JsonFunctionLevel, 
-        JsonFunctionSome, JsonFunctionCount,
-        JsonFunctionSum, JsonFunctionMin, JsonFunctionMax,
-        JsonFunctionRandom
+      [ JsonFunctionArrayCount, 
+        JsonFunctionArrayMin, 
+        JsonFunctionArrayMax,
+        JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
+        JsonFunctionArraySome, 
+        JsonFunctionArraySum, 
+        JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
+        JsonFunctionObjectDuplicate,
+        JsonFunctionObjectRandom,
+        JsonFunctionObjectSequence,
+        JsonFunctionStringLevel, 
       ] 
     }
   })

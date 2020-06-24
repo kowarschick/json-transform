@@ -77,7 +77,7 @@ class JsonTransformer
 
   public transformerPipe(_: JsonFunctionParameters): JsonValue
   { let l_value: JsonValue = _.value
-    
+
     for (const t of this._pipe_transformers)
     { l_value = t.transform({value: l_value, data: _.data, level: _.level}); }; 
 

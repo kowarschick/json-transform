@@ -10,23 +10,34 @@ export { JsonString, JsonNumber, JsonBoolean, JsonNull,
          JsonFunctionParameters, JsonFunction, 
          JsonTransformerProperties, 
          Data
-       }                                      from './types' 
-export { JsonTransformer }                    from './transformer'; 
-export { JsonTransformerFunction }            from './function'; 
-export { JsonTransformerTraversal }           from './traversal'; 
-export { JsonTransformerTraversalRestricted } from './traversal_restricted'; 
+       }                                        from './types' 
+export { JsonTransformer }                      from './transformer'; 
+export { JsonTransformerFunction }              from './function'; 
+export { JsonTransformerTraversal }             from './traversal'; 
+export { JsonTransformerTraversalBreadthFirst } from './traversal_breadth_first'; 
+export { JsonTransformerTraversalRestricted }   from './traversal_restricted'; 
 
-export { JsonTransformerSome }                from './some'; 
+export { JsonTransformerNull }                  from './null'; 
 
-export { JsonTransformerRandom }              from './random';
+export { JsonTransformerSome }                  from './some'; 
 
-export { JsonTransformerLevel }               from './level';
-export { JsonTransformerStringReplace }       from './string_replace';
-export { JsonTransformerTemplate }            from './template'; 
-export { JsonTransformerTemplateFunctions }   from './template_functions'; 
+export { JsonTransformerRandom }                from './random';
 
-export { JsonFunctionCount }                  from './function/count'; 
-export { JsonFunctionLevel }                  from './function/level'; 
-export { JsonFunctionMin }                    from './function/min'; export { JsonFunctionMax }                    from './function/max';
-export { JsonFunctionSome }                   from './function/some'; 
-export { JsonFunctionSum }                    from './function/sum'; 
+export { JsonTransformerLevel }                 from './level';
+export { JsonTransformerStringReplace }         from './string_replace';
+export { JsonTransformerTemplate }              from './template'; 
+export { JsonTransformerTemplateFunctions }     from './template_functions'; 
+
+export { JsonFunctionArrayCount }               from './function/array_count'; 
+export { JsonFunctionArrayMin }                 from './function/array_min'; 
+export { JsonFunctionArrayMax }                 from './function/array_max';
+export { JsonFunctionArrayShuffle }             from './function/array_shuffle'; 
+export { JsonFunctionArraySome }                from './function/array_some'; 
+export { JsonFunctionArraySum }                 from './function/array_sum'; 
+export { JsonFunctionArrayUnnest }              from './function/array_unnest'; 
+export { JsonFunctionObjectDuplicate }          from './function/object_duplicate'; 
+export { JsonFunctionObjectRandom }             from './function/object_random';
+export { JsonFunctionObjectSequence }           from './function/object_sequence';
+export { JsonFunctionObjectShuffle }            from './function/object_shuffle';
+export { JsonFunctionObjectUnnest }             from './function/object_unnest'; 
+export { JsonFunctionStringLevel }              from './function/string_level'; 

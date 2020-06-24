@@ -23,7 +23,7 @@
     "test:watch": "jest -i --watch",
     "examples": "node examples/examples.js",
     "prejsdoc": "rm -rf docs/@wljkowas transformer.commented",
-    "jsdoc": "tsc -p tsconfig.commented.json && cp src/.jsdoc.js transformer.commented && jsdoc -c jsdoc.json",
+    "jsdoc": "tsc -p tsconfig.commented.json && cp src/types.jsdoc.js transformer.commented && jsdoc -c jsdoc.json",
     "prejsdoc:ts": "rm -rf doc/jsdoc_ts",
     "jsdoc:ts": "echo \"WARNING: Doen't work as expected\" && jsdoc -c jsdoc.ts.json",
     "prelink": "npm run build",

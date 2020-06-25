@@ -43,7 +43,7 @@ See directories ```test``` and ```examples``` for more examples.
 ## Complex Example
 
 By means of this package it is, e.g., possible to initialize
-a memory game.
+a memory game (pairs).
 
 ```ts
 import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';

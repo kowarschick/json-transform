@@ -15,7 +15,6 @@ the size of the browser window etc. Below is a slightly more complex example:
 The JSON transformer package is used to shuffle the tokens of a memory game
 (Pairs).
 
-
 ## Installation
 
 ```bash
@@ -47,17 +46,18 @@ By means of this package it is, e.g., possible to initialize
 a memory game.
 
 ```ts
-import { JsonTransformerTraversal }     from '~/traversal';
-import { JsonTransformerFunction }      from '~/function';
-import { JsonTransformerStringReplace } from '~/string_replace';
+import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
+import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
+import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
 
-import { JsonFunctionObjectDuplicate } from '~/function/object_duplicate';
-import { JsonFunctionObjectSequence }  from '~/function/object_sequence';
-import { JsonFunctionObjectShuffle }   from '~/function/object_shuffle';
-import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
+import { JsonFunctionObjectDuplicate }  from '@wljkowa/json-transformer';
+import { JsonFunctionObjectSequence }   from '@wljkowa/json-transformer';
+import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
+import { JsonFunctionArrayUnnest }      from '@wljkowa/json-transformer';
 
 const
-  c_t =   new JsonTransformerTraversal({ data: { $noOfPairs: 10 } })
+  transformer =
+          new JsonTransformerTraversal({ data: { $noOfPairs: 10 } })
     .pipe(new JsonTransformerFunction
               ({init:
                 { functions:
@@ -72,60 +72,71 @@ const
     .pipe(new JsonTransformerStringReplace())
     .root,
 
-  c_memory =
+  pairs =
   { cards: { "$function": "$sequence",
              "$max":      "$noOfPairs",
-             "$prefix":   "image"  
+             "$format":   "image"  
            },
-    board: { "$function": "$shuffle", 
-             "$value":    { "$function":    "$duplicate", 
-                            "$value":       { "$function": "$sequence", 
-                                              "$max":      "$noOfPairs" 
-                                            }, 
+    board: { "$function": "$shuffle",
+             "$value":    { "$function":    "$duplicate",
+                            "$value":       { "$function": "$sequence",
+                                              "$max":      "$noOfPairs"
+                                            },
                             "$times":       2,
                             "$withinArray": true
                           }
            }
   };
 
-console.log(c_t.transform({ value: c_memory,
-                            data:  { $noOfPairs: 4 }
-                         })
+console.log(transformer
+              .transform({ value: pairs,
+                           data:  { $noOfPairs: 4 }
+                        })
            );
 // =>
 // { cards: [ 'image1', 'image2', 'image3', 'image4' ],
 //   board: [ 1, 4, 2, 3, 3, 4, 1, 2 ]
 // }
 
-console.log(c_t.transform({ value: c_memory })
-           );
+console.log(transformer.transform({ value: pairs }));
 // =>
-// { cards: [ 'image1', 'image2', 'image3', 'image4',
-//            'image5', 'image6', 'image7', 'image8',
-//            'image9', 'image10'
-//          ],
-//   board: [  6,  8, 7, 5, 6, 7, 5,
-//             2,  2, 8, 4, 9, 9, 3,
-//            10, 10, 1, 1, 4, 3
-//          ]
+// { cards:
+//   [ 'image1', 'image2', 'image3', 'image4',
+//     'image5', 'image6', 'image7', 'image8',
+//     'image9', 'image10'
+//   ],
+//
+//   board:
+//   [  6,  8, 7, 5, 6, 7, 5,
+//      2,  2, 8, 4, 9, 9, 3,
+//     10, 10, 1, 1, 4, 3
+//   ]
 // }
 
-console.log(c_t.transform({ value: c_memory,
-                            data:  { $noOfPairs: 20 }
-                         })
+console.log(transformer
+             .transform
+              ({ value: pairs,
+                 data:  { $noOfPairs: 20,
+                          image: i =>
+                                 'bild'+('__'+i).slice(-3)
+                        }
+              })
            );
 // =>
-// { cards: [ 'image1',  'image2',  'image3',  'image4',
-//            'image5',  'image6',  'image7',  'image8',
-//            'image9',  'image10', 'image11', 'image12', 
-//            'image13', 'image14', 'image15', 'image16', 
-//            'image17', 'image18', 'image19', 'image20'
-//          ],
-//   board: [ 5,  3, 14, 17, 18, 17,  5, 16, 11, 10,
-//            9, 12, 11, 12, 15,  8,  1, 15, 14,  4,
-//            2,  2,  6, 18,  4, 10, 16,  3,  6,  7,
-//            7, 13, 19, 20, 13,  1,  9,  8, 20, 19
-//          ]
+// { cards:
+//   [ 'bild__1', 'bild__2', 'bild__3', 'bild__4',
+//     'bild__5', 'bild__6', 'bild__7', 'bild__8',
+//     'bild__9', 'bild_10', 'bild_11', 'bild_12',
+//     'bild_13', 'bild_14', 'bild_15', 'bild_16',
+//     'bild_17', 'bild_18', 'bild_19', 'bild_20'
+//   ],
+
+//   board:
+//   [ 5,  3, 14, 17, 18, 17,  5, 16, 11, 10,
+//     9, 12, 11, 12, 15,  8,  1, 15, 14,  4,
+//     2,  2,  6, 18,  4, 10, 16,  3,  6,  7,
+//     7, 13, 19, 20, 13,  1,  9,  8, 20, 19
+//   ]
 // }
 ```
 

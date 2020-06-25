@@ -47,16 +47,16 @@ export function JsonFunctionObjectSequence({value, data}: JsonFunctionParameters
     c_min               = (value?.[c_init.minAttr]    ?? c_init.min)    as number,
     c_max               = (value?.[c_init.maxAttr]    ?? c_init.max)    as number,
     c_format: Data      = (value?.[c_init.formatAttr] ?? c_init.format) as Data,
-    //c_format_is_string  = typeof c_format === 'string',
-    //c_format_function   = c_format_is_string ? ,
+    c_format_string     = (typeof c_format === 'string')   ? c_format : '',
+    c_format_function   = (typeof c_format === 'function') ? c_format : null,
     c_result: JsonArray = [];
 
   for (let i = c_min; i <= c_max; i++)
-  { c_result.push( (typeof c_format === 'string')
-                   ? ((c_format as string) + i)
-                   : (typeof c_format === 'function') 
-                     ? (c_format as Function)(i)  
-                    : i
+  { c_result.push( typeof c_format_function === 'function'
+                   ? (c_format_function as Function)(i)
+                   : (c_format_string !== '') 
+                     ? c_format_string+i  
+                     : i
                  ); 
   }
 

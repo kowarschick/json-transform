@@ -19,12 +19,14 @@ export default
     },
   
   transform: 
-    function(p_transform, p_json)
+    function(p_transform, p_json, p_data={})
     { console.log(util.inspect(p_json, inspectConfig).replace(/'/g,'"'));
       console.log("→");
-      console.log(util.inspect(p_transform.transform({ value: p_json }), inspectConfig).replace(/'/g,'"'));
+      console.log(util.inspect( p_transform.transform({ value: p_json, data: p_data }), 
+                                inspectConfig
+                              ).replace(/'/g,'"'));
       console.log('------------------------------------------------------------------------------------------');
-    }, 
+    },  
   
   end:
     function()

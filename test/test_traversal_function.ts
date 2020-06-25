@@ -5,7 +5,6 @@
  */
 
 /*
-import { JsonValue, JsonFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
@@ -16,7 +15,6 @@ import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
 import { JsonFunctionArrayUnnest }      from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, JsonFunction }      from '~/types';
 import { JsonTransformerTraversal }     from '~/traversal';
 import { JsonTransformerFunction }      from '~/function';
 import { JsonTransformerStringReplace } from '~/string_replace';
@@ -54,7 +52,7 @@ import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
     c_memory =
     { cards: { "$function": "$sequence",
                "$max":      "$noOfPairs",
-               "$format":   "$img"  
+               "$format":   "image"  
              },
       board: { "$function": "$shuffle", 
                "$value":    { "$function":    "$duplicate", 
@@ -67,5 +65,12 @@ import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
              }
     };
 
-    console.log(c_t.transform({ value: c_memory, data: { $img: (i => i) as JsonFunction<JsonValue> } }));
+  //TBD
+  console.log(c_t.transform({ value: c_memory, 
+                              data:  { $noOfPairs: 20,
+                                       image: i => 
+                                              'bild' + ('__'+i).slice(-3) 
+                                     } 
+                           })
+             );
 }

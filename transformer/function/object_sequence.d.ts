@@ -9,8 +9,8 @@ export declare namespace JsonFunctionObjectSequence {
         min: number;
         maxAttr: string;
         max: number;
-        prefixAttr: string;
-        prefix: null;
+        formatAttr: string;
+        format: null;
     };
 }
 export default JsonFunctionObjectSequence;

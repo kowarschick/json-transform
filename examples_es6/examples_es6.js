@@ -11,3 +11,4 @@ import './example_some_es6';
 import './example_level_es6';
 import './example_template_es6';
 import './example_template_functions_es6';
+import './example_memory_es6';

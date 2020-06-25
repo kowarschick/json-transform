@@ -41,7 +41,7 @@ const
     .root
   ;
 
-trace.title('sTemplates with Placeholders ${name(...)} and Function Calls (csj)');
+trace.title('Templates with Placeholders ${name(...)} and Function Calls (csj)');
 
 trace.transform(transformer, "${abc}");
 trace.transform(transformer, "${hello}, ${name}!");

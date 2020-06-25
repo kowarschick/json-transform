@@ -13,8 +13,7 @@ import { unnest }                  from './array_unnest';
 /**
  * @function 
  * @description
- * Unnests the value  
- * <code>JsonFunctionArrayUnnest.init.function</code> (default: <code>$unnest</code>),
+ * Unnests the value stored in <code>_.value['$value']</code>, 
  * if it is an array.
  *
  * <h4>Examples</h4>

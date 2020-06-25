@@ -93,7 +93,9 @@ console.log(c_t.transform({ value: c_memory,
                          })
            );
 // =>
-// [ 1, 4, 2, 3, 3, 4, 1, 2 ]
+// { cards: [ 'image1', 'image2', 'image3', 'image4' ],
+//   board: [ 1, 4, 2, 3, 3, 4, 1, 2 ]
+// }
 
 console.log(c_t.transform({ value: c_memory })
            );
@@ -102,10 +104,10 @@ console.log(c_t.transform({ value: c_memory })
 //            'image5', 'image6', 'image7', 'image8',
 //            'image9', 'image10'
 //          ],
-//   board: [ 6,  8, 7, 5, 6, 7, 5,
-//            2,  2, 8, 4, 9, 9, 3,
-//           10, 10, 1, 1, 4, 3
-//         ]
+//   board: [  6,  8, 7, 5, 6, 7, 5,
+//             2,  2, 8, 4, 9, 9, 3,
+//            10, 10, 1, 1, 4, 3
+//          ]
 // }
 
 console.log(c_t.transform({ value: c_memory,
@@ -113,11 +115,18 @@ console.log(c_t.transform({ value: c_memory,
                          })
            );
 // =>
-// [ 5,  3, 14, 17, 18, 17,  5, 16, 11, 10,
-//   9, 12, 11, 12, 15,  8,  1, 15, 14,  4,
-//   2,  2,  6, 18,  4, 10, 16,  3,  6,  7,
-//   7, 13, 19, 20, 13,  1,  9,  8, 20, 19
-// ]
+// { cards: [ 'image1',  'image2',  'image3',  'image4',
+//            'image5',  'image6',  'image7',  'image8',
+//            'image9',  'image10', 'image11', 'image12', 
+//            'image13', 'image14', 'image15', 'image16', 
+//            'image17', 'image18', 'image19', 'image20'
+//          ],
+//   board: [ 5,  3, 14, 17, 18, 17,  5, 16, 11, 10,
+//            9, 12, 11, 12, 15,  8,  1, 15, 14,  4,
+//            2,  2,  6, 18,  4, 10, 16,  3,  6,  7,
+//            7, 13, 19, 20, 13,  1,  9,  8, 20, 19
+//          ]
+// }
 ```
 
 ## License

@@ -5,9 +5,10 @@
  */
 
 /*
+import { JsonValue, JsonFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
-import { JsonTransformerStringReplace } from '~/string_replace';
+import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
 
 import { JsonFunctionObjectDuplicate }  from '@wljkowa/json-transformer';
 import { JsonFunctionObjectSequence }   from '@wljkowa/json-transformer';
@@ -15,15 +16,15 @@ import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
 import { JsonFunctionArrayUnnest }      from '@wljkowa/json-transformer';
 */
 
+import { JsonValue, JsonFunction }      from '~/types';
 import { JsonTransformerTraversal }     from '~/traversal';
 import { JsonTransformerFunction }      from '~/function';
 import { JsonTransformerStringReplace } from '~/string_replace';
 
-import { JsonFunctionObjectDuplicate } from '~/function/object_duplicate';
-import { JsonFunctionObjectSequence }  from '~/function/object_sequence';
-import { JsonFunctionObjectShuffle }   from '~/function/object_shuffle';
-import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
-
+import { JsonFunctionObjectDuplicate }  from '~/function/object_duplicate';
+import { JsonFunctionObjectSequence }   from '~/function/object_sequence';
+import { JsonFunctionObjectShuffle }    from '~/function/object_shuffle';
+import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
 
 
 { const c_t = new JsonTransformerTraversal();
@@ -53,7 +54,7 @@ import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
     c_memory =
     { cards: { "$function": "$sequence",
                "$max":      "$noOfPairs",
-               "$prefix":   "image"  
+               "$format":   "$img"  
              },
       board: { "$function": "$shuffle", 
                "$value":    { "$function":    "$duplicate", 
@@ -66,5 +67,5 @@ import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
              }
     };
 
-    console.log(c_t.transform({ value: c_memory }));
+    console.log(c_t.transform({ value: c_memory, data: { $img: (i => i) as JsonFunction<JsonValue> } }));
 }

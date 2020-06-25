@@ -5,6 +5,7 @@
  * @license   MIT
  */
 
+import { Data }                            from '../types';
 import { JsonObject, JsonType, JsonArray } from '../types';
 import { JsonFunctionParameters }          from '../types'
 import { JsonTransformerFunction }         from '../function';
@@ -43,25 +44,33 @@ export function JsonFunctionObjectSequence({value, data}: JsonFunctionParameters
   { return value; }
 
   const 
-    c_min               = (value?.[c_init.minAttr]    ?? c_init.min) as number,
-    c_max               = (value?.[c_init.maxAttr]    ?? c_init.max) as number,
-    c_prefix            = (value?.[c_init.prefixAttr] ?? c_init.prefix) as string,
+    c_min               = (value?.[c_init.minAttr]    ?? c_init.min)    as number,
+    c_max               = (value?.[c_init.maxAttr]    ?? c_init.max)    as number,
+    c_format: Data      = (value?.[c_init.formatAttr] ?? c_init.format) as Data,
+    //c_format_is_string  = typeof c_format === 'string',
+    //c_format_function   = c_format_is_string ? ,
     c_result: JsonArray = [];
 
   for (let i = c_min; i <= c_max; i++)
-  { c_result.push(c_prefix != null ? c_prefix + i : i); }
+  { c_result.push( (typeof c_format === 'string')
+                   ? ((c_format as string) + i)
+                   : (typeof c_format === 'function') 
+                     ? (c_format as Function)(i)  
+                    : i
+                 ); 
+  }
 
   return c_result;
 }
 
 JsonFunctionObjectSequence.type = JsonType.Object;
-JsonFunctionObjectSequence.init = { function:     "$sequence",
+JsonFunctionObjectSequence.init = { function:   "$sequence",
                                     minAttr:    "$min",
                                     min:        1,
                                     maxAttr:    "$max",
                                     max:        1,
-                                    prefixAttr: "$prefix",
-                                    prefix:     null 
+                                    formatAttr: "$format",
+                                    format:     null 
                                   };
 
 export default JsonFunctionObjectSequence;

@@ -5,7 +5,7 @@
  */
 
 /*
-import { JsonValue, Data }             from '@wljkowa/json-transformer';
+import { JsonValue, JsonArray, Data }  from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }     from '@wljkowa/json-transformer';
 import { JsonFunctionArrayCount }      from '@wljkowa/json-transformer';
 import { JsonFunctionArrayMin }        from '@wljkowa/json-transformer';
@@ -22,7 +22,7 @@ import { JsonFunctionObjectUnnest }    from '@wljkowa/json-transformer';
 import { JsonFunctionStringLevel }     from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, Data }             from '~/types';
+import { JsonValue, JsonArray, Data }  from '~/types';
 import { JsonTransformerFunction }     from '~/function';
 import { JsonFunctionArrayCount }      from '~/function/array_count';
 import { JsonFunctionArrayMin }        from '~/function/array_min';
@@ -40,7 +40,6 @@ import { JsonFunctionStringLevel }     from '~/function/string_level';
 
 /// <reference path="./jest-mock-random.d.ts" />
 import { mockRandom, resetMockRandom } from 'jest-mock-random';
-import { JsonArray } from '../../nestjs_hello_world_dev_02/server/lib/wk/json/json';
 
 function f_test(transformer: JsonTransformerFunction)
 { test
@@ -150,8 +149,8 @@ function f_test(transformer: JsonTransformerFunction)
   );
 
   test
-  ( '{"$function":"$sequence", "$min":2, "$max":5, "$prefix":"image"} should be transformed to ["image2","image3","image4","image5"]', 
-    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$prefix":"image"} }))
+  ( '{"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} should be transformed to ["image2","image3","image4","image5"]', 
+    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} }))
               .toStrictEqual(["image2","image3","image4","image5"]);
           }
   );

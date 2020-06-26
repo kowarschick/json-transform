@@ -11,7 +11,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
  * Strings that match the regular expression 
- * <code>_.init</code> are replaced by values 
+ * <code>_.init.templateFunctions</code> are replaced by values 
  * found in <code>_.data</code>.
  * <p>
  * For instance, the string <code>"${abc}"</code> is
@@ -89,19 +89,20 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
+ * @param {Init}    _.init
  * @param {string} [_.init = <complex regular expression>]
  */
 export 
 class JsonTransformerTemplateFunctions extends JsonTransformer
-{ constructor (_: JsonTransformerParameters = {}) 
-  { super( { ..._, init: _?.init ?? /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }); }
+{ constructor (_: JsonTransformerParameters = {})
+  { super({ ..._, init: _?.init ?? {templateFunctions: /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/} }); }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 
   { const  
-      c_regexp = new RegExp(this.init,'g'),
+      c_regexp = this.init.templateFunctions as RegExp,
       c_value  = value as string,
-      c_match  = c_value.match(new RegExp(`^${this.init.toString().slice(1,-1)}$`)),
+      c_match  = c_value.match(new RegExp(`^${c_regexp.toString().slice(1,-1)}$`)),
 
       f_split_placeholder =
       (p_name: string, p_arguments: string): [JsonValue|JsonFunction, JsonValue] =>
@@ -126,7 +127,7 @@ class JsonTransformerTemplateFunctions extends JsonTransformer
       f_replace_placeholders =
       (p_value: string, p_string_cast: boolean): JsonValue =>
       { const
-          c_placeholders                     = p_value.matchAll(c_regexp),
+          c_placeholders                     = p_value.matchAll(new RegExp(c_regexp,'g')),
           c_replacers: [string, JsonValue][] = []; // these are not sugar replacers :-)
         let 
           l_result = c_placeholders.next();

@@ -43,7 +43,7 @@ import { JsonTransformerSome } from '~/some';
   );
 }
 
-{ const c_t = new JsonTransformerSome({ init: '@some'});
+{ const c_t = new JsonTransformerSome({ init: { some: '@some' }});
 
   test
   ( '["@some", 5] should be transformed to 5', 

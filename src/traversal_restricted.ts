@@ -20,7 +20,7 @@ import { JsonTransformerParameters } from './transformer';
  * @extends module:traversal.JsonTransformerTraversal
  * 
  * @param {JsonTransformerParameters} _
- * @param {Object}          _.init
+ * @param {Init}            _.init
  * @param {number}          [_.init.minLevel = 0]
  * @param {number}          [_.init.maxLevel = Infinity]
  * @param {Data}            [_.data = {}]
@@ -40,7 +40,8 @@ class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
 
   /** @override */
   transformerPipe(_: JsonFunctionParameters): JsonValue
-  { return (this.init.minLevel <= _.level && _.level <= this.init.maxLevel)
+  { return (   (this!.init!.minLevel as number) <= _.level 
+            && _.level <= (this!.init!.maxLevel as number))
            ? super.transformerPipe(_)
            : _.value; 
   }

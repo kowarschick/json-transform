@@ -15,7 +15,7 @@ export { JsonFunctionArrayCount } from './function/array_count';
 export { JsonFunctionArrayMin } from './function/array_min';
 export { JsonFunctionArrayMax } from './function/array_max';
 export { JsonFunctionArrayShuffle } from './function/array_shuffle';
-export { JsonFunctionArraySome } from './function/array_some';
+export { JsonFunctionSome } from './function/array_some';
 export { JsonFunctionArraySum } from './function/array_sum';
 export { JsonFunctionArrayUnnest } from './function/array_unnest';
 export { JsonFunctionObjectDuplicate } from './function/object_duplicate';

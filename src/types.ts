@@ -34,11 +34,12 @@ export enum JsonType
 }
 
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
-{value: T, data: Data, level: number};
+{value: T, data: Data, level: number, init?: Init};
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
 { (_: JsonFunctionParameters<T>): JsonValue, 
   type?: JsonType, 
+  name?: string,
   init?: any 
 };
 
@@ -56,5 +57,8 @@ export interface JsonTransformerProperties
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 };
             
+export interface Init 
+{ [key: string]: Object | RegExp | string | number | boolean | null ; }
+
 export interface Data 
 { [key: string]: JsonValue | JsonFunction | null; }

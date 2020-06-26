@@ -66,6 +66,7 @@ import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
     };
 
   //TBD
+  /*
   console.log(c_t.transform({ value: c_memory, 
                               data:  { $noOfPairs: 20,
                                        image: i => 
@@ -73,4 +74,5 @@ import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
                                      } 
                            })
              );
+  */
 }

@@ -35,7 +35,7 @@ Object.defineProperty(exports, "JsonFunctionArrayMax", { enumerable: true, get: 
 var array_shuffle_1 = require("./function/array_shuffle");
 Object.defineProperty(exports, "JsonFunctionArrayShuffle", { enumerable: true, get: function () { return array_shuffle_1.JsonFunctionArrayShuffle; } });
 var array_some_1 = require("./function/array_some");
-Object.defineProperty(exports, "JsonFunctionArraySome", { enumerable: true, get: function () { return array_some_1.JsonFunctionArraySome; } });
+Object.defineProperty(exports, "JsonFunctionSome", { enumerable: true, get: function () { return array_some_1.JsonFunctionSome; } });
 var array_sum_1 = require("./function/array_sum");
 Object.defineProperty(exports, "JsonFunctionArraySum", { enumerable: true, get: function () { return array_sum_1.JsonFunctionArraySum; } });
 var array_unnest_1 = require("./function/array_unnest");

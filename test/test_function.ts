@@ -11,7 +11,7 @@ import { JsonFunctionArrayCount }      from '@wljkowa/json-transformer';
 import { JsonFunctionArrayMin }        from '@wljkowa/json-transformer';
 import { JsonFunctionArrayMax }        from '@wljkowa/json-transformer';
 import { JsonFunctionArrayShuffle }    from '@wljkowa/json-transformer';
-import { JsonFunctionArraySome }       from '@wljkowa/json-transformer';
+import { JsonFunctionSome }       from '@wljkowa/json-transformer';
 import { JsonFunctionArraySum }        from '@wljkowa/json-transformer';
 import { JsonFunctionArrayUnnest }     from '@wljkowa/json-transformer';
 import { JsonFunctionObjectDuplicate } from '@wljkowa/json-transformer';
@@ -28,7 +28,7 @@ import { JsonFunctionArrayCount }      from '~/function/array_count';
 import { JsonFunctionArrayMin }        from '~/function/array_min';
 import { JsonFunctionArrayMax }        from '~/function/array_max';
 import { JsonFunctionArrayShuffle }    from '~/function/array_shuffle';
-import { JsonFunctionArraySome }       from '~/function/array_some';
+import { JsonFunctionSome }       from '~/function/some';
 import { JsonFunctionArraySum }        from '~/function/array_sum';
 import { JsonFunctionArrayUnnest }     from '~/function/array_unnest';
 import { JsonFunctionObjectDuplicate } from '~/function/object_duplicate';
@@ -253,7 +253,7 @@ f_test
         JsonFunctionArrayMin, 
         JsonFunctionArrayMax,
         JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
-        JsonFunctionArraySome, 
+        JsonFunctionSome, 
         JsonFunctionArraySum, 
         JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
         JsonFunctionObjectDuplicate,

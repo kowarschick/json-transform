@@ -102,19 +102,25 @@ class JsonTransformerRandom extends JsonTransformer
   ({value, data}: JsonFunctionParameters<JsonObject>) => 
   { const 
       c_init = this.init,
-      c_min  = value?.[c_init.minAttr] ?? c_init.min,
-      c_max  = value?.[c_init.maxAttr] ?? c_init.max;
+      c_min  = (value?.[c_init.minAttr as string] ?? c_init.min) as number,
+      c_max  = (value?.[c_init.maxAttr as string] ?? c_init.max) as number;
 
-    if (   value?.[c_init.functionAttr] !== c_init.function 
+    if (   value?.[c_init.functionAttr as string] !== c_init.function 
         || !Number.isFinite(c_min)
         || !Number.isFinite(c_max)
        )
     { return value; }
 
     const
-      c_is_integer =       value?.[c_init.isIntegerAttr] ?? c_init.isInteger,
-      c_gzp        =       value?.[c_init.gzpAttr]       ?? c_init.gzp,
-      c_scale      = data[ value?.[c_init.scaleAttr]     ?? c_init.scale   ],
+      c_is_integer =       (   value?.[c_init.isIntegerAttr as string] 
+                            ?? c_init.isInteger
+                           ) as boolean,
+      c_gzp        =       (   value?.[c_init.gzpAttr as string]       
+                            ?? c_init.gzp
+                           ) as number,
+      c_scale      = data[ ( value?.[c_init.scaleAttr as string]
+                            ?? c_init.scale) as string 
+                         ] as number,
       c_random     = Math.random();
     let
       l_result: number;

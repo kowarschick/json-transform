@@ -77,7 +77,7 @@ traversalTests
 );
 
 { const c_t = new JsonTransformerTraversal();
-  c_t.pipe(new JsonTransformerLevel({init: '@level'}));
+  c_t.pipe(new JsonTransformerLevel({init: { level: '@level' }}));
 
   test
   ( '"$level" should be transformed to "$level"',

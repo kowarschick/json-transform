@@ -12,10 +12,9 @@ import { JsonTransformerFunction }                    from './function'
 
 /**
  * If the first element of the Array is equal to 
- * <code>_.init</code> (default: <code>$some</code>)
- * some of the other elements is returned as value. 
- * If there are no other elements, <code>null</code> 
- * is returned.
+ * <code>$some</code>, some of the other elements 
+ * is returned as value. If there are no other 
+ * elements, <code>null</code> is returned.
  * <p>
  * Otherwise the Array itself is returned as value.
  * <h4>Examples</h4>
@@ -30,7 +29,7 @@ import { JsonTransformerFunction }                    from './function'
  * t1.transform({ value: [ "$some" ] })      // => null 
  * t1.transform({ value: "abc" })            // => "abc"
  * 
- * const t2 = new JsonTransformerSome({ init: '@some' });
+ * const t2 = new JsonTransformerSome({ init: { some: '@some' } });
  * 
  * t2.transform({ value: [ "@some", 4, 5 ] }) // => 4 or 5
  * t2.transform({ value: [ "$some", 4, 5 ] }) // => [ "$some", 4, 5 ]
@@ -39,17 +38,18 @@ import { JsonTransformerFunction }                    from './function'
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {string} [_.init = '$some']
+ * @param {Init}   _.init
+ * @param {string} [_.init.some = '$some']
  */
 export 
 class JsonTransformerSome extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super({ ..._, init: _?.init ?? '$some' }); }
+  { super({..._, init: _?.init ?? { some: '$some'} }); }
 
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 
   { const c_length = value.length;
-    if (c_length === 0 || value[0] !== this.init)
+    if (c_length === 0 || value[0] !== this.init.some)
     { return value; }
 
     return (c_length === 1) 

@@ -10,22 +10,23 @@ import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
- * The string <code>_.init<code> is transformed to the current level number.
+ * The string <code>$level<code> is transformed to the current level number.
  * All other Templates are returned without modification.
  *
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {string} [_.init = '$level']
+ * @param {Init}   _.init
+ * @param {string} [_.init.level = '$level']
  */
 export 
 class JsonTransformerLevel extends JsonTransformer
 {  constructor (_: JsonTransformerParameters = {}) 
-  { super({ ..._, init: _?.init ?? '$level' }); }
+  { super({..._, init: _?.init ?? { level: '$level'} }); }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 
-  { return (value === this.init) ? level : value; }
+  { return (value === this.init?.level) ? level : value; }
 }
 
 export default JsonTransformerLevel;

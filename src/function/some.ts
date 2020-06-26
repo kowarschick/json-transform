@@ -5,13 +5,20 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
+import { JsonType, JsonArray, JsonValue, JsonFunctionParameters } from '../types';
+
+export function some(value: JsonArray, begin: number = 0): JsonValue
+{ const c_length = value.length;
+  return (c_length === begin) 
+         ? null
+         : value[Math.floor(Math.random()*(c_length-begin))+begin];
+}
 
 /**
  * @function 
  * @description
  * If the first element of the Array is equal to 
- * <code>JsonFunctionArraySome.init.function</code> (default: <code>$some</code>)
+ * <code>JsonFunctionSome.init.function</code> (default: <code>$some</code>)
  * some of the other elements is returned as value. 
  * If there are no other elements, <code>null</code> 
  * is returned.
@@ -24,14 +31,14 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
  * import { JsonTransformerSome }     from '@wljkowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
- *           ({init: { functions: [ JsonFunctionArraySome ] } })
+ *           ({init: { functions: [ JsonFunctionSome ] } })
  * 
  * t.transform({ value: [ "$some", 4, 5] }) // => 4 or 5
  * t.transform({ value: [ "$some", 4 ] })   // => 4 
  * t.transform({ value: [ "$some" ] })      // => null 
  * t.transform({ value: "abc" })            // => "abc"
  * 
- * JsonFunctionArraySome.init.function = "@some";
+ * JsonFunctionSome.init.function = "@some";
  * 
  * t.transform({ value: [ "@some", 4, 5 ] }) // => 4 or 5
  * t.transform({ value: [ "$some", 4, 5 ] }) // => [ "$some", 4, 5 ]
@@ -42,18 +49,16 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
  * @param {JsonArray} _value
  *   The JSON array to be transformed.
  */
-export function JsonFunctionArraySome({value}: JsonFunctionParameters<JsonArray>)
-{ const c_length = value.length;
-  
-  if (c_length === 0 || value[0] !== JsonFunctionArraySome.init.function)
+export function JsonFunctionSome({value, init}: JsonFunctionParameters<JsonArray>)
+{ if (value.length === 0 || value[0] !== init?.name)
   { return value; }
 
-  return (c_length === 1) 
-         ? null
-         : value[Math.floor(Math.random()*(c_length-1))+1];
+  return some(value, 1);
 }
 
-JsonFunctionArraySome.type = JsonType.Array;
-JsonFunctionArraySome.init = {function: "$some" };
+JsonFunctionSome.type = JsonType.Array;
+JsonFunctionSome.name = "$some";
 
-export default JsonFunctionArraySome;
+Object.freeze(JsonFunctionSome);
+
+export default JsonFunctionSome;

@@ -82,7 +82,7 @@
 /** 
  * @global 
  * @description
- *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
+ *   <code>&lt;T extends JsonValue = JsonValue&gt;</code>
  * @typedef {{value: T, data: Data, level: number}} JsonFunctionParameters
  * @property {JsonValue} value
  *   The JSON value to be transformed.
@@ -97,7 +97,7 @@
 /** 
  * @global 
  * @description
- *   <code>&lt;T extends JsonValue = JsonValue&gt</code>
+ *   <code>&lt;T extends JsonValue = JsonValue&gt;</code>
  *   <p>
  *   A JSON function can be passed via the <code>data: {@link Data}</code> 
  *   parameter passed to json transformers and other json functions to support
@@ -107,28 +107,20 @@
  *   additionally have properties. There are two properties that are important
  *   for json functions:
  *   <ul>
- *   <li><code>type?: {@link JsonType}</code></li>
- *   <li><code>init?: any</code></li>
+ *   <li><code>readonly type?: {@link JsonType}</code></li>
+ *   <li><code>readonly name?: string</code></li>
  *   </ul>
  *   <p>
  *   By means of the type property a transformer using a JSON function 
  *   can determine to which types of JSON values the helper function 
  *   can be applied.
- *   <p>
- *   The init parameter can be used to customize the function.
  * @callback JsonFunction
  * @param    {JsonFunctionParameters} _
  * @param    {JsonValue} _.value  see {@link JsonFunctionParameters}
  * @param    {Data}      _.data   see {@link JsonFunctionParameters}
  * @param    {number}    _.level  see {@link JsonFunctionParameters}
+ * @param    {Init}      _.init   see {@link JsonFunctionParameters}
  * @returns  {JsonValue}
- * 
- * @Xtypedef {(_: JsonFunctionParameters): JsonValue}    // Doen't work yet
- * @Xtypedef {(_: JsonFunctionParameters) => JsonValue}  // Doesn't work either
- * @Xtypedef {{ (_: JsonFunctionParameters): JsonValue}  // Nor this does work
- *              ?type: JsonType, 
- *              ?init: any
- *           }} JsonFunction  
  */
 
 /**
@@ -143,7 +135,7 @@
  * or <code>transformerJsonNumberNull</code> within the same transformer.
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitive
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArray
- * @property { JsonFunction<JsonObject>       | null } transformerJsonObject
+ * @property { JsonFunction<JsonObject>    | null } transformerJsonObject
  * @property { JsonFunction<JsonString>    | null } transformerJsonString
  * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumber
  * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBoolean
@@ -151,7 +143,7 @@
  * @property { JsonFunction }                       transformerPipe invoke the child transformer
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
- * @property { JsonFunction<JsonObject>       | null } transformerJsonObjectAfter
+ * @property { JsonFunction<JsonObject>    | null } transformerJsonObjectAfter
  * @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
  * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
  * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter

@@ -5,14 +5,14 @@
  * @license   MIT
  */
 
-import { Data }                      from "./types";
+import { Init, Data }                from "./types";
 import { JsonValue }                 from "./types";
 import { JsonFunctionParameters }    from "./types";
 import { JsonTransformerProperties } from "./types";
 
 export 
 interface JsonTransformerInitProperties 
-{ readonly init:  any,
+{ readonly init:  Init,
   readonly data:  Data,
   readonly level: number      
 };
@@ -46,8 +46,8 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  * 
  * @param {JsonTransformerParameters} _
  *   An object containing the following attributes.
- * @param {any} [_.init = undefined]
- *   An object that may be used to initialize the transformer. Used by subclasses.
+ * @param {Init} [_.init = {}]
+ *   An object that may be used to initialize the transformer and its subclasses.
  * @param {Data} [_.data = {}]
  *   A data object that is passed as environment to the
  *   transformers. It can be used by transformers (defined via subclassing) 
@@ -60,7 +60,7 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
 export 
 class JsonTransformer
 { constructor
-  ( { init  = undefined,
+  ( { init  = {},
       data  = {},
       level = 0,
     }: JsonTransformerParameters 
@@ -68,6 +68,10 @@ class JsonTransformer
   ) 
   { Object.assign(this, {init, data, level});
     this._root = this; 
+    for (let [l_key, l_value] of Object.entries(init))
+    { if (this.init[l_key] == null) 
+      { this.init[l_key] = l_value; }
+    }
   }
 
   private _root: JsonTransformer

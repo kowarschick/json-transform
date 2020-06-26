@@ -39,16 +39,18 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export 
 class JsonTransformerNull extends JsonTransformer
 {/**
-  * The string <code>option.init<code> is transformed to the current level number.
-  * All other Templates are returned without modification.
+  * The non-JSON value <code>undefined</code> is replaced by 
+  * the JSON value <code>null</code>.
   *
-  * @param _.init = '$level'
+  * @extends  module:transformer.JsonTransformer
+  *
+  * @param {JsonTransformerParameters} _
   */
   constructor (_: JsonTransformerParameters = {}) 
   { super(_); }
 
   transformerJsonNull: JsonFunction<JsonNull> = 
-  ({value, level}: JsonFunctionParameters<JsonNull>) => 
+  ({}: JsonFunctionParameters<JsonNull>) => 
   { return null; }
 }
 

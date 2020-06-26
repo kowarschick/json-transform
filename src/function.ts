@@ -12,29 +12,48 @@ import { JsonTransformer, JsonTransformerParameters }     from './transformer';
 export 
 class JsonTransformerFunction extends JsonTransformer
 { /**
-   * An JSON object that owns an attribute named 
-   * <code>JsonTransformerFunction.functionAttribute<code>
-   * (default: <code>$function</code>) is considered 
+   * A JSON object that owns an attribute named 
+   * <code>$function</code>) is considered 
    * the describe a function call.
    * @public
    * @static
    */
   public static functionAttribute = '$function';
 
-  /**
-  * This transformers applies the functions passed via the init parameter
-  * <code>_.init.functions</code> to approriate json values.
+ /**
+  * A JSON string ({@link JsonString}) is considered 
+  * to be a function call, if that string is equal 
+  * to the name of  an string function 
+  * ({@link JsonFunction<JsonString>}) 
+  * that has been registered at construction time. 
+  * The JSON string is passed as data object 
+  * to that function. Besinde, the level and
+  * the data object are passed.
   * 
-  * For JSON strings, if a <code>JsonStringFunction</code> exists with the name 
-  * of the string, it is invoked (and the invocation result is returned).
-  * For JSON arrays, if a <code>JsonArrayFunction</code> exists the name of 
-  * which is equal to the first element of the array, it is invoked
-  * (and the invocation result is returned). 
-  * For JSON object that contains an attribute named 
-  * <code>JsonTransformerFunction.functionAttribute<code>
-  * (default: <ocde>$function</code>)
-  * a <code>JsonObjectFunction</code> with the name <code>_.value['$function']<code>
-  * is invoked (and the invocation result is returned).
+  * A JSON array ({@link JsonObject}) 
+  * that starts with a string
+  * is considered to be a function call, if
+  * that string is equal to the name of 
+  * an array function ({@link JsonFunction<JsonArray>})  
+  * that has been registered  at construction time. 
+  * The JSON array is passed as data object to that function.
+  * 
+  * A JSON object  ({@link JsonObject})
+  * that owns an attribute named 
+  * <code>$function</code>) is considered 
+  * the describe a function call, if the
+  * value of that attribute is equal
+  * to the name of an object ({@link JsonFunction<JsonObject>})
+  * that has been registered at construction 
+  * time. The JSON object is passed as data 
+  * object to that function.
+  * 
+  * If there is is no object function but an 
+  * array function ({@link JsonFunction<JsonArray>})
+  * with that name and if the JSON object has
+  * an attribute name <code>$value</code> whose
+  * value is a JSON Array that value is passed
+  * as data to the array function.
 
   * If no function could be applied, the JSON value 
   * is returned unchanged.
@@ -42,15 +61,20 @@ class JsonTransformerFunction extends JsonTransformer
   * @extends  module:transformer.JsonTransformer
   *
   * @param {JsonTransformerParameters} _
+  * @param {Object}          _.init
+  * @param {JsonFunction[]} [_.init.function = { function: '$function',
+  *                                              value:    '$value'
+  *                                            }
+  *                         ]
   * @param {JsonFunction[]} [_.init.functions = []]
   */
   constructor (_: JsonTransformerParameters = {}) 
   { super(_); 
 
     if (Array.isArray(_?.init?.functions))
-    { for (const c_function of _.init.functions)
-      if (c_function.type != null)
-      { this.a_functions[c_function.type][c_function.init.function] = c_function; }
+    { for (const c_function of _.init!.functions)
+      if (c_function?.type != null)
+      { this.a_functions[c_function.type][c_function.name] = c_function; }
     }   
   }
 

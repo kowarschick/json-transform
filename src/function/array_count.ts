@@ -11,11 +11,8 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
   * @function 
   * @description
   *   If the first element of the Array is equal to 
-  *   <code>JsonFunctionArrayCount.init.function</code> 
-  *   (default: <code>'$count'</code>),
+  *   <code>'$count'</code>,
   *   the number of the other elements is returned. 
-  *   <p>
-  *   Otherwise the Array itself is returned as value.
   * 
   * @param {Partial<JsonFunctionParameters<JsonArray>>} _
   *   An object containing the following attributes.

@@ -5,9 +5,10 @@
  * @license   MIT
  */
 
-import { JsonArray }                                 from './types';
+import { JsonArray, JsonObject }                      from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
+import { JsonTransformerFunction }                    from './function'
 
 /**
  * If the first element of the Array is equal to 
@@ -54,6 +55,17 @@ class JsonTransformerSome extends JsonTransformer
     return (c_length === 1) 
            ? null
            : value[Math.floor(Math.random()*(c_length-1))+1];
+  }
+
+  transformerJsonObject: JsonFunction<JsonObject> = 
+  ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
+  { const c_value = value?.['$value'];
+
+    return  (   value?.[JsonTransformerFunction.functionAttribute] === this.init
+             && Array.isArray(c_value)
+            )
+            ? this.transformerJsonArray({value: c_value, data, level})
+            : value;
   }
 }
 

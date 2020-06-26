@@ -38,7 +38,13 @@ const t1 = new JsonTransformerSome();
 t1.transform({ value: [ "$some", 5, 7, 9] }) // => 5 or 7 or 9
 ```
 
-See directories ```test``` and ```examples``` for more examples.
+There are several transformers and transformer functions.
+Transformer functions are a little bit simpler than
+tanformers. They can be passed to the transformer 
+<code>JsonTransformerFunction</code> which applies them
+when approriate. Compare the two functions
+<code>JsonFunctionArraySome</code> and <code>JsonFunctionObjectSome</code> 
+with the transformer <code>JsonTransformerSome</some>.
 
 ## Complex Example
 
@@ -139,6 +145,9 @@ console.log(transformer
 //   ]
 // }
 ```
+## More Examples
+
+See directories ```test``` and ```examples``` for many more examples.
 
 ## License
 

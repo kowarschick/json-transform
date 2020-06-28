@@ -1,4 +1,4 @@
-export { JsonString, JsonNumber, JsonBoolean, JsonNull, JsonPrimitive, JsonArray, JsonObject, JsonValue, JsonType, JsonFunctionParameters, JsonFunction, JsonTransformerProperties, Data } from './types';
+export { JsonValue, JsonPrimitive, JsonArray, JsonObject, JsonString, JsonNumber, JsonBoolean, JsonNull, isJsonValue, isJsonPrimitive, isJsonArray, isJsonObject, isJsonString, isJsonNumber, isJsonBoolean, isJsonNull, JsonType, JsonFunctionParameters, JsonFunction, isJsonFunction, JsonTransformerProperties, Init, Data, isRegExp } from './types';
 export { JsonTransformer } from './transformer';
 export { JsonTransformerFunction } from './function';
 export { JsonTransformerTraversal } from './traversal';
@@ -15,7 +15,7 @@ export { JsonFunctionArrayCount } from './function/array_count';
 export { JsonFunctionArrayMin } from './function/array_min';
 export { JsonFunctionArrayMax } from './function/array_max';
 export { JsonFunctionArrayShuffle } from './function/array_shuffle';
-export { JsonFunctionSome } from './function/array_some';
+export { JsonFunctionSome } from './function/some';
 export { JsonFunctionArraySum } from './function/array_sum';
 export { JsonFunctionArrayUnnest } from './function/array_unnest';
 export { JsonFunctionObjectDuplicate } from './function/object_duplicate';

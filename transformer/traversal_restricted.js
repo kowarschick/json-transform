@@ -10,7 +10,8 @@ class JsonTransformerTraversalRestricted extends traversal_1.JsonTransformerTrav
             } }));
     }
     transformerPipe(_) {
-        return (this.init.minLevel <= _.level && _.level <= this.init.maxLevel)
+        return (this.init.minLevel <= _.level
+            && _.level <= this.init.maxLevel)
             ? super.transformerPipe(_)
             : _.value;
     }

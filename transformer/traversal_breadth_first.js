@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonTransformerTraversalBreadthFirst = void 0;
 const transformer_1 = require("./transformer");
 class JsonTransformerTraversalBreadthFirst extends transformer_1.JsonTransformer {
-    constructor(options = {}) {
-        super(options);
+    constructor(_ = {}) {
+        super(_);
         this.transformerJsonPrimitive = ({ value }) => value;
         this.transformerJsonArray = ({ value, data, level }) => {
             const c_level = level + 1;

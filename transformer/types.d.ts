@@ -17,16 +17,31 @@ export declare enum JsonType {
     Boolean = 6,
     Null = 7
 }
+export declare function isJsonPrimitive(value: JsonValue): value is JsonPrimitive;
+export declare function isJsonArray(value: JsonValue): value is JsonArray;
+export declare function isJsonObject(value: JsonValue): value is JsonObject;
+export declare function isJsonString(value: JsonValue): value is JsonString;
+export declare function isJsonNumber(value: JsonValue): value is JsonNumber;
+export declare function isJsonBoolean(value: JsonValue): value is JsonBoolean;
+export declare function isJsonNull(value: JsonValue): value is JsonNull;
 export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
     value: T;
-    data: Data;
     level: number;
+    data: Data;
+    init?: Init;
 };
 export declare type JsonFunction<T extends JsonValue = JsonValue> = {
     (_: JsonFunctionParameters<T>): JsonValue;
     type?: JsonType;
-    init?: any;
+    name?: string;
+    init?: Init;
 };
+export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue> {
+    function: (_: JsonFunctionParameters<T>) => JsonValue;
+    type: JsonType;
+    name: string;
+    init?: Init;
+}
 export interface JsonTransformerProperties {
     readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
     readonly transformerJsonArray: JsonFunction<JsonArray> | null;
@@ -38,6 +53,12 @@ export interface JsonTransformerProperties {
     transformerPipe: JsonFunction;
     readonly [key: string]: any;
 }
+export declare function isJsonValue(value: JsonValue | JsonFunction | null): value is JsonValue;
+export declare function isJsonFunction(value: JsonValue | JsonFunction | null): value is JsonFunction;
 export interface Data {
     [key: string]: JsonValue | JsonFunction | null;
+}
+export declare function isRegExp(value: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull): value is RegExp;
+export interface Init {
+    [key: string]: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull;
 }

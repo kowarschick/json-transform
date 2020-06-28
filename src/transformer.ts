@@ -5,11 +5,25 @@
  * @license   MIT
  */
 
-import { Init, Data }                from "./types";
+import { Init, Data, 
+         isJsonPrimitive, isJsonArray, isJsonObject, 
+         isJsonString, isJsonNumber, isJsonBoolean, 
+         isJsonNull 
+        }                            from "./types";
 import { JsonValue }                 from "./types";
 import { JsonFunctionParameters }    from "./types";
 import { JsonTransformerProperties } from "./types";
 
+
+const c_transformer_tests =
+{ transformerJsonPrimitive: isJsonPrimitive,
+  transformerJsonArray:     isJsonArray,
+  transformerJsonObject:    isJsonObject,  
+  transformerJsonString:    isJsonString, 
+  transformerJsonNumber:    isJsonNumber, 
+  transformerJsonBoolean:   isJsonBoolean, 
+  transformerJsonNull:      isJsonNull, 
+};
 export 
 interface JsonTransformerInitProperties 
 { readonly init:  Init,
@@ -149,96 +163,7 @@ class JsonTransformer
 
     return transformers[0];
   }
-
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonPrimitive}</code>.
-   */
-  public static isJsonPrimitive(value: JsonValue): boolean 
-  { const t = typeof value;
-    return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
-  }
-
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonArray}</code>.
-   */
-  public static isJsonArray(value: JsonValue): boolean
-  { return Array.isArray(value); }
-
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonObject}</code>.
-   */
-  public static isJsonObject(value: JsonValue): boolean
-  { return value != null && typeof value === 'object' && !Array.isArray(value); }
-  
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonString}</code>.
-   */
-  public static isJsonString(value: JsonValue): boolean
-  { return typeof value === 'string'; }
-  
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonNumber}</code>.
-   */
-  public static isJsonNumber(value: JsonValue): boolean
-  { return typeof value === 'number'; }
-  
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonBoolean}</code>.
-   */
-  public static isJsonBoolean(value: JsonValue): boolean
-  { return typeof value === 'boolean'; }
-  
-  /**
-   * @static
-   * @method
-   * @param   {JsonValue} value
-   * @returns {boolean} 
-   *          Returns <code>true</code> is <code>value</code> 
-   *          is a member of <code>{@link JsonNull}</code>.
-   */
-  public static isJsonNull(value: JsonValue): boolean
-  { return value == null; }
 }
-
-const c_transformer_tests =
-{ transformerJsonPrimitive: JsonTransformer.isJsonPrimitive,
-  transformerJsonArray:     JsonTransformer.isJsonArray,
-  transformerJsonObject:    JsonTransformer.isJsonObject,  
-  transformerJsonString:    JsonTransformer.isJsonString, 
-  transformerJsonNumber:    JsonTransformer.isJsonNumber, 
-  transformerJsonBoolean:   JsonTransformer.isJsonBoolean, 
-  transformerJsonNull:      JsonTransformer.isJsonNull, 
-};
 
 /** @export  JsonTransformer*/
 export default JsonTransformer;

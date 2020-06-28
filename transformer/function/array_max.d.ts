@@ -4,6 +4,7 @@ export declare namespace JsonFunctionArrayMax {
     var type: JsonType;
     var init: {
         function: string;
+        default: number;
     };
 }
 export default JsonFunctionArrayMax;

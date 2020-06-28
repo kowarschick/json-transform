@@ -20,13 +20,13 @@ class JsonTransformerRandom extends transformer_1.JsonTransformer {
             } }));
         this.transformerJsonObject = ({ value, data }) => {
             var _a, _b, _c, _d, _e;
-            const c_init = this.init, c_min = (_a = value === null || value === void 0 ? void 0 : value[c_init.minAttr]) !== null && _a !== void 0 ? _a : c_init.min, c_max = (_b = value === null || value === void 0 ? void 0 : value[c_init.maxAttr]) !== null && _b !== void 0 ? _b : c_init.max;
+            const c_init = this.init, c_min = ((_a = value === null || value === void 0 ? void 0 : value[c_init.minAttr]) !== null && _a !== void 0 ? _a : c_init.min), c_max = ((_b = value === null || value === void 0 ? void 0 : value[c_init.maxAttr]) !== null && _b !== void 0 ? _b : c_init.max);
             if ((value === null || value === void 0 ? void 0 : value[c_init.functionAttr]) !== c_init.function
                 || !Number.isFinite(c_min)
                 || !Number.isFinite(c_max)) {
                 return value;
             }
-            const c_is_integer = (_c = value === null || value === void 0 ? void 0 : value[c_init.isIntegerAttr]) !== null && _c !== void 0 ? _c : c_init.isInteger, c_gzp = (_d = value === null || value === void 0 ? void 0 : value[c_init.gzpAttr]) !== null && _d !== void 0 ? _d : c_init.gzp, c_scale = data[(_e = value === null || value === void 0 ? void 0 : value[c_init.scaleAttr]) !== null && _e !== void 0 ? _e : c_init.scale], c_random = Math.random();
+            const c_is_integer = ((_c = value === null || value === void 0 ? void 0 : value[c_init.isIntegerAttr]) !== null && _c !== void 0 ? _c : c_init.isInteger), c_gzp = ((_d = value === null || value === void 0 ? void 0 : value[c_init.gzpAttr]) !== null && _d !== void 0 ? _d : c_init.gzp), c_scale = data[((_e = value === null || value === void 0 ? void 0 : value[c_init.scaleAttr]) !== null && _e !== void 0 ? _e : c_init.scale)], c_random = Math.random();
             let l_result;
             if (c_is_integer) {
                 l_result = Math.floor(c_min + c_random * (c_max + 1 - c_min));

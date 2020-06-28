@@ -5,9 +5,9 @@ const transformer_1 = require("./transformer");
 class JsonTransformerTemplateFunctions extends transformer_1.JsonTransformer {
     constructor(_ = {}) {
         var _a;
-        super(Object.assign(Object.assign({}, _), { init: (_a = _ === null || _ === void 0 ? void 0 : _.init) !== null && _a !== void 0 ? _a : /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ }));
+        super(Object.assign(Object.assign({}, _), { init: (_a = _ === null || _ === void 0 ? void 0 : _.init) !== null && _a !== void 0 ? _a : { templateFunctions: /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/ } }));
         this.transformerJsonString = ({ value, data }) => {
-            const c_regexp = new RegExp(this.init, 'g'), c_value = value, c_match = c_value.match(new RegExp(`^${this.init.toString().slice(1, -1)}$`)), f_split_placeholder = (p_name, p_arguments) => {
+            const c_regexp = this.init.templateFunctions, c_value = value, c_match = c_value.match(new RegExp(`^${c_regexp.toString().slice(1, -1)}$`)), f_split_placeholder = (p_name, p_arguments) => {
                 var _a;
                 const c_name = p_name == null ? null : data[p_name], c_arguments = (_a = p_arguments === null || p_arguments === void 0 ? void 0 : p_arguments.slice(1, -2).replace(/'/g, '"')) !== null && _a !== void 0 ? _a : '';
                 let l_json_value;
@@ -25,7 +25,7 @@ class JsonTransformerTemplateFunctions extends transformer_1.JsonTransformer {
                 }
             }, f_replace_placeholders = (p_value, p_string_cast) => {
                 var _a;
-                const c_placeholders = p_value.matchAll(c_regexp), c_replacers = [];
+                const c_placeholders = p_value.matchAll(new RegExp(c_regexp, 'g')), c_replacers = [];
                 let l_result = c_placeholders.next();
                 if (l_result.done) {
                     return p_value;

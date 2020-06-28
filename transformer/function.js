@@ -35,8 +35,8 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
         };
         if (Array.isArray((_a = _ === null || _ === void 0 ? void 0 : _.init) === null || _a === void 0 ? void 0 : _a.functions)) {
             for (const c_function of _.init.functions)
-                if (c_function.type != null) {
-                    this.a_functions[c_function.type][c_function.init.function] = c_function;
+                if ((c_function === null || c_function === void 0 ? void 0 : c_function.type) != null) {
+                    this.a_functions[c_function.type][c_function.name] = c_function;
                 }
         }
     }

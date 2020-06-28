@@ -4,12 +4,14 @@
  * @license   MIT
  */
 
-export { JsonString, JsonNumber, JsonBoolean, JsonNull,
-         JsonPrimitive, JsonArray, JsonObject, JsonValue,
+export { JsonValue, JsonPrimitive, JsonArray, JsonObject,
+         JsonString, JsonNumber, JsonBoolean, JsonNull,
+         isJsonValue, isJsonPrimitive, isJsonArray, isJsonObject,
+         isJsonString, isJsonNumber, isJsonBoolean, isJsonNull,
          JsonType,
-         JsonFunctionParameters, JsonFunction, 
+         JsonFunctionParameters, JsonFunction, isJsonFunction,
          JsonTransformerProperties, 
-         Init, Data
+         Init, Data, isRegExp
        }                                        from './types' 
 export { JsonTransformer }                      from './transformer'; 
 export { JsonTransformerFunction }              from './function'; 

@@ -33,15 +33,95 @@ export enum JsonType
   Null      = 7,
 }
 
+/**
+ * @param
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonPrimitive}</code>.
+ */
+export
+function isJsonPrimitive(value: JsonValue): value is JsonPrimitive 
+{ const t = typeof value;
+  return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
+}
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonArray}</code>.
+ */
+export
+function isJsonArray(value: JsonValue): value is JsonArray
+{ return Array.isArray(value); }
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonObject}</code>.
+ */
+export
+function isJsonObject(value: JsonValue): value is JsonObject
+{ return value != null && typeof value === 'object' && !Array.isArray(value); }
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonString}</code>.
+ */
+export
+function isJsonString(value: JsonValue): value is JsonString
+{ return typeof value === 'string'; }
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonNumber}</code>.
+ */
+export
+function isJsonNumber(value: JsonValue): value is JsonNumber
+{ return typeof value === 'number'; }
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonBoolean}</code>.
+ */
+export
+function isJsonBoolean(value: JsonValue): value is JsonBoolean
+{ return typeof value === 'boolean'; }
+
+/**
+ * @param   {JsonValue} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonNull}</code>.
+ */
+export
+function isJsonNull(value: JsonValue): value is JsonNull
+{ return value == null; }
+
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
-{value: T, data: Data, level: number, init?: Init};
+{value: T, level: number, data: Data, init?: Init};
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
 { (_: JsonFunctionParameters<T>): JsonValue, 
   type?: JsonType, 
   name?: string,
-  init?: any 
-};
+  init?: Init 
+}
+
+export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue>
+{ function: (_: JsonFunctionParameters<T>) => JsonValue, 
+  type:     JsonType, 
+  name:     string,
+  init?:    Init
+}
 
 export interface JsonTransformerProperties 
 { readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
@@ -55,10 +135,41 @@ export interface JsonTransformerProperties
            transformerPipe:          JsonFunction;
 
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
-};
+}
             
-export interface Init 
-{ [key: string]: Object | RegExp | string | number | boolean | null ; }
+/**
+ * @param   {JsonValue | JsonFunction | null} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonValue}</code>.
+ */
+export
+function isJsonValue(value: JsonValue | JsonFunction | null): value is JsonValue
+{ return value != null && typeof value !== 'function'; }
+
+/**
+ * @param   {JsonValue | JsonFunction | null} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonValue}</code>.
+ */
+export
+function isJsonFunction(value: JsonValue | JsonFunction | null): value is JsonFunction
+{ return value != null && typeof value === 'function'; }
 
 export interface Data 
 { [key: string]: JsonValue | JsonFunction | null; }
+
+
+/**
+ * @param   {Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonValue}</code>.
+ */
+export
+function isRegExp(value: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull): value is RegExp
+{ return value instanceof RegExp; }
+
+export interface Init 
+{ [key: string]: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull ; }

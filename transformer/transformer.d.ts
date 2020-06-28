@@ -1,9 +1,9 @@
-import { Data } from "./types";
+import { Init, Data } from "./types";
 import { JsonValue } from "./types";
 import { JsonFunctionParameters } from "./types";
 import { JsonTransformerProperties } from "./types";
 export interface JsonTransformerInitProperties {
-    readonly init: any;
+    readonly init: Init;
     readonly data: Data;
     readonly level: number;
 }
@@ -18,12 +18,5 @@ export declare class JsonTransformer {
     transformerPipe(_: JsonFunctionParameters): JsonValue;
     transform({ value, data, level }: Partial<JsonFunctionParameters<JsonValue>>): JsonValue;
     pipe(...transformers: JsonTransformer[]): JsonTransformer;
-    static isJsonPrimitive(value: JsonValue): boolean;
-    static isJsonArray(value: JsonValue): boolean;
-    static isJsonObject(value: JsonValue): boolean;
-    static isJsonString(value: JsonValue): boolean;
-    static isJsonNumber(value: JsonValue): boolean;
-    static isJsonBoolean(value: JsonValue): boolean;
-    static isJsonNull(value: JsonValue): boolean;
 }
 export default JsonTransformer;

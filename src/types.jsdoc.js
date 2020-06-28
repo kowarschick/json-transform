@@ -140,7 +140,7 @@
  * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumber
  * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBoolean
  * @property { JsonFunction<JsonNull>      | null } transformerJsonNull
- * @property { JsonFunction }                       transformerPipe invoke the child transformer
+ * @property { JsonFunction }                       transformerPipe - invoke the child transformer
  * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
  * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
  * @property { JsonFunction<JsonObject>    | null } transformerJsonObjectAfter

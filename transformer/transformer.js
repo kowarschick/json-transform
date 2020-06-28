@@ -1,13 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonTransformer = void 0;
+const types_1 = require("./types");
+const c_transformer_tests = { transformerJsonPrimitive: types_1.isJsonPrimitive,
+    transformerJsonArray: types_1.isJsonArray,
+    transformerJsonObject: types_1.isJsonObject,
+    transformerJsonString: types_1.isJsonString,
+    transformerJsonNumber: types_1.isJsonNumber,
+    transformerJsonBoolean: types_1.isJsonBoolean,
+    transformerJsonNull: types_1.isJsonNull,
+};
 ;
 ;
 class JsonTransformer {
-    constructor({ init = undefined, data = {}, level = 0, } = {}) {
+    constructor({ init = {}, data = {}, level = 0, } = {}) {
         this._pipe_transformers = [];
         Object.assign(this, { init, data, level });
         this._root = this;
+        for (let [l_key, l_value] of Object.entries(init)) {
+            if (this.init[l_key] == null) {
+                this.init[l_key] = l_value;
+            }
+        }
     }
     get root() { return this._root; }
     ;
@@ -44,25 +58,7 @@ class JsonTransformer {
         this._pipe_transformers = transformers;
         return transformers[0];
     }
-    static isJsonPrimitive(value) {
-        const t = typeof value;
-        return t == null || t === 'string' || t === 'number' || t === 'boolean';
-    }
-    static isJsonArray(value) { return Array.isArray(value); }
-    static isJsonObject(value) { return value != null && typeof value === 'object' && !Array.isArray(value); }
-    static isJsonString(value) { return typeof value === 'string'; }
-    static isJsonNumber(value) { return typeof value === 'number'; }
-    static isJsonBoolean(value) { return typeof value === 'boolean'; }
-    static isJsonNull(value) { return value == null; }
 }
 exports.JsonTransformer = JsonTransformer;
-const c_transformer_tests = { transformerJsonPrimitive: JsonTransformer.isJsonPrimitive,
-    transformerJsonArray: JsonTransformer.isJsonArray,
-    transformerJsonObject: JsonTransformer.isJsonObject,
-    transformerJsonString: JsonTransformer.isJsonString,
-    transformerJsonNumber: JsonTransformer.isJsonNumber,
-    transformerJsonBoolean: JsonTransformer.isJsonBoolean,
-    transformerJsonNull: JsonTransformer.isJsonNull,
-};
 exports.default = JsonTransformer;
 //# sourceMappingURL=transformer.js.map

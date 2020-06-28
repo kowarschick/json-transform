@@ -81,7 +81,6 @@ class JsonTransformer
     = {}
   ) 
   { Object.assign(this, {init, data, level});
-    this._root = this; 
     if (this.constructor.name !== 'JsonTransformer')
     { this.mergeIntoInit(init); }
   }
@@ -95,11 +94,47 @@ class JsonTransformer
       { this.mergeIntoInit(value_new, value_old) }
     }
   }
-  private _root: JsonTransformer
-  public get root() { return this._root}
  
+  private _pipe_tail: JsonTransformer | null = null;
   private _pipe_transformers: JsonTransformer[] = []
 
+  /**
+   * Adds transformers to the transformer pipe. Those transformers
+   * are called, after the transformer has done its local transformations.
+   * 
+   * @method
+   * @param   {JsonTransformer} transformer
+   * @returns {JsonTransformer} 
+   *          Returns this <code>transformer</code> so that
+   *          further pipe transformers can be added by
+   *          applying <code>pipe</code> again. 
+   */
+  public pipe(...transformers: JsonTransformer[]): this
+  { if (transformers.length === 0)
+    { return this; }
+
+    if (this._pipe_tail == null)
+    { this._pipe_transformers = transformers;
+  
+      for (const t of transformers)
+      { Object.setPrototypeOf(t.data, this.data) }
+    }
+    else
+    { this._pipe_tail.pipe(...transformers) }
+     
+    this._pipe_tail = this._pipe_transformers[0]; 
+
+    return this;
+  }
+
+  /**
+   * This method is called after the transformer has
+   * locally transformed the JSON value. The locally
+   * transformed value is passed to the transformers 
+   * that have been added by {@link pipe}.
+   * 
+   * @param { JsonFunctionParameters} _ 
+   */
   public transformerPipe(_: JsonFunctionParameters): JsonValue
   { let l_value: JsonValue = _.value;
 
@@ -144,31 +179,6 @@ class JsonTransformer
     l_value = this.transformerPipe({value: l_value, data: c_data, level});
 
     return l_value; 
-  }
-
-  /**
-   * Replaces <code>this.transformer</code>, which is used for piping,
-   * by <code>transformer</code>.
-   * @method
-   * @param   {JsonTransformer} transformer
-   * @returns {JsonTransformer} 
-   *          Returns <code>transformer</code> after it has been
-   *          appended as pipe transformer to <code>this</code>. 
-   */
-  public pipe(...transformers: JsonTransformer[]): JsonTransformer
-  { if (transformers.length === 0)
-    { this._pipe_transformers = [];
-      return this; 
-    }
-
-    for (const t of transformers)
-    { Object.setPrototypeOf(t.data, this.data);
-      t._root = this._root;
-    }
-     
-    this._pipe_transformers = transformers; 
-
-    return transformers[0];
   }
 }
 

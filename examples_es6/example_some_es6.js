@@ -23,7 +23,6 @@ const
   transformer =  
          new JsonTransformerTraversal()
     .pipe(new JsonTransformerSome())
-    .root
   ;
 
 trace.title('$some (es6)');
@@ -39,8 +38,7 @@ const
   transformer2 =
           new JsonTransformerTraversal()
     .pipe(new JsonTransformerLevel())
-    .pipe(new JsonTransformerSome())
-    .root;
+    .pipe(new JsonTransformerSome());
 
 for (let i = 0; i < 3; i++)
 { trace.transform(transformer2, ["$some", "$level", ["$level"], [["$level"]]] ); }
@@ -53,10 +51,9 @@ trace.title('$some before $level (es6)');
 const
   transformer3 =   
             new JsonTransformer()
-      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerSome()).root,
-            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root, 
-           )
-      .root;
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerSome()),
+            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()), 
+           );
 
 for (let i = 0; i < 3; i++)
 { trace.transform(transformer3, ["$some", "$level", ["$level"], [["$level"]]] ); }

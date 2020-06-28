@@ -55,7 +55,7 @@ function traversalTests(transformer: JsonTransformer)
   );
 }
 
-traversalTests(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root);
+traversalTests(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()));
 
 { const c_t = new JsonTransformerTraversal();
   c_t.pipe(new JsonTransformerLevel());
@@ -64,16 +64,14 @@ traversalTests(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).r
 }
 
 traversalTests
-(      new JsonTransformerTraversal()
+(       new JsonTransformerTraversal()
   .pipe(new JsonTransformerLevel())
-  .root
 );
 
 traversalTests
-(      new JsonTransformer()
+(       new JsonTransformer()
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerLevel())
-  .root
 );
 
 { const c_t = new JsonTransformerTraversal();
@@ -100,8 +98,7 @@ traversalTests
 { const
     c_t =   new JsonTransformerTraversal()
       .pipe(new JsonTransformerLevel())
-      .pipe(new JsonTransformerSome())
-      .root;
+      .pipe(new JsonTransformerSome());
 
 
   test
@@ -127,10 +124,9 @@ traversalTests
 
 { const
     c_t =   new JsonTransformer()
-      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root,
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()),
             new JsonTransformerSome(),
-           )
-      .root;
+           );
 
 
   test
@@ -146,10 +142,9 @@ traversalTests
 
 { const
     c_t =   new JsonTransformer()
-      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root,
-            new JsonTransformerTraversal().pipe(new JsonTransformerSome()).root,
-           )
-      .root;
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerLevel()),
+            new JsonTransformerTraversal().pipe(new JsonTransformerSome()),
+           );
 
   test
   ( '{a: ["$some", "$level", ["$level"], [["$level"]]]} should be transformed either into {a:1} or {a:[2]} or {a:[[3]]}', 
@@ -165,9 +160,8 @@ traversalTests
 { const
     c_t =   new JsonTransformer()
       .pipe(new JsonTransformerSome(),
-            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root,           
-           )
-      .root;
+            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()),           
+           );
 
 
   test
@@ -183,10 +177,9 @@ traversalTests
 
 { const
     c_t =   new JsonTransformer()
-      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerSome()).root,
-            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()).root, 
-           )
-      .root;
+      .pipe(new JsonTransformerTraversal().pipe(new JsonTransformerSome()),
+            new JsonTransformerTraversal().pipe(new JsonTransformerLevel()), 
+           );
 
   test
   ( '{a: ["$some", "$level", ["$level"], [["$level"]]]} should be transformed either into {a:1} or {a:[2]} or {a:[[3]]}', 

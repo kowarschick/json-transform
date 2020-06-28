@@ -41,10 +41,9 @@ import { JsonTransformerStringReplace } from '~/string_replace';
   ); 
 }
 
-{ const c_t =       new JsonTransformerTraversal
-                        ({ data: { a: 1, b: [], c: {}} })
-              .pipe(new JsonTransformerStringReplace())
-              .root;
+{ const c_t = new JsonTransformerTraversal
+                  ({ data: { a: 1, b: [], c: {}} })
+        .pipe(new JsonTransformerStringReplace());
 
   test
   ( '"a" should be transformed to 1',

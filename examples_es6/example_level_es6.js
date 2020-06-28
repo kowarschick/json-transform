@@ -18,7 +18,6 @@ const
   transformer =  
          new JsonTransformerTraversal()
     .pipe(new JsonTransformerLevel())
-    .root
   ;
 
 trace.title('$level (es6)');

@@ -42,10 +42,8 @@ const
       def:   () => 123
     },
   
-  c_t =
-          new JsonTransformerTraversal({ data: c_data })
-    .pipe(new JsonTransformerTemplateFunctions())
-    .root;
+  c_t =   new JsonTransformerTraversal({ data: c_data })
+    .pipe(new JsonTransformerTemplateFunctions());
 
   test
   ( '"${vpf({\'x\':100, \'y\':200})" should be transformed to "{v: [2, 4]}"', 
@@ -130,19 +128,16 @@ function stringTests(transformer: JsonTransformer)
 stringTests
 (       new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTemplateFunctions())
-  .root
 );
 
 stringTests
 (       new JsonTransformer()
   .pipe(new JsonTransformerTraversal({data: { "abc": 123, "hello": "Hallo" } }))
   .pipe(new JsonTransformerTemplateFunctions())
-  .root
 );
 
 stringTests
 (       new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerTemplateFunctions())
-  .root
 )

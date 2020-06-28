@@ -79,9 +79,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  *                       def:   () => 123,
  *                     }
  *             })
- *        .pipe(new JsonTransformerTemplateFunctions())
- *        .root;
-* 
+ *        .pipe(new JsonTransformerTemplateFunctions());
+ * 
  * t2.transform({ value: {v: ${vpf({"vx":100, "vy":200})}} })
  *    // => {v: [2,4]}
  * ```

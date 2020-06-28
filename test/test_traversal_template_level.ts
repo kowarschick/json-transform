@@ -50,35 +50,30 @@ function allTests(transformer: JsonTransformer)
 }
 
 allTests
-(      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
+(       new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTemplate())
-  .root
 );
 
 allTests
-(      new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
+(       new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerTemplate())
-  .root
 )
 
 allTests
-(      new JsonTransformer()
+(       new JsonTransformer()
   .pipe(new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } }))
   .pipe(new JsonTransformerTemplate())
-  .root
 );
 
 allTests
-(      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
+(       new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTemplate())
   .pipe(new JsonTransformerLevel())
-  .root
 );
 
 allTests
-(      new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
+(       new JsonTransformerTraversal({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerLevel())
   .pipe(new JsonTransformerTemplate())
-  .root
 );

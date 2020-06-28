@@ -46,8 +46,7 @@ import { JsonFunctionArrayUnnest }      from '~/function/array_unnest';
                   }
                 }) 
            )
-      .pipe(new JsonTransformerStringReplace()) 
-      .root,
+      .pipe(new JsonTransformerStringReplace()),
 
     c_memory =
     { cards: { "$function": "$sequence",

@@ -75,8 +75,7 @@ const
                 }
               })
          )
-    .pipe(new JsonTransformerStringReplace())
-    .root,
+    .pipe(new JsonTransformerStringReplace()),
 
   pairs =
   { cards: { "$function": "$sequence",

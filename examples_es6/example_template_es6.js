@@ -29,9 +29,7 @@ const
                                         }
                                      })
     .pipe(new JsonTransformerLevel())
-    .pipe(new JsonTransformerTemplate())
-    .root
-  ;
+    .pipe(new JsonTransformerTemplate());
 
 trace.title('Templates with Placeholders ${name} (es6))');
 

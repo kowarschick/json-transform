@@ -28,7 +28,6 @@ const
                                      })
     .pipe(new JsonTransformerLevel())
     .pipe(new JsonTransformerTemplate())
-    .root
   ;
 
 trace.title('Templates with Placeholders ${name} (csj)');

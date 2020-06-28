@@ -38,7 +38,6 @@ const
              })
     .pipe(new JsonTransformerLevel())
     .pipe(new JsonTransformerTemplateFunctions())
-    .root
   ;
 
 trace.title('Templates with Placeholders ${name(...)} and Function Calls (csj)');

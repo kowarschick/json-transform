@@ -25,12 +25,7 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  * //
  * //  const
  * //    t1 =       new JsonTransformerTraversalBreadthFirst()
- * //         .pipe(new JsonTransformerLevel())
- * //         .root;
- * //
- * //  // or:
- * //  const t1 = new JsonTransformerTraversalBreadthFirst
- * //             ({ transformer: new JsonTransformerLevel() });
+ * //         .pipe(new JsonTransformerLevel());
  * 
  * t1.transform({ value: $level }) 
  * // => 0
@@ -41,8 +36,7 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  * const
  *   t2 =       new JsonTransformerTraversalBreadthFirst()
  *        .pipe(new JsonTransformerLevel())
- *        .pipe(new JsonTransformerSome())
- *        .root;
+ *        .pipe(new JsonTransformerSome());
  * 
  * t2.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] });
  * // => 1, [2], or [[3]] 

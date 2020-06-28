@@ -9,10 +9,10 @@ import { Init, Data,
          isJsonPrimitive, isJsonArray, isJsonObject, 
          isJsonString, isJsonNumber, isJsonBoolean, 
          isJsonNull 
-        }                            from "./types";
-import { JsonValue }                 from "./types";
-import { JsonFunctionParameters }    from "./types";
-import { JsonTransformerProperties } from "./types";
+        }                            from "./types"
+import { JsonValue }                 from "./types"
+import { JsonFunctionParameters }    from "./types"
+import { JsonTransformerProperties } from "./types"
 
 
 const c_transformer_tests =
@@ -23,21 +23,21 @@ const c_transformer_tests =
   transformerJsonNumber:    isJsonNumber, 
   transformerJsonBoolean:   isJsonBoolean, 
   transformerJsonNull:      isJsonNull, 
-};
+}
 export 
 interface JsonTransformerInitProperties 
 { readonly init:  Init,
   readonly data:  Data,
   readonly level: number      
-};
+}
 
 export 
-type JsonTransformerParameters = Partial<JsonTransformerInitProperties>;
+type JsonTransformerParameters = Partial<JsonTransformerInitProperties>
 
 export 
 interface JsonTransformer
 extends   JsonTransformerInitProperties, JsonTransformerProperties
-{};
+{}
 
 /**
  * Objects of the class <code>JsonTransformer</code> transform JSON values 
@@ -82,22 +82,29 @@ class JsonTransformer
   ) 
   { Object.assign(this, {init, data, level});
     this._root = this; 
-    for (let [l_key, l_value] of Object.entries(init))
-    { if (this.init[l_key] == null) 
-      { this.init[l_key] = l_value; }
-    }
+    if (this.constructor.name !== 'JsonTransformer')
+    { this.mergeIntoInit(init); }
   }
 
+  protected mergeIntoInit(initNew: Init, initOld: Init = this.init)
+  { for (let [key_new, value_new] of Object.entries(initNew))
+    { const value_old = initOld[key_new];
+      if (value_old == null) // there is no old value, so the new value is stored
+      { initOld[key_new] = value_new }
+      else if (isJsonObject(value_old) && isJsonObject(value_new))
+      { this.mergeIntoInit(value_new, value_old) }
+    }
+  }
   private _root: JsonTransformer
-  public get root() { return this._root};
+  public get root() { return this._root}
  
-  private _pipe_transformers: JsonTransformer[] = [];
+  private _pipe_transformers: JsonTransformer[] = []
 
   public transformerPipe(_: JsonFunctionParameters): JsonValue
-  { let l_value: JsonValue = _.value
+  { let l_value: JsonValue = _.value;
 
     for (const t of this._pipe_transformers)
-    { l_value = t.transform({value: l_value, data: _.data, level: _.level}); }; 
+    { l_value = t.transform({value: l_value, data: _.data, level: _.level}) } 
 
     return l_value;
   }
@@ -130,7 +137,7 @@ class JsonTransformer
     { const c_transformer = this[c_key];
     
       if (c_transformer != null && c_test(l_value))
-      { l_value = c_transformer({value: value, data: c_data, level}); }
+      { l_value = c_transformer({value: value, data: c_data, level}) }
     }
 
     // Pipe

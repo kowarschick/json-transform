@@ -5,14 +5,16 @@
  * @license   MIT
  */
 
-import { Init, Data, 
-         isJsonPrimitive, isJsonArray, isJsonObject, 
+import { Init, InitMap, Data }                       from "./types"
+import { JsonFunction, JsonFunctionParameters }      from "./types"
+import { JsonPrimitive, JsonArray, JsonObject, 
+         JsonString, JsonNumber, JsonBoolean, 
+         JsonNull, JsonValue
+       }                                             from "./types"
+import { isJsonPrimitive, isJsonArray, isJsonObject, 
          isJsonString, isJsonNumber, isJsonBoolean, 
          isJsonNull 
-        }                            from "./types"
-import { JsonValue }                 from "./types"
-import { JsonFunctionParameters }    from "./types"
-import { JsonTransformerProperties } from "./types"
+       }                                             from "./types"
 
 
 const c_transformer_tests =
@@ -24,19 +26,33 @@ const c_transformer_tests =
   transformerJsonBoolean:   isJsonBoolean, 
   transformerJsonNull:      isJsonNull, 
 }
+export interface JsonTransformerProperties 
+{ readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
+  readonly transformerJsonArray:     JsonFunction<JsonArray>     | null;
+  readonly transformerJsonObject:    JsonFunction<JsonObject>    | null;
+  readonly transformerJsonString:    JsonFunction<JsonString>    | null;
+  readonly transformerJsonNumber:    JsonFunction<JsonNumber>    | null;
+  readonly transformerJsonBoolean:   JsonFunction<JsonBoolean>   | null;
+  readonly transformerJsonNull:      JsonFunction<JsonNull>      | null;
+          
+           transformerPipe:          JsonFunction;
+
+  readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
+}
+
+export type JsonTransformerParameters =
+  Partial<JsonTransformerConstructorProperties>;
+
 export 
-interface JsonTransformerInitProperties 
+interface JsonTransformerConstructorProperties
 { readonly init:  Init,
   readonly data:  Data,
-  readonly level: number      
+  readonly level: number,    
 }
 
 export 
-type JsonTransformerParameters = Partial<JsonTransformerInitProperties>
-
-export 
 interface JsonTransformer
-extends   JsonTransformerInitProperties, JsonTransformerProperties
+extends   JsonTransformerConstructorProperties, JsonTransformerProperties
 {}
 
 /**
@@ -62,6 +78,8 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
  *   An object containing the following attributes.
  * @param {Init} [_.init = {}]
  *   An object that may be used to initialize the transformer and its subclasses.
+ *   If is is passed via <code>super</code> to a superclass, it is merged 
+ *   recursively into <code>this.init</code>. Existing values are not overridden.
  * @param {Data} [_.data = {}]
  *   A data object that is passed as environment to the
  *   transformers. It can be used by transformers (defined via subclassing) 
@@ -74,29 +92,39 @@ extends   JsonTransformerInitProperties, JsonTransformerProperties
 export 
 class JsonTransformer
 { constructor
-  ( { init  = {},
-      data  = {},
-      level = 0,
-    }: JsonTransformerParameters 
-    = {}
-  ) 
-  { Object.assign(this, {init, data, level});
-    if (this.constructor.name !== 'JsonTransformer')
-    { this.mergeIntoInit(init); }
+  ( {init = {}, data = {}, level = 0}: JsonTransformerParameters = {}) 
+  { Object.assign(this, {data, level});
+
+    this.name = this.constructor
+                    .name
+                    .replace('JsonTransformer', '')
+                    .toLowerCase();
+
+    if (this.name === '')
+    { if (!isJsonObject(init))
+      { throw new Error('The init value of JasonTransformer must be an object.'); }
+      this.init = (init as InitMap);
+    }
+    else
+    { this.merge({ [this.name]: init }, this.init) }
   }
 
-  protected mergeIntoInit(initNew: Init, initOld: Init = this.init)
-  { for (let [key_new, value_new] of Object.entries(initNew))
+  public readonly name: string;
+  public          init: InitMap = {};
+
+  private merge(initNew: Init, initOld: Init = this.init)
+  { if (isJsonObject(initNew) &&isJsonObject(initOld) )
+    for (let [key_new, value_new] of Object.entries(initNew))
     { const value_old = initOld[key_new];
       if (value_old == null) // there is no old value, so the new value is stored
       { initOld[key_new] = value_new }
       else if (isJsonObject(value_old) && isJsonObject(value_new))
-      { this.mergeIntoInit(value_new, value_old) }
+      { this.merge(value_new, value_old) }
     }
   }
  
-  private _pipe_tail: JsonTransformer | null = null;
-  private _pipe_transformers: JsonTransformer[] = []
+  private _pipe_tail:         JsonTransformer | null = null;
+  private _pipe_transformers: JsonTransformer[]      = [];
 
   /**
    * Adds transformers to the transformer pipe. Those transformers
@@ -117,7 +145,11 @@ class JsonTransformer
     { this._pipe_transformers = transformers;
   
       for (const t of transformers)
-      { Object.setPrototypeOf(t.data, this.data) }
+      { Object.setPrototypeOf(t.data, this.data) 
+        this.merge(t.init, this.init);
+        if (isJsonObject(this.init))
+        { t.init[t.name] = this.init[t.name] };
+      }
     }
     else
     { this._pipe_tail.pipe(...transformers) }

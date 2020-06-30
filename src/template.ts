@@ -48,8 +48,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  */
 export 
 class JsonTransformerTemplate extends JsonTransformer
-{ constructor (_: JsonTransformerParameters = {}) 
-  { super({ ..._, init: _?.init ?? {template: /\${([\w\d@_-]+)}/} }); }
+{ constructor ({init= /\${([\w\d@_-]+)}/, ..._}: JsonTransformerParameters = {}) 
+  { super({init, ..._}) }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 

@@ -69,7 +69,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @param {string}          [_.init.scaleAttr     = "$scale"]
  * @param {number|null}     [_.init.scale         = null]
  * @param {string}          [_.init.gzpAttr       = "$gzp" ] 
- * @param {numbers}          [_.init.gzp           = 1 ] 
+ * @param {number}          [_.init.gzp           = 1 ] 
  *                          the „greater zero prabability“ defines 
  *                          the propability that the resulting value
  *                          is not multiplied by <code>-1</code> 
@@ -79,24 +79,23 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 */
 export 
 class JsonTransformerRandom extends JsonTransformer
-{ constructor (_: JsonTransformerParameters = {}) 
-  { super({ ..._,
-            init: 
-            { functionAttr:  _?.init?.functionAttr   ?? "$function",
-              function:      _?.init?.function       ?? "$random",
-              minAttr:       _?.init?.minAttr        ?? "$min",
-              min:           _?.init?.min            ?? 0,
-              maxAttr:       _?.init?.maxAttr        ?? "$max",
-              max:           _?.init?.max            ?? 1,
-              isIntegerAttr: _?.init?.isIntegerAttr  ?? "$isInteger",
-              isInteger:     _?.init?.isInteger      ?? false,
-              scaleAttr:     _?.init?.scale          ?? "$scale",
-              scale:         _?.init?.scale          ?? null,
-              gzpAttr:       _?.init?.gzp            ?? "$gzp",
-              gzp:           _?.init?.gzp            ?? 1,
-            }   
-         }); 
-  }
+{ constructor ( { init = { functionAttr:  "$function",
+                           function:      "$random",
+                           minAttr:       "$min",
+                           min:           0,
+                           maxAttr:       "$max",
+                           max:           1,
+                           isIntegerAttr: "$isInteger",
+                           isInteger:     false,
+                           scaleAttr:     "$scale",
+                           scale:         null,
+                           gzpAttr:       "$gzp",
+                           gzp:           1,
+                        }, 
+                  ..._
+                }: JsonTransformerParameters = {}
+              ) 
+  { super({init, ..._}) }
 
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data}: JsonFunctionParameters<JsonObject>) => 

@@ -40,7 +40,7 @@ export type JsonFunction<T extends JsonValue = JsonValue> =
 { (_: JsonFunctionParameters<T>): JsonValue, 
   type?: JsonType, 
   name?: string,
-  init?: Init 
+  init?: Init
 }
 
 export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue>
@@ -49,60 +49,15 @@ export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue>
   name:     string,
   init?:    Init
 }
-
-export interface JsonTransformerProperties 
-{ readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
-  readonly transformerJsonArray:     JsonFunction<JsonArray>     | null;
-  readonly transformerJsonObject:    JsonFunction<JsonObject>    | null;
-  readonly transformerJsonString:    JsonFunction<JsonString>    | null;
-  readonly transformerJsonNumber:    JsonFunction<JsonNumber>    | null;
-  readonly transformerJsonBoolean:   JsonFunction<JsonBoolean>   | null;
-  readonly transformerJsonNull:      JsonFunction<JsonNull>      | null;
-          
-           transformerPipe:          JsonFunction;
-
-  readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
-}
             
+export type Init =
+  JsonValue | JsonFunction | RegExp | InitMap  
+
+export interface InitMap 
+{ [key: string]: Init }
+
 export interface Data 
-{ [key: string]: JsonValue | JsonFunction; }
-
-export interface Init 
-{ [key: string]: JsonValue| JsonFunction | RegExp ; }
-
-
-/**
- * @param
- * @param   {JsonValue|JsonFunction|RegExp} value
- * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonPrimitive}</code>.
- */
-export
-function isJsonPrimitive(value:JsonValue|JsonFunction|RegExp|Init): value is JsonPrimitive 
-{ const t = typeof value;
-  return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
-}
-
-/**
- * @param   {JsonValue|JsonFunction|RegExp|Init} value
- * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonArray}</code>.
- */
-export
-function isJsonArray(value: JsonValue|JsonFunction|RegExp|Init): value is JsonArray
-{ return Array.isArray(value); }
-
-/**
- * @param   {JsonValue|JsonFunction|RegExp|Init} value
- * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonObject}</code>.
- */
-export
-function isJsonObject(value: JsonValue|JsonFunction|RegExp|Init): value is JsonObject
-{ return value != null && typeof value === 'object' && !Array.isArray(value); }
+{ [key: string]: JsonValue | JsonFunction }
 
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
@@ -143,6 +98,39 @@ function isJsonBoolean(value: JsonValue|JsonFunction|RegExp|Init): value is Json
 export
 function isJsonNull(value: JsonValue|JsonFunction|RegExp|Init): value is JsonNull
 { return value == null; }
+
+/**
+ * @param
+ * @param   {JsonValue|JsonFunction|RegExp} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonPrimitive}</code>.
+ */
+export
+function isJsonPrimitive(value:JsonValue|JsonFunction|RegExp|Init): value is JsonPrimitive 
+{ const t = typeof value;
+  return t == null || t === 'string' || t === 'number' || t === 'boolean'; 
+}
+
+/**
+ * @param   {JsonValue|JsonFunction|RegExp|Init} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonArray}</code>.
+ */
+export
+function isJsonArray(value: JsonValue|JsonFunction|RegExp|Init): value is JsonArray
+{ return Array.isArray(value); }
+
+/**
+ * @param   {JsonValue|JsonFunction|RegExp|Init} value
+ * @returns {boolean} 
+ *          Returns <code>true</code> is <code>value</code> 
+ *          is a member of <code>{@link JsonObject}</code>.
+ */
+export
+function isJsonObject(value: JsonValue|JsonFunction|RegExp|Init): value is JsonObject
+{ return value != null && typeof value === 'object' && !Array.isArray(value); }
 
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value

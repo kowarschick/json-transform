@@ -6,8 +6,8 @@
  */
 
 import { JsonValue, JsonPrimitive, JsonArray, JsonObject} from './types';
-import { JsonFunction, JsonFunctionParameters }        from './types';
-import { JsonTransformer, JsonTransformerParameters }  from './transformer';
+import { JsonFunction, JsonFunctionParameters }           from './types';
+import { JsonTransformer, JsonTransformerParameters }     from './transformer';
 
 /**
  * This transformer applies its pipe transformer 

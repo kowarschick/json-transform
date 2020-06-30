@@ -16,17 +16,16 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Init}   _.init
- * @param {string} [_.init.level = '$level']
+ * @param {Init}  _.init = '$level'
  */
 export 
 class JsonTransformerLevel extends JsonTransformer
-{  constructor (_: JsonTransformerParameters = {}) 
-  { super({..._, init: _?.init ?? { level: '$level'} }); }
+{ constructor ({init='$level', ..._}: JsonTransformerParameters = {}) 
+  { super({init, ..._}) }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 
-  { return (value === this.init?.level) ? level : value; }
+  { return (value === this.init.level) ? level : value; }
 }
 
 export default JsonTransformerLevel;

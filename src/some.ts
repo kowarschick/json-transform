@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonObject }                      from './types';
+import { JsonArray, JsonObject, InitMap }             from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 import { JsonTransformerFunction }                    from './function'
@@ -38,13 +38,12 @@ import { JsonTransformerFunction }                    from './function'
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Init}   _.init
- * @param {string} [_.init.some = '$some']
+ * @param {Init} _.init = '$some'
  */
 export 
 class JsonTransformerSome extends JsonTransformer
-{ constructor (_: JsonTransformerParameters = {}) 
-  { super({..._, init: _?.init ?? { some: '$some'} }); }
+{ constructor ({init='$some', ..._}: JsonTransformerParameters = {}) 
+  { super({init, ..._}) }
 
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 

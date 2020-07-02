@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonValue }                 from './types';
+import { JsonValue, JsonObject }     from './types';
 import { JsonFunctionParameters, }   from './types';
 import { JsonTransformerTraversal }  from './traversal';
 import { JsonTransformerParameters } from './transformer';
@@ -20,13 +20,11 @@ import { JsonTransformerParameters } from './transformer';
  * @extends module:traversal.JsonTransformerTraversal
  * 
  * @param {JsonTransformerParameters} _
- * @param {Init}            _.init
- * @param {number}          [_.init.minLevel = 0]
- * @param {number}          [_.init.maxLevel = Infinity]
- * @param {Data}            [_.data = {}]
- * @param {number}          [_.level = 0]
- * @param {JsonTransformer} [_.transformer = undefined]
+ * @param {Init}   _.init
+ * @param {number} [_.init.minLevel = 0]
+ * @param {number} [_.init.maxLevel = Infinity]
  */
+
 export 
 class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
 { constructor ( { init = { minLevel: 0, 
@@ -35,13 +33,13 @@ class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
                   ..._
                 }: JsonTransformerParameters = {}
               ) 
-  { super({init, ..._}) }
-
+  { super({ init, ..._ }) }
 
   /** @override */
   transformerPipe(_: JsonFunctionParameters): JsonValue
-  { return (   (this!.init!.minLevel as number) <= _.level 
-            && _.level <= (this!.init!.maxLevel as number))
+  { const c_init = this.init as JsonObject;
+    return (   (c_init.minLevel as number) <= _.level 
+            && _.level <= (c_init.maxLevel as number))
            ? super.transformerPipe(_)
            : _.value; 
   }

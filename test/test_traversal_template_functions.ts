@@ -140,4 +140,4 @@ stringTests
 (       new JsonTransformer({ data: { "abc": 123, "hello": "Hallo" } })
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerTemplateFunctions())
-)
+);

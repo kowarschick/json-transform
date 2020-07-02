@@ -5,9 +5,17 @@
  * @license   MIT
  */
 
-import { JsonObject }                                 from './types';
+import { JsonObject, isJsonNumber } from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
+
+const 
+  RANDOM     = '$random',
+  MIN        = '$min',
+  MAX        = '$max',
+  IS_INTEGER = "$isInteger",
+  SCALE      = "$scale",
+  GZP        = "$gzp";
 
 /**
  * Computes random numbers within intervals.
@@ -57,69 +65,48 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Object}          _.init
- * @param {string}          [_.init.functionAttr  = "$function"]
- * @param {string}          [_.init.function      = "$random"]
- * @param {string}          [_.init.minAttr       = "$min"]
- * @param {number}          [_.init.min           = 0]
- * @param {string}          [_.init.maxAttr       = "$max"]
- * @param {number}          [_.init.max           = 1]
- * @param {string}          [_.init.isIntegerAttr = "$isInteger"]
- * @param {boolean}         [_.init.isInteger     = false]
- * @param {string}          [_.init.scaleAttr     = "$scale"]
- * @param {number|null}     [_.init.scale         = null]
- * @param {string}          [_.init.gzpAttr       = "$gzp" ] 
- * @param {number}          [_.init.gzp           = 1 ] 
- *                          the „greater zero prabability“ defines 
- *                          the propability that the resulting value
- *                          is not multiplied by <code>-1</code> 
- * @param {Data}            [_.data        = {}]
- * @param {number}          [_.level       = 0]
- * @param {JsonTransformer} [_.transformer = undefined]
+ * @param {Iinit}   _.init
+ * @param {Object}  _.init.random
+ * @param {number}  [_.init.random.min       = 0]
+ * @param {number}  [_.init.random.max       = 1]
+ * @param {boolean} [_.init.random.isInteger = false]
+ * @param {number}  [_.init.random.scale     = 1]
+ * @param {number}  [_.init.random.gzp       = 1 ] 
+ *                  the „greater zero prabability“ defines 
+ *                  the propability that the resulting value
+ *                  is not multiplied by <code>-1</code> 
 */
 export 
 class JsonTransformerRandom extends JsonTransformer
-{ constructor ( { init = { functionAttr:  "$function",
-                           function:      "$random",
-                           minAttr:       "$min",
-                           min:           0,
-                           maxAttr:       "$max",
+{ constructor ( { init = { min:           0,
                            max:           1,
-                           isIntegerAttr: "$isInteger",
                            isInteger:     false,
-                           scaleAttr:     "$scale",
                            scale:         null,
-                           gzpAttr:       "$gzp",
                            gzp:           1,
-                        }, 
+                         }, 
                   ..._
                 }: JsonTransformerParameters = {}
               ) 
-  { super({init, ..._}) }
+  { super({ init, ..._ }) }
 
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data}: JsonFunctionParameters<JsonObject>) => 
   { const 
-      c_init = this.init,
-      c_min  = (value?.[c_init.minAttr as string] ?? c_init.min) as number,
-      c_max  = (value?.[c_init.maxAttr as string] ?? c_init.max) as number;
+      c_init = this.init as JsonObject,
+      c_min  = (value?.[this.attribute(MIN)] ?? c_init.min) as number,
+      c_max  = (value?.[this.attribute(MAX)] ?? c_init.max) as number;
 
-    if (   value?.[c_init.functionAttr as string] !== c_init.function 
+    if (   !this.isFunction(RANDOM, value) 
         || !Number.isFinite(c_min)
         || !Number.isFinite(c_max)
        )
     { return value; }
 
     const
-      c_is_integer =       (   value?.[c_init.isIntegerAttr as string] 
-                            ?? c_init.isInteger
-                           ) as boolean,
-      c_gzp        =       (   value?.[c_init.gzpAttr as string]       
-                            ?? c_init.gzp
-                           ) as number,
-      c_scale      = data[ ( value?.[c_init.scaleAttr as string]
-                            ?? c_init.scale) as string 
-                         ] as number,
+      c_is_integer = (value?.[IS_INTEGER] ?? c_init.isInteger) as boolean,
+      c_gzp        = (value?.[GZP]        ?? c_init.gzp      ) as number,
+      c_scale_aux  = data[(value?.[SCALE]) as string],
+      c_scale      = isJsonNumber(c_scale_aux) ? c_scale_aux : c_init.scale,
       c_random     = Math.random();
     let
       l_result: number;
@@ -132,7 +119,7 @@ class JsonTransformerRandom extends JsonTransformer
     if (Number.isFinite(c_gzp) && 0 <= c_gzp && c_gzp < 1)
     { l_result *= (Math.random() >= c_gzp) ? 1 : -1; }
 
-      return Number.isFinite(c_scale) ? l_result * (c_scale as number) : l_result;
+      return isJsonNumber(c_scale) ? l_result * c_scale : l_result;
   }
 }
 

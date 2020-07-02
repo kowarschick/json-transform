@@ -51,9 +51,11 @@ class JsonTransformerTraversal extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
   { super(_); }
 
+  /** @override */
   transformerJsonPrimitive: JsonFunction<JsonPrimitive> =
   ({value}: JsonFunctionParameters<JsonPrimitive>) => value;
 
+  /** @override */
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value, data, level}: JsonFunctionParameters<JsonArray>) => 
   { const
@@ -66,6 +68,7 @@ class JsonTransformerTraversal extends JsonTransformer
     return c_result;
   }
 
+  /** @override */
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
   { const
@@ -78,7 +81,6 @@ class JsonTransformerTraversal extends JsonTransformer
     }
     return c_result;
   }
-
 }
 
 export default JsonTransformerTraversal;

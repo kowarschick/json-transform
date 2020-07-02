@@ -5,6 +5,10 @@
  * @license   MIT
  */
 
+ const 
+   FUNCTION = '$function',
+   VALUE    = '$value';
+
 import { Init, InitMap, Data }                       from "./types"
 import { JsonFunction, JsonFunctionParameters }      from "./types"
 import { JsonPrimitive, JsonArray, JsonObject, 
@@ -15,7 +19,6 @@ import { isJsonPrimitive, isJsonArray, isJsonObject,
          isJsonString, isJsonNumber, isJsonBoolean, 
          isJsonNull 
        }                                             from "./types"
-
 
 const c_transformer_tests =
 { transformerJsonPrimitive: isJsonPrimitive,
@@ -40,14 +43,16 @@ export interface JsonTransformerProperties
   readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 }
 
-export type JsonTransformerParameters =
-  Partial<JsonTransformerConstructorProperties>;
+export 
+type JsonTransformerParameters = 
+     Partial<JsonTransformerConstructorProperties>;
 
 export 
 interface JsonTransformerConstructorProperties
-{ readonly init:  Init,
-  readonly data:  Data,
-  readonly level: number,    
+{ readonly  init:   Init,
+  readonly  data:   Data,
+  readonly  level:  number,
+  readonly  rename: Record<string, string>  
 }
 
 export 
@@ -76,7 +81,7 @@ extends   JsonTransformerConstructorProperties, JsonTransformerProperties
  * 
  * @param {JsonTransformerParameters} _
  *   An object containing the following attributes.
- * @param {Init} [_.init = {}]
+ * @param {InitMap} [_.init = {}]
  *   An object that may be used to initialize the transformer and its subclasses.
  *   If is is passed via <code>super</code> to a superclass, it is merged 
  *   recursively into <code>this.init</code>. Existing values are not overridden.
@@ -88,33 +93,29 @@ extends   JsonTransformerConstructorProperties, JsonTransformerProperties
  *   The current level of the JSON value. The level of the top JsonValue  
  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
  *   the level of the grand children is <code>2</code>, etc.
+ * @param {Record<string, string>} [_.translate = {}]
+ *   A map that translates transformer names and attributes into other ones. 
  */
 export 
 class JsonTransformer
 { constructor
-  ( {init = {}, data = {}, level = 0}: JsonTransformerParameters = {}) 
-  { Object.assign(this, {data, level});
-
-    this.name = this.constructor
-                    .name
-                    .replace('JsonTransformer', '')
-                    .toLowerCase();
-
-    if (this.name === '')
-    { if (!isJsonObject(init))
-      { throw new Error('The init value of JasonTransformer must be an object.'); }
-      this.init = (init as InitMap);
-    }
-    else
-    { this.merge({ [this.name]: init }, this.init) }
+  ( { init={}, data={}, level=0, rename={} }: JsonTransformerParameters = {}) 
+  { Object.assign(this, {init, data, level, rename});
+    this.root = this;
+    this.name = this.constructor.name;
+    this.merge({[this.name] : this.init}, this.rootInit);
   }
 
-  public readonly name: string;
-  public          init: InitMap = {};
+  public init: Init;
 
-  private merge(initNew: Init, initOld: Init = this.init)
-  { if (isJsonObject(initNew) &&isJsonObject(initOld) )
-    for (let [key_new, value_new] of Object.entries(initNew))
+  public name: string;
+
+  public root:     JsonTransformer;
+  public rootInit: InitMap = {};
+  
+  
+  private merge(initNew: InitMap, initOld: InitMap)
+  { for (let [key_new, value_new] of Object.entries(initNew))
     { const value_old = initOld[key_new];
       if (value_old == null) // there is no old value, so the new value is stored
       { initOld[key_new] = value_new }
@@ -122,7 +123,21 @@ class JsonTransformer
       { this.merge(value_new, value_old) }
     }
   }
+
+  protected attribute(name: string): string
+  { return (this.root.rename[name] ?? name) as string; }
  
+  protected isFunction(name: string, value: JsonObject): boolean
+  { return (value[this.attribute(FUNCTION)] === name) }
+
+  protected getArrayFunctionValue(name: string, value: JsonObject): JsonArray | null
+  { if (this.isFunction(name, value))
+    { const c_value = value[VALUE];
+      return isJsonArray(c_value) ? c_value : null
+    }
+    return null
+  }
+
   private _pipe_tail:         JsonTransformer | null = null;
   private _pipe_transformers: JsonTransformer[]      = [];
 
@@ -139,16 +154,19 @@ class JsonTransformer
    */
   public pipe(...transformers: JsonTransformer[]): this
   { if (transformers.length === 0)
-    { return this; }
+    { return this }
 
     if (this._pipe_tail == null)
     { this._pipe_transformers = transformers;
   
       for (const t of transformers)
-      { Object.setPrototypeOf(t.data, this.data) 
-        this.merge(t.init, this.init);
-        if (isJsonObject(this.init))
-        { t.init[t.name] = this.init[t.name] };
+      { Object.setPrototypeOf(t.data, this.data); 
+        t.root = this;
+
+        this.merge({[t.name]: t.init}, this.rootInit);
+        this.merge(t.rename, this.rename);
+
+        t.init = this.rootInit[t.name];
       }
     }
     else
@@ -165,7 +183,7 @@ class JsonTransformer
    * transformed value is passed to the transformers 
    * that have been added by {@link pipe}.
    * 
-   * @param { JsonFunctionParameters} _ 
+   * @param {JsonFunctionParameters} _ 
    */
   public transformerPipe(_: JsonFunctionParameters): JsonValue
   { let l_value: JsonValue = _.value;
@@ -210,9 +228,9 @@ class JsonTransformer
     // Pipe
     l_value = this.transformerPipe({value: l_value, data: c_data, level});
 
-    return l_value; 
+    return l_value;
   }
 }
 
 /** @export  JsonTransformer*/
-export default JsonTransformer;
+export default JsonTransformer

@@ -89,19 +89,21 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  *
  * @param {JsonTransformerParameters} _
  * @param {Init}    _.init
- * @param {string} [_.init = <complex regular expression>]
+ * @param {string} [_.init.template = <complex regular expression>]
  */
 export 
 class JsonTransformerTemplateFunctions extends JsonTransformer
-{ constructor ( {init= /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/, ..._}: 
-                JsonTransformerParameters = {}
+{ constructor ( { init = /\${([\w\d@_-]+)(}|\([\s\w\d@_,:'"<>{}\[\]-]*\)})/, 
+                 ..._
+                }: JsonTransformerParameters = {}
               ) 
   { super({init, ..._}) }
 
+  /** @override */
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 
   { const  
-      c_regexp = this.init.templateFunctions as RegExp,
+      c_regexp = this.init as RegExp,
       c_value  = value as string,
       c_match  = c_value.match(new RegExp(`^${c_regexp.toString().slice(1,-1)}$`)),
 

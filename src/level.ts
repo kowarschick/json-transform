@@ -5,6 +5,8 @@
  * @license   MIT
  */
 
+const LEVEL = '$level';
+
 import { JsonString }                                 from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
@@ -16,16 +18,15 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Init}  _.init = '$level'
  */
 export 
 class JsonTransformerLevel extends JsonTransformer
-{ constructor ({init='$level', ..._}: JsonTransformerParameters = {}) 
-  { super({init, ..._}) }
+{ constructor (_: JsonTransformerParameters = {}) 
+  { super(_); }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 
-  { return (value === this.init.level) ? level : value; }
+  { return (value === this.attribute(LEVEL)) ? level : value; }
 }
 
 export default JsonTransformerLevel;

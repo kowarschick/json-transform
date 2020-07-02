@@ -51,13 +51,16 @@ class JsonTransformerTraversalBreadthFirst extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
   { super(_); }
 
+  /** @override */
   // disable the transformer pipe
   public transformerPipe({value}: JsonFunctionParameters): JsonValue
   { return value; }
 
+  /** @override */
   transformerJsonPrimitive: JsonFunction<JsonPrimitive> =
   ({value}: JsonFunctionParameters<JsonPrimitive>) => value;
 
+  /** @override */
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value, data, level}: JsonFunctionParameters<JsonArray>) => 
   { const
@@ -72,6 +75,7 @@ class JsonTransformerTraversalBreadthFirst extends JsonTransformer
     return super.transformerPipe({ value: l_result, data, level: c_level });
   }
 
+  /** @override */
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
   { const
@@ -86,7 +90,6 @@ class JsonTransformerTraversalBreadthFirst extends JsonTransformer
     }
     return super.transformerPipe({ value: l_result, data, level: c_level });
   }
-
 }
 
 export default JsonTransformerTraversalBreadthFirst;

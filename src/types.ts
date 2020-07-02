@@ -77,7 +77,7 @@ function isJsonString(value: JsonValue|JsonFunction|RegExp|Init): value is JsonS
  */
 export
 function isJsonNumber(value: JsonValue|JsonFunction|RegExp|Init): value is JsonNumber
-{ return typeof value === 'number'; }
+{ return Number.isFinite(value); }
 
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
@@ -161,4 +161,9 @@ function isJsonFunction(value: JsonValue|JsonFunction|RegExp|Init): value is Jso
 export
 function isRegExp(value: JsonValue|JsonFunction|RegExp|Init): value is RegExp
 { return value instanceof RegExp; }
+
+export
+function isInitMap(value: Init): value is InitMap
+{ return value != null && typeof value === 'object' && !Array.isArray(value); }
+
 

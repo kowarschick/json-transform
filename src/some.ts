@@ -5,10 +5,11 @@
  * @license   MIT
  */
 
-import { JsonArray, JsonObject, InitMap }             from './types';
+import { JsonArray, JsonObject }                      from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
-import { JsonTransformerFunction }                    from './function'
+
+const SOME = '$some';
 
 /**
  * If the first element of the Array is equal to 
@@ -38,17 +39,16 @@ import { JsonTransformerFunction }                    from './function'
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Init} _.init = '$some'
  */
 export 
 class JsonTransformerSome extends JsonTransformer
-{ constructor ({init='$some', ..._}: JsonTransformerParameters = {}) 
-  { super({init, ..._}) }
+{ constructor (_: JsonTransformerParameters = {}) 
+  { super(_); }
 
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 
   { const c_length = value.length;
-    if (c_length === 0 || value[0] !== this.init.some)
+    if (c_length === 0 || value[0] !== this.attribute(SOME))
     { return value; }
 
     return (c_length === 1) 
@@ -58,11 +58,9 @@ class JsonTransformerSome extends JsonTransformer
 
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
-  { const c_value = value?.['$value'];
+  { const c_value = this.getArrayFunctionValue(SOME, value);
 
-    return  (   value?.[JsonTransformerFunction.functionAttribute] === this.init
-             && Array.isArray(c_value)
-            )
+    return  (c_value != null)
             ? this.transformerJsonArray({value: c_value, data, level})
             : value;
   }

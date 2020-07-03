@@ -16,7 +16,7 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
   * is returned. If there are no other elements, 
   * <code>Infinity</code> (a Non-JSON element!) 
   * is returned. Thist default value can be changed
-  * by setting <code>JsonFunctionArrayMin.init.default</code>.
+  * by setting <code>JsonFunctionMin.init.default</code>.
   * It should be greater than all values that might 
   * appear in your JSON arrays (<code>Number.MAX_VALUE</code>).
   * 
@@ -25,18 +25,18 @@ import { JsonArray, JsonFunctionParameters, JsonType } from '../types';
   * @param {JsonArray} _.value
   *   The JSON array to be transformed.
   */
-export function JsonFunctionArrayMin({value}: JsonFunctionParameters<JsonArray>)
-{ if (value.length === 0 || value[0] !== JsonFunctionArrayMin.init.function)
+export function JsonFunctionMin({value}: JsonFunctionParameters<JsonArray>)
+{ if (value.length === 0 || value[0] !== JsonFunctionMin.init.function)
   { return value; }
 
   return value.slice(1).reduce( (m, v) => Math.min((m as number), (v as number)), 
-                                                   JsonFunctionArrayMin.init.default
+                                                   JsonFunctionMin.init.default
                                                   );
 }
 
-JsonFunctionArrayMin.type = JsonType.Array;
-JsonFunctionArrayMin.init = { function: "$min",
+JsonFunctionMin.type = JsonType.Array;
+JsonFunctionMin.init = { function: "$min",
                               default:  Infinity
                             };
 
-export default JsonFunctionArrayMin;
+export default JsonFunctionMin;

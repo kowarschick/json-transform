@@ -8,8 +8,8 @@
 import { JsonValue, JsonArray, Data }  from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }     from '@wljkowa/json-transformer';
 import { JsonFunctionCount }           from '@wljkowa/json-transformer';
-import { JsonFunctionArrayMin }        from '@wljkowa/json-transformer';
-import { JsonFunctionArrayMax }        from '@wljkowa/json-transformer';
+import { JsonFunctionMin }             from '@wljkowa/json-transformer';
+import { JsonFunctionMax }             from '@wljkowa/json-transformer';
 import { JsonFunctionArrayShuffle }    from '@wljkowa/json-transformer';
 import { JsonFunctionSome }            from '@wljkowa/json-transformer';
 import { JsonFunctionArraySum }        from '@wljkowa/json-transformer';
@@ -25,8 +25,8 @@ import { JsonFunctionStringLevel }     from '@wljkowa/json-transformer';
 import { JsonValue, JsonArray, Data }  from '~/types';
 import { JsonTransformerFunction }     from '~/function';
 import { JsonFunctionCount }           from '~/function/count';
-import { JsonFunctionArrayMin }        from '~/function/array_min';
-import { JsonFunctionArrayMax }        from '~/function/array_max';
+import { JsonFunctionMin }             from '~/function/min';
+import { JsonFunctionMax }             from '~/function/max';
 import { JsonFunctionArrayShuffle }    from '~/function/array_shuffle';
 import { JsonFunctionSome }            from '~/function/some';
 import { JsonFunctionArraySum }        from '~/function/array_sum';
@@ -108,7 +108,7 @@ function f_test(t: JsonTransformerFunction)
   ( '["$min] should be transformed to Infinity', 
     () => { expect(t.transform({ value: ["$min"] })).toBe(Infinity); }
   );
-   
+*/
   test
   ( '["$max, 1, 5, 3, 4, 2] should be transformed to 5', 
     () => { expect(t.transform({ value: ["$max", 1, 5, 3, 4, 2] })).toBe(5); }
@@ -118,7 +118,7 @@ function f_test(t: JsonTransformerFunction)
   ( '["$max] should be transformed to -Infinity', 
     () => { expect(t.transform({ value: ["$max"] })).toBe(-Infinity); }
   );
-
+/*
   describe
   ( 'random default', 
     () => 
@@ -309,8 +309,8 @@ f_test
 ( new JsonTransformerFunction
   ({ init:
      [ JsonFunctionCount, 
-       //JsonFunctionArrayMin, 
-       //JsonFunctionArrayMax,
+       //JsonFunctionMin, 
+       //JsonFunctionMax,
        //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
        JsonFunctionSome, 
        //JsonFunctionArraySum, 
@@ -396,8 +396,8 @@ f_rename_test
 
      init:
      [ JsonFunctionCount, 
-       //JsonFunctionArrayMin, 
-       //JsonFunctionArrayMax,
+       //JsonFunctionMin, 
+       //JsonFunctionMax,
        //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
        JsonFunctionSome, 
        //JsonFunctionArraySum, 

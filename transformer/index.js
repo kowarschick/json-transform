@@ -39,9 +39,9 @@ Object.defineProperty(exports, "JsonTransformerTemplateFunctions", { enumerable:
 var array_count_1 = require("./function/array_count");
 Object.defineProperty(exports, "JsonFunctionCount", { enumerable: true, get: function () { return array_count_1.JsonFunctionCount; } });
 var array_min_1 = require("./function/array_min");
-Object.defineProperty(exports, "JsonFunctionArrayMin", { enumerable: true, get: function () { return array_min_1.JsonFunctionArrayMin; } });
+Object.defineProperty(exports, "JsonFunctionMin", { enumerable: true, get: function () { return array_min_1.JsonFunctionMin; } });
 var array_max_1 = require("./function/array_max");
-Object.defineProperty(exports, "JsonFunctionArrayMax", { enumerable: true, get: function () { return array_max_1.JsonFunctionArrayMax; } });
+Object.defineProperty(exports, "JsonFunctionMax", { enumerable: true, get: function () { return array_max_1.JsonFunctionMax; } });
 var array_shuffle_1 = require("./function/array_shuffle");
 Object.defineProperty(exports, "JsonFunctionArrayShuffle", { enumerable: true, get: function () { return array_shuffle_1.JsonFunctionArrayShuffle; } });
 var some_2 = require("./function/some");

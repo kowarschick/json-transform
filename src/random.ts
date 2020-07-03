@@ -65,13 +65,12 @@ const
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _
- * @param {Iinit}   _.init
- * @param {Object}  _.init.random
- * @param {number}  [_.init.random.min       = 0]
- * @param {number}  [_.init.random.max       = 1]
- * @param {boolean} [_.init.random.isInteger = false]
- * @param {number}  [_.init.random.scale     = 1]
- * @param {number}  [_.init.random.gzp       = 1 ] 
+ * @param {Init}    _.init
+ * @param {number}  [_.init.min       = 0]
+ * @param {number}  [_.init.max       = 1]
+ * @param {boolean} [_.init.isInteger = false]
+ * @param {number}  [_.init.scale     = 1]
+ * @param {number}  [_.init.gzp       = 1 ] 
  *                  the „greater zero prabability“ defines 
  *                  the propability that the resulting value
  *                  is not multiplied by <code>-1</code> 

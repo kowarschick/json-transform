@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonString, JsonArray, JsonObject, JsonType}                 from './types';
+import { isJsonString, JsonString, JsonArray, JsonObject, JsonType}   from './types';
 import { JsonFunctionDescriptor, JsonFunctionDescriptorArray }        from './types';
 import { JsonFunctionDescriptorObject, JsonFunctionDescriptorString } from './types';
 import { JsonFunction, JsonFunctionParameters }                       from './types';
@@ -81,11 +81,21 @@ class JsonTransformerFunction extends JsonTransformer
       c_value = _.value;
 
     if (c_value.length === 0)
-    { return c_value; }
+    { return c_value }
+
+    const 
+      c_value0 = c_value[0];
+      
+    if (!isJsonString(c_value0))
+    { return c_value }
+
     
     const 
       c_d: JsonFunctionDescriptorArray =
-        this.descriptors[JsonType.Array][c_value[0] as string] as JsonFunctionDescriptorArray;
+        this.descriptors[JsonType.Array][c_value0] as JsonFunctionDescriptorArray;
+    
+    console.log(_, this.functionName(c_value), c_d)
+    
     return c_d == null ? c_value : c_d.function(_, 1);
   }
 
@@ -93,7 +103,7 @@ class JsonTransformerFunction extends JsonTransformer
   (_: JsonFunctionParameters<JsonObject>) => 
   { const
       c_value         = _.value,
-      c_function_name = this.getFunctionName(c_value);
+      c_function_name = this.functionName(c_value);
 
     if (c_function_name != null)
     { const 
@@ -107,7 +117,7 @@ class JsonTransformerFunction extends JsonTransformer
         c_da: JsonFunctionDescriptorArray =
           this.descriptors[JsonType.Array][c_function_name] as JsonFunctionDescriptorArray, 
         c_a = 
-          this.getArrayFunctionValue(c_function_name, c_value, true);  
+          this.arrayFunctionValue(c_function_name, c_value, true);  
 
       return c_a == null ? c_value : c_da.function( {..._, value: c_a}, 0);
     }

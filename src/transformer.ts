@@ -5,9 +5,9 @@
  * @license   MIT
  */
 
- const 
-   FUNCTION = '$function',
-   VALUE    = '$value';
+const 
+  FUNCTION = '$function',
+  VALUE    = '$value';
 
 import { Init, InitMap, Data }                       from "./types"
 import { JsonFunction, JsonFunctionParameters }      from "./types"
@@ -29,36 +29,18 @@ const c_transformer_tests =
   transformerJsonBoolean:   isJsonBoolean, 
   transformerJsonNull:      isJsonNull, 
 }
-export interface JsonTransformerProperties 
-{ readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
-  readonly transformerJsonArray:     JsonFunction<JsonArray>     | null;
-  readonly transformerJsonObject:    JsonFunction<JsonObject>    | null;
-  readonly transformerJsonString:    JsonFunction<JsonString>    | null;
-  readonly transformerJsonNumber:    JsonFunction<JsonNumber>    | null;
-  readonly transformerJsonBoolean:   JsonFunction<JsonBoolean>   | null;
-  readonly transformerJsonNull:      JsonFunction<JsonNull>      | null;
-          
-           transformerPipe:          JsonFunction;
-
-  readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
-}
 
 export 
 type JsonTransformerParameters = 
-     Partial<JsonTransformerConstructorProperties>;
+{ init?:   Init,
+  data?:   Data,
+  rename?: Record<string, string>  
+};
 
 export 
-interface JsonTransformerConstructorProperties
-{ readonly  init:   Init,
-  readonly  data:   Data,
-  readonly  level:  number,
-  readonly  rename: Record<string, string>  
+interface JsonTransformer //extends JsonTransformerProperties
+{ readonly [key: string]: any; // to be able to access JsonTransformer properties dynamically
 }
-
-export 
-interface JsonTransformer
-extends   JsonTransformerConstructorProperties, JsonTransformerProperties
-{}
 
 /**
  * Objects of the class <code>JsonTransformer</code> transform JSON values 
@@ -83,37 +65,42 @@ extends   JsonTransformerConstructorProperties, JsonTransformerProperties
  *   An object containing the following attributes.
  * @param {InitMap} [_.init = {}]
  *   An object that may be used to initialize the transformer and its subclasses.
- *   If is is passed via <code>super</code> to a superclass, it is merged 
- *   recursively into <code>this.init</code>. Existing values are not overridden.
  * @param {Data} [_.data = {}]
  *   A data object that is passed as environment to the
  *   transformers. It can be used by transformers (defined via subclassing) 
  *   to replace or compute certain JSON values.
- * @param {number} [_.level = 0]
- *   The current level of the JSON value. The level of the top JsonValue  
- *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
- *   the level of the grand children is <code>2</code>, etc.
- * @param {Record<string, string>} [_.translate = {}]
+ * @param {Record<string, string>} [_.rename = {}]
  *   A map that translates transformer names and attributes into other ones. 
  */
 export 
 class JsonTransformer
 { constructor
-  ( { init={}, data={}, level=0, rename={} }: JsonTransformerParameters = {}) 
-  { Object.assign(this, {init, data, level, rename});
-    this.root = this;
-    this.name = this.constructor.name;
-    this.merge({[this.name] : this.init}, this.rootInit);
+  ( { init={}, data={}, rename={} }: JsonTransformerParameters = {}) 
+  { this.v_root = this;
+    this.v_name = this.constructor.name;
+    
+    this.init   = init
+    this.merge({[this.v_name] : this.init}, this.v_init_root);
+    
+    this.v_data   = data;
+
+    this.v_rename = rename; 
+    for (const [k, v] of Object.entries(rename))
+    { this.v_rename_reverse[v] = k }
   }
 
-  public init: Init;
-
-  public name: string;
-
-  public root:     JsonTransformer;
-  public rootInit: InitMap = {};
+  protected        init:             Init;
   
+  private          v_root:           JsonTransformer;
+  private readonly v_name:           string;
   
+  private readonly v_init_root:      InitMap = {};
+  
+  private readonly v_data:           Data = {};
+
+  private readonly v_rename:         Record<string, string>;
+  private readonly v_rename_reverse: Record<string, string> = {};
+
   private merge(initNew: InitMap, initOld: InitMap)
   { for (let [key_new, value_new] of Object.entries(initNew))
     { const value_old = initOld[key_new];
@@ -124,21 +111,33 @@ class JsonTransformer
     }
   }
 
-  protected attribute(name: string): string
-  { return (this.root.rename[name] ?? name) as string; }
+  /**
+
+   * @param {string} name
+   * @returns {string} 
+   */
+  protected rename(name: string): string
+  { return this.v_root.v_rename[name] ?? name; }
  
-  protected getFunctionName(value: JsonObject): string|null
-  { const c_v = value[this.attribute(FUNCTION)];  
-    return isJsonString(c_v) ? c_v : null;
+  protected functionName(value: JsonArray | JsonObject): string
+  { if (isJsonArray(value))
+    { if (value.length === 0) { return ''}
+      const c_v0 = value[0];
+      return isJsonString(c_v0) ? c_v0 : ''
+    }
+    else
+    { const c_v = value[this.rename(FUNCTION)];  
+      return isJsonString(c_v) ? c_v : '';
+    }
   }
 
   protected isFunctionName(name: string, value: JsonObject): boolean
-  { return (this.getFunctionName(value) === name) }
+  { return (this.functionName(value) === name) }
 
-  protected getArrayFunctionValue
+  protected arrayFunctionValue
   (name: string, value: JsonObject, isFunctioName: boolean = false): JsonArray | null
   { if (isFunctioName || this.isFunctionName(name, value))
-    { const c_value = value[VALUE];
+    { const c_value = value[this.rename(VALUE)];
       return isJsonArray(c_value) ? c_value : null;
     }
     return null;
@@ -166,13 +165,13 @@ class JsonTransformer
     { this._pipe_transformers = transformers;
   
       for (const t of transformers)
-      { Object.setPrototypeOf(t.data, this.data); 
-        t.root = this;
+      { Object.setPrototypeOf(t.v_data, this.v_data); 
+        t.v_root = this;
 
-        this.merge({[t.name]: t.init}, this.rootInit);
-        this.merge(t.rename, this.rename);
+        this.merge({[t.v_name]: t.init}, this.v_init_root);
+        this.merge(t.v_rename, this.v_rename);
 
-        t.init = this.rootInit[t.name];
+        t.init = this.v_init_root[t.v_name];
       }
     }
     else
@@ -183,6 +182,14 @@ class JsonTransformer
     return this;
   }
 
+  protected readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null = null;
+  protected readonly transformerJsonArray:     JsonFunction<JsonArray>     | null = null;
+  protected readonly transformerJsonObject:    JsonFunction<JsonObject>    | null = null;
+  protected readonly transformerJsonString:    JsonFunction<JsonString>    | null = null;
+  protected readonly transformerJsonNumber:    JsonFunction<JsonNumber>    | null = null;
+  protected readonly transformerJsonBoolean:   JsonFunction<JsonBoolean>   | null = null;
+  protected readonly transformerJsonNull:      JsonFunction<JsonNull>      | null = null;
+
   /**
    * This method is called after the transformer has
    * locally transformed the JSON value. The locally
@@ -191,7 +198,7 @@ class JsonTransformer
    * 
    * @param {JsonFunctionParameters} _ 
    */
-  public transformerPipe(_: JsonFunctionParameters): JsonValue
+  protected transformerPipe(_: JsonFunctionParameters): JsonValue
   { let l_value: JsonValue = _.value;
 
     for (const t of this._pipe_transformers)
@@ -219,7 +226,7 @@ class JsonTransformer
   */
   public transform ({value, data = {}, level = 0}: Partial<JsonFunctionParameters<JsonValue>>): JsonValue
   { const c_data = { ...data }; 
-    Object.setPrototypeOf(c_data, this.data );
+    Object.setPrototypeOf(c_data, this.v_data );
 
     let l_value: JsonValue = value;
 

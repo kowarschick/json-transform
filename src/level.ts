@@ -26,7 +26,7 @@ class JsonTransformerLevel extends JsonTransformer
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 
-  { return (value === this.attribute(LEVEL)) ? level : value; }
+  { return (value === this.rename(LEVEL)) ? level : value; }
 }
 
 export default JsonTransformerLevel;

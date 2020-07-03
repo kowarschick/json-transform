@@ -93,8 +93,8 @@ class JsonTransformerRandom extends JsonTransformer
   ({value, data}: JsonFunctionParameters<JsonObject>) => 
   { const 
       c_init = this.init as JsonObject,
-      c_min  = (value?.[this.attribute(MIN)] ?? c_init.min) as number,
-      c_max  = (value?.[this.attribute(MAX)] ?? c_init.max) as number;
+      c_min  = (value?.[this.rename(MIN)] ?? c_init.min) as number,
+      c_max  = (value?.[this.rename(MAX)] ?? c_init.max) as number;
 
     if (   !this.isFunctionName(RANDOM, value) 
         || !Number.isFinite(c_min)

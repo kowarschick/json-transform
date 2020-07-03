@@ -30,7 +30,7 @@ export { JsonTransformerStringReplace }         from './string_replace';
 export { JsonTransformerTemplate }              from './template'; 
 export { JsonTransformerTemplateFunctions }     from './template_functions'; 
 
-export { JsonFunctionArrayCount }               from './function/array_count'; 
+export { JsonFunctionCount }               from './function/count'; 
 export { JsonFunctionArrayMin }                 from './function/array_min'; 
 export { JsonFunctionArrayMax }                 from './function/array_max';
 export { JsonFunctionArrayShuffle }             from './function/array_shuffle'; 

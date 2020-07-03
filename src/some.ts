@@ -48,7 +48,7 @@ class JsonTransformerSome extends JsonTransformer
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 
   { const c_length = value.length;
-    if (c_length === 0 || value[0] !== this.attribute(SOME))
+    if (c_length === 0 || value[0] !== this.rename(SOME))
     { return value; }
 
     return (c_length === 1) 
@@ -58,7 +58,7 @@ class JsonTransformerSome extends JsonTransformer
 
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data, level}: JsonFunctionParameters<JsonObject>) => 
-  { const c_value = this.getArrayFunctionValue(SOME, value);
+  { const c_value = this.arrayFunctionValue(SOME, value);
 
     return  (c_value != null)
             ? this.transformerJsonArray({value: c_value, data, level})

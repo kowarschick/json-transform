@@ -5,10 +5,8 @@
  * @license   MIT
  */
 
-import { JsonType, JsonArray, JsonValue, 
-         JsonFunctionParameters, 
-         JsonFunctionDescriptor 
-       } from '../types';
+import { JsonType, JsonArray, JsonValue }                 from '../types';
+import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 
 /**
  * @function 
@@ -20,56 +18,38 @@ import { JsonType, JsonArray, JsonValue,
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonTransformerSome }     from '@wljkowa/json-transformer';
+ * import { JsonFunctionSome }        from '@wljkowa/json-transformer';
  * 
- * const t1 = new JsonTransformerFunction
- *            ({ init: [JsonFunctionSome] })
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionSome] });
  * 
- * t1.transform({ value: [ "$some", 4, 5] }) // => 4 or 5
- * t1.transform({ value: [ "$some", 4 ] })   // => 4 
- * t1.transform({ value: [ "$some" ] })      // => null 
+ * t.transform({ value: [ "$some", 4, 5] }); // => 4 or 5
+ * t.transform({ value: [ "$some", 4 ] });   // => 4 
+ * t.transform({ value: [ "$some" ] });      // => null 
  * 
- * t1.transform({ value: 
- *                { "$function": "$some"
- *                  "$value":    [4, 5] 
- *                }
- *             })                            // => 4 or 5
- * t1.transform({ value: 
- *                { "$function": "$some"
- *                  "$value":    [4] 
- *                }
- *             })                            // => 4
- * t1.transform({ value: 
- *                { "$function": "$some"
- *                  "$value":    [] 
- *                }
- *             })                            // => null
+ * t.transform({ value: 
+ *               { "$function": "$some"
+ *                 "$value":    [4, 5] 
+ *               }
+ *            });                            // => 4 or 5
+ * t.transform({ value: 
+ *               { "$function": "$some"
+ *                 "$value":    [4] 
+ *               }
+ *            });                            // => 4
+ * t.transform({ value: 
+ *               { "$function": "$some"
+ *                 "$value":    [] 
+ *               }
+ *            });                            // => null
  *
- * t1.transform({ value: "abc" })            // => "abc"
- * 
- * const t2 = new JsonTransformerFunction
- *            ({ init:   [JsonFunctionSome],
- *               rename: {$some: '@some'} 
- *            });
- * 
- * t2.transform({ value: [ "@some", 4, 5 ] }) // => 4 or 5
- * t2.transform({ value: [ "$some", 4, 5 ] }) // => [ "$some", 4, 5 ]
- * t2.transform({ value: 
- *                { "$function": "@some"
- *                  "$value":    [4, 5] 
- *                }
- *             })                             // => 4 or 5
- *                { "$function": "$some"
- *                  "$value":    [4, 5] 
- *                }
- *             })                             
- *             // => {"$function":"$some","$value":[4, 5]}
+ * t.transform({ value: "abc" });            // => "abc"
  * ```
  * 
  * @param {Partial<JsonFunctionParameters<JsonArray>>} _
  *   An object containing the following attributes.
  * @param {JsonArray} _value
  *   The JSON array to be transformed.
+ * @returns {JsonValue}
  */
 export 
 function some( {value}: JsonFunctionParameters<JsonArray>, 

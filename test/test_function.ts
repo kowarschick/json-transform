@@ -7,7 +7,7 @@
 /*
 import { JsonValue, JsonArray, Data }  from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }     from '@wljkowa/json-transformer';
-import { JsonFunctionArrayCount }      from '@wljkowa/json-transformer';
+import { JsonFunctionCount }           from '@wljkowa/json-transformer';
 import { JsonFunctionArrayMin }        from '@wljkowa/json-transformer';
 import { JsonFunctionArrayMax }        from '@wljkowa/json-transformer';
 import { JsonFunctionArrayShuffle }    from '@wljkowa/json-transformer';
@@ -24,7 +24,7 @@ import { JsonFunctionStringLevel }     from '@wljkowa/json-transformer';
 
 import { JsonValue, JsonArray, Data }  from '~/types';
 import { JsonTransformerFunction }     from '~/function';
-import { JsonFunctionArrayCount }      from '~/function/array_count';
+import { JsonFunctionCount }           from '~/function/count';
 import { JsonFunctionArrayMin }        from '~/function/array_min';
 import { JsonFunctionArrayMax }        from '~/function/array_max';
 import { JsonFunctionArrayShuffle }    from '~/function/array_shuffle';
@@ -41,55 +41,89 @@ import { JsonFunctionStringLevel }     from '~/function/string_level';
 /// <reference path="./jest-mock-random.d.ts" />
 import { mockRandom, resetMockRandom } from 'jest-mock-random';
 
-function f_test(transformer: JsonTransformerFunction)
-{ /*
+function f_test(t: JsonTransformerFunction)
+{ test
+  ( '"$count" should be transformed to "$count"', 
+    () => { expect(t.transform({ value: "$count" })).toBe("$count"); }
+  );
+
+  test
+  ( '["$count"] should be transformed to 0', 
+    () => { expect(t.transform({ value: ["$count"] })).toBe(0); }
+  );
+
+  test
+  ( '["$count", 5] should be transformed to 1', 
+    () => { expect(t.transform({ value: ["$count", 5] })).toBe(1); }
+  );
+
+  test
+  ( '["$count", 5, 7, 9] should be transformed to 3', 
+    () => { expect(t.transform({ value: ["$count", 5, 7, 9] })).toBe(3); }
+  );
+  test
+  ( '{"$function":"$count","$value":[]} should be transformed to 0', 
+    () => { expect(t.transform({ value: {"$function":"$count","$value":[]} })).toBe(0); }
+  );
+
+  test
+  ( '{"$function":"$count","$value":[5]} should be transformed to 1', 
+    () => { expect(t.transform({ value: {"$function":"$count","$value":[5]} })).toBe(1); }
+  );
+
+  test
+  ( '{"$function":"$count","$value":[5, 7, 9]} should be transformed to 3', 
+    () => { expect(t.transform({ value: {"$function":"$count","$value":[5, 7, 9]} })).toBe(3); }
+  );
+  
+  /*
   test
   ( '{"$function":"$duplicate", "$value":{}, "$times":3} should be transformed to [{},{},{}]', 
-    () => { expect(transformer.transform({ value: {"$function":"$duplicate", "$value":{}, "$times":3} }))
+    () => { expect(t.transform({ value: {"$function":"$duplicate", "$value":{}, "$times":3} }))
               .toStrictEqual([{},{},{}]); 
           }
   );
 
   test
   ( '["$level"] should be transformed to ["$level"]', 
-    () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
+    () => { expect(t.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );
 
   test
   ( '"$level" should be transformed to 0', 
-    () => { expect(transformer.transform({ value: "$level" })).toBe(0); }
+    () => { expect(t.transform({ value: "$level" })).toBe(0); }
   );
 
   test
   ( '["$level"] should be transformed to ["$level"]', 
-    () => { expect(transformer.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
+    () => { expect(t.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );
 
   test
   ( '["$min, 1, 5, 3, 4, 2] should be transformed to 1', 
-    () => { expect(transformer.transform({ value: ["$min", 1, 5, 3, 4, 2] })).toBe(1); }
+    () => { expect(t.transform({ value: ["$min", 1, 5, 3, 4, 2] })).toBe(1); }
   );
 
   test
   ( '["$min] should be transformed to Infinity', 
-    () => { expect(transformer.transform({ value: ["$min"] })).toBe(Infinity); }
+    () => { expect(t.transform({ value: ["$min"] })).toBe(Infinity); }
   );
    
   test
   ( '["$max, 1, 5, 3, 4, 2] should be transformed to 5', 
-    () => { expect(transformer.transform({ value: ["$max", 1, 5, 3, 4, 2] })).toBe(5); }
+    () => { expect(t.transform({ value: ["$max", 1, 5, 3, 4, 2] })).toBe(5); }
   );
 
   test
   ( '["$max] should be transformed to -Infinity', 
-    () => { expect(transformer.transform({ value: ["$max"] })).toBe(-Infinity); }
+    () => { expect(t.transform({ value: ["$max"] })).toBe(-Infinity); }
   );
 
   describe
   ( 'random default', 
     () => 
     f_random_test
-    ( transformer,
+    ( t,
       {"$function":"$random"},
       [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999],
       [0, 0.33, 0.49999999, 0.5, 0.66, 0.99999999]
@@ -100,7 +134,7 @@ function f_test(transformer: JsonTransformerFunction)
   ( 'random $min, $max', 
     () => 
     f_random_test
-    ( transformer,
+    ( t,
       {"$function":"$random", "$min": 1, "$max": 11},
       [0, 0.33, 0.49999999, 0.5, 0.66,  0.99999999],
       [1, 4.3,  5.9999999,  6,   7.6,  10.9999999]
@@ -111,7 +145,7 @@ function f_test(transformer: JsonTransformerFunction)
   ( 'random $min, $max, $integer', 
     () => 
     f_random_test
-    ( transformer,
+    ( t,
       {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true},
       [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
       [2, 3,     4,     5,     6,     7,     8,     9,     10,     11    ]
@@ -122,7 +156,7 @@ function f_test(transformer: JsonTransformerFunction)
   ( 'random $min, $max, $integer, $scale', 
     () => 
     f_random_test
-    ( transformer,
+    ( t,
       {"$function":"$random", "$min": 2, "$max": 11, "$isInteger": true, "$scale": "factor"},
       [0, 0.102, 0.275, 0.321, 0.411, 0.565, 0.600, 0.703,  0.877,  0.999],
       [1, 1.5,   2,     2.5,   3,     3.5,   4,     4.5,    5,      5.5  ],
@@ -134,7 +168,7 @@ function f_test(transformer: JsonTransformerFunction)
   ( 'random $min, $max, $integer, $scale, $gzp', 
     () => 
     f_random_test
-    ( transformer,
+    ( t,
       {"$function":"$random", $min: 2, $max: 11, $isInteger: true, $scale: 'factor', $gzp: 0.5},
       [[0, 0.3], [0.102, 0.6], [0.275, 0], [0.321, 0.5], [0.411, 0.1], [0.565, 0.9], [0.600, 0.3], [0.703, 0.7],  [0.877, 0.2],  [0.999, 0.8]],
       [-1,       +1.5,         -2,         +2.5,         -3,           +3.5,         -4,           +4.5,          -5,            +5.5        ],
@@ -144,58 +178,60 @@ function f_test(transformer: JsonTransformerFunction)
 
   test
   ( '{"$function":"$sequence", "$min":2, "$max":5} should be transformed to [2, 3, 4, 5]', 
-    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5} }))
+    () => { expect(t.transform({ value: {"$function":"$sequence", "$min":2, "$max":5} }))
              .toStrictEqual([2, 3, 4, 5]); 
           }
   );
 
   test
   ( '{"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} should be transformed to ["image2","image3","image4","image5"]', 
-    () => { expect(transformer.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} }))
+    () => { expect(t.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} }))
               .toStrictEqual(["image2","image3","image4","image5"]);
           }
   );
   */
-  test
-  ( '["$some", 5] should be transformed to 5', 
-    () => { expect(transformer.transform({ value: ["$some", 5] })).toBe(5); }
-  );
 
   test
   ( '"$some" should be transformed to "$some"', 
-    () => { expect(transformer.transform({ value: "$some" })).toBe("$some"); }
+    () => { expect(t.transform({ value: "$some" })).toBe("$some"); }
+  );
+
+  
+  test
+  ( '["$some"] should be transformed to null', 
+    () => { expect(t.transform({ value: ["$some"] })).toBe(null); }
+  );
+
+  test
+  ( '["$some", 5] should be transformed to 5', 
+    () => { expect(t.transform({ value: ["$some", 5] })).toBe(5); }
   );
 
   test
   ( '["$some", 5, 7, 9] should be transformed either into 5 or 7 or 9', 
     () => { const c_result = [];
             for (let i = 0; i < 100; i++)
-            { c_result.push(transformer.transform({ value: ["$some", 5, 7, 9] })); } 
+            { c_result.push(t.transform({ value: ["$some", 5, 7, 9] })); } 
             expect([5, 7, 9]).toEqual(expect.arrayContaining(c_result)); 
             expect(c_result).toEqual(expect.arrayContaining([5, 7, 9])); 
           }
   );
-  
+
   test
-  ( '["$some"] should be transformed to null', 
-    () => { expect(transformer.transform({ value: ["$some"] })).toBe(null); }
+  ( '{"$function":"$some","$value":[]} should be transformed to null', 
+    () => { expect(t.transform({ value: {"$function":"$some","$value":[]} })).toBe(null); }
   );
 
   test
   ( '{"$function":"$some","$value":[5]} should be transformed to 5', 
-    () => { expect(transformer.transform({ value: {"$function":"$some","$value":[5]} })).toBe(5); }
+    () => { expect(t.transform({ value: {"$function":"$some","$value":[5]} })).toBe(5); }
   );
 
   test
-  ( '{"$function":"$some","$value":[]} should be transformed to null', 
-    () => { expect(transformer.transform({ value: {"$function":"$some","$value":[]} })).toBe(null); }
-  );
-
-    test
   ( '{"$function":"$some","$value":[5,7,9]} should be transformed either into 5 or 7 or 9', 
     () => { const c_result = [];
             for (let i = 0; i < 100; i++)
-            { c_result.push(transformer.transform({ value: {"$function":"$some","$value":[5,7,9]} })); } 
+            { c_result.push(t.transform({ value: {"$function":"$some","$value":[5,7,9]} })); } 
             expect([5, 7, 9]).toEqual(expect.arrayContaining(c_result)); 
             expect(c_result).toEqual(expect.arrayContaining([5, 7, 9])); 
           }
@@ -204,7 +240,7 @@ function f_test(transformer: JsonTransformerFunction)
 /*
   test
   ( '["$shuffle",1,2,3,4,5] should be transformed to [5,3,1,4,2] or similar', 
-    () => { const c_result = transformer.transform({ value: ["$shuffle", 1, 2, 3, 4, 5] });
+    () => { const c_result = t.transform({ value: ["$shuffle", 1, 2, 3, 4, 5] });
             expect([5, 3, 1, 4, 2]).toEqual(expect.arrayContaining(c_result as JsonArray)); 
             expect(c_result).toEqual(expect.arrayContaining([5, 3, 1, 4, 2])); 
           }
@@ -212,7 +248,7 @@ function f_test(transformer: JsonTransformerFunction)
 
   test
   ( '{"$function":"$shuffle","$value":[1,2,3,4,5]} should be transformed to [5,3,1,4,2] or similar', 
-    () => { const c_result = transformer.transform({ value: {"$function":"$shuffle","$value":[1,2,3,4,5]} });
+    () => { const c_result = t.transform({ value: {"$function":"$shuffle","$value":[1,2,3,4,5]} });
             expect([5, 3, 1, 4, 2]).toEqual(expect.arrayContaining(c_result as JsonArray)); 
             expect(c_result).toEqual(expect.arrayContaining([5, 3, 1, 4, 2])); 
           }
@@ -220,31 +256,31 @@ function f_test(transformer: JsonTransformerFunction)
 
   test
   ( '["$unnest", [1, 2], 3, [[4]], [5], [{}]] should be transformed to [1, 2, 3, [4], 5, {}]', 
-    () => { expect(transformer.transform({ value: ["$unnest", [1, 2], 3, [[4]], [5], [{}]] }))
+    () => { expect(t.transform({ value: ["$unnest", [1, 2], 3, [[4]], [5], [{}]] }))
               .toStrictEqual([1, 2, 3, [4], 5, {}]); 
           }
   );
 
   test
   ( '{"$function":"$unnest","$value":[[1, 2],3,[[4]],[5],[{}]]} should be transformed to [1, 2, 3, [4], 5, {}]', 
-    () => { expect(transformer.transform({ value: {"$function":"$unnest", "$value":[[1, 2],3,[[4]],[5],[{}]]} }))
+    () => { expect(t.transform({ value: {"$function":"$unnest", "$value":[[1, 2],3,[[4]],[5],[{}]]} }))
               .toStrictEqual([1, 2, 3, [4], 5, {}]); 
           }
   );
 
   test
   ( '["$sum, 1, 5, 3, 4, 2] should be transformed to 15', 
-    () => { expect(transformer.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
+    () => { expect(t.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
   );
 
   test
   ( '"abc" should be transformed to "abc"', 
-    () => { expect(transformer.transform({ value: "abc" })).toBe("abc"); }
+    () => { expect(t.transform({ value: "abc" })).toBe("abc"); }
   );
 
   test
   ( '[] should be transformed to []', 
-    () => { expect(transformer.transform({ value: [] })).toEqual([]); }
+    () => { expect(t.transform({ value: [] })).toEqual([]); }
   );
   */
 }
@@ -268,20 +304,112 @@ function f_random_test
   }
 }
 
+/*
 f_test
 ( new JsonTransformerFunction
-  ({init:
-    [ //JsonFunctionArrayCount, 
-      //JsonFunctionArrayMin, 
-      //JsonFunctionArrayMax,
-      //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
-      JsonFunctionSome, 
-      //JsonFunctionArraySum, 
-      //JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
-      //JsonFunctionObjectDuplicate,
-      //JsonFunctionObjectRandom,
-      //JsonFunctionObjectSequence,
-      //JsonFunctionStringLevel, 
-    ] 
+  ({ init:
+     [ JsonFunctionCount, 
+       //JsonFunctionArrayMin, 
+       //JsonFunctionArrayMax,
+       //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
+       JsonFunctionSome, 
+       //JsonFunctionArraySum, 
+       //JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
+       //JsonFunctionObjectDuplicate,
+       //JsonFunctionObjectRandom,
+       //JsonFunctionObjectSequence,
+       //JsonFunctionStringLevel, 
+     ] 
+  })
+);
+*/
+function f_rename_test(t: JsonTransformerFunction)
+{ //console.log(t.functionName(["@count", 5, 7, 9]))
+  //console.log(t.functionName({"@function":"@count","@value":[5, 7, 9]}))
+  //console.log(t.arrayFunctionValue("@count",{"@function":"@count","@value":[5, 7, 9]}))
+/*
+  test
+  ( '"@count" should be transformed to "@count"', 
+    () => { expect(t.transform({ value: "@count" })).toBe("@count"); }
+  );
+
+  test
+  ( '"$count" should be transformed to "$count"', 
+    () => { expect(t.transform({ value: "$count" })).toBe("$count"); }
+  );
+*/
+  test
+  ( '["@count", 5, 7, 9] should be transformed to 3', 
+    () => { expect(t.transform({ value: ["@count", 5, 7, 9] })).toBe(3); }
+  );
+  /*
+  test
+  ( '["$count", 5, 7, 9] should be transformed to ["$count", 5, 7, 9]', 
+    () => { expect(t.transform({ value: ["$count", 5, 7, 9] })).toStrictEqual(["$count", 5, 7, 9]); }
+  );
+
+  test
+  ( '{"@function":"@count","@value":[5, 7, 9]} should be transformed to 3', 
+    () => { expect(t.transform({ value: {"@function":"@count","@value":[5, 7, 9]} })).toBe(3); }
+  );
+
+  test
+  ( '{"$function":"@count","@value":[5, 7, 9]} should be transformed to {"$function":"@count","@value":[5, 7, 9]}', 
+    () => { expect(t.transform({ value: {"$function":"@count","@value":[5, 7, 9]} })).toStrictEqual({"$function":"@count","@value":[5, 7, 9]}); }
+  );
+
+  test
+  ( '{"@function":"$count","@value":[5, 7, 9]} should be transformed to {"@function":"$count","@value":[5, 7, 9]}', 
+    () => { expect(t.transform({ value: {"@function":"$count","@value":[5, 7, 9]} })).toStrictEqual({"@function":"$count","@value":[5, 7, 9]}); }
+  );
+
+  test
+  ( '{"@function":"@count","$value":[5, 7, 9]} should be transformed to {"@function":"@count","$value":[5, 7, 9]}', 
+    () => { expect(t.transform({ value: {"@function":"@count","$value":[5, 7, 9]} })).toStrictEqual({"@function":"@count","$value":[5, 7, 9]}); }
+  );
+
+  test
+  ( '{"$function":"@count","$value":[5, 7, 9]} should be transformed to {"$function":"@count","$value":[5, 7, 9]}', 
+    () => { expect(t.transform({ value: {"$function":"@count","$value":[5, 7, 9]} })).toStrictEqual({"$function":"@count","$value":[5, 7, 9]}); }
+  );
+
+  test
+  ( '{"$function":"$count","$value":[5, 7, 9]} should be transformed to {"$function":"$count","$value":[5, 7, 9]}', 
+    () => { expect(t.transform({ value: {"$function":"$count","$value":[5, 7, 9]} })).toStrictEqual({"$function":"$count","$value":[5, 7, 9]}); }
+  );
+
+  test
+  ( '["@some", 5] should be transformed to 5', 
+    () => { expect(t.transform({ value: ["@some", 5] })).toBe(5); }
+  );
+
+  test
+  ( '{"@function":"@some","@value":[5]} should be transformed to 5', 
+    () => { expect(t.transform({ value: {"@function":"@some","@value":[5]} })).toBe(5); }
+  );*/
+}
+
+f_rename_test
+( new JsonTransformerFunction
+  ({ rename:
+     { "$function": "@function",
+       "$value":    "@value",
+       "$count":    "@count",
+       "$some":     "@some"
+     },
+
+     init:
+     [ JsonFunctionCount, 
+       //JsonFunctionArrayMin, 
+       //JsonFunctionArrayMax,
+       //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
+       JsonFunctionSome, 
+       //JsonFunctionArraySum, 
+       //JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
+       //JsonFunctionObjectDuplicate,
+       //JsonFunctionObjectRandom,
+       //JsonFunctionObjectSequence,
+       //JsonFunctionStringLevel, 
+     ] 
   })
 );

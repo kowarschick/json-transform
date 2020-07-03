@@ -69,13 +69,13 @@ export function JsonFunctionObjectRandom({value, data}: JsonFunctionParameters<J
     c_init = JsonFunctionObjectRandom.init,
     c_min  = (value?.[c_init.minAttr] ?? c_init.min) as number,
     c_max  = (value?.[c_init.maxAttr] ?? c_init.max) as number;
-
+ /*
   if (   value?.[JsonTransformerFunction.functionAttribute] !== c_init.function 
       || !Number.isFinite(c_min)
       || !Number.isFinite(c_max)
      )
   { return value; }
-
+*/
   const
     c_is_integer =       value?.[c_init.isIntegerAttr]        ?? c_init.isInteger,
     c_gzp        =       value?.[c_init.gzpAttr]              ?? c_init.gzp,

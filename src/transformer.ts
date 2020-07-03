@@ -93,11 +93,8 @@ class JsonTransformer
   
   private          v_root:           JsonTransformer;
   private readonly v_name:           string;
-  
   private readonly v_init_root:      InitMap = {};
-  
   private readonly v_data:           Data = {};
-
   private readonly v_rename:         Record<string, string>;
   private readonly v_rename_reverse: Record<string, string> = {};
 
@@ -112,31 +109,84 @@ class JsonTransformer
   }
 
   /**
-
+   * Renames an attribute or function name  
+   * into another one by means of rename tables 
+   * that are passed to the transformer constructors. 
+   * @protected
+   * @method
    * @param {string} name
    * @returns {string} 
    */
   protected rename(name: string): string
   { return this.v_root.v_rename[name] ?? name; }
  
-  protected functionName(value: JsonArray | JsonObject): string
-  { if (isJsonArray(value))
-    { if (value.length === 0) { return ''}
-      const c_v0 = value[0];
-      return isJsonString(c_v0) ? c_v0 : ''
-    }
+  /**
+   * Undoes the renaming of an attribute or 
+   * function name.
+   * @protected
+   * @method
+   * @param {JsonString} name
+   * @returns {JsonString} 
+   */
+  protected rerename(name: string): string
+  { return this.v_root.v_rename_reverse[name] ?? name; }
+ 
+  /**
+   * Fetches the function name of a JSON array function
+   * call or a JSON object function call.
+   * The function <code>rerename</code> is applied to
+   * the function name.
+   * @protected
+   * @method
+   * @param   {JsonArray|JsonObject} value
+   * @returns {string|null} 
+   *          function name of <code>value</code>;
+   *          <coode>null</code>, if <code>value</code>
+   *          is no JSON function call. 
+   */
+  protected functionName(value: JsonArray|JsonObject): string|null
+  { const f_name = 
+      (name: JsonValue) =>  
+      // Ey, tricky: 
+      //   '@count' is an alias,      iff this.v_rename_reverse['@count'] != null
+      //   '$count' has been renamed, iff this.v_rename['$count'] != null
+      isJsonString(name) 
+      ? ( this.v_rename_reverse[name] != null 
+          ? this.rerename(name)       // as name has been renamed, undo renaming
+          : (this.v_rename[name] != null 
+             ? null // as name has an alias, name cannot be used as function name              
+             : name
+            )
+        ) 
+      : null;
+
+    if (isJsonArray(value))
+    { return value.length > 0 ? f_name(value[0]) : null }
     else
-    { const c_v = value[this.rename(FUNCTION)];  
-      return isJsonString(c_v) ? c_v : '';
-    }
+    { return f_name(value[this.rename(FUNCTION)]) }
   }
 
-  protected isFunctionName(name: string, value: JsonObject): boolean
+  /**
+   * Tests whether <code>name</code> is the function name of <code>value</code>.
+   * @param   {string}               name 
+   * @param   {JsonArray|JsonObject} value 
+   * @returns {boolean}
+   */
+  protected isFunctionName(name: string, value: JsonArray|JsonObject): boolean
   { return (this.functionName(value) === name) }
 
+  /**
+   * Computes the array function value of a JSON function object call,
+   * if the function name of the JSON object denotes an array function
+   * and the name of thet function is equal to <code>name</code>.
+   * @param   {string}     name
+   * @param   {JsonObject} value
+   * @returns {JsonArray|null}
+   */
   protected arrayFunctionValue
-  (name: string, value: JsonObject, isFunctioName: boolean = false): JsonArray | null
-  { if (isFunctioName || this.isFunctionName(name, value))
+  (name: string, value: JsonObject): JsonArray | null
+  { const c_name = this.functionName(value);
+    if (c_name === name)
     { const c_value = value[this.rename(VALUE)];
       return isJsonArray(c_value) ? c_value : null;
     }
@@ -195,7 +245,8 @@ class JsonTransformer
    * locally transformed the JSON value. The locally
    * transformed value is passed to the transformers 
    * that have been added by {@link pipe}.
-   * 
+   * @protected
+   * @method
    * @param {JsonFunctionParameters} _ 
    */
   protected transformerPipe(_: JsonFunctionParameters): JsonValue

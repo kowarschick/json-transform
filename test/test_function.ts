@@ -324,11 +324,7 @@ f_test
 );
 */
 function f_rename_test(t: JsonTransformerFunction)
-{ //console.log(t.functionName(["@count", 5, 7, 9]))
-  //console.log(t.functionName({"@function":"@count","@value":[5, 7, 9]}))
-  //console.log(t.arrayFunctionValue("@count",{"@function":"@count","@value":[5, 7, 9]}))
-/*
-  test
+{ test
   ( '"@count" should be transformed to "@count"', 
     () => { expect(t.transform({ value: "@count" })).toBe("@count"); }
   );
@@ -337,12 +333,12 @@ function f_rename_test(t: JsonTransformerFunction)
   ( '"$count" should be transformed to "$count"', 
     () => { expect(t.transform({ value: "$count" })).toBe("$count"); }
   );
-*/
+
   test
   ( '["@count", 5, 7, 9] should be transformed to 3', 
     () => { expect(t.transform({ value: ["@count", 5, 7, 9] })).toBe(3); }
   );
-  /*
+
   test
   ( '["$count", 5, 7, 9] should be transformed to ["$count", 5, 7, 9]', 
     () => { expect(t.transform({ value: ["$count", 5, 7, 9] })).toStrictEqual(["$count", 5, 7, 9]); }
@@ -386,7 +382,7 @@ function f_rename_test(t: JsonTransformerFunction)
   test
   ( '{"@function":"@some","@value":[5]} should be transformed to 5', 
     () => { expect(t.transform({ value: {"@function":"@some","@value":[5]} })).toBe(5); }
-  );*/
+  );
 }
 
 f_rename_test

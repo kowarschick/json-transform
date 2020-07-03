@@ -41,12 +41,16 @@ export function JsonFunctionObjectUnnest({value}: JsonFunctionParameters<JsonObj
 { const 
     c_init  = JsonFunctionObjectUnnest.init,
     c_value = value?.[c_init.valueAttr];
-    
+  
+  return Array.isArray(c_value) ? unnest(c_value) : null;
+
+  /*
   return (    value?.[JsonTransformerFunction.functionAttribute] !== c_init.function 
           || !Array.isArray(c_value)
          )
          ? value
          : unnest(c_value)
+  */
 }
 
 JsonFunctionObjectUnnest.type = JsonType.Object;

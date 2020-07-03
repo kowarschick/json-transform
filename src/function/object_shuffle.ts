@@ -42,11 +42,14 @@ export function JsonFunctionObjectShuffle({value}: JsonFunctionParameters<JsonOb
     c_init  = JsonFunctionObjectShuffle.init,
     c_value = value?.[c_init.valueAttr] ?? null;
 
+  return Array.isArray(c_value) ? shuffle(c_value) : null;
+  /*
   return (   value?.[JsonTransformerFunction.functionAttribute] !== c_init.function 
           || !Array.isArray(c_value)
          )
          ? value
          : shuffle(c_value)
+  */
 }
 
 JsonFunctionObjectShuffle.type = JsonType.Object;

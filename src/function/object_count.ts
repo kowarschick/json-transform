@@ -41,8 +41,8 @@ export function JsonFunctionObjectCount({value}: JsonFunctionParameters<JsonObje
     c_init  = JsonFunctionObjectCount.init,
     c_value = value?.[c_init.valueAttr] ?? null;
 
-  return (   value?.[JsonTransformerFunction.functionAttribute] !== c_init.function 
-          || !Array.isArray(c_value)
+  return ( //value?.[JsonTransformerFunction.functionAttribute] !== c_init.function ||
+           !Array.isArray(c_value)
          )
          ? value
          : c_value.length-1;

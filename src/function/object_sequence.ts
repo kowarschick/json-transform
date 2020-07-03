@@ -40,9 +40,10 @@ export function JsonFunctionObjectSequence({value, data}: JsonFunctionParameters
   const 
     c_init  = JsonFunctionObjectSequence.init;
 
+  /*
   if ( value?.[JsonTransformerFunction.functionAttribute] !== c_init.function )
   { return value; }
-
+  */
   const 
     c_min               = (value?.[c_init.minAttr]    ?? c_init.min)    as number,
     c_max               = (value?.[c_init.maxAttr]    ?? c_init.max)    as number,

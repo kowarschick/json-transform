@@ -47,8 +47,8 @@ export function JsonFunctionObjectDuplicate({value}: JsonFunctionParameters<Json
 { const 
     c_init  = JsonFunctionObjectDuplicate.init;
 
-  if ( value?.[JsonTransformerFunction.functionAttribute] !== c_init.function )
-  { return value; }
+  //if ( value?.[JsonTransformerFunction.functionAttribute] !== c_init.function )
+  //{ return value; }
 
   const 
     c_clone_transformer = new JsonTransformerTraversal(),

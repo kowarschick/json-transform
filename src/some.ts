@@ -30,7 +30,7 @@ const SOME = '$some';
  * t1.transform({ value: [ "$some" ] })      // => null 
  * t1.transform({ value: "abc" })            // => "abc"
  * 
- * const t2 = new JsonTransformerSome({ init: { some: '@some' } });
+ * const t2 = new JsonTransformerSome({ rename: {$some: '@some'} });
  * 
  * t2.transform({ value: [ "@some", 4, 5 ] }) // => 4 or 5
  * t2.transform({ value: [ "$some", 4, 5 ] }) // => [ "$some", 4, 5 ]

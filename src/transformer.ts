@@ -127,15 +127,21 @@ class JsonTransformer
   protected attribute(name: string): string
   { return (this.root.rename[name] ?? name) as string; }
  
-  protected isFunction(name: string, value: JsonObject): boolean
-  { return (value[this.attribute(FUNCTION)] === name) }
+  protected getFunctionName(value: JsonObject): string|null
+  { const c_v = value[this.attribute(FUNCTION)];  
+    return isJsonString(c_v) ? c_v : null;
+  }
 
-  protected getArrayFunctionValue(name: string, value: JsonObject): JsonArray | null
-  { if (this.isFunction(name, value))
+  protected isFunctionName(name: string, value: JsonObject): boolean
+  { return (this.getFunctionName(value) === name) }
+
+  protected getArrayFunctionValue
+  (name: string, value: JsonObject, isFunctioName: boolean = false): JsonArray | null
+  { if (isFunctioName || this.isFunctionName(name, value))
     { const c_value = value[VALUE];
-      return isJsonArray(c_value) ? c_value : null
+      return isJsonArray(c_value) ? c_value : null;
     }
-    return null
+    return null;
   }
 
   private _pipe_tail:         JsonTransformer | null = null;

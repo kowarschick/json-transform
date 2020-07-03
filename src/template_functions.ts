@@ -110,7 +110,7 @@ class JsonTransformerTemplateFunctions extends JsonTransformer
       f_split_placeholder =
       (p_name: string, p_arguments: string): [JsonValue|JsonFunction, JsonValue] =>
       { const 
-          c_name      = p_name == null ? null : data[p_name],
+          c_name      = p_name == null ? null : data?.[p_name],
           c_arguments = p_arguments?.slice(1,-2).replace(/'/g,'"') ?? '';
   
         let l_json_value: JsonValue;

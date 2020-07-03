@@ -34,24 +34,43 @@ export enum JsonType
 }
 
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
-{value: T, level: number, data: Data, init?: Init};
+{ value: T, level: number, data: Data, init?: Init }
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
-{ (_: JsonFunctionParameters<T>): JsonValue, 
-  type?: JsonType, 
-  name?: string,
-  init?: Init
+  (_: JsonFunctionParameters<T>) => JsonValue 
+
+type JsonFunctionDescriptorCommon =
+{ name:        string,
+  type:        JsonType,
+  attributes?: Record<string, string>,
+  default?:    Record<string, JsonValue>
 }
 
-export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue>
-{ function: (_: JsonFunctionParameters<T>) => JsonValue, 
-  type:     JsonType, 
-  name:     string,
-  init?:    Init
-}
-            
+export type JsonFunctionDescriptorArray = 
+  JsonFunctionDescriptorCommon &
+  { type:     JsonType.Array,
+    function: (_: JsonFunctionParameters<JsonArray>, begin: number) => JsonValue, 
+  }
+
+export type JsonFunctionDescriptorObject = 
+  JsonFunctionDescriptorCommon &
+  { type:     JsonType.Object,
+    function: (_: JsonFunctionParameters<JsonObject>) => JsonValue, 
+  } 
+  
+export type JsonFunctionDescriptorString = 
+  JsonFunctionDescriptorCommon &
+  { type:     JsonType.String,
+    function: (_: JsonFunctionParameters<JsonString>) => JsonValue, 
+  }  
+
+export type JsonFunctionDescriptor = 
+  JsonFunctionDescriptorArray  |
+  JsonFunctionDescriptorObject | 
+  JsonFunctionDescriptorString
+  
 export type Init =
-  JsonValue | JsonFunction | RegExp | InitMap  
+  JsonValue | JsonFunction | JsonFunctionDescriptor[] | RegExp | InitMap  
 
 export interface InitMap 
 { [key: string]: Init }
@@ -166,4 +185,8 @@ export
 function isInitMap(value: Init): value is InitMap
 { return value != null && typeof value === 'object' && !Array.isArray(value); }
 
-
+// TBD
+/*
+interface notAnArray 
+{ forEach?: void }
+*/

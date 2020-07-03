@@ -96,7 +96,7 @@ class JsonTransformerRandom extends JsonTransformer
       c_min  = (value?.[this.attribute(MIN)] ?? c_init.min) as number,
       c_max  = (value?.[this.attribute(MAX)] ?? c_init.max) as number;
 
-    if (   !this.isFunction(RANDOM, value) 
+    if (   !this.isFunctionName(RANDOM, value) 
         || !Number.isFinite(c_min)
         || !Number.isFinite(c_max)
        )
@@ -105,7 +105,7 @@ class JsonTransformerRandom extends JsonTransformer
     const
       c_is_integer = (value?.[IS_INTEGER] ?? c_init.isInteger) as boolean,
       c_gzp        = (value?.[GZP]        ?? c_init.gzp      ) as number,
-      c_scale_aux  = data[(value?.[SCALE]) as string],
+      c_scale_aux  = data?.[(value?.[SCALE]) as string],
       c_scale      = isJsonNumber(c_scale_aux) ? c_scale_aux : c_init.scale,
       c_random     = Math.random();
     let

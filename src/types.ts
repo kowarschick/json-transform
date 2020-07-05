@@ -40,10 +40,9 @@ export type JsonFunction<T extends JsonValue = JsonValue> =
   (_: JsonFunctionParameters<T>) => JsonValue 
 
 type JsonFunctionDescriptorCommon =
-{ name:        string,
-  type:        JsonType,
-  attributes?: Record<string, string>,
-  default?:    Record<string, JsonValue>
+{ name:  string,
+  type:  JsonType,
+  init?: Record<string, Init>
 }
 
 export type JsonFunctionDescriptorArray = 

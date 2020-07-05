@@ -32,7 +32,7 @@ export { JsonTransformerTemplateFunctions }     from './template_functions';
 
 export { JsonFunctionCount }               from './function/count'; 
 export { JsonFunctionMin }                 from './function/min'; 
-export { JsonFunctionMax }                 from './function/max';
+export { JsonFunctionMax }                 from './function/aggregate';
 export { JsonFunctionArrayShuffle }             from './function/array_shuffle'; 
 export { JsonFunctionSome }                     from './function/some'; 
 export { JsonFunctionArraySum }                 from './function/array_sum'; 

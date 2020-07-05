@@ -6,6 +6,7 @@
 
 /*
 import { JsonValue, JsonArray, Data }  from '@wljkowa/json-transformer';
+import { JsonFunctionDescriptor }      from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }     from '@wljkowa/json-transformer';
 import { JsonFunctionCount }           from '@wljkowa/json-transformer';
 import { JsonFunctionMin }             from '@wljkowa/json-transformer';
@@ -23,10 +24,11 @@ import { JsonFunctionStringLevel }     from '@wljkowa/json-transformer';
 */
 
 import { JsonValue, JsonArray, Data }  from '~/types';
+import { JsonFunctionDescriptor }      from '~/types';
 import { JsonTransformerFunction }     from '~/function';
 import { JsonFunctionCount }           from '~/function/count';
 import { JsonFunctionMin }             from '~/function/min';
-import { JsonFunctionMax }             from '~/function/max';
+import { JsonFunctionMax }             from '~/function/aggregate';
 import { JsonFunctionArrayShuffle }    from '~/function/array_shuffle';
 import { JsonFunctionSome }            from '~/function/some';
 import { JsonFunctionArraySum }        from '~/function/array_sum';
@@ -118,6 +120,11 @@ function f_test(t: JsonTransformerFunction)
   ( '["$max] should be transformed to -Infinity', 
     () => { expect(t.transform({ value: ["$max"] })).toBe(-Infinity); }
   );
+
+  test
+  ( '["$maxString", "a", "ZZZ", "zzz", "abc"] should be transformed to "zzz"', 
+    () => { expect(t.transform({ value: ["$maxString", "a", "ZZZ", "zzz", "abc"] })).toBe("zzz"); }
+  );
 /*
   describe
   ( 'random default', 
@@ -189,14 +196,12 @@ function f_test(t: JsonTransformerFunction)
               .toStrictEqual(["image2","image3","image4","image5"]);
           }
   );
-  */
-
+*/
   test
   ( '"$some" should be transformed to "$some"', 
     () => { expect(t.transform({ value: "$some" })).toBe("$some"); }
   );
 
-  
   test
   ( '["$some"] should be transformed to null', 
     () => { expect(t.transform({ value: ["$some"] })).toBe(null); }
@@ -304,13 +309,19 @@ function f_random_test
   }
 }
 
-/*
+const JsonFunctionMaxString: JsonFunctionDescriptor =
+{ ...JsonFunctionMax,
+  name: '$maxString',
+  init: { default: '', aggregate: (a: string, b: string) => (a>b ? a : b) }
+}
+ 
 f_test
 ( new JsonTransformerFunction
   ({ init:
      [ JsonFunctionCount, 
        //JsonFunctionMin, 
-       //JsonFunctionMax,
+       JsonFunctionMax,
+       JsonFunctionMaxString,
        //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
        JsonFunctionSome, 
        //JsonFunctionArraySum, 
@@ -322,7 +333,7 @@ f_test
      ] 
   })
 );
-*/
+
 function f_rename_test(t: JsonTransformerFunction)
 { test
   ( '"@count" should be transformed to "@count"', 
@@ -375,6 +386,16 @@ function f_rename_test(t: JsonTransformerFunction)
   );
 
   test
+  ( '["$max, 1, 5, 3, 4, 2] should be transformed to ["$max", 1, 5, 3, 4, 2]', 
+    () => { expect(t.transform({ value: ["$max", 1, 5, 3, 4, 2] })).toStrictEqual(["$max", 1, 5, 3, 4, 2]); }
+  );
+
+  test
+  ( '["@max, 1, 5, 3, 4, 2] should be transformed to 5', 
+    () => { expect(t.transform({ value: ["@max", 1, 5, 3, 4, 2] })).toBe(5); }
+  );
+
+  test
   ( '["@some", 5] should be transformed to 5', 
     () => { expect(t.transform({ value: ["@some", 5] })).toBe(5); }
   );
@@ -384,20 +405,21 @@ function f_rename_test(t: JsonTransformerFunction)
     () => { expect(t.transform({ value: {"@function":"@some","@value":[5]} })).toBe(5); }
   );
 }
-
+/*
 f_rename_test
 ( new JsonTransformerFunction
   ({ rename:
      { "$function": "@function",
        "$value":    "@value",
        "$count":    "@count",
+       "$max":      "@max",
        "$some":     "@some"
      },
 
      init:
      [ JsonFunctionCount, 
        //JsonFunctionMin, 
-       //JsonFunctionMax,
+       JsonFunctionMax,
        //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
        JsonFunctionSome, 
        //JsonFunctionArraySum, 
@@ -408,4 +430,4 @@ f_rename_test
        //JsonFunctionStringLevel, 
      ] 
   })
-);
+)*/

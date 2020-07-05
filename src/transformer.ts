@@ -284,9 +284,10 @@ class JsonTransformer
     // Do local transformations before passing the value to the pipe.
     for (const [c_key, c_test] of Object.entries(c_transformer_tests))
     { const c_transformer = this[c_key];
-    
-      if (c_transformer != null && c_test(l_value))
-      { l_value = c_transformer({value: value, data: c_data, level}) }
+     
+      if (c_transformer != null && c_test(value))
+      { l_value = c_transformer({value: value, data: c_data, level}); }
+      
     }
 
     // Pipe

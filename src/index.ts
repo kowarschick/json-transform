@@ -4,15 +4,7 @@
  * @license   MIT
  */
 
-export { JsonString, JsonNumber, JsonBoolean, JsonNull,
-         JsonPrimitive, JsonArray, JsonObject, JsonValue, 
-         JsonType,
-         JsonFunctionParameters, JsonFunction, JsonFunctionDescriptor,
-         Init, InitMap, Data,          
-         isJsonString, isJsonNumber, isJsonBoolean, isJsonNull,
-         isJsonPrimitive, isJsonArray, isJsonObject, isJsonValue, 
-         isJsonFunction, isRegExp,
-       }                                        from './types' 
+export *                                        from './types' 
 export { JsonTransformer }                      from './transformer'; 
 export { JsonTransformerFunction }              from './function'; 
 export { JsonTransformerTraversal }             from './traversal'; 
@@ -30,9 +22,9 @@ export { JsonTransformerStringReplace }         from './string_replace';
 export { JsonTransformerTemplate }              from './template'; 
 export { JsonTransformerTemplateFunctions }     from './template_functions'; 
 
-export { JsonFunctionCount }               from './function/count'; 
-export { JsonFunctionMin }                 from './function/min'; 
-export { JsonFunctionMax }                 from './function/aggregate';
+export { JsonFunctionCount }                    from './function/count'; 
+export *                                        from './function/aggregate/min_max';
+export *                                        from './function/aggregate/sum_product';
 export { JsonFunctionArrayShuffle }             from './function/array_shuffle'; 
 export { JsonFunctionSome }                     from './function/some'; 
 export { JsonFunctionArraySum }                 from './function/array_sum'; 

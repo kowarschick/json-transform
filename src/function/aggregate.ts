@@ -1,12 +1,12 @@
 /**
- * @module    function/max
+ * @module    function/aggregate
  * @author    Wolfgang L. J. Kowarschick <kowa@hs-augsburg.de>
  * @copyright 2020 © Wolfgang L. J. Kowarschick
  * @license   MIT
  */
 
-import { JsonType, JsonArray, JsonObject, JsonValue }     from '../types';
-import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
+import { JsonArray, JsonObject, JsonValue } from '../types';
+import { JsonFunctionParameters }           from '../types';
 
 // TBD: Compare function instead of Math.max
 
@@ -48,12 +48,5 @@ function aggregate( { value,  init }: JsonFunctionParameters<JsonArray>,
   { return c_default }                
 }
 
-export
-const JsonFunctionMax: JsonFunctionDescriptor =
-{ name:     '$max',
-  type:     JsonType.Array,
-  function: aggregate,
-  init    : {default: -Infinity, aggregate: (a: number, b: number) => Math.max(a,b) }
-}
 
-export default JsonFunctionMax;
+export default aggregate;

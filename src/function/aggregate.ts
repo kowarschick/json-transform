@@ -13,22 +13,18 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
  * @function 
  * @description
- * If the first element of the Array is equal to 
- * <code>'$max'</code>, the maximum element of the 
- * other elements, which should be numbers,
- * is returned. If there are no other elements, 
- * <code>-Infinity</code> (a Non-JSON element!) 
- * is returned. Thist default value can be changed
- * by setting <code>JsonFunctionMax.init.default</code>.
- * It should be less than all values that might 
- * appear in your JSON arrays (<code>-Number.MAX_VALUE</code>).
+ * Aggregates an array of JSON values to one JSON value.
+ * If the length is equal to zero, <code>_.init.default</code> is returned.
+ * Otherwise <code>_.init.aggregate</code> is succesively applied to 
+ * the aggregation value and the elements of the array.
  * 
  * @param {Partial<JsonFunctionParameters<JsonArray>>} _
  *   An object containing the following attributes.
  * @param {JsonArray} _.value           The JSON array to be transformed.
  * @param {Init}      _.init
  * @param {JsonValue} _.init.default    The default/start value for empty arrays
- * @param {Function}  _.init.aggregate  A function <code>(aggregation, currentValue) => newValue</code> 
+ * @param {Function}  _.init.aggregate  A function <code>(aggregation, currentValue, begin, index, array) => newValue</code> 
+ * @param {number}    begin             Either 0 (in case of regular arrays) or 1 (in case of function call arrays)
  * @returns {JsonValue}
  */
 export 
@@ -44,7 +40,7 @@ function aggregate( { value,  init }: JsonFunctionParameters<JsonArray>,
   { let l_result = c_default;
     
     for (let i = begin, n = value.length; i < n; i++)
-    { l_result = (c_aggregate as Function)(l_result, value[i]) }
+    { l_result = (c_aggregate as Function)(l_result, value[i], begin, i, value) }
 
     return l_result;       
   }
@@ -57,7 +53,7 @@ const JsonFunctionMax: JsonFunctionDescriptor =
 { name:     '$max',
   type:     JsonType.Array,
   function: aggregate,
-  init    : {default: -Infinity, aggregate: Math.max}
+  init    : {default: -Infinity, aggregate: (a: number, b: number) => Math.max(a,b) }
 }
 
 export default JsonFunctionMax;

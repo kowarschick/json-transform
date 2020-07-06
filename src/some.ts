@@ -43,7 +43,9 @@ const SOME = '$some';
 export 
 class JsonTransformerSome extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value}: JsonFunctionParameters<JsonArray>) => 

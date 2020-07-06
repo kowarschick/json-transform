@@ -1,7 +1,7 @@
 import { JsonObject, JsonType } from '../types';
 import { JsonFunctionParameters } from '../types';
-export declare function JsonFunctionObjectRandom({ value, data }: JsonFunctionParameters<JsonObject>): number | JsonObject;
-export declare namespace JsonFunctionObjectRandom {
+export declare function JsonFunctionRandom({ value, data }: JsonFunctionParameters<JsonObject>): number | JsonObject;
+export declare namespace JsonFunctionRandom {
     var type: JsonType;
     var init: {
         function: string;
@@ -17,4 +17,4 @@ export declare namespace JsonFunctionObjectRandom {
         gzp: number;
     };
 }
-export default JsonFunctionObjectRandom;
+export default JsonFunctionRandom;

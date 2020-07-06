@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionObjectDuplicate = void 0;
+exports.JsonFunctionDuplicate = void 0;
 const types_1 = require("../types");
 const traversal_1 = require("../traversal");
 const function_1 = require("../function");
-function JsonFunctionObjectDuplicate({ value }) {
+function JsonFunctionDuplicate({ value }) {
     var _a, _b, _c;
-    const c_init = JsonFunctionObjectDuplicate.init;
+    const c_init = JsonFunctionDuplicate.init;
     if ((value === null || value === void 0 ? void 0 : value[function_1.JsonTransformerFunction.functionAttribute]) !== c_init.function) {
         return value;
     }
@@ -25,14 +25,14 @@ function JsonFunctionObjectDuplicate({ value }) {
     }
     return c_result;
 }
-exports.JsonFunctionObjectDuplicate = JsonFunctionObjectDuplicate;
-JsonFunctionObjectDuplicate.type = types_1.JsonType.Object;
-JsonFunctionObjectDuplicate.init = { function: "$duplicate",
+exports.JsonFunctionDuplicate = JsonFunctionDuplicate;
+JsonFunctionDuplicate.type = types_1.JsonType.Object;
+JsonFunctionDuplicate.init = { function: "$duplicate",
     valueAttr: "$value",
     timesAttr: "$times",
     times: 1,
     withinArrayAttr: "$withinArray",
     withinArray: false
 };
-exports.default = JsonFunctionObjectDuplicate;
+exports.default = JsonFunctionDuplicate;
 //# sourceMappingURL=object_duplicate.js.map

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionArrayShuffle = exports.shuffle = void 0;
+exports.JsonFunctionShuffle = exports.shuffle = void 0;
 const types_1 = require("../types");
 function shuffle(value, begin = 0) {
     const c_value = value.slice(begin);
@@ -14,13 +14,13 @@ function shuffle(value, begin = 0) {
     return c_value;
 }
 exports.shuffle = shuffle;
-function JsonFunctionArrayShuffle({ value }) {
-    return (value.length === 0 || value[0] !== JsonFunctionArrayShuffle.init.function)
+function JsonFunctionShuffle({ value }) {
+    return (value.length === 0 || value[0] !== JsonFunctionShuffle.init.function)
         ? value
         : shuffle(value, 1);
 }
-exports.JsonFunctionArrayShuffle = JsonFunctionArrayShuffle;
-JsonFunctionArrayShuffle.type = types_1.JsonType.Array;
-JsonFunctionArrayShuffle.init = { function: "$shuffle" };
-exports.default = JsonFunctionArrayShuffle;
+exports.JsonFunctionShuffle = JsonFunctionShuffle;
+JsonFunctionShuffle.type = types_1.JsonType.Array;
+JsonFunctionShuffle.init = { function: "$shuffle" };
+exports.default = JsonFunctionShuffle;
 //# sourceMappingURL=array_shuffle.js.map

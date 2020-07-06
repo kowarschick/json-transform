@@ -1,7 +1,7 @@
 import { JsonObject, JsonType, JsonArray } from '../types';
 import { JsonFunctionParameters } from '../types';
-export declare function JsonFunctionObjectDuplicate({ value }: JsonFunctionParameters<JsonObject>): JsonArray | JsonObject;
-export declare namespace JsonFunctionObjectDuplicate {
+export declare function JsonFunctionDuplicate({ value }: JsonFunctionParameters<JsonObject>): JsonArray | JsonObject;
+export declare namespace JsonFunctionDuplicate {
     var type: JsonType;
     var init: {
         function: string;
@@ -12,4 +12,4 @@ export declare namespace JsonFunctionObjectDuplicate {
         withinArray: boolean;
     };
 }
-export default JsonFunctionObjectDuplicate;
+export default JsonFunctionDuplicate;

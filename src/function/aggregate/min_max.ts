@@ -14,7 +14,7 @@ const JsonFunctionMin: JsonFunctionDescriptor =
 { name:     '$min',
   type:     JsonType.Array,
   function: aggregate,
-  init    : { default:   Infinity, 
+  init:     { default:   Infinity, 
               aggregate: (a: number, b: number) => Math.min(a,b) 
             }
 }
@@ -24,7 +24,7 @@ const JsonFunctionMax: JsonFunctionDescriptor =
 { name:     '$max',
   type:     JsonType.Array,
   function: aggregate,
-  init    : { default:   -Infinity, 
+  init:     { default:   -Infinity, 
               aggregate: (a: number, b: number) => Math.max(a,b) 
             }
 }
@@ -34,7 +34,7 @@ const JsonFunctionMinString: JsonFunctionDescriptor =
 { name:     '$min_string',
   type:     JsonType.Array,
   function: aggregate,
-  init    : { default:   null, 
+  init:     { default:   null, 
               aggregate: (a: string, b: string) => a.localeCompare(b) < 0 
             }
 }
@@ -44,7 +44,7 @@ const JsonFunctionMaxString: JsonFunctionDescriptor =
 { name:     '$max_string',
   type:     JsonType.Array,
   function: aggregate,
-  init    : { default:   '', 
+  init:     { default:   '', 
               aggregate: (a: string, b: string) => a.localeCompare(b) > 0 
             }
 }

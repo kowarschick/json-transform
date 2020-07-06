@@ -49,7 +49,9 @@ import { JsonTransformer, JsonTransformerParameters }     from './transformer';
 export 
 class JsonTransformerTraversal extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   /** @override */
   transformerJsonPrimitive: JsonFunction<JsonPrimitive> =

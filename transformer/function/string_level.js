@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionStringLevel = void 0;
+exports.JsonFunctionLevel = void 0;
 const types_1 = require("../types");
-function JsonFunctionStringLevel({ value, level }) { return (value === JsonFunctionStringLevel.init.function) ? level : value; }
-exports.JsonFunctionStringLevel = JsonFunctionStringLevel;
-JsonFunctionStringLevel.type = types_1.JsonType.String;
-JsonFunctionStringLevel.init = { function: "$level" };
-exports.default = JsonFunctionStringLevel;
+function JsonFunctionLevel({ value, level }) { return (value === JsonFunctionLevel.init.function) ? level : value; }
+exports.JsonFunctionLevel = JsonFunctionLevel;
+JsonFunctionLevel.type = types_1.JsonType.String;
+JsonFunctionLevel.init = { function: "$level" };
+exports.default = JsonFunctionLevel;
 //# sourceMappingURL=string_level.js.map

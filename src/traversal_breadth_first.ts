@@ -49,7 +49,9 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
 export 
 class JsonTransformerTraversalBreadthFirst extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   /** @override */
   // disable the transformer pipe

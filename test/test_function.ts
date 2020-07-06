@@ -5,40 +5,38 @@
  */
 
 /*
-import { JsonValue, Data }                             from '@wljkowa/json-transformer';
+import { JsonValue, JsonArray, Data }                  from '@wljkowa/json-transformer';
 import { JsonFunctionDescriptor }                      from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }                     from '@wljkowa/json-transformer';
+
 import { JsonFunctionCount }                           from '@wljkowa/json-transformer';
+import { JsonFunctionDuplicate }                       from '@wljkowa/json-transformer';
+import { JsonFunctionLevel }                           from '@wljkowa/json-transformer';
 import { JsonFunctionMin,       JsonFunctionMax}       from '@wljkowa/json-transformer';
 import { JsonFunctionMinString, JsonFunctionMaxString} from '@wljkowa/json-transformer';
-import { JsonFunctionArrayShuffle }                    from '@wljkowa/json-transformer';
+import { JsonFunctionRandom }                          from '@wljkowa/json-transformer';
+import { JsonFunctionSequence }                        from '@wljkowa/json-transformer';
+import { JsonFunctionShuffle }                         from '@wljkowa/json-transformer';
 import { JsonFunctionSome }                            from '@wljkowa/json-transformer';
-import { JsonFunctionArraySum }                        from '@wljkowa/json-transformer';
-import { JsonFunctionArrayUnnest }                     from '@wljkowa/json-transformer';
-import { JsonFunctionObjectDuplicate }                 from '@wljkowa/json-transformer';
-import { JsonFunctionObjectRandom }                    from '@wljkowa/json-transformer';
-import { JsonFunctionObjectSequence }                  from '@wljkowa/json-transformer';
-import { JsonFunctionObjectShuffle }                   from '@wljkowa/json-transformer';
-import { JsonFunctionObjectUnnest }                    from '@wljkowa/json-transformer';
-import { JsonFunctionStringLevel }                     from '@wljkowa/json-transformer';
+import { JsonFunctionSum,       JsonFunctionProduct}   from '@wljkowa/json-transformer';
+import { JsonFunctionUnnest }                          from '@wljkowa/json-transformer';
 */
 
-import { JsonValue, Data }                             from '~/types';
+import { JsonValue, JsonArray, Data }                  from '~/types';
 import { JsonFunctionDescriptor }                      from '~/types';
 import { JsonTransformerFunction }                     from '~/function';
+
 import { JsonFunctionCount }                           from '~/function/count';
+import { JsonFunctionDuplicate }                       from '~/function/duplicate';
+import { JsonFunctionLevel }                           from '~/function/level';
 import { JsonFunctionMin,       JsonFunctionMax}       from '~/function/aggregate/min_max';
 import { JsonFunctionMinString, JsonFunctionMaxString} from '~/function/aggregate/min_max';
-import { JsonFunctionSum,       JsonFunctionProduct}   from '~/function/aggregate/sum_product';
-import { JsonFunctionArrayShuffle }                    from '~/function/array_shuffle';
-import { JsonFunctionSome }                            from '~/function/some';
-//import { JsonFunctionArraySum }                        from '~/function/array_unnest';
-import { JsonFunctionObjectDuplicate }                 from '~/function/object_duplicate';
-import { JsonFunctionObjectRandom }                    from '~/function/object_random';
+import { JsonFunctionRandom }                          from '~/function/random';
 import { JsonFunctionObjectSequence }                  from '~/function/object_sequence';
-import { JsonFunctionObjectShuffle }                   from '~/function/object_shuffle';
-import { JsonFunctionObjectUnnest }                    from '~/function/object_unnest';
-import { JsonFunctionStringLevel }                     from '~/function/string_level';
+import { JsonFunctionShuffle }                         from '~/function/shuffle';
+import { JsonFunctionSome }                            from '~/function/some';
+import { JsonFunctionSum,       JsonFunctionProduct}   from '~/function/aggregate/sum_product';
+import { JsonFunctionUnnest }                          from '~/function/unnest';
 
 /// <reference path="./jest-mock-random.d.ts" />
 import { mockRandom, resetMockRandom } from 'jest-mock-random';
@@ -78,11 +76,24 @@ function f_test(t: JsonTransformerFunction)
     () => { expect(t.transform({ value: {"$function":"$count","$value":[5, 7, 9]} })).toBe(3); }
   );
   
-  /*
   test
   ( '{"$function":"$duplicate", "$value":{}, "$times":3} should be transformed to [{},{},{}]', 
     () => { expect(t.transform({ value: {"$function":"$duplicate", "$value":{}, "$times":3} }))
               .toStrictEqual([{},{},{}]); 
+          }
+  );
+
+  test
+  ( '{"$function":"$duplicate", "$value":[5,7,9], "$times":3} should be transformed to [[5,7,9],[5,7,9],[5,7,9]]', 
+    () => { expect(t.transform({ value: {"$function":"$duplicate", "$value":[5,7,9], "$times":3} }))
+              .toStrictEqual([[5,7,9],[5,7,9],[5,7,9]]); 
+          }
+  );
+
+  test
+  ( '{"$function":"$duplicate", "$value":[5,7,9], "$times":3, "$flatten":true} should be transformed to [5,5,5,7,7,7,9,9,9]]', 
+    () => { expect(t.transform({ value: {"$function":"$duplicate", "$value":[5,7,9], "$times":3, "$flatten":true} }))
+              .toStrictEqual([5,5,5,7,7,7,9,9,9]); 
           }
   );
 
@@ -100,7 +111,7 @@ function f_test(t: JsonTransformerFunction)
   ( '["$level"] should be transformed to ["$level"]', 
     () => { expect(t.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );
-*/
+
   test
   ( '["$min, 1, 5, 3, 4, 2] should be transformed to 1', 
     () => { expect(t.transform({ value: ["$min", 1, 5, 3, 4, 2] })).toBe(1); }
@@ -125,7 +136,7 @@ function f_test(t: JsonTransformerFunction)
   ( '["$max_test", "a", "ZZZ", "zzz", "abc"] should be transformed to "zzz"', 
     () => { expect(t.transform({ value: ["$max_test", "a", "ZZZ", "zzz", "abc"] })).toBe("zzz"); }
   );
-/*
+
   describe
   ( 'random default', 
     () => 
@@ -182,7 +193,7 @@ function f_test(t: JsonTransformerFunction)
       {factor: 0.5}
     )
   );
-
+/*
   test
   ( '{"$function":"$sequence", "$min":2, "$max":5} should be transformed to [2, 3, 4, 5]', 
     () => { expect(t.transform({ value: {"$function":"$sequence", "$min":2, "$max":5} }))
@@ -242,7 +253,6 @@ function f_test(t: JsonTransformerFunction)
           }
   );
 
-/*
   test
   ( '["$shuffle",1,2,3,4,5] should be transformed to [5,3,1,4,2] or similar', 
     () => { const c_result = t.transform({ value: ["$shuffle", 1, 2, 3, 4, 5] });
@@ -272,7 +282,7 @@ function f_test(t: JsonTransformerFunction)
               .toStrictEqual([1, 2, 3, [4], 5, {}]); 
           }
   );
-*/
+
   test
   ( '["$sum] should be transformed to 0', 
     () => { expect(t.transform({ value: ["$sum"] })).toBe(0); }
@@ -337,14 +347,14 @@ f_test
        JsonFunctionMax,
        JsonFunctionMaxTest,
        JsonFunctionProduct,
-       //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
+       JsonFunctionShuffle,
        JsonFunctionSome, 
        JsonFunctionSum, 
-       //JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
-       //JsonFunctionObjectDuplicate,
-       //JsonFunctionObjectRandom,
+       JsonFunctionUnnest,
+       JsonFunctionDuplicate,
+       JsonFunctionRandom,
        //JsonFunctionObjectSequence,
-       //JsonFunctionStringLevel, 
+       JsonFunctionLevel, 
      ] 
   })
 );
@@ -435,14 +445,14 @@ f_rename_test
      [ JsonFunctionCount, 
        //JsonFunctionMin, 
        JsonFunctionMax,
-       //JsonFunctionArrayShuffle, JsonFunctionObjectShuffle,
+       //JsonFunctionShuffle, JsonFunctionObjectShuffle,
        JsonFunctionSome, 
        //JsonFunctionArraySum, 
-       //JsonFunctionArrayUnnest,  JsonFunctionObjectUnnest,
-       //JsonFunctionObjectDuplicate,
-       //JsonFunctionObjectRandom,
+       //JsonFunctionUnnest,  JsonFunctionObjectUnnest,
+       //JsonFunctionDuplicate,
+       //JsonFunctionRandom,
        //JsonFunctionObjectSequence,
-       //JsonFunctionStringLevel, 
+       //JsonFunctionLevel, 
      ] 
   })
 )*/

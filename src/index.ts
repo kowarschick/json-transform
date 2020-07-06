@@ -4,34 +4,32 @@
  * @license   MIT
  */
 
-export *                                        from './types' 
-export { JsonTransformer }                      from './transformer'; 
-export { JsonTransformerFunction }              from './function'; 
-export { JsonTransformerTraversal }             from './traversal'; 
-export { JsonTransformerTraversalBreadthFirst } from './traversal_breadth_first'; 
-export { JsonTransformerTraversalRestricted }   from './traversal_restricted'; 
+export * from './types' 
 
-export { JsonTransformerNull }                  from './null'; 
+// JSON transofrmers
+export * from './transformer'; 
+export * from './null'; 
+export * from './function'; 
+export * from './traversal'; 
+export * from './traversal_breadth_first'; 
+export * from './traversal_restricted'; 
+export * from './string_replace';
+export * from './template'; 
+export * from './template_functions'; 
 
-export { JsonTransformerSome }                  from './some'; 
+// JSON functions
+export * from './function/count'; 
+export * from './function/aggregate/min_max';
+export * from './function/aggregate/sum_product';
+export * from './function/shuffle'; 
+export * from './function/some'; 
+export * from './function/unnest'; 
+export * from './function/duplicate'; 
+export * from './function/random';
+export * from './function/object_sequence';
+export * from './function/level'; 
 
-export { JsonTransformerRandom }                from './random';
-
-export { JsonTransformerLevel }                 from './level';
-export { JsonTransformerStringReplace }         from './string_replace';
-export { JsonTransformerTemplate }              from './template'; 
-export { JsonTransformerTemplateFunctions }     from './template_functions'; 
-
-export { JsonFunctionCount }                    from './function/count'; 
-export *                                        from './function/aggregate/min_max';
-export *                                        from './function/aggregate/sum_product';
-export { JsonFunctionArrayShuffle }             from './function/array_shuffle'; 
-export { JsonFunctionSome }                     from './function/some'; 
-export { JsonFunctionArraySum }                 from './function/array_sum'; 
-export { JsonFunctionArrayUnnest }              from './function/array_unnest'; 
-export { JsonFunctionObjectDuplicate }          from './function/object_duplicate'; 
-export { JsonFunctionObjectRandom }             from './function/object_random';
-export { JsonFunctionObjectSequence }           from './function/object_sequence';
-export { JsonFunctionObjectShuffle }            from './function/object_shuffle';
-export { JsonFunctionObjectUnnest }             from './function/object_unnest'; 
-export { JsonFunctionStringLevel }              from './function/string_level'; 
+// JSON transformers that also exists as JSON functions
+export * from './some'; 
+export * from './random';
+export * from './level';

@@ -43,17 +43,17 @@ Object.defineProperty(exports, "JsonFunctionMin", { enumerable: true, get: funct
 var array_max_1 = require("./function/array_max");
 Object.defineProperty(exports, "JsonFunctionMax", { enumerable: true, get: function () { return array_max_1.JsonFunctionMax; } });
 var array_shuffle_1 = require("./function/array_shuffle");
-Object.defineProperty(exports, "JsonFunctionArrayShuffle", { enumerable: true, get: function () { return array_shuffle_1.JsonFunctionArrayShuffle; } });
+Object.defineProperty(exports, "JsonFunctionShuffle", { enumerable: true, get: function () { return array_shuffle_1.JsonFunctionShuffle; } });
 var some_2 = require("./function/some");
 Object.defineProperty(exports, "JsonFunctionSome", { enumerable: true, get: function () { return some_2.JsonFunctionSome; } });
 var array_sum_1 = require("./function/array_sum");
 Object.defineProperty(exports, "JsonFunctionArraySum", { enumerable: true, get: function () { return array_sum_1.JsonFunctionArraySum; } });
 var array_unnest_1 = require("./function/array_unnest");
-Object.defineProperty(exports, "JsonFunctionArrayUnnest", { enumerable: true, get: function () { return array_unnest_1.JsonFunctionArrayUnnest; } });
+Object.defineProperty(exports, "JsonFunctionUnnest", { enumerable: true, get: function () { return array_unnest_1.JsonFunctionUnnest; } });
 var object_duplicate_1 = require("./function/object_duplicate");
-Object.defineProperty(exports, "JsonFunctionObjectDuplicate", { enumerable: true, get: function () { return object_duplicate_1.JsonFunctionObjectDuplicate; } });
+Object.defineProperty(exports, "JsonFunctionDuplicate", { enumerable: true, get: function () { return object_duplicate_1.JsonFunctionDuplicate; } });
 var object_random_1 = require("./function/object_random");
-Object.defineProperty(exports, "JsonFunctionObjectRandom", { enumerable: true, get: function () { return object_random_1.JsonFunctionObjectRandom; } });
+Object.defineProperty(exports, "JsonFunctionRandom", { enumerable: true, get: function () { return object_random_1.JsonFunctionRandom; } });
 var object_sequence_1 = require("./function/object_sequence");
 Object.defineProperty(exports, "JsonFunctionObjectSequence", { enumerable: true, get: function () { return object_sequence_1.JsonFunctionObjectSequence; } });
 var object_shuffle_1 = require("./function/object_shuffle");
@@ -61,5 +61,5 @@ Object.defineProperty(exports, "JsonFunctionObjectShuffle", { enumerable: true, 
 var object_unnest_1 = require("./function/object_unnest");
 Object.defineProperty(exports, "JsonFunctionObjectUnnest", { enumerable: true, get: function () { return object_unnest_1.JsonFunctionObjectUnnest; } });
 var string_level_1 = require("./function/string_level");
-Object.defineProperty(exports, "JsonFunctionStringLevel", { enumerable: true, get: function () { return string_level_1.JsonFunctionStringLevel; } });
+Object.defineProperty(exports, "JsonFunctionLevel", { enumerable: true, get: function () { return string_level_1.JsonFunctionLevel; } });
 //# sourceMappingURL=index.js.map

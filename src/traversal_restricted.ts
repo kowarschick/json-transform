@@ -33,7 +33,9 @@ class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
                   ..._
                 }: JsonTransformerParameters = {}
               ) 
-  { super({ init, ..._ }) }
+  { super({ init, ..._ }) 
+    this.initialize();
+  }
 
   /** @override */
   transformerPipe(_: JsonFunctionParameters): JsonValue

@@ -25,7 +25,9 @@ export function JsonFunctionStringReplace({value, data}: JsonFunctionParameters<
 export 
 class JsonTransformerStringReplace extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, data}: JsonFunctionParameters<JsonString>) => 

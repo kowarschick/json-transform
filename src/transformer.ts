@@ -20,15 +20,15 @@ import { isJsonPrimitive, isJsonArray, isJsonObject,
          isJsonNull 
        }                                             from "./types"
 
-const c_transformer_tests =
-{ transformerJsonPrimitive: isJsonPrimitive,
-  transformerJsonArray:     isJsonArray,
-  transformerJsonObject:    isJsonObject,  
-  transformerJsonString:    isJsonString, 
-  transformerJsonNumber:    isJsonNumber, 
-  transformerJsonBoolean:   isJsonBoolean, 
-  transformerJsonNull:      isJsonNull, 
-}
+const c_transformer_tests: [string, (value: JsonValue) => boolean][] = 
+[ [ 'transformerJsonPrimitive', isJsonPrimitive ], 
+  [ 'transformerJsonArray',     isJsonArray ],
+  [ 'transformerJsonObject',    isJsonObject ],  
+  [ 'transformerJsonString',    isJsonString ],
+  [ 'transformerJsonNull',      isJsonNull ],
+  [ 'transformerJsonNumber',    isJsonNumber ], 
+  [ 'transformerJsonBoolean',   isJsonBoolean ], 
+]
 
 export 
 type JsonTransformerParameters = 
@@ -46,7 +46,7 @@ interface JsonTransformer //extends JsonTransformerProperties
  * Objects of the class <code>JsonTransformer</code> transform JSON values 
  * into the same or other JSON values by applying JSON transformers. 
  * <p>
- * This transformer doesn't make transformations by itself.
+ * This transformer doesn'c_transformer make transformations by itself.
  * Mainly it is used as a superclass for other, more elaborate 
  * transformers. In addition, this transformer should be used 
  * as a top-level transformer if JSON values are to run 
@@ -89,14 +89,24 @@ class JsonTransformer
     { this.v_rename_reverse[v] = k }
   }
 
-  protected        init:             Init;
-  
-  private          v_root:           JsonTransformer;
-  private readonly v_name:           string;
-  private readonly v_init_root:      InitMap = {};
-  private readonly v_data:           Data = {};
-  private readonly v_rename:         Record<string, string>;
-  private readonly v_rename_reverse: Record<string, string> = {};
+  // I hate it!
+  // :-( http://joelleach.net/2016/11/18/setting-subclass-properties-in-typescript/)
+  protected initialize()
+  { if (this.v_transformer_tests.length === 0)
+    for (const [c_name, c_test] of c_transformer_tests)
+    { const c_method = this[c_name];
+      if (c_method != null)
+      { this.v_transformer_tests.push([c_test, c_method]) }  
+    }
+  }
+
+  private          v_root:              JsonTransformer;
+  private readonly v_name:              string;
+  private readonly v_init_root:         InitMap                                         = {};
+  private readonly v_data:              Data                                            = {};
+  private readonly v_rename:            Record<string, string>;
+  private readonly v_rename_reverse:    Record<string, string>                          = {};
+  private readonly v_transformer_tests: [(value: JsonValue) => boolean, JsonFunction][] = [];
 
   private merge(initNew: InitMap, initOld: InitMap)
   { for (let [key_new, value_new] of Object.entries(initNew))
@@ -107,6 +117,8 @@ class JsonTransformer
       { this.merge(value_new, value_old) }
     }
   }
+
+  protected init: Init;
 
   /**
    * Renames an attribute or function name  
@@ -214,14 +226,14 @@ class JsonTransformer
     if (this._pipe_tail == null)
     { this._pipe_transformers = transformers;
   
-      for (const t of transformers)
-      { Object.setPrototypeOf(t.v_data, this.v_data); 
-        t.v_root = this;
+      for (const c_transformer of transformers)
+      { Object.setPrototypeOf(c_transformer.v_data, this.v_data); 
+        c_transformer.v_root = this;
 
-        this.merge({[t.v_name]: t.init}, this.v_init_root);
-        this.merge(t.v_rename, this.v_rename);
+        this.merge({[c_transformer.v_name]: c_transformer.init}, this.v_init_root);
+        this.merge(c_transformer.v_rename, this.v_rename);
 
-        t.init = this.v_init_root[t.v_name];
+        c_transformer.init = this.v_init_root[c_transformer.v_name];
       }
     }
     else
@@ -252,8 +264,8 @@ class JsonTransformer
   protected transformerPipe(_: JsonFunctionParameters): JsonValue
   { let l_value: JsonValue = _.value;
 
-    for (const t of this._pipe_transformers)
-    { l_value = t.transform({value: l_value, data: _.data, level: _.level}) } 
+    for (const c_transformer of this._pipe_transformers)
+    { l_value = c_transformer.transform({value: l_value, data: _.data, level: _.level}) } 
 
     return l_value;
   }
@@ -282,12 +294,11 @@ class JsonTransformer
     let l_value: JsonValue = value;
 
     // Do local transformations before passing the value to the pipe.
-    for (const [c_key, c_test] of Object.entries(c_transformer_tests))
-    { const c_transformer = this[c_key];
-     
-      if (c_transformer != null && c_test(value))
-      { l_value = c_transformer({value: value, data: c_data, level}); }
-      
+    for (const [c_test, c_transformer] of this.v_transformer_tests)
+    { if (c_test(value))
+      { l_value = c_transformer({value: value, data: c_data, level}); 
+        break;
+      }
     }
 
     // Pipe

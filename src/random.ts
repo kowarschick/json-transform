@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonObject, isJsonNumber } from './types';
+import { JsonObject, isJsonNumber }                   from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -69,8 +69,8 @@ const
  * @param {number}  [_.init.min       = 0]
  * @param {number}  [_.init.max       = 1]
  * @param {boolean} [_.init.isInteger = false]
- * @param {number}  [_.init.scale     = 1]
- * @param {number}  [_.init.gzp       = 1 ] 
+ * @param {number}  [_.init.scale     = null]
+ * @param {number}  [_.init.gzp       = 1] 
  *                  the „greater zero prabability“ defines 
  *                  the propability that the resulting value
  *                  is not multiplied by <code>-1</code> 
@@ -86,7 +86,9 @@ class JsonTransformerRandom extends JsonTransformer
                   ..._
                 }: JsonTransformerParameters = {}
               ) 
-  { super({ init, ..._ }) }
+  { super({ init, ..._ });
+    this.initialize();
+  }
 
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data}: JsonFunctionParameters<JsonObject>) => 
@@ -102,9 +104,9 @@ class JsonTransformerRandom extends JsonTransformer
     { return value; }
 
     const
-      c_is_integer = (value?.[IS_INTEGER] ?? c_init.isInteger) as boolean,
-      c_gzp        = (value?.[GZP]        ?? c_init.gzp      ) as number,
-      c_scale_aux  = data?.[(value?.[SCALE]) as string],
+      c_is_integer = (value?.[this.rename(IS_INTEGER)] ?? c_init.isInteger) as boolean,
+      c_gzp        = (value?.[this.rename(GZP)]        ?? c_init.gzp      ) as number,
+      c_scale_aux  = data?.[(value?.[this.rename(SCALE)]) as string],
       c_scale      = isJsonNumber(c_scale_aux) ? c_scale_aux : c_init.scale,
       c_random     = Math.random();
     let
@@ -118,7 +120,7 @@ class JsonTransformerRandom extends JsonTransformer
     if (Number.isFinite(c_gzp) && 0 <= c_gzp && c_gzp < 1)
     { l_result *= (Math.random() >= c_gzp) ? 1 : -1; }
 
-      return isJsonNumber(c_scale) ? l_result * c_scale : l_result;
+    return isJsonNumber(c_scale) ? l_result * c_scale : l_result;
   }
 }
 

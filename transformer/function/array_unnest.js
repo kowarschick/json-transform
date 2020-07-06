@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionArrayUnnest = exports.unnest = void 0;
+exports.JsonFunctionUnnest = exports.unnest = void 0;
 const types_1 = require("../types");
 function unnest(value, begin = 0) {
     const c_length = value.length, c_result = [];
@@ -18,13 +18,13 @@ function unnest(value, begin = 0) {
     return c_result;
 }
 exports.unnest = unnest;
-function JsonFunctionArrayUnnest({ value }) {
-    return (value.length === 0 || value[0] !== JsonFunctionArrayUnnest.init.function)
+function JsonFunctionUnnest({ value }) {
+    return (value.length === 0 || value[0] !== JsonFunctionUnnest.init.function)
         ? value
         : unnest(value, 1);
 }
-exports.JsonFunctionArrayUnnest = JsonFunctionArrayUnnest;
-JsonFunctionArrayUnnest.type = types_1.JsonType.Array;
-JsonFunctionArrayUnnest.init = { function: "$unnest" };
-exports.default = JsonFunctionArrayUnnest;
+exports.JsonFunctionUnnest = JsonFunctionUnnest;
+JsonFunctionUnnest.type = types_1.JsonType.Array;
+JsonFunctionUnnest.init = { function: "$unnest" };
+exports.default = JsonFunctionUnnest;
 //# sourceMappingURL=array_unnest.js.map

@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionObjectRandom = void 0;
+exports.JsonFunctionRandom = void 0;
 const types_1 = require("../types");
 const function_1 = require("../function");
-function JsonFunctionObjectRandom({ value, data }) {
+function JsonFunctionRandom({ value, data }) {
     var _a, _b, _c, _d, _e;
-    const c_init = JsonFunctionObjectRandom.init, c_min = ((_a = value === null || value === void 0 ? void 0 : value[c_init.minAttr]) !== null && _a !== void 0 ? _a : c_init.min), c_max = ((_b = value === null || value === void 0 ? void 0 : value[c_init.maxAttr]) !== null && _b !== void 0 ? _b : c_init.max);
+    const c_init = JsonFunctionRandom.init, c_min = ((_a = value === null || value === void 0 ? void 0 : value[c_init.minAttr]) !== null && _a !== void 0 ? _a : c_init.min), c_max = ((_b = value === null || value === void 0 ? void 0 : value[c_init.maxAttr]) !== null && _b !== void 0 ? _b : c_init.max);
     if ((value === null || value === void 0 ? void 0 : value[function_1.JsonTransformerFunction.functionAttribute]) !== c_init.function
         || !Number.isFinite(c_min)
         || !Number.isFinite(c_max)) {
@@ -24,9 +24,9 @@ function JsonFunctionObjectRandom({ value, data }) {
     }
     return Number.isFinite(c_scale) ? l_result * c_scale : l_result;
 }
-exports.JsonFunctionObjectRandom = JsonFunctionObjectRandom;
-JsonFunctionObjectRandom.type = types_1.JsonType.Object;
-JsonFunctionObjectRandom.init = { function: "$random",
+exports.JsonFunctionRandom = JsonFunctionRandom;
+JsonFunctionRandom.type = types_1.JsonType.Object;
+JsonFunctionRandom.init = { function: "$random",
     minAttr: "$min",
     min: 0,
     maxAttr: "$max",
@@ -38,5 +38,5 @@ JsonFunctionObjectRandom.init = { function: "$random",
     gzpAttr: "$gzp",
     gzp: 1,
 };
-exports.default = JsonFunctionObjectRandom;
+exports.default = JsonFunctionRandom;
 //# sourceMappingURL=object_random.js.map

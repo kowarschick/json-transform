@@ -34,15 +34,16 @@ export enum JsonType
 }
 
 export type JsonFunctionParameters<T extends JsonValue = JsonValue> = 
-{ value: T, level: number, data: Data, init?: Init }
+{ value: T, level: number, data: Data, init?: Init, rename?: (name: string) => string }
 
 export type JsonFunction<T extends JsonValue = JsonValue> = 
   (_: JsonFunctionParameters<T>) => JsonValue 
 
 type JsonFunctionDescriptorCommon =
-{ name:  string,
-  type:  JsonType,
-  init?: Record<string, Init>
+{ name:    string,
+  type:    JsonType,
+  init?:   Record<string, Init>
+  rename?: (name: string) => string
 }
 
 export type JsonFunctionDescriptorArray = 

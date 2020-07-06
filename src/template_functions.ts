@@ -97,7 +97,9 @@ class JsonTransformerTemplateFunctions extends JsonTransformer
                  ..._
                 }: JsonTransformerParameters = {}
               ) 
-  { super({init, ..._}) }
+  { super({init, ..._}) 
+    this.initialize();
+  }
 
   /** @override */
   transformerJsonString: JsonFunction<JsonString> = 

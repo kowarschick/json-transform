@@ -11,10 +11,10 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
  * @function 
  * @description
- * If the first element of the Array is equal to 
- * <code>$some</code>, some of the other elements 
- * is returned as value. If there are no other elements, 
- * <code>null</code> is returned.
+ * Randomly returns a value of the array. 
+ * If there are no elements, <code>null</code> is returned.
+ * 
+ * <h4>Examples</h4>
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -47,7 +47,7 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * 
  * @param {Partial<JsonFunctionParameters<JsonArray>>} _
  *   An object containing the following attributes.
- * @param {JsonArray} _value
+ * @param {JsonArray} _.value
  *   The JSON array to be transformed.
  * @returns {JsonValue}
  */
@@ -60,7 +60,6 @@ function some( {value}: JsonFunctionParameters<JsonArray>,
          ? null
          : value[Math.floor(Math.random()*(c_length-begin))+begin];
 }
-
 
 export
 const JsonFunctionSome: JsonFunctionDescriptor =

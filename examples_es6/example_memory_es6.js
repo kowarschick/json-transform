@@ -11,10 +11,10 @@ import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
 
-import { JsonFunctionObjectDuplicate }  from '@wljkowa/json-transformer';
+import { JsonFunctionDuplicate }  from '@wljkowa/json-transformer';
 import { JsonFunctionObjectSequence }   from '@wljkowa/json-transformer';
 import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
-import { JsonFunctionArrayUnnest }      from '@wljkowa/json-transformer';
+import { JsonFunctionUnnest }      from '@wljkowa/json-transformer';
 
 import trace from './trace_es6';
 
@@ -24,10 +24,10 @@ const
           .pipe( new JsonTransformerFunction
                  ({init:
                    { functions:
-                     [ JsonFunctionObjectDuplicate,
+                     [ JsonFunctionDuplicate,
                        JsonFunctionObjectSequence,
                        JsonFunctionObjectShuffle,
-                       JsonFunctionArrayUnnest,
+                       JsonFunctionUnnest,
                      ]
                    }
                  })

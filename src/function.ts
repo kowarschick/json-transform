@@ -57,8 +57,9 @@ class JsonTransformerFunction extends JsonTransformer
   * @param {JsonFunctionDescriptor[]}  [_.init = []]
   */
   constructor (_: JsonTransformerParameters = {}) 
-  { super(_); 
-
+  { super(_);    
+    this.initialize();
+  
     if (Array.isArray(_.init))
     { let l_descriptor: JsonFunctionDescriptor;
       for (const c_function of _.init)
@@ -93,7 +94,12 @@ class JsonTransformerFunction extends JsonTransformer
       c_d: JsonFunctionDescriptorArray =
         this.descriptors[JsonType.Array][c_name] as JsonFunctionDescriptorArray;
 
-    return c_d == null ? c_value : c_d.function({ ..._, init: c_d.init}, 1);
+    return c_d == null ? c_value : c_d.function( { ..._, 
+                                                   init:   c_d.init, 
+                                                   rename: this.rename.bind(this)
+                                                 },
+                                                 1
+                                               );
   }
 
   transformerJsonObject: JsonFunction<JsonObject> = 
@@ -108,7 +114,11 @@ class JsonTransformerFunction extends JsonTransformer
           this.descriptors[JsonType.Object][c_function_name] as JsonFunctionDescriptorObject;
 
       if (c_do != null) 
-      { return c_do.function({ ..._, init: c_do.init}) }
+      { return c_do.function({ ..._, 
+                               init:   c_do.init, 
+                               rename: this.rename.bind(this)
+                            }) 
+      }
 
       const 
         c_da: JsonFunctionDescriptorArray =
@@ -116,7 +126,13 @@ class JsonTransformerFunction extends JsonTransformer
         c_a = 
           this.arrayFunctionValue(c_function_name, c_value);  
 
-      return c_a == null ? c_value : c_da.function( {..._, value: c_a, init: c_da.init}, 0);
+      return c_a == null ? c_value : c_da.function( { ..._, 
+                                                      value:  c_a, 
+                                                      init:   c_da.init, 
+                                                      rename: this.rename.bind(this)
+                                                    }, 
+                                                    0
+                                                  );
     }
     else 
     { return c_value }
@@ -127,7 +143,10 @@ class JsonTransformerFunction extends JsonTransformer
   { const 
       c_d: JsonFunctionDescriptorString = 
         this.descriptors[JsonType.String][_.value as string] as JsonFunctionDescriptorString;
-    return c_d == null ? _.value : c_d.function({ ..._, init: c_d.init});
+    return c_d == null ? _.value : c_d.function({ ..._, 
+                                                  init:   c_d.init, 
+                                                  rename: this.rename.bind(this)
+                                               });
   }
 }
 

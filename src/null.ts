@@ -47,7 +47,9 @@ class JsonTransformerNull extends JsonTransformer
   * @param {JsonTransformerParameters} _
   */
   constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   transformerJsonNull: JsonFunction<JsonNull> = 
   ({}: JsonFunctionParameters<JsonNull>) => 

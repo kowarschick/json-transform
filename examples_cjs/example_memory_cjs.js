@@ -12,10 +12,10 @@ const
   JsonTransformerTraversal     = JT.JsonTransformerTraversal,
   JsonTransformerFunction      = JT.JsonTransformerFunction,
   JsonTransformerStringReplace = JT.JsonTransformerStringReplace,
-  JsonFunctionObjectDuplicate  = JT.JsonFunctionObjectDuplicate,
+  JsonFunctionDuplicate  = JT.JsonFunctionDuplicate,
   JsonFunctionObjectSequence   = JT.JsonFunctionObjectSequence,
   JsonFunctionObjectShuffle    = JT.JsonFunctionObjectShuffle,
-  JsonFunctionArrayUnnest      = JT.JsonFunctionArrayUnnest,
+  JsonFunctionUnnest      = JT.JsonFunctionUnnest,
   
   trace = require('./trace_cjs'),
   
@@ -24,10 +24,10 @@ const
           .pipe( new JsonTransformerFunction
                  ({init:
                    { functions:
-                     [ JsonFunctionObjectDuplicate,
+                     [ JsonFunctionDuplicate,
                        JsonFunctionObjectSequence,
                        JsonFunctionObjectShuffle,
-                       JsonFunctionArrayUnnest,
+                       JsonFunctionUnnest,
                      ]
                    }
                  })

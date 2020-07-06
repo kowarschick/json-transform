@@ -22,7 +22,9 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export 
 class JsonTransformerLevel extends JsonTransformer
 { constructor (_: JsonTransformerParameters = {}) 
-  { super(_); }
+  { super(_); 
+    this.initialize();
+  }
 
   transformerJsonString: JsonFunction<JsonString> = 
   ({value, level}: JsonFunctionParameters<JsonString>) => 

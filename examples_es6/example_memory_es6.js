@@ -22,7 +22,7 @@ const
   transformer =  
           new JsonTransformerTraversal
               ({ data: { "@noOfPairs": 10,
-                         "@image":     i => 'b'+i                    
+                         "@image":     i => 'image'+i
                        }
               })
     .pipe(new JsonTransformerFunction
@@ -36,7 +36,7 @@ const
          )
     .pipe(new JsonTransformerStringReplace()),
 
-  c_memory =
+  memory =
   { cards: { "$function": "$sequence",
              "$last":     "@noOfPairs",
              "$format":   "@image"  
@@ -54,10 +54,10 @@ const
 
 trace.title('Memory (es6)');
 
-trace.transform( transformer, c_memory, {"@noOfPairs": 4} );
-trace.transform( transformer, c_memory );
+trace.transform( transformer, memory, {"@noOfPairs": 4} );
+trace.transform( transformer, memory );
 trace.transform( transformer, 
-                 c_memory, 
+                 memory, 
                  { "@noOfPairs": 7,
                    "@image":     i => 'bild'+('__'+i).slice(-3)
                  }

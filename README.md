@@ -1,7 +1,7 @@
 # @wljkowa/json-transformer
 
 The ```@wljkowa/json-transformer``` package is used to transform JSON template
-objects into JOSN objects. It is developed as part of the lecture
+objects to JSON objects. It is developed as part of the lecture
 "Web Programming" by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
 
 This package can be used in all cases, when an application is initialized
@@ -9,7 +9,7 @@ by means of a JSON file. The content of such file can be transforemd in
 in a variety of ways. Typical applications are game levels, REST APIs or
 config files.
 
-A game level, e.g, often is described by a JSON file. Many elements of
+A game level, e.g., often is described by a JSON file. Many elements of
 a level are usually created randomly, the size of the level may depend on
 the size of the browser window etc. Below is a slightly more complex example:
 The JSON transformer package is used to shuffle the tokens of a memory game
@@ -35,16 +35,29 @@ Import { JsonTransformerSome } from '@wljkowa/json-transformer';
 
 const t1 = new JsonTransformerSome();
 
-t1.transform({ value: [ "$some", 5, 7, 9] }) // => 5 or 7 or 9
+t1.transform({ value: ["$some", 5, 7, 9] }) // => 5 or 7 or 9
 ```
 
 There are several transformers and transformer functions.
 Transformer functions are a little bit simpler than
-tanformers. They can be passed to the transformer
+tranformers. They can be passed to the transformer
 ```JsonTransformerFunction``` which applies them
-when approriate. Compare the two functions
-```JsonFunctionSome``` and ```JsonFunctionObjectSome```
-with the transformer ```JsonTransformerSome```.
+when approriate. The example above could also be
+realized in the following way:
+
+```bash
+Import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+Import { JsonFunctionSome }        from '@wljkowa/json-transformer';
+
+const t1 = new JsonTransformerFunction
+               ({ init: [JsonFunctionSome] });
+
+t1.transform({ value: ["$some", 5, 7, 9] }) // => 5 or 7 or 9
+```
+
+Every transformer function could also be implemented as stand-alone
+transformer. More complex transofrmers, such as ```JsonTransformerTraversal```
+cannot be realized as tronsformer functions.
 
 ## Complex Example
 
@@ -56,46 +69,49 @@ import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
 import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
 
-import { JsonFunctionDuplicate }  from '@wljkowa/json-transformer';
-import { JsonFunctionSequence }   from '@wljkowa/json-transformer';
-import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
-import { JsonFunctionUnnest }      from '@wljkowa/json-transformer';
+import { JsonFunctionDuplicate }        from '@wljkowa/json-transformer';
+import { JsonFunctionSequence }         from '@wljkowa/json-transformer';
+import { JsonFunctionShuffle }          from '@wljkowa/json-transformer';
+import { JsonFunctionUnnest }           from '@wljkowa/json-transformer';
+
 
 const
-  transformer =
-          new JsonTransformerTraversal({ data: { $noOfPairs: 10 } })
+  transformer =  
+          new JsonTransformerTraversal
+              ({ data: { "@noOfPairs": 10,
+                         "@image":     i => 'image'+i
+                       }
+              })
     .pipe(new JsonTransformerFunction
-              ({init:
-                { functions:
-                  [ JsonFunctionDuplicate,
-                    JsonFunctionSequence,
-                    JsonFunctionObjectShuffle,
-                    JsonFunctionUnnest,
-                  ]
-                }
+              ({ init:
+                 [ JsonFunctionDuplicate,
+                   JsonFunctionSequence,
+                   JsonFunctionShuffle,
+                   JsonFunctionUnnest,
+                 ]
               })
          )
     .pipe(new JsonTransformerStringReplace()),
 
   pairs =
   { cards: { "$function": "$sequence",
-             "$max":      "$noOfPairs",
-             "$format":   "image"  
+             "$last":     "@noOfPairs",
+             "$format":   "@image"  
            },
     board: { "$function": "$shuffle",
-             "$value":    { "$function":    "$duplicate",
-                            "$value":       { "$function": "$sequence",
-                                              "$max":      "$noOfPairs"
-                                            },
-                            "$times":       2,
-                            "$withinArray": true
+             "$value":    { "$function": "$duplicate",
+                            "$value":    { "$function": "$sequence",
+                                           "$last":     "@noOfPairs"
+                                         },
+                            "$times":    2,
+                            "$flatten":  true
                           }
            }
   };
 
 console.log(transformer
               .transform({ value: pairs,
-                           data:  { $noOfPairs: 4 }
+                           data:  { "@noOfPairs": 4 }
                         })
            );
 // =>
@@ -121,10 +137,10 @@ console.log(transformer.transform({ value: pairs }));
 console.log(transformer
              .transform
               ({ value: pairs,
-                 data:  { $noOfPairs: 20,
-                          image: i =>
-                                 'bild'+('__'+i).slice(-3)
-                        }
+                 data:  
+                 { "@noOfPairs": 20,
+                   "@image":     i => 'bild'+('__'+i).slice(-3)
+                 }
               })
            );
 // =>

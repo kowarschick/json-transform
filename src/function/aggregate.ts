@@ -8,8 +8,6 @@
 import { JsonArray, JsonObject, JsonValue } from '../types';
 import { JsonFunctionParameters }           from '../types';
 
-// TBD: Compare function instead of Math.max
-
 /**
  * @function 
  * @description

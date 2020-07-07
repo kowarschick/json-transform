@@ -59,7 +59,8 @@ function sequence({value, data, init, rename = name => name}:
     c_first             = (value?.[rename(FIRST)]  ?? c_init.first)  as number,
     c_last              = (value?.[rename(LAST)]   ?? c_init.last)   as number,
     c_prefix            = (value?.[rename(PREFIX)] ?? c_init.prefix) as string|null,
-    c_format_name       = (value?.[rename(FORMAT)] ?? c_init.format) as string|null,
+    c_format_data       = (value?.[rename(FORMAT)] ?? c_init.format) as JsonValueFunction|string|null,
+    c_format            = ((typeof c_format_data === 'string') ? data[c_format_data] : c_format_data) as JsonValueFunction,
     c_result: JsonArray = [];
 
   for (let i: number = c_first; i <= c_last; i++)
@@ -68,9 +69,8 @@ function sequence({value, data, init, rename = name => name}:
     if (c_prefix != null)
     { l_result = c_prefix + l_result}
 
-    if (c_format_name != null)
-    { const c_format = data[c_format_name] as JsonValueFunction
-      if (c_format != null)
+    if (c_format != null)
+    { if (c_format != null)
       { l_result = c_format(l_result) as string; }
     }
 

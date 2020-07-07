@@ -19,8 +19,7 @@ export * from './template_functions';
 
 // JSON functions
 export * from './function/count'; 
-export * from './function/aggregate/min_max';
-export * from './function/aggregate/sum_product';
+export * from './function/aggregate';
 export * from './function/shuffle'; 
 export * from './function/some'; 
 export * from './function/unnest'; 

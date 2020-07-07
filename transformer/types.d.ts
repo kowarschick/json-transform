@@ -45,7 +45,7 @@ export declare type JsonFunctionDescriptorString = JsonFunctionDescriptorCommon 
     function: (_: JsonFunctionParameters<JsonString>) => JsonValue;
 };
 export declare type JsonFunctionDescriptor = JsonFunctionDescriptorArray | JsonFunctionDescriptorObject | JsonFunctionDescriptorString;
-export declare type Init = JsonValue | JsonFunction | JsonValueFunction | JsonFunctionDescriptor[] | RegExp | Function | InitMap;
+export declare type Init = JsonValue | JsonFunction | JsonValueFunction | Function | JsonFunctionDescriptor[] | RegExp | Function | InitMap;
 export interface InitMap {
     [key: string]: Init;
 }

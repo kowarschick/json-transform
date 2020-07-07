@@ -126,12 +126,12 @@ class JsonTransformerFunction extends JsonTransformer
         c_a = 
           this.arrayFunctionValue(c_function_name, c_value);  
 
-      return c_a == null ? c_value : c_da.function( { ..._, 
+      return c_a == null ? c_value : c_da.function({ ..._, 
                                                       value:  c_a, 
                                                       init:   c_da.init, 
                                                       rename: this.rename.bind(this)
-                                                    }, 
-                                                    0
+                                                  }, 
+                                                  0
                                                   );
     }
     else 

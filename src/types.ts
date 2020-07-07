@@ -73,7 +73,7 @@ export type JsonFunctionDescriptor =
   JsonFunctionDescriptorString
   
 export type Init =
-  JsonValue | JsonFunction | JsonValueFunction | JsonFunctionDescriptor[] | RegExp | Function | InitMap  
+  JsonValue | JsonFunction | JsonValueFunction | Function | JsonFunctionDescriptor[] | RegExp | Function | InitMap  
 
 export interface InitMap 
 { [key: string]: Init }

@@ -29,13 +29,14 @@ import { JsonTransformerFunction }                     from '~/function';
 import { JsonFunctionCount }                           from '~/function/count';
 import { JsonFunctionDuplicate }                       from '~/function/duplicate';
 import { JsonFunctionLevel }                           from '~/function/level';
-import { JsonFunctionMin,       JsonFunctionMax}       from '~/function/aggregate/min_max';
-import { JsonFunctionMinString, JsonFunctionMaxString} from '~/function/aggregate/min_max';
+import { JsonFunctionMin,       JsonFunctionMax}       from '~/function/aggregate';
+import { JsonFunctionMinString, JsonFunctionMaxString} from '~/function/aggregate';
 import { JsonFunctionRandom }                          from '~/function/random';
 import { JsonFunctionSequence }                        from '~/function/sequence';
 import { JsonFunctionShuffle }                         from '~/function/shuffle';
 import { JsonFunctionSome }                            from '~/function/some';
-import { JsonFunctionSum,       JsonFunctionProduct}   from '~/function/aggregate/sum_product';
+import { JsonFunctionSum, JsonFunctionProduct }        from '~/function/aggregate';
+import { JsonFunctionAverage }                         from '~/function/aggregate';
 import { JsonFunctionUnnest }                          from '~/function/unnest';
 
 /// <reference path="./jest-mock-random.d.ts" />
@@ -135,6 +136,26 @@ function f_test(t: JsonTransformerFunction)
   test
   ( '["$max_test", "a", "ZZZ", "zzz", "abc"] should be transformed to "zzz"', 
     () => { expect(t.transform({ value: ["$max_test", "a", "ZZZ", "zzz", "abc"] })).toBe("zzz"); }
+  );
+
+  test
+  ( '["$max_string", "b", "ä", "ZZZ", "zzz", "abc"] should be transformed to "ZZZ"', 
+    () => { expect(t.transform({ value: ["$max_string", "b", "ä", "ZZZ", "zzz", "abc"] })).toBe("ZZZ"); }
+  );
+
+  test
+  ( '["$min_string", "ä", "b", "ZZZ", "zzz", "abc"] should be transformed to "ä"', 
+    () => { expect(t.transform({ value: ["$min_string", "b", "ä", "ZZZ", "zzz", "abc"] })).toBe("ä"); }
+  );
+
+  test
+  ( '["$min_string"] should be transformed to null', 
+    () => { expect(t.transform({ value: ["$min_string"] })).toBe(null); }
+  );
+
+  test
+  ( '["$max_string"] should be transformed to null', 
+    () => { expect(t.transform({ value: ["$max_string"] })).toBe(null); }
   );
 
   describe
@@ -303,7 +324,7 @@ function f_test(t: JsonTransformerFunction)
     () => { expect(t.transform({ value: ["$sum", 1, 5, 3, 4, 2] })).toBe(15); }
   );
 
-  test
+    test
   ( '["$product] should be transformed to 1', 
     () => { expect(t.transform({ value: ["$product"] })).toBe(1); }
   );
@@ -311,6 +332,11 @@ function f_test(t: JsonTransformerFunction)
   test
   ( '["$product, 1, 5, 3, 4, 2] should be transformed to 120', 
     () => { expect(t.transform({ value: ["$product", 1, 5, 3, 4, 2] })).toBe(120); }
+  );
+
+  test
+  ( '["$average, 1, 5, 3, 4, 2] should be transformed to 3', 
+    () => { expect(t.transform({ value: ["$average", 1, 5, 3, 4, 2] })).toBe(3); }
   );
 
   test
@@ -352,9 +378,12 @@ const JsonFunctionMaxTest: JsonFunctionDescriptor =
 f_test
 ( new JsonTransformerFunction
   ({ init:
-     [ JsonFunctionCount, 
+     [ JsonFunctionAverage,
+       JsonFunctionCount, 
        JsonFunctionMin, 
+       JsonFunctionMinString, 
        JsonFunctionMax,
+       JsonFunctionMaxString,
        JsonFunctionMaxTest,
        JsonFunctionProduct,
        JsonFunctionShuffle,

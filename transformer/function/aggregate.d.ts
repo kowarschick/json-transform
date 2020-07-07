@@ -1,4 +1,12 @@
+import { JsonFunctionDescriptor } from '../types';
 import { JsonArray, JsonValue } from '../types';
 import { JsonFunctionParameters } from '../types';
 export declare function aggregate({ value, init }: JsonFunctionParameters<JsonArray>, begin?: number): JsonValue;
-export default aggregate;
+export declare const JsonFunctionMin: JsonFunctionDescriptor;
+export declare const JsonFunctionMax: JsonFunctionDescriptor;
+export declare const JsonFunctionMinString: JsonFunctionDescriptor;
+export declare const JsonFunctionMaxString: JsonFunctionDescriptor;
+export declare const JsonFunctionSum: JsonFunctionDescriptor;
+export declare const JsonFunctionProduct: JsonFunctionDescriptor;
+export declare const JsonFunctionAverage: JsonFunctionDescriptor;
+export default JsonFunctionMin;

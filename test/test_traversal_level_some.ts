@@ -5,16 +5,18 @@
  */
 
 /*
-import { JsonTransformer }          from '@wljkowa/json-transformer';
-import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
-import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
-import { JsonTransformerSome }      from '@wljkowa/json-transformer';
+import { JsonTransformer }                      from '@wljkowa/json-transformer';
+import { JsonTransformerTraversal }             from '@wljkowa/json-transformer';
+import { JsonTransformerTraversalBreadthFirst } from '@wljkowa/json-transformer';
+import { JsonTransformerLevel }                 from '@wljkowa/json-transformer';
+import { JsonTransformerSome }                  from '@wljkowa/json-transformer';
 */
 
-import { JsonTransformer }          from '~/transformer';
-import { JsonTransformerTraversal } from '~/traversal';
-import { JsonTransformerLevel }     from '~/level';
-import { JsonTransformerSome }      from '~/some';
+import { JsonTransformer }                      from '~/transformer';
+import { JsonTransformerTraversal }             from '~/traversal';
+import { JsonTransformerTraversalBreadthFirst } from '~/traversal_breadth_first';
+import { JsonTransformerLevel }                 from '~/level';
+import { JsonTransformerSome }                  from '~/some';
 
 { const c_t: JsonTransformer = new JsonTransformerLevel();
 
@@ -188,6 +190,22 @@ traversalTests
             { c_result.push(c_t.transform({ value: {a: ["$some", "$level", ["$level"], [["$level"]]]} })); } 
             expect([{a:1}, {a:[2]}, {a:[[3]]}]).toEqual(expect.arrayContaining(c_result)); 
             expect(c_result).toEqual(expect.arrayContaining([{a:1}, {a:[2]}, {a:[[3]]}])); 
+          }
+  );
+}
+
+{ const
+    c_t =   new JsonTransformerTraversalBreadthFirst()
+      .pipe(new JsonTransformerSome())
+      .pipe(new JsonTransformerLevel());
+
+  test
+  ( '{a: ["$some", "$level", ["$level"], [["$level"]]]} should be transformed either into {a:1} or {a:[2]} or {a:[[3]]}', 
+    () => { const c_result = [];
+            for (let i = 0; i < 100; i++)
+            { c_result.push(c_t.transform({ value: {a: ["$some", "$level", ["$level"], [["$level"]]]} })); } 
+            expect([{a:2}, {a:[3]}, {a:[[4]]}]).toEqual(expect.arrayContaining(c_result)); 
+            expect(c_result).toEqual(expect.arrayContaining([{a:2}, {a:[3]}, {a:[[4]]}])); 
           }
   );
 }

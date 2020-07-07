@@ -6,8 +6,8 @@
  */
 
 import { JsonValue, JsonPrimitive, JsonArray, JsonObject} from './types';
-import { JsonFunction, JsonFunctionParameters }        from './types';
-import { JsonTransformer, JsonTransformerParameters }  from './transformer';
+import { JsonFunction, JsonFunctionParameters }           from './types';
+import { JsonTransformer, JsonTransformerParameters }     from './transformer';
 
 /**
  * This transformer applies its pipe transformer 
@@ -60,14 +60,13 @@ class JsonTransformerTraversalBreadthFirst extends JsonTransformer
 
   /** @override */
   transformerJsonPrimitive: JsonFunction<JsonPrimitive> =
-  ({value}: JsonFunctionParameters<JsonPrimitive>) => value;
+  (_: JsonFunctionParameters<JsonPrimitive>) => super.transformerPipe(_);
 
   /** @override */
   transformerJsonArray: JsonFunction<JsonArray> = 
   ({value, data, level}: JsonFunctionParameters<JsonArray>) => 
   { const
       c_level = level+1;
-    
     let  
       l_result: JsonValue = [];
 

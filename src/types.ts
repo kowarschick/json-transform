@@ -39,6 +39,9 @@ export type JsonFunctionParameters<T extends JsonValue = JsonValue> =
 export type JsonFunction<T extends JsonValue = JsonValue> = 
   (_: JsonFunctionParameters<T>) => JsonValue 
 
+export type JsonValueFunction<T extends JsonValue = JsonValue> = 
+  (_: T) => JsonValue 
+
 type JsonFunctionDescriptorCommon =
 { name:    string,
   type:    JsonType,
@@ -70,13 +73,13 @@ export type JsonFunctionDescriptor =
   JsonFunctionDescriptorString
   
 export type Init =
-  JsonValue | JsonFunction | JsonFunctionDescriptor[] | RegExp | Function | InitMap  
+  JsonValue | JsonFunction | JsonValueFunction | JsonFunctionDescriptor[] | RegExp | Function | InitMap  
 
 export interface InitMap 
 { [key: string]: Init }
 
 export interface Data 
-{ [key: string]: JsonValue | JsonFunction }
+{ [key: string]: JsonValue | JsonFunction | JsonValueFunction }
 
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value

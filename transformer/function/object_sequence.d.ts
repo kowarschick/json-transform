@@ -1,7 +1,7 @@
 import { JsonObject, JsonType, JsonArray } from '../types';
 import { JsonFunctionParameters } from '../types';
-export declare function JsonFunctionObjectSequence({ value, data }: JsonFunctionParameters<JsonObject>): JsonArray | JsonObject;
-export declare namespace JsonFunctionObjectSequence {
+export declare function JsonFunctionSequence({ value, data }: JsonFunctionParameters<JsonObject>): JsonArray | JsonObject;
+export declare namespace JsonFunctionSequence {
     var type: JsonType;
     var init: {
         function: string;
@@ -13,4 +13,4 @@ export declare namespace JsonFunctionObjectSequence {
         format: null;
     };
 }
-export default JsonFunctionObjectSequence;
+export default JsonFunctionSequence;

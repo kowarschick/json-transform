@@ -20,7 +20,7 @@ export { JsonFunctionArraySum } from './function/array_sum';
 export { JsonFunctionUnnest } from './function/array_unnest';
 export { JsonFunctionDuplicate } from './function/object_duplicate';
 export { JsonFunctionRandom } from './function/object_random';
-export { JsonFunctionObjectSequence } from './function/object_sequence';
+export { JsonFunctionSequence } from './function/object_sequence';
 export { JsonFunctionObjectShuffle } from './function/object_shuffle';
 export { JsonFunctionObjectUnnest } from './function/object_unnest';
 export { JsonFunctionLevel } from './function/string_level';

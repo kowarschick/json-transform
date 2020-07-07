@@ -55,7 +55,7 @@ Object.defineProperty(exports, "JsonFunctionDuplicate", { enumerable: true, get:
 var object_random_1 = require("./function/object_random");
 Object.defineProperty(exports, "JsonFunctionRandom", { enumerable: true, get: function () { return object_random_1.JsonFunctionRandom; } });
 var object_sequence_1 = require("./function/object_sequence");
-Object.defineProperty(exports, "JsonFunctionObjectSequence", { enumerable: true, get: function () { return object_sequence_1.JsonFunctionObjectSequence; } });
+Object.defineProperty(exports, "JsonFunctionSequence", { enumerable: true, get: function () { return object_sequence_1.JsonFunctionSequence; } });
 var object_shuffle_1 = require("./function/object_shuffle");
 Object.defineProperty(exports, "JsonFunctionObjectShuffle", { enumerable: true, get: function () { return object_shuffle_1.JsonFunctionObjectShuffle; } });
 var object_unnest_1 = require("./function/object_unnest");

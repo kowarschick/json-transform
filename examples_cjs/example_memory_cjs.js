@@ -13,7 +13,7 @@ const
   JsonTransformerFunction      = JT.JsonTransformerFunction,
   JsonTransformerStringReplace = JT.JsonTransformerStringReplace,
   JsonFunctionDuplicate  = JT.JsonFunctionDuplicate,
-  JsonFunctionObjectSequence   = JT.JsonFunctionObjectSequence,
+  JsonFunctionSequence   = JT.JsonFunctionSequence,
   JsonFunctionObjectShuffle    = JT.JsonFunctionObjectShuffle,
   JsonFunctionUnnest      = JT.JsonFunctionUnnest,
   
@@ -25,7 +25,7 @@ const
                  ({init:
                    { functions:
                      [ JsonFunctionDuplicate,
-                       JsonFunctionObjectSequence,
+                       JsonFunctionSequence,
                        JsonFunctionObjectShuffle,
                        JsonFunctionUnnest,
                      ]

@@ -32,7 +32,7 @@ import { JsonFunctionLevel }                           from '~/function/level';
 import { JsonFunctionMin,       JsonFunctionMax}       from '~/function/aggregate/min_max';
 import { JsonFunctionMinString, JsonFunctionMaxString} from '~/function/aggregate/min_max';
 import { JsonFunctionRandom }                          from '~/function/random';
-import { JsonFunctionObjectSequence }                  from '~/function/object_sequence';
+import { JsonFunctionSequence }                        from '~/function/sequence';
 import { JsonFunctionShuffle }                         from '~/function/shuffle';
 import { JsonFunctionSome }                            from '~/function/some';
 import { JsonFunctionSum,       JsonFunctionProduct}   from '~/function/aggregate/sum_product';
@@ -193,21 +193,31 @@ function f_test(t: JsonTransformerFunction)
       {factor: 0.5}
     )
   );
-/*
+
   test
-  ( '{"$function":"$sequence", "$min":2, "$max":5} should be transformed to [2, 3, 4, 5]', 
-    () => { expect(t.transform({ value: {"$function":"$sequence", "$min":2, "$max":5} }))
+  ( '{"$function":"$sequence", "$first":2, "$last":5} should be transformed to [2, 3, 4, 5]', 
+    () => { expect(t.transform({ value: {"$function":"$sequence", "$first":2, "$last":5} }))
              .toStrictEqual([2, 3, 4, 5]); 
           }
   );
 
   test
-  ( '{"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} should be transformed to ["image2","image3","image4","image5"]', 
-    () => { expect(t.transform({ value: {"$function":"$sequence", "$min":2, "$max":5, "$format":"image"} }))
+  ( '{"$function":"$sequence", "$first":2, "$last":5, "$prefix":"image"} should be transformed to ["image2","image3","image4","image5"]', 
+    () => { expect(t.transform({ value: {"$function":"$sequence", "$first":2, "$last":5, "$prefix":"image"} }))
               .toStrictEqual(["image2","image3","image4","image5"]);
           }
   );
-*/
+
+  test
+  ( '{"$function":"$sequence", "$first":2, "$last":5, "$format":"f"} should be transformed to ["2a","3a","4a","5a"]', 
+    () => { expect(t.transform({ value: {"$function":"$sequence", "$first":2, "$last":5, "$format":"f"},
+                                 data:  { f: (i: JsonValue) => i + 'a'}
+                              })
+                  )
+              .toStrictEqual(["2a","3a","4a","5a"]);
+          }
+  );
+
   test
   ( '"$some" should be transformed to "$some"', 
     () => { expect(t.transform({ value: "$some" })).toBe("$some"); }
@@ -353,7 +363,7 @@ f_test
        JsonFunctionUnnest,
        JsonFunctionDuplicate,
        JsonFunctionRandom,
-       //JsonFunctionObjectSequence,
+       JsonFunctionSequence,
        JsonFunctionLevel, 
      ] 
   })
@@ -429,8 +439,18 @@ function f_rename_test(t: JsonTransformerFunction)
   ( '{"@function":"@some","@value":[5]} should be transformed to 5', 
     () => { expect(t.transform({ value: {"@function":"@some","@value":[5]} })).toBe(5); }
   );
+
+  test
+  ( '{"@function":"@sequence", "@first":2, "@last":5, "@format":"f"} should be transformed to ["2a","3a","4a","5a"]', 
+    () => { expect(t.transform({ value: {"@function":"@sequence", "@first":2, "@last":5, "@format":"f"},
+                                 data:  { f: (i: JsonValue) => i + 'a'}
+                              })
+                  )
+              .toStrictEqual(["2a","3a","4a","5a"]);
+          }
+  );
 }
-/*
+
 f_rename_test
 ( new JsonTransformerFunction
   ({ rename:
@@ -438,21 +458,18 @@ f_rename_test
        "$value":    "@value",
        "$count":    "@count",
        "$max":      "@max",
-       "$some":     "@some"
-     },
+       "$some":     "@some",
+       "$sequence": "@sequence",
+       "$first":    "@first",
+       "$last":     "@last",
+       "$format":   "@format",
+    },
 
      init:
      [ JsonFunctionCount, 
-       //JsonFunctionMin, 
        JsonFunctionMax,
-       //JsonFunctionShuffle, JsonFunctionObjectShuffle,
-       JsonFunctionSome, 
-       //JsonFunctionArraySum, 
-       //JsonFunctionUnnest,  JsonFunctionObjectUnnest,
-       //JsonFunctionDuplicate,
-       //JsonFunctionRandom,
-       //JsonFunctionObjectSequence,
-       //JsonFunctionLevel, 
+       JsonFunctionSome,
+       JsonFunctionSequence,
      ] 
   })
-)*/
+)

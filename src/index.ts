@@ -26,7 +26,7 @@ export * from './function/some';
 export * from './function/unnest'; 
 export * from './function/duplicate'; 
 export * from './function/random';
-export * from './function/object_sequence';
+export * from './function/sequence';
 export * from './function/level'; 
 
 // JSON transformers that also exists as JSON functions

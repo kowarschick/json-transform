@@ -57,7 +57,7 @@ import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
 import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
 
 import { JsonFunctionDuplicate }  from '@wljkowa/json-transformer';
-import { JsonFunctionObjectSequence }   from '@wljkowa/json-transformer';
+import { JsonFunctionSequence }   from '@wljkowa/json-transformer';
 import { JsonFunctionObjectShuffle }    from '@wljkowa/json-transformer';
 import { JsonFunctionUnnest }      from '@wljkowa/json-transformer';
 
@@ -68,7 +68,7 @@ const
               ({init:
                 { functions:
                   [ JsonFunctionDuplicate,
-                    JsonFunctionObjectSequence,
+                    JsonFunctionSequence,
                     JsonFunctionObjectShuffle,
                     JsonFunctionUnnest,
                   ]

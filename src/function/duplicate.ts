@@ -51,6 +51,7 @@ const
  * // please note, applying <code>$unnest<$code>
  * // to this result would yield
  * //    [ 5, 7, 9, 5, 7, 9, 5, 7, 9 ] 
+ * // which differs from the flattend result above.
  * ```
  * 
  * @param {Partial<JsonFunctionParameters<JsonObject>>} _
@@ -64,7 +65,9 @@ const
  *   Flattens the resulting array, if <code>true</code>
  *   
  */
-export function duplicate({value, init, rename = name => name}: JsonFunctionParameters<JsonObject>)
+export 
+function duplicate({value, init, rename = name => name}: 
+         JsonFunctionParameters<JsonObject>)
 { const 
     c_clone_transformer = new JsonTransformerTraversal(),
     c_init              = init as JsonObject,

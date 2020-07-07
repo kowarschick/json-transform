@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonFunctionObjectSequence = void 0;
+exports.JsonFunctionSequence = void 0;
 const types_1 = require("../types");
 const function_1 = require("../function");
-function JsonFunctionObjectSequence({ value, data }) {
+function JsonFunctionSequence({ value, data }) {
     var _a, _b, _c;
-    const c_init = JsonFunctionObjectSequence.init;
+    const c_init = JsonFunctionSequence.init;
     if ((value === null || value === void 0 ? void 0 : value[function_1.JsonTransformerFunction.functionAttribute]) !== c_init.function) {
         return value;
     }
@@ -19,9 +19,9 @@ function JsonFunctionObjectSequence({ value, data }) {
     }
     return c_result;
 }
-exports.JsonFunctionObjectSequence = JsonFunctionObjectSequence;
-JsonFunctionObjectSequence.type = types_1.JsonType.Object;
-JsonFunctionObjectSequence.init = { function: "$sequence",
+exports.JsonFunctionSequence = JsonFunctionSequence;
+JsonFunctionSequence.type = types_1.JsonType.Object;
+JsonFunctionSequence.init = { function: "$sequence",
     minAttr: "$min",
     min: 1,
     maxAttr: "$max",
@@ -29,5 +29,5 @@ JsonFunctionObjectSequence.init = { function: "$sequence",
     formatAttr: "$format",
     format: null
 };
-exports.default = JsonFunctionObjectSequence;
+exports.default = JsonFunctionSequence;
 //# sourceMappingURL=object_sequence.js.map

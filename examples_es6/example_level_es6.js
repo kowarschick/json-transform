@@ -8,7 +8,7 @@
 //   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
 //import JsonTransformerTraversal from '@wljkowa/json-transformer/transformer/traversal.js';
-//import JsonTransformerLevel     from '@wljkowa/json-transformer/transformer/string_level.js';
+//import JsonTransformerLevel     from '@wljkowa/json-transformer/transformer/level.js';
 
 import { JsonTransformerTraversal, JsonTransformerLevel } from '@wljkowa/json-transformer';
 

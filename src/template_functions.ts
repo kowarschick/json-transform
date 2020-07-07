@@ -123,10 +123,10 @@ class JsonTransformerTemplateFunctions extends JsonTransformer
           catch(e)
           { l_json_value = (e as Error).message; }
   
-          return [c_name, l_json_value];
+          return [c_name as string, l_json_value];
         } 
         else
-        { return [c_name, null]; }
+        { return [c_name as string, null]; }
       },
 
       f_replace_placeholders =

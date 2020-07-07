@@ -5,43 +5,51 @@ const types_1 = require("./types");
 const transformer_1 = require("./transformer");
 class JsonTransformerFunction extends transformer_1.JsonTransformer {
     constructor(_ = {}) {
-        var _a;
         super(_);
-        this.a_functions = { [types_1.JsonType.Array]: {},
+        this.descriptors = { [types_1.JsonType.Array]: {},
             [types_1.JsonType.Object]: {},
             [types_1.JsonType.String]: {},
         };
         this.transformerJsonArray = (_) => {
-            if (_.value.length === 0) {
-                return _.value;
+            const c_value = _.value;
+            if (c_value.length === 0) {
+                return c_value;
             }
-            const f = this.a_functions[types_1.JsonType.Array][_.value[0]];
-            return f == null ? _.value : f(_);
+            const c_name = this.functionName(c_value);
+            if (c_name == null) {
+                return c_value;
+            }
+            const c_d = this.descriptors[types_1.JsonType.Array][c_name];
+            return c_d == null ? c_value : c_d.function(Object.assign(Object.assign({}, _), { init: c_d.init, rename: this.rename.bind(this) }), 1);
         };
         this.transformerJsonObject = (_) => {
-            var _a;
-            const c_function_name = (_a = _.value[JsonTransformerFunction.functionAttribute]) !== null && _a !== void 0 ? _a : '';
-            if (typeof c_function_name === 'string') {
-                const f = this.a_functions[types_1.JsonType.Object][c_function_name];
-                return f == null ? _.value : f(_);
+            const c_value = _.value, c_function_name = this.functionName(c_value);
+            if (c_function_name != null) {
+                const c_do = this.descriptors[types_1.JsonType.Object][c_function_name];
+                if (c_do != null) {
+                    return c_do.function(Object.assign(Object.assign({}, _), { init: c_do.init, rename: this.rename.bind(this) }));
+                }
+                const c_da = this.descriptors[types_1.JsonType.Array][c_function_name], c_a = this.arrayFunctionValue(c_function_name, c_value);
+                return c_a == null ? c_value : c_da.function(Object.assign(Object.assign({}, _), { value: c_a, init: c_da.init, rename: this.rename.bind(this) }), 0);
             }
             else {
-                return _.value;
+                return c_value;
             }
         };
         this.transformerJsonString = (_) => {
-            const f = this.a_functions[types_1.JsonType.String][_.value];
-            return f == null ? _.value : f(_);
+            const c_d = this.descriptors[types_1.JsonType.String][_.value];
+            return c_d == null ? _.value : c_d.function(Object.assign(Object.assign({}, _), { init: c_d.init, rename: this.rename.bind(this) }));
         };
-        if (Array.isArray((_a = _ === null || _ === void 0 ? void 0 : _.init) === null || _a === void 0 ? void 0 : _a.functions)) {
-            for (const c_function of _.init.functions)
-                if ((c_function === null || c_function === void 0 ? void 0 : c_function.type) != null) {
-                    this.a_functions[c_function.type][c_function.name] = c_function;
-                }
+        this.initialize();
+        if (Array.isArray(_.init)) {
+            let l_descriptor;
+            for (const c_function of _.init) {
+                l_descriptor = c_function;
+                this.descriptors[l_descriptor.type][l_descriptor.name] = l_descriptor;
+            }
         }
     }
 }
 exports.JsonTransformerFunction = JsonTransformerFunction;
-JsonTransformerFunction.functionAttribute = '$function';
 exports.default = JsonTransformerFunction;
 //# sourceMappingURL=function.js.map

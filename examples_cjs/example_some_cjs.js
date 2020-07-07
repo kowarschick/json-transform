@@ -8,13 +8,13 @@
 //   node examples_cjs/example_some_cjs.js
 
 const 
-//JsonTransformer          = require('@wljkowa/json-transformer/transformer/transformer') .JsonTransformer,
-//JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal')   .JsonTransformerTraversal,
-//JsonTransformerSome      = require('@wljkowa/json-transformer/transformer/array_some')  .JsonTransformerSome,
-//JsonTransformerLevel     = require('@wljkowa/json-transformer/transformer/string_level').JsonTransformerLevel,
-
+/*JsonTransformer          = require('@wljkowa/json-transformer/transformer/transformer').JsonTransformer,
+  JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal')  .JsonTransformerTraversal,
+  JsonTransformerSome      = require('@wljkowa/json-transformer/transformer/some')       .JsonTransformerSome,
+  JsonTransformerLevel     = require('@wljkowa/json-transformer/transformer/level')      .JsonTransformerLevel,
+*/
   JT                       = require('@wljkowa/json-transformer')
-  JsonTransformer          = JT.JsonTransformerTraversal,
+  JsonTransformer          = JT.JsonTransformer,
   JsonTransformerTraversal = JT.JsonTransformerTraversal,
   JsonTransformerSome      = JT.JsonTransformerSome,
   JsonTransformerLevel     = JT.JsonTransformerLevel,
@@ -22,7 +22,7 @@ const
   trace = require('./trace_cjs'),
   
   transformer =  
-         new JsonTransformerTraversal()
+          new JsonTransformerTraversal()
     .pipe(new JsonTransformerSome())
   ;
 

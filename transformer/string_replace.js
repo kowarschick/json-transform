@@ -14,6 +14,7 @@ class JsonTransformerStringReplace extends transformer_1.JsonTransformer {
             const c_value = data[value];
             return c_value != null ? c_value : value;
         };
+        this.initialize();
     }
 }
 exports.JsonTransformerStringReplace = JsonTransformerStringReplace;

@@ -11,3 +11,4 @@ require('./example_some_cjs');
 require('./example_level_cjs');
 require('./example_template_cjs');
 require('./example_template_functions_cjs');
+require('./example_memory_cjs');

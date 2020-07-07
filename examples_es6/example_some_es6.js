@@ -7,21 +7,16 @@
 // build and run
 //   npm run examples:prod && node examples_es6/examples_bundle_es6.js
 
-//import { JsonTransformer }          from '@wljkowa/json-transformer/transformer/transformer';
-//import { JsonTransformerTraversal } from '@wljkowa/json-transformer/transformer/traversal';
-//import { JsonTransformerSome }      from '@wljkowa/json-transformer/transformer/some';
-//import { JsonTransformerLevel }     from '@wljkowa/json-transformer/transformer/level';
-
-import { JsonTransformer }            from '@wljkowa/json-transformer';
-import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
-import { JsonTransformerSome }        from '@wljkowa/json-transformer';
-import { JsonTransformerLevel }       from '@wljkowa/json-transformer';
+import { JsonTransformer }          from '@wljkowa/json-transformer';
+import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+import { JsonTransformerSome }      from '@wljkowa/json-transformer';
+import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
 
 import trace from './trace_es6';
 
 const 
   transformer =  
-         new JsonTransformerTraversal()
+          new JsonTransformerTraversal()
     .pipe(new JsonTransformerSome())
   ;
 

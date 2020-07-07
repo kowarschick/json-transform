@@ -1,8 +1,5 @@
-import { JsonType, JsonArray, JsonValue, JsonFunctionParameters } from '../types';
-export declare function some(value: JsonArray, begin?: number): JsonValue;
-export declare function JsonFunctionSome({ value, init }: JsonFunctionParameters<JsonArray>): JsonValue;
-export declare namespace JsonFunctionSome {
-    var type: JsonType;
-    var name: string;
-}
+import { JsonArray, JsonValue } from '../types';
+import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
+export declare function some({ value }: JsonFunctionParameters<JsonArray>, begin?: number): JsonValue;
+export declare const JsonFunctionSome: JsonFunctionDescriptor;
 export default JsonFunctionSome;

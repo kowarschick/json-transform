@@ -17,48 +17,50 @@ export declare enum JsonType {
     Boolean = 6,
     Null = 7
 }
-export declare function isJsonPrimitive(value: JsonValue): value is JsonPrimitive;
-export declare function isJsonArray(value: JsonValue): value is JsonArray;
-export declare function isJsonObject(value: JsonValue): value is JsonObject;
-export declare function isJsonString(value: JsonValue): value is JsonString;
-export declare function isJsonNumber(value: JsonValue): value is JsonNumber;
-export declare function isJsonBoolean(value: JsonValue): value is JsonBoolean;
-export declare function isJsonNull(value: JsonValue): value is JsonNull;
 export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
     value: T;
     level: number;
     data: Data;
     init?: Init;
+    rename?: (name: string) => string;
 };
-export declare type JsonFunction<T extends JsonValue = JsonValue> = {
-    (_: JsonFunctionParameters<T>): JsonValue;
-    type?: JsonType;
-    name?: string;
-    init?: Init;
-};
-export interface JsonFunctionDescriptor<T extends JsonValue = JsonValue> {
-    function: (_: JsonFunctionParameters<T>) => JsonValue;
-    type: JsonType;
+export declare type JsonFunction<T extends JsonValue = JsonValue> = (_: JsonFunctionParameters<T>) => JsonValue;
+export declare type JsonValueFunction<T extends JsonValue = JsonValue> = (_: T) => JsonValue;
+declare type JsonFunctionDescriptorCommon = {
     name: string;
-    init?: Init;
+    type: JsonType;
+    init?: Record<string, Init>;
+    rename?: (name: string) => string;
+};
+export declare type JsonFunctionDescriptorArray = JsonFunctionDescriptorCommon & {
+    type: JsonType.Array;
+    function: (_: JsonFunctionParameters<JsonArray>, begin: number) => JsonValue;
+};
+export declare type JsonFunctionDescriptorObject = JsonFunctionDescriptorCommon & {
+    type: JsonType.Object;
+    function: (_: JsonFunctionParameters<JsonObject>) => JsonValue;
+};
+export declare type JsonFunctionDescriptorString = JsonFunctionDescriptorCommon & {
+    type: JsonType.String;
+    function: (_: JsonFunctionParameters<JsonString>) => JsonValue;
+};
+export declare type JsonFunctionDescriptor = JsonFunctionDescriptorArray | JsonFunctionDescriptorObject | JsonFunctionDescriptorString;
+export declare type Init = JsonValue | JsonFunction | JsonValueFunction | JsonFunctionDescriptor[] | RegExp | Function | InitMap;
+export interface InitMap {
+    [key: string]: Init;
 }
-export interface JsonTransformerProperties {
-    readonly transformerJsonPrimitive: JsonFunction<JsonPrimitive> | null;
-    readonly transformerJsonArray: JsonFunction<JsonArray> | null;
-    readonly transformerJsonObject: JsonFunction<JsonObject> | null;
-    readonly transformerJsonString: JsonFunction<JsonString> | null;
-    readonly transformerJsonNumber: JsonFunction<JsonNumber> | null;
-    readonly transformerJsonBoolean: JsonFunction<JsonBoolean> | null;
-    readonly transformerJsonNull: JsonFunction<JsonNull> | null;
-    transformerPipe: JsonFunction;
-    readonly [key: string]: any;
-}
-export declare function isJsonValue(value: JsonValue | JsonFunction | null): value is JsonValue;
-export declare function isJsonFunction(value: JsonValue | JsonFunction | null): value is JsonFunction;
 export interface Data {
-    [key: string]: JsonValue | JsonFunction | null;
+    [key: string]: JsonValue | JsonFunction | JsonValueFunction;
 }
-export declare function isRegExp(value: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull): value is RegExp;
-export interface Init {
-    [key: string]: Object | RegExp | JsonString | JsonNumber | JsonBoolean | JsonNull;
-}
+export declare function isJsonString(value: JsonValue | JsonFunction | RegExp | Init): value is JsonString;
+export declare function isJsonNumber(value: JsonValue | JsonFunction | RegExp | Init): value is JsonNumber;
+export declare function isJsonBoolean(value: JsonValue | JsonFunction | RegExp | Init): value is JsonBoolean;
+export declare function isJsonNull(value: JsonValue | JsonFunction | RegExp | Init): value is JsonNull;
+export declare function isJsonPrimitive(value: JsonValue | JsonFunction | RegExp | Init): value is JsonPrimitive;
+export declare function isJsonArray(value: JsonValue | JsonFunction | RegExp | Init): value is JsonArray;
+export declare function isJsonObject(value: JsonValue | JsonFunction | RegExp | Init): value is JsonObject;
+export declare function isJsonValue(value: JsonValue | JsonFunction | RegExp | Init): value is JsonValue;
+export declare function isJsonFunction(value: JsonValue | JsonFunction | RegExp | Init): value is JsonFunction;
+export declare function isRegExp(value: JsonValue | JsonFunction | RegExp | Init): value is RegExp;
+export declare function isInitMap(value: Init): value is InitMap;
+export {};

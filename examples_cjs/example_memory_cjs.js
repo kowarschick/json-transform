@@ -12,52 +12,54 @@ const
   JsonTransformerTraversal     = JT.JsonTransformerTraversal,
   JsonTransformerFunction      = JT.JsonTransformerFunction,
   JsonTransformerStringReplace = JT.JsonTransformerStringReplace,
-  JsonFunctionDuplicate  = JT.JsonFunctionDuplicate,
-  JsonFunctionSequence   = JT.JsonFunctionSequence,
-  JsonFunctionObjectShuffle    = JT.JsonFunctionObjectShuffle,
-  JsonFunctionUnnest      = JT.JsonFunctionUnnest,
+  JsonFunctionDuplicate        = JT.JsonFunctionDuplicate,
+  JsonFunctionSequence         = JT.JsonFunctionSequence,
+  JsonFunctionShuffle          = JT.JsonFunctionShuffle,
+  JsonFunctionUnnest           = JT.JsonFunctionUnnest,
   
   trace = require('./trace_cjs'),
   
   transformer =  
-    new JsonTransformerTraversal({ data: { $noOfPairs: 10 } })
-          .pipe( new JsonTransformerFunction
-                 ({init:
-                   { functions:
-                     [ JsonFunctionDuplicate,
-                       JsonFunctionSequence,
-                       JsonFunctionObjectShuffle,
-                       JsonFunctionUnnest,
-                     ]
-                   }
-                 })
-               )
-          .pipe(new JsonTransformerStringReplace()),
+          new JsonTransformerTraversal
+              ({ data: { "@noOfPairs": 10,
+                         "@image":     i => 'b'+i                    
+                       }
+              })
+    .pipe(new JsonTransformerFunction
+              ({ init:
+                 [ JsonFunctionDuplicate,
+                   JsonFunctionSequence,
+                   JsonFunctionShuffle,
+                   JsonFunctionUnnest,
+                 ] 
+              }) 
+         )
+    .pipe(new JsonTransformerStringReplace()),
 
   c_memory =
   { cards: { "$function": "$sequence",
-             "$max":      "$noOfPairs",
-             "$format":   "image"  
+             "$last":     "@noOfPairs",
+             "$format":   "@image"  
            },
-    board: { "$function": "$shuffle",
-             "$value":    { "$function":    "$duplicate",
-                            "$value":       { "$function": "$sequence",
-                                              "$max":      "$noOfPairs"
-                                            },
-                            "$times":       2,
-                            "$withinArray": true
+    board: { "$function": "$shuffle", 
+             "$value":    { "$function": "$duplicate", 
+                            "$value":    { "$function": "$sequence", 
+                                           "$last":     "@noOfPairs" 
+                                         }, 
+                            "$times":    2,
+                            "$flatten":  true
                           }
            }
   };
 
 trace.title('Memory (csj)');
 
-trace.transform( transformer, c_memory, {$noOfPairs: 4} );
+trace.transform( transformer, c_memory, {"@noOfPairs": 4} );
 trace.transform( transformer, c_memory );
 trace.transform( transformer, 
                  c_memory, 
-                 { $noOfPairs: 20,
-                   image: i => 'bild'+('__'+i).slice(-3)
+                 { "@noOfPairs": 7,
+                   "@image":     i => 'bild'+('__'+i).slice(-3)
                  }
                );
 

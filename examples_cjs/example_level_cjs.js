@@ -8,12 +8,11 @@
 //   node examples_cjs/example_level_cjs.js
 
 const 
-//JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal')   .JsonTransformerTraversal,
-//JsonTransformerLevel     = require('@wljkowa/json-transformer/transformer/string_level').JsonTransformerLevel,
-
+/*JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal').JsonTransformerTraversal,
+  JsonTransformerLevel     = require('@wljkowa/json-transformer/transformer/level')    .JsonTransformerLevel,
+*/
   JT                       = require('@wljkowa/json-transformer')
   JsonTransformerTraversal = JT.JsonTransformerTraversal,
-  JsonTransformerLevel     = JT.JsonTransformerLevel,
   JsonTransformerLevel     = JT.JsonTransformerLevel,
 
   trace = require('./trace_cjs'),

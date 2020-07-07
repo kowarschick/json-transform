@@ -23,6 +23,7 @@ class JsonTransformerTraversalBreadthFirst extends transformer_1.JsonTransformer
             }
             return super.transformerPipe({ value: l_result, data, level: c_level });
         };
+        this.initialize();
     }
     transformerPipe({ value }) { return value; }
 }

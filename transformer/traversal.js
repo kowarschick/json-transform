@@ -21,6 +21,7 @@ class JsonTransformerTraversal extends transformer_1.JsonTransformer {
             }
             return c_result;
         };
+        this.initialize();
     }
 }
 exports.JsonTransformerTraversal = JsonTransformerTraversal;

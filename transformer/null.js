@@ -6,6 +6,7 @@ class JsonTransformerNull extends transformer_1.JsonTransformer {
     constructor(_ = {}) {
         super(_);
         this.transformerJsonNull = ({}) => { return null; };
+        this.initialize();
     }
 }
 exports.JsonTransformerNull = JsonTransformerNull;

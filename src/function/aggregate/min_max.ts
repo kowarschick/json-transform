@@ -6,7 +6,7 @@
  */
 
 
-import { JsonType, JsonFunctionDescriptor } from '~/types';
+import { JsonType, JsonFunctionDescriptor } from '../../types';
 import { aggregate }                        from '../aggregate';
 
 export

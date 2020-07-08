@@ -141,3 +141,40 @@ stringTests
   .pipe(new JsonTransformerTraversal())
   .pipe(new JsonTransformerTemplateFunctions())
 );
+
+{ const 
+    c_t =   new JsonTransformerTraversal()
+      .pipe(new JsonTransformerTemplateFunctions()),
+    
+    c_rest =
+    { "links": 
+      { "self":   "${base}/articles",
+        "parent": "${base}"
+      },
+    
+      "data": "${articles()}"
+    },
+    
+    c_data = 
+    { base: "https://www.example.com/v1",
+      articles: () => [ { id: 1, type: "articels", title: "Apple" },
+                        { id: 2, type: "articles", title: "Orange" },
+                      ]
+    },
+
+    c_result =
+    { links: 
+      { self:   'https://www.example.com/v1/articles',
+        parent: 'https://www.example.com/v1'
+      },
+      data: 
+      [ { id: 1, type: 'articels', title: 'Apple' },
+        { id: 2, type: 'articles', title: 'Orange' }
+      ]
+    };
+
+  test
+  ( 'REST API', 
+    () => { expect(c_t.transform({ value: c_rest, data: c_data })).toStrictEqual(c_result); }
+  );
+}

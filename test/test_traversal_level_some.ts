@@ -104,7 +104,7 @@ traversalTests
 
 
   test
-  ( '["$some", "$level", ["$level"], [["$level"]]] should be transformed either into 0 or [1] or [[2]]', 
+  ( '["$some", "$level", ["$level"], [["$level"]]] should be transformed either into 1 or [2] or [[3]]', 
     () => { const c_result = [];
             for (let i = 0; i < 100; i++)
             { c_result.push(c_t.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] })); } 

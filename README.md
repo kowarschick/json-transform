@@ -1,19 +1,13 @@
 # @wljkowa/json-transformer
 
 The ```@wljkowa/json-transformer``` package is used to transform JSON template
-objects to JSON objects. It is developed as part of the lecture
-"Web Programming" by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
+objects into JSON objects. It has been developed in course of the lecture
+“Web Programming” by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
 
-This package can be used in all cases, when an application is initialized
-by means of a JSON file. The content of such file can be transforemd in
-in a variety of ways. Typical applications are game levels, REST APIs or
-config files.
-
-A game level, e.g., often is described by a JSON file. Many elements of
-a level are usually created randomly, the size of the level may depend on
-the size of the browser window etc. Below is a slightly more complex example:
-The JSON transformer package is used to shuffle the tokens of a memory game
-(Pairs).
+This package can be used in all cases where an application is initialized
+using a JSON file. The content of such file can be transformed in
+a variety of ways. Typical applications are REST API templates, game levels, or
+configuration files.
 
 ## Installation
 
@@ -24,45 +18,153 @@ npm install --save @wljkowa/json-transformer
 ## Usage
 
 Objects of the class ```JsonTransformer``` transform JSON objects
-by means of the method ```transform```. Which transformers are
-applied in wich ordering is determined by passing transformer
-functions either to the constructor or to the method ```transform```.
-In addition, an environment object can be passed to both methods.
-The transformer functions can access the enviroment objects.
+by means of the method ```transform```. The ```JsonTransformerSome```,
+which is a subclass of ```JsonTransformer```, e.g., returns randomly
+an element of an array starting with ```$some```. The head element
+```$some``` is, of course, never returned.
 
-```bash
+```ts
 Import { JsonTransformerSome } from '@wljkowa/json-transformer';
 
-const t1 = new JsonTransformerSome();
+const transformer =
+  new JsonTransformerSome();
 
-t1.transform({ value: ["$some", 5, 7, 9] }) // => 5 or 7 or 9
+transformer.transform({ value: ["$some", 5, 7, 9] })
+// => 5 or 7 or 9
 ```
 
 There are several transformers and transformer functions.
-Transformer functions are a little bit simpler than
-tranformers. They can be passed to the transformer
-```JsonTransformerFunction``` which applies them
-when approriate. The example above could also be
-realized in the following way:
+Transformer functions are a little somewhat simpler than
+stand-alone tranformers. They can be passed to the
+```JsonTransformerFunction``` transformer, which applies them
+when appropriate. The example above could also be
+implemented as follows:
 
-```bash
+```ts
 Import { JsonTransformerFunction } from '@wljkowa/json-transformer';
 Import { JsonFunctionSome }        from '@wljkowa/json-transformer';
 
-const t1 = new JsonTransformerFunction
-               ({ init: [JsonFunctionSome] });
+const transformer =
+  new JsonTransformerFunction({ init: [JsonFunctionSome] });
 
-t1.transform({ value: ["$some", 5, 7, 9] }) // => 5 or 7 or 9
+transformer.transform({ value: ["$some", 5, 7, 9] })
+// => 5 or 7 or 9
 ```
 
-Every transformer function could also be implemented as stand-alone
-transformer. More complex transofrmers, such as ```JsonTransformerTraversal```
-cannot be realized as tronsformer functions.
+Every transformer function can also be implemented as stand-alone
+transformer. The contrary, however, is not true: More complex
+transformers, such as ```JsonTransformerTraversal``` (see below),
+cannot be realized as transformer functions.
 
-## Complex Example
+Transformers can be connected to more complex transformers
+by means of the ```pipe``` method. For instance, the traversal
+transformer ```JsonTransformerTraversal``` recursively
+traverses a JSON object and applies the transformers of
+the pipe to each element.
 
-By means of this package it is, e.g., possible to initialize
-a memory game (pairs).
+In the next example there is a third transformer used:
+The level transformer ```JsonTransformerLevel``` replaces the
+string ```"$level"``` by the level of the JSON container which it
+is a member of.
+
+```ts
+Import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+Import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
+Import { JsonFunctionSome }         from '@wljkowa/json-transformer';
+
+const
+  transformer =
+         new JsonTransformerTraversal()
+   .pipe(new JsonTransformerLevel())
+   .pipe(new JsonTransformerSome());
+
+transformer.transform
+({ value: ["$some", "$level", ["$level"], [["$level"]] })
+// => 1 or [2] or [[3]]
+```
+
+## REST API Example
+
+One area where JSON transformers are useful are REST APIs.
+Before delivering JSON data to a client you can define approriate
+JSON templates. Those templates can be transformed to the
+JSON to be delivered, by using the transformers ```JsonTransformerTraversal```
+and ```JsonTransformerTemplateFunctions```.
+
+The first transformer has already been introduced, the
+second transformer tests whether the current element
+is a string. If so, it looks into the data object
+(which may be passed either to the transformer itself
+as default data object or to the method ```transform```
+as current data object) whether there are appropiate
+replacement values for specific string templates
+(```${...}```). If such a replacement value is found,
+the string template (not the whole string) is replaced
+by the value found in the data object.
+
+In contrast to ```JsonTransformerTemplate``` the
+```JsonTransformerTemplateFunctions``` transformer also
+supports string templates with function calls: ```${...(...)}```.
+If such a template is found and a suitable function is found
+in the data object that function is invoked to compute the
+replacement value.
+
+```ts
+Import { JsonTransformerTraversal }         from '@wljkowa/json-transformer';
+Import { JsonTransformerTemplateFunctions } from '@wljkowa/json-transformer';
+
+const
+  transformer =
+         new JsonTransformerTraversal()
+   .pipe(new JsonTransformerTemplateFunctions()),
+  
+  restTemplate =
+  { "links":
+    { "self":   "${base}/articles",
+      "parent": "${base}"
+    },
+  
+    "data": "${articles()}"
+  },
+  
+  data =
+  { base:     "https://www.example.com/v1",
+    articles: () =>
+              [ { id: 1, type: "articels", title: "Apple"  },
+                { id: 2, type: "articles", title: "Orange" },
+              ]
+              // usually computed by calling some database service
+  };
+
+console.log
+( transformer.transform({ value: restTemplate, data: data }) );
+
+// =>
+// { "links":
+//   { "self":   "https://www.example.com/v1/articles",
+//     "parent": "https://www.example.com/v1"
+//   },
+//   "data":
+//   [ { "id": 1, type: "articels", title: "Apple" },
+//     { "id": 2, type: "articles", title: "Orange" }
+//   ]
+// }
+```
+
+## Complex Game Level Example
+
+A game level, e.g., often is described by a JSON file. Many elements of
+a level are usually created randomly, the size of the level may depend on
+the size of the browser window etc.
+
+Below is a slightly more complex example: The JSON transformer package
+is used to shuffle the tokens of a memory game (Pairs).
+
+```JsonTransformerStringReplace``` replaces certain strings by
+values found in the data object. It is less complex and more
+performant than ```JsonTransformerTemplate``` as it does not
+support string templates. It only replaces complete strings
+by other values.
 
 ```ts
 import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
@@ -74,13 +176,13 @@ import { JsonFunctionSequence }         from '@wljkowa/json-transformer';
 import { JsonFunctionShuffle }          from '@wljkowa/json-transformer';
 import { JsonFunctionUnnest }           from '@wljkowa/json-transformer';
 
-
 const
   transformer =  
           new JsonTransformerTraversal
-              ({ data: { "@noOfPairs": 10,
-                         "@image":     i => 'image'+i
-                       }
+              ({ data:
+                 { "@noOfPairs": 10,
+                   "@image":     i => 'image'+i
+                 }
               })
     .pipe(new JsonTransformerFunction
               ({ init:
@@ -109,16 +211,6 @@ const
            }
   };
 
-console.log(transformer
-              .transform({ value: pairs,
-                           data:  { "@noOfPairs": 4 }
-                        })
-           );
-// =>
-// { cards: [ 'image1', 'image2', 'image3', 'image4' ],
-//   board: [ 1, 4, 2, 3, 3, 4, 1, 2 ]
-// }
-
 console.log(transformer.transform({ value: pairs }));
 // =>
 // { cards:
@@ -134,15 +226,26 @@ console.log(transformer.transform({ value: pairs }));
 //   ]
 // }
 
-console.log(transformer
-             .transform
-              ({ value: pairs,
-                 data:  
-                 { "@noOfPairs": 20,
-                   "@image":     i => 'bild'+('__'+i).slice(-3)
-                 }
-              })
-           );
+console.log
+( transformer.transform
+  ({ value: pairs,
+     data:  { "@noOfPairs": 4 }
+  })
+);
+// =>
+// { cards: [ 'image1', 'image2', 'image3', 'image4' ],
+//   board: [ 1, 4, 2, 3, 3, 4, 1, 2 ]
+// }
+
+console.log
+( transformer.transform
+  ({ value: pairs,
+     data:  
+     { "@noOfPairs": 20,
+       "@image":     i => 'bild'+('__'+i).slice(-3)
+     }
+  })
+);
 // =>
 // { cards:
 //   [ 'bild__1', 'bild__2', 'bild__3', 'bild__4',
@@ -163,7 +266,8 @@ console.log(transformer
 
 ## More Examples
 
-See directories ```test``` and ```examples``` for many more examples.
+See directories ```examples_cjs```,  ```examples_es6```, and ```test``` for
+many more examples.
 
 ## License
 

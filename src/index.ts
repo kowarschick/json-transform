@@ -4,31 +4,32 @@
  * @license   MIT
  */
 
+import { basename } from 'path';
+
 export * from './types' 
 
-// JSON transofrmers
-export * from './transformer'; 
-export * from './null'; 
-export * from './function'; 
-export * from './traversal'; 
-export * from './traversal_breadth_first'; 
-export * from './traversal_restricted'; 
-export * from './string_replace';
-export * from './template'; 
-export * from './template_functions'; 
+// JSON transformers
+export * from './transformer';             // base transformer
+
+export * from './level';                   // also exists as function transformer
+export * from './null';                    // transforms undefined to null
+export * from './random';                  // also exists as function transformer
+export * from './some';                    // also exists as function transformer
+export * from './traversal';               // traveres a JSON value depth first
+export * from './traversal_breadth_first'; // traveres a JSON value breath first
+export * from './traversal_restricted';    // traverses only certain levels
+export * from './string_replace';          // replaces string by values found in data
+export * from './template';                // replaces values within strings by data values
+export * from './template_functions';      // replaces values within strings by data values/functions
 
 // JSON functions
-export * from './function/count'; 
-export * from './function/aggregate';
-export * from './function/shuffle'; 
-export * from './function/some'; 
-export * from './function/unnest'; 
-export * from './function/duplicate'; 
-export * from './function/random';
-export * from './function/sequence';
-export * from './function/level'; 
-
-// JSON transformers that also exists as JSON functions
-export * from './some'; 
-export * from './random';
-export * from './level';
+export * from './function';                // transformer that invokes JSON functions 
+export * from './function/aggregate';      // aggregate functions such as avarage, min, max, sum
+export * from './function/count';          // array length
+export * from './function/duplicate';      // duplicates elemen ts of an array
+export * from './function/level';          // replaces a level string by the current level
+export * from './function/random';         // computes random values
+export * from './function/sequence';       // generates sequences
+export * from './function/shuffle';        // shuffles an array content
+export * from './function/some';           // randomly fetches an element of an array
+export * from './function/unnest';         // flattens an array

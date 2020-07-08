@@ -80,6 +80,14 @@ function sequence({value, data, init, rename = name => name}:
   return c_result;
 }
 
+/**
+ * This constant defines a JSON function that returns
+ * an array with a sequenc of numbers. Those numbers 
+ * may be wither prefixed by a specific string of formated
+ * by a format function. 
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionSequence: JsonFunctionDescriptor =
 { name:     '$sequence',

@@ -24,6 +24,13 @@ export
 function level( {level}: JsonFunctionParameters<JsonString> ): JsonNumber
 { return level; }
 
+/**
+ * This constant defines a JSON function that returns
+ * the the level of the container within the JSON value
+ * that contains the current value <code>$level</code>.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionLevel: JsonFunctionDescriptor =
 { name:     '$level',

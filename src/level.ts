@@ -12,8 +12,9 @@ import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
- * The string <code>$level<code> is transformed to the current level number.
- * All other Templates are returned without modification.
+ * The string <code>$level<code> is transformed to the level number
+ * of the JSON containter (array, object) that contains this string.
+ * All other strings are returned without modification.
  *
  * @extends  module:transformer.JsonTransformer
  *

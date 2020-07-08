@@ -76,7 +76,12 @@ function count( {value}: JsonFunctionParameters<JsonArray>,
               ): JsonValue
 { return value.length-begin; }
 
-
+/**
+ * This constant defines a JSON function that returns
+ * the number of the elements of an array.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionCount: JsonFunctionDescriptor =
 { name:     '$count',

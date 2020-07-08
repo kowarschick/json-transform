@@ -11,16 +11,14 @@ import { JsonFunctionDescriptorObject, JsonFunctionDescriptorString } from './ty
 import { JsonFunction, JsonFunctionParameters }                       from './types';
 import { JsonTransformer, JsonTransformerParameters }                 from './transformer';
 
-export 
-class JsonTransformerFunction extends JsonTransformer
-{/**
+/**
   * A JSON string ({@link JsonString}) is considered 
   * to be a function call, if that string is equal 
-  * to the name of  an string function 
+  * to the name of a string function 
   * ({@link JsonFunction<JsonString>}) 
   * that has been registered at construction time. 
   * The JSON string is passed as data object 
-  * to that function. Besinde, the level and
+  * to that function. Beside, the level and
   * the data object are passed.
   * 
   * A JSON array ({@link JsonObject}) 
@@ -41,7 +39,7 @@ class JsonTransformerFunction extends JsonTransformer
   * time. The JSON object is passed as data 
   * object to that function.
   * 
-  * If there is is no object function but an 
+  * If there is no object function but an 
   * array function ({@link JsonFunction<JsonArray>})
   * with that name and if the JSON object has
   * an attribute name <code>$value</code> whose
@@ -54,9 +52,10 @@ class JsonTransformerFunction extends JsonTransformer
   * @extends  module:transformer.JsonTransformer
   *
   * @param {JsonTransformerParameters} _
-  * @param {JsonFunctionDescriptor[]}  [_.init = []]
   */
-  constructor (_: JsonTransformerParameters = {}) 
+export 
+class JsonTransformerFunction extends JsonTransformer
+{ constructor (_: JsonTransformerParameters = {}) 
   { super(_);    
     this.initialize();
   

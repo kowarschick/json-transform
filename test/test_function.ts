@@ -119,8 +119,8 @@ function f_test(t: JsonTransformerFunction)
   );
 
   test
-  ( '["$min] should be transformed to Infinity', 
-    () => { expect(t.transform({ value: ["$min"] })).toBe(Infinity); }
+  ( '["$min] should be transformed to Number.MAX_VALUE', 
+    () => { expect(t.transform({ value: ["$min"] })).toBe(Number.MAX_VALUE); }
   );
 
   test
@@ -129,8 +129,8 @@ function f_test(t: JsonTransformerFunction)
   );
 
   test
-  ( '["$max] should be transformed to -Infinity', 
-    () => { expect(t.transform({ value: ["$max"] })).toBe(-Infinity); }
+  ( '["$max] should be transformed to -Number.MAX_VALUE', 
+    () => { expect(t.transform({ value: ["$max"] })).toBe(-Number.MAX_VALUE); }
   );
 
   test

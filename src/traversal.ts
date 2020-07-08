@@ -13,6 +13,8 @@ import { JsonTransformer, JsonTransformerParameters }     from './transformer';
  * This transformer applies its pipe transformer 
  * recursively to all elements of the JSON value. 
  * 
+ * <h4>Examples</h4>
+ * 
  * ```ts
  * import { JsonTransformerTraversal }   from '@wljkowa/json-transformer';
  * import { JsonTransformerLevel } from '@wljkowa/json-transformer';

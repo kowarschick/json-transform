@@ -21,6 +21,7 @@ const
  * Computes random numbers within intervals.
  *
  * <h4>Examples</h4>
+ * 
  * ```ts
  * import { JsonTransformerRandom } from '@wljkowa/json-transformer';
  * 

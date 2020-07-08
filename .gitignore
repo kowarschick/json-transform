@@ -16,7 +16,7 @@ node_modules/
 # ignore generated documentation
 
 transformer.commented/
-docs/@wljkowa/
+docs/
 
 # -------------------------
 # BEGIN Whitelisted Files

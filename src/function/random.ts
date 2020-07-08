@@ -104,6 +104,12 @@ function random
   return isJsonNumber(c_scale) ? l_result * c_scale : l_result;
 }
 
+/**
+ * This constant defines a JSON function that returns
+ * random value that satisfied certain conditions.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionRandom: JsonFunctionDescriptor =
 { name:     '$random',

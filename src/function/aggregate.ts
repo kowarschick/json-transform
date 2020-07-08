@@ -71,26 +71,47 @@ function aggregate( {value, init}: JsonFunctionParameters<JsonArray>,
   { return c_default }                
 }
 
+/**
+ * This constant defines the minimum aggregator that returns
+ * the minimum value of an array of numbers. If the array has no
+ * elements, <code>Number.MAX_VALUE</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionMin: JsonFunctionDescriptor =
 { name:     '$min',
   type:     JsonType.Array,
   function: aggregate,
-  init:     { default:   Infinity, 
+  init:     { default:   Number.MAX_VALUE, 
               aggregate: (a: number, b: number) => Math.min(a,b) 
             }
 }
 
+/**
+ * This constant defines the maximium aggregator that returns
+ * the maximum value of an array of numbers. If the array has no
+ * elements, <code>-Number.MAX_VALUE</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionMax: JsonFunctionDescriptor =
 { name:     '$max',
   type:     JsonType.Array,
   function: aggregate,
-  init:     { default:   -Infinity, 
+  init:     { default:   -Number.MAX_VALUE, 
               aggregate: (a: number, b: number) => Math.max(a,b) 
             }
 }
 
+/**
+ * This constant defines the minimum string aggregator that returns
+ * the minimum value of an array of strings. If the array has no
+ * elements, <code>null</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionMinString: JsonFunctionDescriptor =
 { name:     '$min_string',
@@ -105,6 +126,13 @@ const JsonFunctionMinString: JsonFunctionDescriptor =
             }
 }
 
+/**
+ * This constant defines the maximum string aggregator that returns
+ * the maximum value of an array of strings. If the array has no
+ * elements, <code>null</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionMaxString: JsonFunctionDescriptor =
 { name:     '$max_string',
@@ -119,6 +147,13 @@ const JsonFunctionMaxString: JsonFunctionDescriptor =
             }
 }
 
+/**
+ * This constant defines the sum aggregator that returns
+ * the sum of the elements of an array of numbers. If the array has no
+ * elements, <code>0</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionSum: JsonFunctionDescriptor =
 { name:     '$sum',
@@ -129,6 +164,13 @@ const JsonFunctionSum: JsonFunctionDescriptor =
             }
 }
 
+/**
+ * This constant defines the product aggregator that returns
+ * the product of the elements of an array of numbers. If the array has no
+ * elements, <code>1</code> is returned.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionProduct: JsonFunctionDescriptor =
 { name:     '$product',
@@ -139,6 +181,14 @@ const JsonFunctionProduct: JsonFunctionDescriptor =
             }
 }
 
+/**
+ * This constant defines the average aggregator that returns
+ * the average of the elements of an array of numbers. If the array has no
+ * elements, <code>Infinity</code> or <code>-Infinity</code> is returned.
+ * Formally, both elements are no JSON values. 
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionAverage: JsonFunctionDescriptor =
 { name:     '$average',

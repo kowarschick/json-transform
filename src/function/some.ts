@@ -61,6 +61,12 @@ function some( {value}: JsonFunctionParameters<JsonArray>,
          : value[Math.floor(Math.random()*(c_length-begin))+begin];
 }
 
+/**
+ * This constant defines a JSON function that randomly
+ * returns an element of an array.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionSome: JsonFunctionDescriptor =
 { name:     '$some',

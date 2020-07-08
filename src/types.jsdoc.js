@@ -52,18 +52,6 @@
  */
 
 /**
- * @global 
- * @typedef {(JsonPrimitive|JsonArray|JsonObject)} JsonValue
- * @description 
- *   A JSON value is either a primitive value 
- *   ({@link JsonPrimitive}), or 
- *   an array of JSON values ({@link JsonArray}) or a
- *   map object the members of which consist of a key string
- *   and a JSON value ({@link JsonObject}) 
- *   <p>
- */
-
-/**
  * @global
  * @typedef {Array<JsonValue>} JsonArray 
  * @description
@@ -79,20 +67,39 @@
  *   <code>KEY</code> denotes <code>[key: string]</code>.
  */
 
+ /**
+ * @global 
+ * @typedef {(JsonPrimitive|JsonArray|JsonObject)} JsonValue
+ * @description 
+ *   A JSON value is either a primitive value 
+ *   ({@link JsonPrimitive}), or 
+ *   an array of JSON values ({@link JsonArray}) or a
+ *   map object the members of which consist of a key string
+ *   and a JSON value ({@link JsonObject}) 
+ *   <p>
+ */
+
 /** 
  * @global 
  * @description
  *   <code>&lt;T extends JsonValue = JsonValue&gt;</code>
- * @typedef {{value: T, data: Data, level: number}} JsonFunctionParameters
+ * @typedef {{value: T, level: number, data: Data, init: Init, rename: Function}} JsonFunctionParameters
  * @property {JsonValue} value
  *   The JSON value to be transformed.
+ * @property {number} level
+ *   The current level of <code>value</code> within the JSON value that has been passed to 
+ *   the root transformer.
  * @property {Data} data
  *   A data object the members of which can be used by transformers to replace
  *   or compute certain JSON values.
- * @property {number} level
- *   The current level of <code>value</code> within the JSON value passed to 
- *    the root transformer.
- */
+ * @property {?Init} init
+ *   An initialization value that has been passed to a transformer to initialize
+ *   the JSON function it calls.
+ * @property {?Function} rename 
+ *   A function <code>(_: string) => string</code> that replaces a standard attribute
+ *   name by a new name (which has been passed to the transformer that calls the
+ *   JSON function)
+*/
 
 /** 
  * @global 
@@ -102,52 +109,14 @@
  *   A JSON function can be passed via the <code>data: {@link Data}</code> 
  *   parameter passed to json transformers and other json functions to support
  *   them in the transformation.
- *   <p>
- *   As each JavaScript function is an <code>Object</code>, too, it may
- *   additionally have properties. There are two properties that are important
- *   for json functions:
- *   <ul>
- *   <li><code>readonly type?: {@link JsonType}</code></li>
- *   <li><code>readonly name?: string</code></li>
- *   </ul>
- *   <p>
- *   By means of the type property a transformer using a JSON function 
- *   can determine to which types of JSON values the helper function 
- *   can be applied.
  * @callback JsonFunction
  * @param    {JsonFunctionParameters} _
  * @param    {JsonValue} _.value  see {@link JsonFunctionParameters}
- * @param    {Data}      _.data   see {@link JsonFunctionParameters}
  * @param    {number}    _.level  see {@link JsonFunctionParameters}
- * @param    {Init}      _.init   see {@link JsonFunctionParameters}
+ * @param    {Data}      _.data   see {@link JsonFunctionParameters}
+ * @param    {?Init}     _.init   see {@link JsonFunctionParameters}
+ * @param    {?Function} _.init   see {@link JsonFunctionParameters}
  * @returns  {JsonValue}
- */
-
-/**
- * @global 
- * @interface JsonTransformerProperties
- * @description
- * This interface defines all transformer properties 
- * that can be overridden in subclasses. You should never override
- * BOTH <code>transformerJsonPartialXXX</code> and some 
- * of the functions <code>transformerJsonStringXXX</code>,
- * <code>transformerJsonNumberXXX</code>, <code>transformerJsonBooleanXXX</code>,
- * or <code>transformerJsonNumberNull</code> within the same transformer.
- * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitive
- * @property { JsonFunction<JsonArray>     | null } transformerJsonArray
- * @property { JsonFunction<JsonObject>    | null } transformerJsonObject
- * @property { JsonFunction<JsonString>    | null } transformerJsonString
- * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumber
- * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBoolean
- * @property { JsonFunction<JsonNull>      | null } transformerJsonNull
- * @property { JsonFunction }                       transformerPipe - invoke the child transformer
- * @property { JsonFunction<JsonPrimitive> | null } transformerJsonPrimitiveAfter
- * @property { JsonFunction<JsonArray>     | null } transformerJsonArrayAfter
- * @property { JsonFunction<JsonObject>    | null } transformerJsonObjectAfter
- * @property { JsonFunction<JsonString>    | null } transformerJsonStringAfter
- * @property { JsonFunction<JsonNumber>    | null } transformerJsonNumberAfter
- * @property { JsonFunction<JsonBoolean>   | null } transformerJsonBooleanAfter
- * @property { JsonFunction<JsonNull>      | null } transformerJsonNullAfter 
  */
 
 /**
@@ -156,7 +125,8 @@
  * @description 
  *   To JSON transformers and to JSON transformer functions
  *   data objects can be passed. The keys of those data objects
- *   must be strings, the values either JSON values ({@Link JsonValue})
- *   or JSON functions ({@Link JsonFunction}). Those values are nullable.
- * @property {(JsonValue|JsonFunction|null)} [key: string]
+ *   must be strings, the values either JSON values ({@Link JsonValue}),
+ *   JSON functions ({@Link JsonFunction}) or JSON value functions
+ *   ({@Link JsonValueFunction}). Those values are nullable.
+ * @property {(JsonValue|JsonFunction|JsonValueFunction)} [key: string]
  */

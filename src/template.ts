@@ -26,6 +26,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * should be of type <code>string</code>. 
  * <code>_.value</code>.  
  *
+ * <h4>Examples</h4>
+ * 
  * ```ts
  * import { JsonTransformerTemplate } from '@wljkowa/json-transformer';
  * 

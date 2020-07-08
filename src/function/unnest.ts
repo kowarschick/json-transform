@@ -63,6 +63,12 @@ function unnest( {value}: JsonFunctionParameters<JsonArray>,
   return c_result;
 }  
 
+/**
+ * This constant defines a JSON function that 
+ * flattens/unnests an array by one level.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionUnnest: JsonFunctionDescriptor =
 { name:     '$unnest',

@@ -18,6 +18,7 @@ const SOME = '$some';
  * elements, <code>null</code> is returned.
  * <p>
  * Otherwise the Array itself is returned as value.
+ * 
  * <h4>Examples</h4>
  * 
  * ```ts

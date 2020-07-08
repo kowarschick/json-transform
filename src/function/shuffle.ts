@@ -54,6 +54,13 @@ export function shuffle( {value}: JsonFunctionParameters<JsonArray>,
   return c_value;
 } 
 
+/**
+ * This constant defines a JSON function that returns
+ * a clone of the input array whose elements hae been
+ * shufled thoroughly. 
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionShuffle: JsonFunctionDescriptor =
 { name:     '$shuffle',

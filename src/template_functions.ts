@@ -37,6 +37,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * curly bracket and the closing bracket of the function call 
  * (do: <code>"...${f(...)}..."</code>, don't: <code>"...${f (...) }..."</code>).
  * 
+ * <h4>Examples</h4>
+ * 
  * ```ts
  * // es6; for typescript see test/test_traversal_template_functions.ts
  * import { JsonTransformerTraversal,

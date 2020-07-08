@@ -90,6 +90,13 @@ function duplicate({value, init, rename = name => name}:
   return c_result;
 }
 
+/**
+ * This constant defines a JSON function that duplicates
+ * the number of the elements of an array several times. 
+ * It may also flatten the array.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
 export
 const JsonFunctionDuplicate: JsonFunctionDescriptor =
 { name:     '$duplicate',

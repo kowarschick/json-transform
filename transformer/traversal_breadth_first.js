@@ -5,7 +5,7 @@ const transformer_1 = require("./transformer");
 class JsonTransformerTraversalBreadthFirst extends transformer_1.JsonTransformer {
     constructor(_ = {}) {
         super(_);
-        this.transformerJsonPrimitive = ({ value }) => value;
+        this.transformerJsonPrimitive = (_) => super.transformerPipe(_);
         this.transformerJsonArray = ({ value, data, level }) => {
             const c_level = level + 1;
             let l_result = [];

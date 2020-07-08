@@ -58,7 +58,7 @@ trace.transform( transformer, memory, {"@noOfPairs": 4} );
 trace.transform( transformer, memory );
 trace.transform( transformer, 
                  memory, 
-                 { "@noOfPairs": 7,
+                 { "@noOfPairs": 11,
                    "@image":     i => 'bild'+('__'+i).slice(-3)
                  }
                );

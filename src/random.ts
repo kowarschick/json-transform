@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonObject, isJsonNumber }                   from './types';
+import { JsonObject, isJsonNumber, InitMap }          from './types';
 import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
@@ -77,15 +77,16 @@ const
 */
 export 
 class JsonTransformerRandom extends JsonTransformer
-{ constructor ( { init = { min:           0,
-                           max:           1,
-                           isInteger:     false,
-                           scale:         null,
-                           gzp:           1,
-                         }, 
-                  ..._
-                }: JsonTransformerParameters = {}
-              ) 
+{ constructor 
+  ( { init = { min:           0,
+               max:           1,
+               isInteger:     false,
+               scale:         null,
+               gzp:           1,
+             }, 
+      ..._
+    }: JsonTransformerParameters = {}
+  ) 
   { super({ init, ..._ });
     this.initialize();
   }
@@ -93,7 +94,7 @@ class JsonTransformerRandom extends JsonTransformer
   transformerJsonObject: JsonFunction<JsonObject> = 
   ({value, data}: JsonFunctionParameters<JsonObject>) => 
   { const 
-      c_init = this.init as JsonObject,
+      c_init = this.init as InitMap,
       c_min  = (value?.[this.rename(MIN)] ?? c_init.min) as number,
       c_max  = (value?.[this.rename(MAX)] ?? c_init.max) as number;
 

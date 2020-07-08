@@ -5,9 +5,9 @@
  * @license   MIT
  */
 
-import { JsonType, JsonArray, JsonObject, JsonValue }     from '../types';
-import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
-import { JsonTransformerTraversal }                       from '../traversal';
+import { JsonType, JsonArray, JsonObject, JsonValue, InitMap } from '../types';
+import { JsonFunctionParameters, JsonFunctionDescriptor }      from '../types';
+import { JsonTransformerTraversal }                            from '../traversal';
 
 const 
   VALUE   = '$value',
@@ -70,7 +70,7 @@ function duplicate({value, init, rename = name => name}:
          JsonFunctionParameters<JsonObject>)
 { const 
     c_clone_transformer = new JsonTransformerTraversal(),
-    c_init              = init as JsonObject,
+    c_init              = init as InitMap,
     c_value             = (value?.[rename(VALUE)]   ?? null) as JsonValue,
     c_times             = (value?.[rename(TIMES)]   ?? c_init.times) as number,
     c_flatten           = (value?.[rename(FLATTEN)] ?? c_init.flatten) as boolean,

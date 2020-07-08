@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonValue, JsonObject }     from './types';
+import { JsonValue, InitMap }        from './types';
 import { JsonFunctionParameters, }   from './types';
 import { JsonTransformerTraversal }  from './traversal';
 import { JsonTransformerParameters } from './transformer';
@@ -39,7 +39,7 @@ class JsonTransformerTraversalRestricted extends JsonTransformerTraversal
 
   /** @override */
   transformerPipe(_: JsonFunctionParameters): JsonValue
-  { const c_init = this.init as JsonObject;
+  { const c_init = this.init as InitMap;
     return (   (c_init.minLevel as number) <= _.level 
             && _.level <= (c_init.maxLevel as number))
            ? super.transformerPipe(_)

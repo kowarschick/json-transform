@@ -5,8 +5,8 @@
  * @license   MIT
  */
 
-import { JsonType, JsonObject, JsonNumber, isJsonNumber } from '../types';
-import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
+import { JsonType, JsonObject, JsonNumber, isJsonNumber, InitMap } from '../types';
+import { JsonFunctionParameters, JsonFunctionDescriptor }          from '../types';
 
 const 
   MIN        = '$min',
@@ -80,7 +80,7 @@ export
 function random
 ({value, data, init, rename = name => name}: JsonFunctionParameters<JsonObject>): JsonNumber
 { const 
-  c_init = init as JsonObject,
+  c_init = init as InitMap,
   c_min  = (value?.[rename(MIN)] ?? c_init.min) as number,
   c_max  = (value?.[rename(MAX)] ?? c_init.max) as number;
 

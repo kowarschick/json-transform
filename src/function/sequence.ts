@@ -5,7 +5,7 @@
  * @license   MIT
  */
 
-import { JsonType, JsonArray, JsonObject }                from '../types';
+import { JsonType, JsonArray, JsonObject, InitMap }       from '../types';
 import { JsonValueFunction }                              from '../types';
 import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 
@@ -55,7 +55,7 @@ export
 function sequence({value, data, init, rename = name => name}: 
         JsonFunctionParameters<JsonObject>)
 { const 
-    c_init              = init as JsonObject,
+    c_init              = init as InitMap,
     c_first             = (value?.[rename(FIRST)]  ?? c_init.first)  as number,
     c_last              = (value?.[rename(LAST)]   ?? c_init.last)   as number,
     c_prefix            = (value?.[rename(PREFIX)] ?? c_init.prefix) as string|null,

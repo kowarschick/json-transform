@@ -16,6 +16,20 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * of the JSON containter (array, object) that contains this string.
  * All other strings are returned without modification.
  *
+ * ```ts
+ * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+ * import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerTraversal()
+ *     .pipe(new JsonTransformerLevel())
+ *
+ * t.transform({ value: "$level" }
+ * // => 0
+ * 
+ * t.transform({ value: ["$level", ["$level"], [["$level"]] }
+ * // [1, [2], [[3]]]
+ * ```
+ * 
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _

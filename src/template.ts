@@ -31,15 +31,17 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * ```ts
  * import { JsonTransformerTemplate } from '@wljkowa/json-transformer';
  * 
- * const t1 = new JsonTransformerTemplate
- *            ({ data: {"abc": [123], "hello": "Hallo"} });
+ * const t = new JsonTransformerTemplate
+ *               ({ data: {"abc": [123], "hello": "Hallo"} });
  * 
- * t1.transform({ value: "${abc}" }) 
- *    // => [123]
- * t1.transform({ value: " ${abc} " })
- *    // => " [123] "
- * t1.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
- *    // => "Hallo, Wolfgang!"
+ * t.transform({ value: "${abc}" }) 
+ * // => [123]
+ *
+ * t.transform({ value: "-${abc}-" })
+ * // => "-[123]-"
+ * 
+ * t.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
+ * // => "Hallo, Wolfgang!"
  * ```
  * 
  * @extends  module:transformer.JsonTransformer

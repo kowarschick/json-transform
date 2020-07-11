@@ -14,13 +14,13 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * Flattens an array of arrays, i.e., returns an array that 
  * contains the elements of the arrays inside <code>_.value</value>.
  * Elements of <code>_.value</value> that are no arrays are 
- * cpoied without modifications into the result array. 
+ * copied without modifications into the result array. 
  * 
  * <h4>Examples</h4>
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonTransformerUnnest }   from '@wljkowa/json-transformer';
+ * import { JsonFunctionUnnest }      from '@wljkowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({ init: [ JsonFunctionUnnest ] })

@@ -16,6 +16,22 @@ import { JsonTransformerParameters } from './transformer';
  * that fulfil the following condition:
  * 
  * ```_.init.minLevel <= _.level && _.level <= _.init.maxLevel``` 
+ *
+ * <h4>Examples</h4>
+ * 
+ * ```ts
+ * import { JsonTransformerTraversalRestricted } from '@wljkowa/json-transformer';
+ * import { JsonTransformerLevel }               from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerTraversalRestricted({init: {minLevel: 2, maxLevel: 3}})
+ *     .pipe(new JsonTransformerLevel());
+ * 
+ * t.transform({ value: "$level" }) 
+ * // => "$level"
+ * 
+ * t.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level", ["$level"]]]] })   
+ * // => ["$level", {"level": 2}, [2, [3, ["$level"]]]]  
+ * ```
  * 
  * @extends module:traversal.JsonTransformerTraversal
  * 

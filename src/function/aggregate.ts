@@ -14,20 +14,24 @@ import { JsonFunctionParameters }                    from '../types';
  * @description
  * Aggregates an array of JSON values to one JSON value.
  * If the length is equal to zero, <code>_.init.default</code> is returned.
+ * Optionally, a initialization function can be stated to compute the default value.
  * Otherwise <code>_.init.aggregate</code> is succesively applied to 
- * the aggregation value and the elements of the array.
+ * the aggregation value and the elements of the array. Optionally, 
+ * a finalization function can be used to further process the result 
+ * of the aggregation.
  * 
  * @param {Partial<JsonFunctionParameters<JsonArray>>} _
  *   An object containing the following attributes.
  * @param {JsonArray}     _.value           
  *   The JSON array to be transformed.
  * @param {Init}          _.init
- * @param {JsonValue}     _.init.default    
- *   The default/start value for empty arrays.
  * @param {JsonNumber}    [_.init.begin = 0]    
- *   The index where to begin the aggregation
+ *   The index where to begin the aggregation.
+ * @param {JsonValue}     _.init.default    
+ *   The default/start value for empty arrays (i.e., if <code>_.init.begin >= _.value.length</code>).
  * @param {Function|null} [_.init.initialize = null]
- *   A function <code>(array, begin, default) => defaultValue</code> to set the default value. 
+ *   A function <code>(array, begin, default) => defaultValue</code> to compute a default value. 
+ *   This is useful if the default value depends on the JSON array.
  * @param {Function}      _.init.aggregate  
  *   A function <code>(aggregation, element, array, begin, index) => newAggregation</code>
  *   to compute the aggregation.
@@ -36,7 +40,7 @@ import { JsonFunctionParameters }                    from '../types';
  *   to finally change the aggregation in one way or another.
  * @param {boolean}       begin             
  *   <code>0</code> in case of regular arrays;
- *   <code>1</code> in case of function call arrays.
+ *   <code>1</code> in case of function call arrays (<code>['$function', value1, value2, ...]</code>).
  *   This value is added to <code>_.init.begin</code>
  *   
  * @returns {JsonValue}
@@ -47,8 +51,8 @@ function aggregate( {value, init}: JsonFunctionParameters<JsonArray>,
                   ): JsonValue
 { const 
     c_init       = init               as InitMap,
-    c_default    = c_init.default     as JsonValue,
     c_begin      = ((c_init.begin??0) as number + begin) as number,
+    c_default    = c_init.default     as JsonValue,
     c_initialize = c_init.initialize  as Function|null,
     c_aggregate  = c_init.aggregate   as Function,
     c_finalize   = c_init.finalize    as Function|null;
@@ -72,9 +76,39 @@ function aggregate( {value, init}: JsonFunctionParameters<JsonArray>,
 }
 
 /**
- * This constant defines the minimum aggregator that returns
+ * This constant defines the minimum aggregator. It returns
  * the minimum value of an array of numbers. If the array has no
  * elements, <code>Number.MAX_VALUE</code> is returned.
+ *
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionMin }          from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionMin] });
+ * 
+ * t.transform({ value: ["$min", 5, 4] }); // => 4
+ * t.transform({ value: ["$min", 5] });    // => 5 
+ * t.transform({ value: ["$min"] });       // => 1.7976931348623157e+308
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$min"
+ *                 "$value":    [5, 4] 
+ *               }
+ *            });                          // => 4
+ * t.transform({ value: 
+ *               { "$function": "$min"
+ *                 "$value":    [5] 
+ *               }
+ *            });                          // => 5
+ * t.transform({ value: 
+ *               { "$function": "$min"
+ *                 "$value":    [] 
+ *               }
+ *            });                          // => 1.7976931348623157e+308
+ * ```
+ *
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -89,9 +123,39 @@ const JsonFunctionMin: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the maximium aggregator that returns
+ * This constant defines the maximium aggregator. It returns
  * the maximum value of an array of numbers. If the array has no
  * elements, <code>-Number.MAX_VALUE</code> is returned.
+*
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionMax }          from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionMax] });
+ * 
+ * t.transform({ value: ["$max", 5, 4] }); // => 4
+ * t.transform({ value: ["$max", 5] });    // => 5 
+ * t.transform({ value: ["$max"] });       // => 1.7976931348623157e+308
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$max"
+ *                 "$value":    [5, 4] 
+ *               }
+ *            });                          // => 4
+ * t.transform({ value: 
+ *               { "$function": "$max"
+ *                 "$value":    [5] 
+ *               }
+ *            });                          // => 5
+ * t.transform({ value: 
+ *               { "$function": "$max"
+ *                 "$value":    [] 
+ *               }
+ *            });                          // => 1.7976931348623157e+308
+ * ```
+ * 
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -106,9 +170,40 @@ const JsonFunctionMax: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the minimum string aggregator that returns
- * the minimum value of an array of strings. If the array has no
+ * This constant defines the minimum string aggregator. It returns
+ * the minimum value of an array of strings, which are compared
+ * by <code>localeCompare</code>. If the array has no
  * elements, <code>null</code> is returned.
+ *
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionMinString }    from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionMinString] });
+ * 
+ * t.transform({ value: ["$min_string", "b", "a"] }); // => "a"
+ * t.transform({ value: ["$min_string", "b"] });      // => "b" 
+ * t.transform({ value: ["$min_string"] });           // => null
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$min_string"
+ *                 "$value":    ["b", "a"] 
+ *               }
+ *            });                                     // => "a"
+ * t.transform({ value: 
+ *               { "$function": "$min_string"
+ *                 "$value":    ["b"] 
+ *               }
+ *            });                                     // => "b"
+ * t.transform({ value: 
+ *               { "$function": "$min_string"
+ *                 "$value":    [] 
+ *               }
+ *            });                                     // => null
+ * ```
+ * 
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -127,9 +222,39 @@ const JsonFunctionMinString: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the maximum string aggregator that returns
+ * This constant defines the maximum string aggregator. It returns
  * the maximum value of an array of strings. If the array has no
  * elements, <code>null</code> is returned.
+ *
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionMaxString }    from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionMaxString] });
+ * 
+ * t.transform({ value: ["$max_string", "b", "a"] }); // => "b"
+ * t.transform({ value: ["$max_string", "b"] });      // => "b" 
+ * t.transform({ value: ["$max_string"] });           // => null
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$max_string"
+ *                 "$value":    ["b", "a"] 
+ *               }
+ *            });                                     // => "b"
+ * t.transform({ value: 
+ *               { "$function": "$max_string"
+ *                 "$value":    ["b"] 
+ *               }
+ *            });                                     // => "b"
+ * t.transform({ value: 
+ *               { "$function": "$max_string"
+ *                 "$value":    [] 
+ *               }
+ *            });                                     // => null
+ * ```
+ * 
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -148,9 +273,39 @@ const JsonFunctionMaxString: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the sum aggregator that returns
+ * This constant defines the sum aggregator. It returns
  * the sum of the elements of an array of numbers. If the array has no
  * elements, <code>0</code> is returned.
+ * 
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionSum }          from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionSum] });
+ * 
+ * t.transform({ value: ["$sum", 5, 4] }); // => 9
+ * t.transform({ value: ["$sum", 5] });    // => 5 
+ * t.transform({ value: ["$sum"] });       // => 0
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$sum"
+ *                 "$value":    [5, 4] 
+ *               }
+ *            });                          // => 9
+ * t.transform({ value: 
+ *               { "$function": "$sum"
+ *                 "$value":    [5] 
+ *               }
+ *            });                          // => 5
+ * t.transform({ value: 
+ *               { "$function": "$sum"
+ *                 "$value":    [] 
+ *               }
+ *            });                          // => 0
+ * ```
+ *
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -165,9 +320,39 @@ const JsonFunctionSum: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the product aggregator that returns
+ * This constant defines the product aggregator. It returns
  * the product of the elements of an array of numbers. If the array has no
  * elements, <code>1</code> is returned.
+ *  
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { sonFunctionProduct }      from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionProduct] });
+ * 
+ * t.transform({ value: ["$product", 5, 4] }); // => 20
+ * t.transform({ value: ["$product", 5] });    // => 5 
+ * t.transform({ value: ["$product"] });       // => 1
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$product"
+ *                 "$value":    [5, 4] 
+ *               }
+ *            });                              // => 20
+ * t.transform({ value: 
+ *               { "$function": "$product"
+ *                 "$value":    [5] 
+ *               }
+ *            });                              // => 5
+ * t.transform({ value: 
+ *               { "$function": "$product"
+ *                 "$value":    [] 
+ *               }
+ *            });                              // => 1
+ * ```
+ *
  * @constant
  * @type {JsonFunctionDescriptor}
  */
@@ -182,10 +367,39 @@ const JsonFunctionProduct: JsonFunctionDescriptor =
 }
 
 /**
- * This constant defines the average aggregator that returns
- * the average of the elements of an array of numbers. If the array has no
- * elements, <code>Infinity</code> or <code>-Infinity</code> is returned.
- * Formally, both elements are no JSON values. 
+ * This constant defines the average aggregator. It returns
+ * the average of the elements of an array of numbers. The average 
+ * of an empty array is not defined (<code>NaN</code>).
+ *  
+ * <h4>Examples</h4> 
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { JsonFunctionAverage }     from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerFunction({ init: [JsonFunctionAverage] });
+ * 
+ * t.transform({ value: ["$average", 5, 4] }); // => 4.5
+ * t.transform({ value: ["$average", 5] });    // => 5 
+ * t.transform({ value: ["$average"] });       // => NaN
+ * 
+ * t.transform({ value: 
+ *               { "$function": "$average"
+ *                 "$value":    [5, 4] 
+ *               }
+ *            });                              // => 4.5
+ * t.transform({ value: 
+ *               { "$function": "$average"
+ *                 "$value":    [5] 
+ *               }
+ *            });                              // => 5
+ * t.transform({ value: 
+ *               { "$function": "$average"
+ *                 "$value":    [] 
+ *               }
+ *            });                              // => NaN
+ * ```
+ *
  * @constant
  * @type {JsonFunctionDescriptor}
  */

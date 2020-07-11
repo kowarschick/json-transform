@@ -46,8 +46,8 @@ interface JsonTransformer //extends JsonTransformerProperties
  * Objects of the class <code>JsonTransformer</code> transform JSON values 
  * into the same or other JSON values by applying JSON transformers. 
  * <p>
- * This transformer doesn'c_transformer make transformations by itself.
- * Mainly it is used as a superclass for other, more elaborate 
+ * This transformer doesn't make transformations by itself.
+ * It is used mainly as a superclass for other, more elaborate 
  * transformers. In addition, this transformer should be used 
  * as a top-level transformer if JSON values are to run 
  * through several independent pipes in succession.

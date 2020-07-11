@@ -13,33 +13,30 @@ import { JsonTransformer, JsonTransformerParameters }     from './transformer';
  * This transformer applies its pipe transformer 
  * recursively in a breadth first ordering 
  * to all elements of the JSON value. 
+ * <p>
+ * At the moment there are no transformers that yield
+ * different results for depth first and breadth first
+ * traversal.
  * 
  * <h4>Examples</h4>
  * 
  * ```ts
- * import { JsonTransformerTraversalBreadthFirst }   from '@wljkowa/json-transformer';
- * import { JsonTransformerLevel } from '@wljkowa/json-transformer';
- * import { JsonTransformerSome }   from '@wljkowa/json-transformer';
-* 
- * const t1 = new JsonTransformerTraversalBreadthFirst();
- * t1.pipe(new JsonTransformerLevel());
+ * import { JsonTransformerTraversalBreadthFirst } from '@wljkowa/json-transformer';
+ * import { JsonTransformerLevel }                 from '@wljkowa/json-transformer';
+ * import { JsonTransformerSome }                  from '@wljkowa/json-transformer';
  * 
- * // // or:
- * //
- * //  const
- * //    t1 =       new JsonTransformerTraversalBreadthFirst()
- * //         .pipe(new JsonTransformerLevel());
+ * const t1 = new JsonTransformerTraversalBreadthFirst()
+ *      .pipe(new JsonTransformerLevel());
  * 
- * t1.transform({ value: $level }) 
+ * t1.transform({ value: "$level"}) 
  * // => 0
+ * 
  * t1.transform({ value: ["$level", {"level": "$level"}, ["$level", ["$level"]]] })   
  * // => [1, {"level": 2}, [2, [3]]] 
  *  
- * 
- * const
- *   t2 =       new JsonTransformerTraversalBreadthFirst()
- *        .pipe(new JsonTransformerLevel())
- *        .pipe(new JsonTransformerSome());
+ * const t2 = new JsonTransformerTraversalBreadthFirst()
+ *      .pipe(new JsonTransformerLevel())
+ *      .pipe(new JsonTransformerSome());
  * 
  * t2.transform({ value: ["$some", "$level", ["$level"], [["$level"]]] });
  * // => 1, [2], or [[3]] 

@@ -340,6 +340,11 @@ function f_test(t: JsonTransformerFunction)
   );
 
   test
+  ( '["$average] should be transformed to 3', 
+    () => { expect(t.transform({ value: ["$average"] })).toBe(NaN); }
+  );
+
+  test
   ( '"abc" should be transformed to "abc"', 
     () => { expect(t.transform({ value: "abc" })).toBe("abc"); }
   );

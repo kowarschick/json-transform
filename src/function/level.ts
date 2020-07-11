@@ -11,7 +11,7 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
   * @function 
   * @description
-  * <code>'$level'</code>  is transformed to the current level number.
+  * The string <code>'$level'</code> is transformed to the current level number.
   * 
   * @param {Partial<JsonFunctionParameters<JsonString>>} _
   *   An object containing the following attributes.
@@ -26,8 +26,25 @@ function level( {level}: JsonFunctionParameters<JsonString> ): JsonNumber
 
 /**
  * This constant defines a JSON function that returns
- * the the level of the container within the JSON value
- * that contains the current value <code>$level</code>.
+ * the level of the string <code>'$level'</code> 
+ * within the JSON value (which may be a complex 
+ * nested JSON object or array).
+ *
+ * ```ts
+ * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+ * import { JsonTransformerFunction }  from '@wljkowa/json-transformer';
+ * import { JsonFunctionLevel }        from '@wljkowa/json-transformer';
+ * 
+ * const t = new JsonTransformerTraversal()
+ *     .pipe(new JsonTransformerFunction({init: { [JsonFunctionLevel] })
+ *
+ * t.transform({ value: "$level" }
+ * // => 0
+ * 
+ * t.transform({ value: ["$level", ["$level"], [["$level"]] }
+ * // [1, [2], [[3]]]
+ * ```
+ * 
  * @constant
  * @type {JsonFunctionDescriptor}
  */

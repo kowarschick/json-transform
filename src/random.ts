@@ -25,41 +25,41 @@ const
  * ```ts
  * import { JsonTransformerRandom } from '@wljkowa/json-transformer';
  * 
- * const t1 = new JsonTransformerRandom();
+ * const t = new JsonTransformerRandom();
  * 
- * t1.transform({ value: { "$function": "$random" } }) 
+ * t.transform({ value: { "$function": "$random" } }) 
  * // => 0.54567  (random result in [0, 1[; half open interval)
  *
- * t1.transform({ value: { "$function": "$random",
- *                         "$min": 1, "$max": 11
- *                       }
- *             }) 
+ * t.transform({ value: { "$function": "$random",
+ *                        "$min": 1, "$max": 11
+ *                      }
+ *            }) 
  * // => 7.23488  (random result in [1, 11[; half open interval)
  *
- * t1.transform({ value: { "$function": "$random", 
- *                         "$min": 1, "$max": 11, 
- *                         "$isInteger": true
- *                       }
- *             }) 
+ * t.transform({ value: { "$function": "$random", 
+ *                        "$min": 1, "$max": 11, 
+ *                        "$isInteger": true
+ *                      }
+ *            }) 
  * // => 7 (random integer result in [1, 11]; closed interval!)
  *
- * t1.transform({ value: { "$function":"$random", 
-                           "$min": 1, "$max": 11, 
-                           "$isInteger": true,
-                           "$scale": "factor"
-                         },
-                  data:  { factor: 0.5 } 
-               }) 
+ * t.transform({ value: { "$function":"$random", 
+ *                        "$min": 1, "$max": 11, 
+ *                        "$isInteger": true,
+ *                        "$scale": "factor"
+ *                      },
+ *               data:  { factor: 0.5 } 
+ *            }) 
  * // => 3.5 (random result in [0.5, 5.5]; step size 0.5)
  *
- * t1.transform({ value: { "$function":"$random", 
-                           "$min": 1, "$max": 11, 
-                           "$isInteger": true,
-                           "$scale": "factor",
-                           "$gzp": 0.5
-                         },
-                  data:  { factor: 0.5 } 
-               }) 
+ * t.transform({ value: { "$function":"$random", 
+ *                        "$min": 1, "$max": 11, 
+ *                        "$isInteger": true,
+ *                        "$scale": "factor",
+ *                        "$gzp": 0.5
+ *                      },
+ *                data:  { factor: 0.5 } 
+ *            }) 
  * // => -3.5 (random result in [-5.5, -0.5] union [0.5, 5.5])
  * ```
  * 

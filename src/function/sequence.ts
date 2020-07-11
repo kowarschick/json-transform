@@ -19,11 +19,13 @@ const
  * @function 
  * @description
  * Creates a JSON array  with a sequence of numbers. Each number 
- * may be prefixed by a string.
+ * may be prefixed by a string or modified by means of a function.
+ * 
+ * <h4>Examples</h4>
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonTransformerSequence } from '@wljkowa/json-transformer';
+ * import { JsonFunctionSequence }    from '@wljkowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({init: [ JsonFunctionSequence ] })
@@ -33,6 +35,11 @@ const
  *
  * t.transform({ value: { "$function": "$sequence", "$first": 2, "$last": 5, "$prefix": "image" } }) 
  * // => [ "image2", "image3", "image4", "image5" ]
+ * 
+ * t.transform({ value: { "$function": "$sequence", "$first": 2, "$last": 5, "$format": "@f" },
+ *               data:  { "@f": i => `-${i}-`}
+ *            })
+ * // [ "-2-", "-3-", "-4-", "-5-" ]
  * ```
  * 
  * @param {Partial<JsonFunctionParameters<JsonObject>>} _

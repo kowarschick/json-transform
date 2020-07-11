@@ -14,7 +14,9 @@ import { JsonTransformerStringReplace } from '~/string_replace';
 
 { const c_t = new JsonTransformerStringReplace
                   ({ data: { "${a}": 1, "@b": [], "@c": {}, 
-                             "d": null, "@e": () => 1 } });
+                             "d": null, "@e": () => 1 
+                           } 
+                  });
 
   test
   ( '"${a}" should be transformed to 1',

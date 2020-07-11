@@ -11,9 +11,11 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
  * @function 
  * @description
- *   If the first element of the Array is equal to 
- *   <code>'$count'</code>,
- *   the number of the other elements is returned. 
+ *   Returns the number of elements of an array. In case of 
+ *   array function calls, the array head element is not taken
+ *   into account.  
+ * 
+ * <h4>Examples</h4>
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

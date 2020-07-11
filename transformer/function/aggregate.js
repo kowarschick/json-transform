@@ -24,12 +24,12 @@ function aggregate({ value, init }, begin = 0) {
 exports.aggregate = aggregate;
 exports.JsonFunctionMin = { name: '$min',
     type: types_1.JsonType.Array,
-    function: aggregate, init: { default: Infinity, aggregate: (a, b) => Math.min(a, b)
+    function: aggregate, init: { default: Number.MAX_VALUE, aggregate: (a, b) => Math.min(a, b)
     }
 };
 exports.JsonFunctionMax = { name: '$max',
     type: types_1.JsonType.Array,
-    function: aggregate, init: { default: -Infinity, aggregate: (a, b) => Math.max(a, b)
+    function: aggregate, init: { default: -Number.MAX_VALUE, aggregate: (a, b) => Math.max(a, b)
     }
 };
 exports.JsonFunctionMinString = { name: '$min_string',

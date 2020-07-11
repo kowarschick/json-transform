@@ -20,18 +20,20 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * <code>transformerJsonNullAfter</code>. All transformer
  * methods that can be overridden are defined in
  * {@link JsonTransformerProperties}.
+ * 
  * <h4>Examples</h4>
  *
  * ```ts
- * import { JsonTransformer } from '@wljkowa/json-transformer';
+ * import { JsonTransformerNull } from '@wljkowa/json-transformer';
  * 
- * const t = new JsonTransformer();
+ * const t = new JsonTransformerNull();
  * 
  * t.transform({ value: null })        // => null
  * t.transform({ value: undefined })   // => null
  * t.transform({ value: "abc" })       // => "abc"
  * t.transform({ value: [ 1, 2, 3 ] }) // => [ 1, 2, 3 ] 
  * ```
+ * 
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _

@@ -11,7 +11,7 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
  * @function 
  * @description
- * Randomly returns a value of the array. 
+ * Randomly returns a value of an array. 
  * If there are no elements, <code>null</code> is returned.
  * 
  * <h4>Examples</h4>

@@ -16,7 +16,7 @@ import { JsonTransformerTraversalRestricted } from '~/traversal_restricted';
 
 { const 
     c_transform = 
-           new JsonTransformerTraversalRestricted({init: { minLevel: 2, maxLevel: 3}})
+           new JsonTransformerTraversalRestricted({init: {minLevel: 2, maxLevel: 3}})
       .pipe(new JsonTransformerLevel({rename: {$level: '@level'} }));
 
   test

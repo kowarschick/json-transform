@@ -18,10 +18,15 @@ const
  * @function 
  * @description
  * Returns an array with several duplicates (clones) of a JSON value.
+ * If <code>_.init.flatten === true</code>, array elements within the
+ * array value are not only duplicated, their elements are also 
+ * added directly to the result array.
+ *
+ *  <h4>Examples</h4>
  * 
  * ```ts
- * import { JsonTransformerFunction }  from '@wljkowa/json-transformer';
- * import { JsonTransformerDuplicate } from '@wljkowa/json-transformer';
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { JsonFunctionDuplicate }   from '@wljkowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({init: { [ JsonFunctionDuplicate ] })
@@ -48,7 +53,7 @@ const
  *                      } 
  *            });
  * // => [ [5, 7, 9], [5, 7, 9], [5, 7, 9] ]
- * // please note, applying <code>$unnest<$code>
+ * // please note, applying <code>$unnest</code>
  * // to this result would yield
  * //    [ 5, 7, 9, 5, 7, 9, 5, 7, 9 ] 
  * // which differs from the flattend result above.
@@ -60,9 +65,9 @@ const
  *   The JSON array to be transformed.
  * @param {Init}    _.init
  * @param {number}  [_.init.times   = 1]  
- *   How often the elements are to be duplicated
+ *   How often the elements are to be duplicated.
  * @param {number}  [_.init.flatten = false]
- *   Flattens the resulting array, if <code>true</code>
+ *   Flattens the resulting array, if <code>true</code>.
  *   
  */
 export 

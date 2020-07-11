@@ -40,51 +40,51 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * <h4>Examples</h4>
  * 
  * ```ts
- * // es6; for typescript see test/test_traversal_template_functions.ts
- * import { JsonTransformerTraversal,
- *          JsonTransformerTemplate 
- *        } from '@wljkowa/json-transformer';
+ * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+ * import { JsonTransformerTemplate }  from '@wljkowa/json-transformer';
  * 
- * const 
- *   t1 = new JsonTransformerTemplate
- *        ({ data: { abc:   [123], 
- *                   hello: "Hallo",
- *                   fps:    50, 
- *                   vpf:   ({value, data}) => 
- *                          [ value.x/data.fps,
- *                            value.y/data.fps,
- *                          ],
- *                   def:   () => 123,
- *                 }
- *        });
+ * const t1 = new JsonTransformerTemplate
+ *                ({ data: { abc:   [123], 
+ *                           hello: "Hallo",
+ *                           fps:    50, 
+ *                           vpf:   ({value, data}) => 
+ *                                  [ value.x/data.fps,
+ *                                    value.y/data.fps,
+ *                                  ],
+ *                           def:   () => 123,
+ *                         }
+ *                 });
  * 
  * t1.transform({ value: "${abc}" }) 
- *    // => [123]
+ * // => [123]
+ *
  * t1.transform({ value: " ${abc} " })
- *    // => " [123] "
- * t1.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
- *    // => "Hallo, Wolfgang!"
- * t1.transform({ value: "${def()}" })
- *    // => 123
- * t1.transform({ value: "{v: ${vpf({"vx":100, "vy":200})}}" })
- *    // => "{v: [2,4]}"
+ * // => " [123] "
  * 
- * const 
- *   t2 = new JsonTransformerTraversal
- *            ({ data: { abc:   [123], 
- *                       hello: "Hallo",
- *                       fps:    50, 
- *                       vpf:   ({value, data}) => 
- *                              [ value.x/data.fps,
- *                                value.y/data.fps,
- *                              ],
- *                       def:   () => 123,
- *                     }
- *             })
- *        .pipe(new JsonTransformerTemplateFunctions());
+ * t1.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
+ * // => "Hallo, Wolfgang!"
+ * 
+ * t1.transform({ value: "${def()}" })
+ * // => 123
+ * 
+ * t1.transform({ value: "{v: ${vpf({"vx":100, "vy":200})}}" })
+ * // => "{v: [2,4]}"
+ * 
+ * const t2 = new JsonTransformerTraversal
+ *                ({ data: { abc:   [123], 
+ *                           hello: "Hallo",
+ *                           fps:    50, 
+ *                           vpf:   ({value, data}) => 
+ *                                  [ value.x/data.fps,
+ *                                    value.y/data.fps,
+ *                                  ],
+ *                           def:   () => 123,
+ *                         }
+ *                })
+ *      .pipe(new JsonTransformerTemplateFunctions());
  * 
  * t2.transform({ value: {v: ${vpf({"vx":100, "vy":200})}} })
- *    // => {v: [2,4]}
+ * // => {v: [2,4]}
  * ```
  *
  * @extends  module:transformer.JsonTransformer

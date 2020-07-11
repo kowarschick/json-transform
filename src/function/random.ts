@@ -56,10 +56,10 @@ const
  * t1.transform({ value: { "$function":"$random", 
                            "$min": 1, "$max": 11, 
                            "$isInteger": true,
-                           "$scale": "factor",
+                           "$scale": "@factor",
                            "$gzp": 0.5
                          },
-                  data:  { factor: 0.5 } 
+                  data:  { "@factor": 0.5 } 
                }) 
  * // => -3.5 (random result in [-5.5, -0.5] union [0.5, 5.5])
  * ```
@@ -106,7 +106,7 @@ function random
 
 /**
  * This constant defines a JSON function that returns
- * random value that satisfied certain conditions.
+ * random value that satisfy certain conditions.
  * @constant
  * @type {JsonFunctionDescriptor}
  */

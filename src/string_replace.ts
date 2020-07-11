@@ -10,9 +10,42 @@ import { JsonFunction, JsonFunctionParameters }        from './types';
 import { JsonTransformer, JsonTransformerParameters }  from './transformer';
 
 /**
-  * If the string value <code>_.value</code> is a member of the data object,
-  * it is replaced  by that value. Otherwise it remains unchanged.
-  * 
+ * If the string value <code>_.value</code> is a member of the data object,
+ * it is replaced by that value. Otherwise it remains unchanged.
+ * 
+ * 
+ * <h4>Examples</h4>
+ * 
+ * ```ts
+ * import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
+ * 
+ * const t1 = new JsonTransformerStringReplace
+ *                ({ data: { "${a}": 1, "@b": [], "@c": {}, 
+ *                           "d": null, "@e": () => 1
+ *                         } 
+ *                });
+ * 
+ * t1.transform({ value: "${a}" }) // => 1
+ * t1.transform({ value: "@b" })   // => [] 
+ * t1.transform({ value: "@c" })   // => [] 
+ * t1.transform({ value: "d" })    // => "d"  (not null)
+ * t1.transform({ value: "@e" })   // => "@e" (not 1)
+ * 
+ * const t2 = new JsonTransformerStringReplace
+ *                ({ data: { "d": null, },
+ *                   init: { regexp: /(.*)/ }
+ *                });
+ * 
+ * t2.transform({ value: "d" })   // => null (not "d")
+ * 
+ * const t3 = new JsonTransformerStringReplace
+ *                ({ data: { "@e":       () => 1 },
+ *                   init: { "jsonOnly": false }
+ *                })
+ * 
+ * t3.transform({ value: "@e" })   // => 1 (not "@e")
+ * ```
+ * 
  * @extends  module:transformer.JsonTransformer
  *
  * @param {JsonTransformerParameters} _

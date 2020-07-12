@@ -43,15 +43,15 @@ interface JsonTransformer //extends JsonTransformerProperties
 }
 
 /**
- * Objects of the class <code>JsonTransformer</code> transform JSON values 
+ * Objects of the class ```JsonTransformer``` transform JSON values 
  * into the same or other JSON values by applying JSON transformers. 
- * <p>
+ * 
  * This transformer doesn't make transformations by itself.
  * It is used mainly as a superclass for other, more elaborate 
  * transformers. In addition, this transformer should be used 
  * as a top-level transformer if JSON values are to run 
  * through several independent pipes in succession.
- * <p>
+ * 
  * The transformation process is as follows: First this transformer
  * may transform the JSON value by one of its before-transformers. 
  * Then the value value is passed to the pipe-transformer, if it exists. 
@@ -146,14 +146,14 @@ class JsonTransformer
   /**
    * Fetches the function name of a JSON array function
    * call or a JSON object function call.
-   * The function <code>rerename</code> is applied to
+   * The function ```rerename``` is applied to
    * the function name.
    * @protected
    * @method
    * @param   {JsonArray|JsonObject} value
    * @returns {string|null} 
-   *          function name of <code>value</code>;
-   *          <coode>null</code>, if <code>value</code>
+   *          function name of ```value```;
+   *          ```null```, if ```value```
    *          is no JSON function call. 
    */
   protected functionName(value: JsonArray|JsonObject): string|null
@@ -179,7 +179,7 @@ class JsonTransformer
   }
 
   /**
-   * Tests whether <code>name</code> is the function name of <code>value</code>.
+   * Tests whether ```name``` is the function name of ```value```.
    * @param   {string}               name 
    * @param   {JsonArray|JsonObject} value 
    * @returns {boolean}
@@ -190,7 +190,7 @@ class JsonTransformer
   /**
    * Computes the array function value of a JSON function object call,
    * if the function name of the JSON object denotes an array function
-   * and the name of thet function is equal to <code>name</code>.
+   * and the name of thet function is equal to ```name```.
    * @param   {string}     name
    * @param   {JsonObject} value
    * @returns {JsonArray|null}
@@ -215,9 +215,9 @@ class JsonTransformer
    * @method
    * @param   {JsonTransformer} transformer
    * @returns {JsonTransformer} 
-   *          Returns this <code>transformer</code> so that
+   *          Returns this ```transformer``` so that
    *          further pipe transformers can be added by
-   *          applying <code>pipe</code> again. 
+   *          applying ```pipe``` again. 
    */
   public pipe(...transformers: JsonTransformer[]): this
   { if (transformers.length === 0)
@@ -282,8 +282,8 @@ class JsonTransformer
   *   or compute certain JSON values.
   * @param {number} [_.level = 0]
   *   The current level of the JSON value. The level of the top JSON value  
-  *   (usually) is equal to <code>0</code>. The level of its children is <code>1</code>,
-  *   the level of the grand children <code>2</code>, etc.
+  *   (usually) is equal to ```0```. The level of its children is ```1```,
+  *   the level of the grand children ```2```, etc.
   * @returns {JsonValue}
   *   The resulting JSON value.
   */

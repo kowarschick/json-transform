@@ -11,22 +11,22 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
  * Strings that match the regular expression 
- * <code>_.init.template</code> are replaced by values 
- * found in <code>_.data</code>.
- * <p>
- * For instance, the string <code>"${abc}"</code> is
- * replaced by <code>_.data["abc"]</code>, if that
+ * ```_.init.template``` are replaced by values 
+ * found in ```_.data```.
+ * 
+ * For instance, the string ```"${abc}"``` is
+ * replaced by ```_.data["abc"]```, if that
  * value is defined. 
- * <p>
- * If <code>_.value</code> consists only
+ * 
+ * If ```_.value``` consists only
  * of such a string, the replacement value
  * may be of any {@link JsonType}. If 
- * <code>_.value</code>, on the other hand,
- * contains further characters, <code>_.data["abc"]</code>
- * should be of type <code>string</code>. 
- * <code>_.value</code>.  
+ * ```_.value```, on the other hand,
+ * contains further characters, ```_.data["abc"]```
+ * should be of type ```string```. 
+ * ```_.value```.  
  *
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerTemplate } from '@wljkowa/json-transformer';

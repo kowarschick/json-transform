@@ -13,12 +13,12 @@ import { JsonTransformer, JsonTransformerParameters }     from './transformer';
  * This transformer applies its pipe transformer 
  * recursively in a breadth first ordering 
  * to all elements of the JSON value. 
- * <p>
+ * 
  * At the moment there are no transformers that yield
  * different results for depth first and breadth first
  * traversal.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerTraversalBreadthFirst } from '@wljkowa/json-transformer';

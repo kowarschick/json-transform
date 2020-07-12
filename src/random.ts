@@ -20,7 +20,7 @@ const
 /**
  * Computes random numbers within intervals.
  *
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerRandom } from '@wljkowa/json-transformer';
@@ -74,7 +74,7 @@ const
  * @param {number}  [_.init.gzp       = 1] 
  *                  the „greater zero prabability“ defines 
  *                  the propability that the resulting value
- *                  is not multiplied by <code>-1</code> 
+ *                  is not multiplied by ```-1``` 
 */
 export 
 class JsonTransformerRandom extends JsonTransformer

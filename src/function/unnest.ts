@@ -12,11 +12,11 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * @function 
  * @description
  * Flattens an array of arrays, i.e., returns an array that 
- * contains the elements of the arrays inside <code>_.value</value>.
- * Elements of <code>_.value</value> that are no arrays are 
+ * contains the elements of the arrays inside ```_.value</value>.
+ * Elements of ```_.value</value> that are no arrays are 
  * copied without modifications into the result array. 
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

@@ -11,17 +11,17 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
  * This transformer does only one trivial transformtion for
- * <code>null</code> values: The non JSON value <code>undefined</code>
- * is transformed to the JSON value <code>null</code>.
- * That transformation is usful as <code>undefined</code> 
+ * ```null``` values: The non JSON value ```undefined```
+ * is transformed to the JSON value ```null```.
+ * That transformation is usful as ```undefined``` 
  * should not e returned as JSON value. However, if
  * you don't like tha transformation, you can simply define
  * a subclass that overrides the method 
- * <code>transformerJsonNullAfter</code>. All transformer
+ * ```transformerJsonNullAfter```. All transformer
  * methods that can be overridden are defined in
  * {@link JsonTransformerProperties}.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  *
  * ```ts
  * import { JsonTransformerNull } from '@wljkowa/json-transformer';
@@ -41,8 +41,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 export 
 class JsonTransformerNull extends JsonTransformer
 {/**
-  * The non-JSON value <code>undefined</code> is replaced by 
-  * the JSON value <code>null</code>.
+  * The non-JSON value ```undefined``` is replaced by 
+  * the JSON value ```null```.
   *
   * @extends  module:transformer.JsonTransformer
   *

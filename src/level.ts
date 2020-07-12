@@ -12,10 +12,12 @@ import { JsonFunction, JsonFunctionParameters }       from './types';
 import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
- * The string <code>$level<code> is transformed to the level number
+ * The string ```$level``` is transformed to the level number
  * of the JSON containter (array, object) that contains this string.
  * All other strings are returned without modification.
  *
+ * __Examples__
+ * 
  * ```ts
  * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
  * import { JsonTransformerLevel }     from '@wljkowa/json-transformer';

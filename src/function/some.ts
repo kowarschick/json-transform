@@ -12,9 +12,9 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * @function 
  * @description
  * Randomly returns a value of an array. 
- * If there are no elements, <code>null</code> is returned.
+ * If there are no elements, ```null``` is returned.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

@@ -15,7 +15,7 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  *   array function calls, the array head element is not taken
  *   into account.  
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

@@ -17,7 +17,7 @@ import { JsonTransformerParameters } from './transformer';
  * 
  * ```_.init.minLevel <= _.level && _.level <= _.init.maxLevel``` 
  *
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerTraversalRestricted } from '@wljkowa/json-transformer';

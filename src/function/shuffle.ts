@@ -13,7 +13,7 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * @description
  * Shuffles the elements of a clone of an array.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

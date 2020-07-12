@@ -13,13 +13,13 @@ const SOME = '$some';
 
 /**
  * If the first element of the Array is equal to 
- * <code>$some</code>, some of the other elements 
+ * ```$some```, some of the other elements 
  * is returned as value. If there are no other 
- * elements, <code>null</code> is returned.
- * <p>
+ * elements, ```null``` is returned.
+ * 
  * Otherwise the Array itself is returned as value.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerSome } from '@wljkowa/json-transformer';

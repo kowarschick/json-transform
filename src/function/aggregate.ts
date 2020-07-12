@@ -13,9 +13,9 @@ import { JsonFunctionParameters }                    from '../types';
  * @function 
  * @description
  * Aggregates an array of JSON values to one JSON value.
- * If the length is equal to zero, <code>_.init.default</code> is returned.
+ * If the length is equal to zero, ```_.init.default``` is returned.
  * Optionally, a initialization function can be stated to compute the default value.
- * Otherwise <code>_.init.aggregate</code> is succesively applied to 
+ * Otherwise ```_.init.aggregate``` is succesively applied to 
  * the aggregation value and the elements of the array. Optionally, 
  * a finalization function can be used to further process the result 
  * of the aggregation.
@@ -28,20 +28,20 @@ import { JsonFunctionParameters }                    from '../types';
  * @param {JsonNumber}    [_.init.begin = 0]    
  *   The index where to begin the aggregation.
  * @param {JsonValue}     _.init.default    
- *   The default/start value for empty arrays (i.e., if <code>_.init.begin >= _.value.length</code>).
+ *   The default/start value for empty arrays (i.e., if ```_.init.begin >= _.value.length```).
  * @param {Function|null} [_.init.initialize = null]
- *   A function <code>(array, begin, default) => defaultValue</code> to compute a default value. 
+ *   A function ```(array, begin, default) => defaultValue``` to compute a default value. 
  *   This is useful if the default value depends on the JSON array.
  * @param {Function}      _.init.aggregate  
- *   A function <code>(aggregation, element, array, begin, index) => newAggregation</code>
+ *   A function ```(aggregation, element, array, begin, index) => newAggregation```
  *   to compute the aggregation.
  * @param {Function|null} [_.init.finalize = null]
- *   A function <code>(aggregation, array, begin) => result</code>
+ *   A function ```(aggregation, array, begin) => result```
  *   to finally change the aggregation in one way or another.
  * @param {boolean}       begin             
- *   <code>0</code> in case of regular arrays;
- *   <code>1</code> in case of function call arrays (<code>['$function', value1, value2, ...]</code>).
- *   This value is added to <code>_.init.begin</code>
+ *   ```0``` in case of regular arrays;
+ *   ```1``` in case of function call arrays (```['$function', value1, value2, ...]```).
+ *   This value is added to ```_.init.begin```
  *   
  * @returns {JsonValue}
  */
@@ -78,9 +78,9 @@ function aggregate( {value, init}: JsonFunctionParameters<JsonArray>,
 /**
  * This constant defines the minimum aggregator. It returns
  * the minimum value of an array of numbers. If the array has no
- * elements, <code>Number.MAX_VALUE</code> is returned.
+ * elements, ```Number.MAX_VALUE``` is returned.
  *
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -125,9 +125,9 @@ const JsonFunctionMin: JsonFunctionDescriptor =
 /**
  * This constant defines the maximium aggregator. It returns
  * the maximum value of an array of numbers. If the array has no
- * elements, <code>-Number.MAX_VALUE</code> is returned.
+ * elements, ```-Number.MAX_VALUE``` is returned.
 *
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -172,10 +172,10 @@ const JsonFunctionMax: JsonFunctionDescriptor =
 /**
  * This constant defines the minimum string aggregator. It returns
  * the minimum value of an array of strings, which are compared
- * by <code>localeCompare</code>. If the array has no
- * elements, <code>null</code> is returned.
+ * by ```localeCompare```. If the array has no
+ * elements, ```null``` is returned.
  *
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -224,9 +224,9 @@ const JsonFunctionMinString: JsonFunctionDescriptor =
 /**
  * This constant defines the maximum string aggregator. It returns
  * the maximum value of an array of strings. If the array has no
- * elements, <code>null</code> is returned.
+ * elements, ```null``` is returned.
  *
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -275,9 +275,9 @@ const JsonFunctionMaxString: JsonFunctionDescriptor =
 /**
  * This constant defines the sum aggregator. It returns
  * the sum of the elements of an array of numbers. If the array has no
- * elements, <code>0</code> is returned.
+ * elements, ```0``` is returned.
  * 
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -322,9 +322,9 @@ const JsonFunctionSum: JsonFunctionDescriptor =
 /**
  * This constant defines the product aggregator. It returns
  * the product of the elements of an array of numbers. If the array has no
- * elements, <code>1</code> is returned.
+ * elements, ```1``` is returned.
  *  
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -369,9 +369,9 @@ const JsonFunctionProduct: JsonFunctionDescriptor =
 /**
  * This constant defines the average aggregator. It returns
  * the average of the elements of an array of numbers. The average 
- * of an empty array is not defined (<code>NaN</code>).
+ * of an empty array is not defined (```NaN```).
  *  
- * <h4>Examples</h4> 
+ * __Examples__ 
  *
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';

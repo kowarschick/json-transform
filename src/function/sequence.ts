@@ -21,7 +21,7 @@ const
  * Creates a JSON array  with a sequence of numbers. Each number 
  * may be prefixed by a string or modified by means of a function.
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
@@ -55,7 +55,7 @@ const
  *   If present, this string is prepended to each number generated.
  * @param {string}  [_.init.format = null]
  *   If present, each number generated is passed to the 
- *   function <code>_.data[_.init.format]</code>
+ *   function ```_.data[_.init.format]```
  *   in order to format it to a string. 
  */
 export 

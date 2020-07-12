@@ -16,30 +16,30 @@
  * @global
  * @typedef {string} JsonString 
  * @description 
- *   <code>JsonString</code> is an alias for <code>string</code>; 
+ *   ```JsonString``` is an alias for ```string```; 
  */
 
 /** 
  * @global
  * @typedef {string} JsonNumber 
  * @description 
- *   <code>JsonNumber</code> is an alias for <code>number</code>; 
+ *   ```JsonNumber``` is an alias for ```number```; 
  */
 
 /**
  * @global 
  * @typedef {string} JsonBoolean 
  * @description 
- *   <code>JsonBoolean</code> is an alias for <code>boolean</code>; 
+ *   ```JsonBoolean``` is an alias for ```boolean```; 
  */
 
 /**
  * @global 
  * @typedef {string} JsonNull 
  * @description 
- *   <code>JsonNull</code> is an alias for <code>null | undefined</code>; 
- *   <p>
- *   <code>undefined</code> is no regular JSON value. But it is needed
+ *   ```JsonNull``` is an alias for ```null | undefined```; 
+ *   
+ *   ```undefined``` is no regular JSON value. But it is needed
  *   to be able to uses optional parameters within the JSON transformers.
  */
 
@@ -48,7 +48,7 @@
  * @typedef {(JsonString | JsonNumber | JsonBoolean | JsonNull)} JsonPrimitive 
  * @description
  *   A primitive JSON value is either a sring, a number, a boolean, 
- *   or <code>null</code>/<code>undefined</code>.
+ *   or ```null```/```undefined```.
  */
 
 /**
@@ -64,7 +64,7 @@
  * @description
  *   A JSON map is an object whose whose attributes are key/value-pairs,
  *   where the key is a string and the value is a JsonValue.
- *   <code>KEY</code> denotes <code>[key: string]</code>.
+ *   ```KEY``` denotes ```[key: string]```.
  */
 
  /**
@@ -76,18 +76,18 @@
  *   an array of JSON values ({@link JsonArray}) or a
  *   map object the members of which consist of a key string
  *   and a JSON value ({@link JsonObject}) 
- *   <p>
+ *   
  */
 
 /** 
  * @global 
  * @description
- *   <code>&lt;T extends JsonValue = JsonValue&gt;</code>
+ *   ```&lt;T extends JsonValue = JsonValue&gt;```
  * @typedef {{value: T, level: number, data: Data, init: Init, rename: Function}} JsonFunctionParameters
  * @property {JsonValue} value
  *   The JSON value to be transformed.
  * @property {number} level
- *   The current level of <code>value</code> within the JSON value that has been passed to 
+ *   The current level of ```value``` within the JSON value that has been passed to 
  *   the root transformer.
  * @property {Data} data
  *   A data object the members of which can be used by transformers to replace
@@ -96,7 +96,7 @@
  *   An initialization value that has been passed to a transformer to initialize
  *   the JSON function it calls.
  * @property {?Function} rename 
- *   A function <code>(_: string) => string</code> that replaces a standard attribute
+ *   A function ```(_: string) => string``` that replaces a standard attribute
  *   name by a new name (which has been passed to the transformer that calls the
  *   JSON function)
 */
@@ -104,9 +104,9 @@
 /** 
  * @global 
  * @description
- *   <code>&lt;T extends JsonValue = JsonValue&gt;</code>
- *   <p>
- *   A JSON function can be passed via the <code>data: {@link Data}</code> 
+ *   ```&lt;T extends JsonValue = JsonValue&gt;```
+ *   
+ *   A JSON function can be passed via the ```data: {@link Data}``` 
  *   parameter passed to json transformers and other json functions to support
  *   them in the transformation.
  * @callback JsonFunction

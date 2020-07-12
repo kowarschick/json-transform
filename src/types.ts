@@ -17,11 +17,11 @@ export type JsonValue     = JsonPrimitive | JsonArray | JsonObject ;
 /**
  * This is a enumaration type to distinguish the different 
  * types of JSON values ({@link JsonValue}).
- * <p>
- * Values: <code>JsonType.Primitive</code>, <code>JsonType.Array</code>, 
- *         <code>JsonType.Object</code>, <code>String.JsonType</code>, 
- *         <code>JsonType.Number</code>, <code>JsonType.Boolean</code>,
- *         <code>JsonType.Null</code>
+ * 
+ * Values: ```JsonType.Primitive```, ```JsonType.Array```, 
+ *         ```JsonType.Object```, ```String.JsonType```, 
+ *         ```JsonType.Number```, ```JsonType.Boolean```,
+ *         ```JsonType.Null```
  */
 export enum JsonType 
 { Primitive = 1,
@@ -84,8 +84,8 @@ export interface Data
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonString}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonString}```.
  */
 export
 function isJsonString(value: JsonValue|JsonFunction|RegExp|Init): value is JsonString
@@ -94,8 +94,8 @@ function isJsonString(value: JsonValue|JsonFunction|RegExp|Init): value is JsonS
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonNumber}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonNumber}```.
  */
 export
 function isJsonNumber(value: JsonValue|JsonFunction|RegExp|Init): value is JsonNumber
@@ -104,8 +104,8 @@ function isJsonNumber(value: JsonValue|JsonFunction|RegExp|Init): value is JsonN
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonBoolean}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonBoolean}```.
  */
 export
 function isJsonBoolean(value: JsonValue|JsonFunction|RegExp|Init): value is JsonBoolean
@@ -114,8 +114,8 @@ function isJsonBoolean(value: JsonValue|JsonFunction|RegExp|Init): value is Json
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonNull}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonNull}```.
  */
 export
 function isJsonNull(value: JsonValue|JsonFunction|RegExp|Init): value is JsonNull
@@ -125,8 +125,8 @@ function isJsonNull(value: JsonValue|JsonFunction|RegExp|Init): value is JsonNul
  * @param
  * @param   {JsonValue|JsonFunction|RegExp} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonPrimitive}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonPrimitive}```.
  */
 export
 function isJsonPrimitive(value:JsonValue|JsonFunction|RegExp|Init): value is JsonPrimitive 
@@ -137,8 +137,8 @@ function isJsonPrimitive(value:JsonValue|JsonFunction|RegExp|Init): value is Jso
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonArray}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonArray}```.
  */
 export
 function isJsonArray(value: JsonValue|JsonFunction|RegExp|Init): value is JsonArray
@@ -147,8 +147,8 @@ function isJsonArray(value: JsonValue|JsonFunction|RegExp|Init): value is JsonAr
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonObject}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonObject}```.
  */
 export
 function isJsonObject(value: JsonValue|JsonFunction|RegExp|Init): value is JsonObject
@@ -157,8 +157,8 @@ function isJsonObject(value: JsonValue|JsonFunction|RegExp|Init): value is JsonO
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonValue}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonValue}```.
  */
 export
 function isJsonValue(value: JsonValue|JsonFunction|RegExp|Init): value is JsonValue
@@ -167,8 +167,8 @@ function isJsonValue(value: JsonValue|JsonFunction|RegExp|Init): value is JsonVa
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonValue}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonValue}```.
  */
 export
 function isJsonFunction(value: JsonValue|JsonFunction|RegExp|Init): value is JsonFunction
@@ -177,8 +177,8 @@ function isJsonFunction(value: JsonValue|JsonFunction|RegExp|Init): value is Jso
 /**
  * @param   {JsonValue|JsonFunction|RegExp|Init} value
  * @returns {boolean} 
- *          Returns <code>true</code> is <code>value</code> 
- *          is a member of <code>{@link JsonValue}</code>.
+ *          Returns ```true``` is ```value``` 
+ *          is a member of ```{@link JsonValue}```.
  */
 export
 function isRegExp(value: JsonValue|JsonFunction|RegExp|Init): value is RegExp

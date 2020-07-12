@@ -11,14 +11,14 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
 /**
   * @function 
   * @description
-  * The string <code>'$level'</code> is transformed to the current level number.
+  * The string ```'$level'``` is transformed to the current level number.
   * 
   * @param {Partial<JsonFunctionParameters<JsonString>>} _
   *   An object containing the following attributes.
   * @param {string} _.value
-  *   The string <code>'$level'</code> to be transformed.
+  *   The string ```'$level'``` to be transformed.
   * @param {number} _.level
-  *   The current level of <code>_.value</code>
+  *   The current level of ```_.value```
   */
 export 
 function level( {level}: JsonFunctionParameters<JsonString> ): JsonNumber
@@ -26,7 +26,7 @@ function level( {level}: JsonFunctionParameters<JsonString> ): JsonNumber
 
 /**
  * This constant defines a JSON function that returns
- * the level of the string <code>'$level'</code> 
+ * the level of the string ```'$level'``` 
  * within the JSON value (which may be a complex 
  * nested JSON object or array).
  *

@@ -14,11 +14,11 @@ import { JsonTransformer, JsonTransformerParameters }                 from './tr
 /**
  * This transformer doesn't do any transformation 
  * by itself. You have to pass an array of
- * <code>{@link JsonFunctionDescriptors}</code>s
- * to <code>_.init</code> to activate it. For examples,
- * see <code>{@link JsonFunctionLevel}</code>,
- * <code>{@link JsonFunctionMin}</code>,
- * <code>{@link JsonFunctionRandom}</code>, etc.
+ * ```{@link JsonFunctionDescriptors}```s
+ * to ```_.init``` to activate it. For examples,
+ * see ```{@link JsonFunctionLevel}```,
+ * ```{@link JsonFunctionMin}```,
+ * ```{@link JsonFunctionRandom}```, etc.
  * 
  * A JSON string ({@link JsonString}) is considered 
  * to be a function call, if that string is equal 
@@ -39,7 +39,7 @@ import { JsonTransformer, JsonTransformerParameters }                 from './tr
  * 
  * A JSON object  ({@link JsonObject})
  * that owns an attribute named 
- * <code>$function</code>) is considered 
+ * ```$function```) is considered 
  * the describe a function call, if the
  * value of that attribute is equal
  * to the name of an object ({@link JsonFunction<JsonObject>})
@@ -50,7 +50,7 @@ import { JsonTransformer, JsonTransformerParameters }                 from './tr
  * If there is no object function but an 
  * array function ({@link JsonFunction<JsonArray>})
  * with that name and if the JSON object has
- * an attribute name <code>$value</code> whose
+ * an attribute name ```$value``` whose
  * value is a JSON Array that value is passed
  * as data to the array function.
 

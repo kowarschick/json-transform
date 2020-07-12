@@ -11,33 +11,33 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
 
 /**
  * Strings that match the regular expression 
- * <code>_.init.templateFunctions</code> are replaced by values 
- * found in <code>_.data</code>.
- * <p>
- * For instance, the string <code>"${abc}"</code> is
- * replaced by <code>_.data["abc"]</code>, if that
+ * ```_.init.templateFunctions``` are replaced by values 
+ * found in ```_.data```.
+ * 
+ * For instance, the string ```"${abc}"``` is
+ * replaced by ```_.data["abc"]```, if that
  * value is defined. 
- * <p>
- * If <code>_.value</code> consists only
+ * 
+ * If ```_.value``` consists only
  * of such a string, the replacement value
  * may be of any {@link JsonType}. If 
- * <code>_.value</code>, on the other hand,
- * contains further characters, <code>_.data["abc"]</code>
- * should be of type <code>string</code>. 
- * <code>_.value</code>
- * <p>
- * In contrast to <code>{@link JsonTransformerTemplate}</code>
+ * ```_.value```, on the other hand,
+ * contains further characters, ```_.data["abc"]```
+ * should be of type ```string```. 
+ * ```_.value```
+ * 
+ * In contrast to ```{@link JsonTransformerTemplate}```
  * this transformer supports also function calls. 
- * If, e. g., <code>_.data["f"]</code> is a {@link JsonFunction},
- * it can be invoked by <code>"...${f(</code>&lt;jsonvalue&gt;<code>)}..."</code>.
- * <p>
+ * If, e. g., ```_.data["f"]``` is a {@link JsonFunction},
+ * it can be invoked by ```"...${f(```&lt;jsonvalue&gt;```)}..."```.
+ * 
  * Please note, as a regular expression instead of a parser is used to 
  * detect function calls, there <strong>must be no space</strong>
  * before the opening bracket and between the closing 
  * curly bracket and the closing bracket of the function call 
- * (do: <code>"...${f(...)}..."</code>, don't: <code>"...${f (...) }..."</code>).
+ * (do: ```"...${f(...)}..."```, don't: ```"...${f (...) }..."```).
  * 
- * <h4>Examples</h4>
+ * __Examples__
  * 
  * ```ts
  * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';

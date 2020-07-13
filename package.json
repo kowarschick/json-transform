@@ -24,7 +24,7 @@
     "examples": "node examples/examples.js",
     "prejsdoc": "rm -rf docs/@wljkowa transformer.commented",
     "jsdoc": "jsdoc -c jsdoc.json",
-    "postjsdoc": "cp -r node_modules/jsdoc/templates/default/static/* docs/@wljkowa/json-transformer/0.5.0/",
+    "postjsdocOld": "cp -r node_modules/jsdoc/templates/default/static/* docs/@wljkowa/json-transformer/0.5.0/",
     "jsdocOld": "tsc -p tsconfig.commented.json && cp src/types.jsdoc.js transformer.commented && jsdoc -c jsdoc.json",
     "prelink": "npm run build",
     "link": "npm link  && npm i && npm link @wljkowa/json-transformer",

@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isInitMap = exports.isRegExp = exports.isJsonFunction = exports.isJsonValue = exports.isJsonObject = exports.isJsonArray = exports.isJsonPrimitive = exports.isJsonNull = exports.isJsonBoolean = exports.isJsonNumber = exports.isJsonString = exports.JsonType = void 0;
+let dummy = null;
+dummy = null;
 var JsonType;
 (function (JsonType) {
     JsonType[JsonType["Primitive"] = 1] = "Primitive";

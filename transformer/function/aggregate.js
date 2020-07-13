@@ -4,7 +4,7 @@ exports.JsonFunctionAverage = exports.JsonFunctionProduct = exports.JsonFunction
 const types_1 = require("../types");
 function aggregate({ value, init }, begin = 0) {
     var _a;
-    const c_init = init, c_default = c_init.default, c_begin = (((_a = c_init.begin) !== null && _a !== void 0 ? _a : 0) + begin), c_initialize = c_init.initialize, c_aggregate = c_init.aggregate, c_finalize = c_init.finalize;
+    const c_init = init, c_begin = (((_a = c_init.begin) !== null && _a !== void 0 ? _a : 0) + begin), c_default = c_init.default, c_initialize = c_init.initialize, c_aggregate = c_init.aggregate, c_finalize = c_init.finalize;
     if (typeof c_aggregate === 'function') {
         let l_aggregation = (c_initialize != null)
             ? c_initialize(value, c_begin, c_default)

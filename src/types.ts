@@ -4,7 +4,16 @@
  * @license   MIT
  */
 
-export type JsonString    = string;
+/**
+ * ```JsonString``` is an alias for ```string```.
+ * @typedef JsonString
+ */let dummy = null; // tsc bug: force not to delete that jsdoc comment
+export type JsonString = string;
+
+/** 
+ * ```JsonNumber``` is an alias for ```number```.
+ * @typedef {string} JsonNumber 
+ */dummy=null;
 export type JsonNumber    = number;
 export type JsonBoolean   = boolean;
 export type JsonNull      = null | undefined;
@@ -15,7 +24,7 @@ export type JsonObject    = {[key: string]: JsonValue};
 export type JsonValue     = JsonPrimitive | JsonArray | JsonObject ;
 
 /**
- * This is a enumaration type to distinguish the different 
+ * This is a enumeration type to distinguish the different 
  * types of JSON values ({@link JsonValue}).
  * 
  * Values: ```JsonType.Primitive```, ```JsonType.Array```, 

@@ -1,6 +1,6 @@
 { "source":
-  { "include":        ["./transformer.commented/", "package.json", "README.md"],
-    "includePattern": ".+\\.js$"
+  { "include":        ["./src/", "package.json", "README.md"],
+    "includePattern": ".+\\.ts$"
   },
 
   "tags":
@@ -9,15 +9,17 @@
   },
 
   "plugins": 
-  [ "plugins/markdown"
+  [ "plugins/markdown",
+    "node_modules/better-docs/category",
+    "node_modules/better-docs/typescript"
   ],
   
   "opts":
-  { "NOPEtemplate": "node_modules/better-docs",
-    "template":     "node_modules/postman-jsdoc-theme",
+  { "template":     "node_modules/better-docs",
     "encoding":     "utf8",
     "destination":  "docs",
     "recurse":      true,
+    "verbose":      false,
     "private":      false
   },
   

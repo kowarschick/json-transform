@@ -4,10 +4,19 @@ module.exports =
   testEnvironment: 'node',
   preset:          'ts-jest',
   resolver:        null,
+
   globals: 
-  { 'ts-jest': { tsconfig: './tsconfig.json' },
-  },
+  { 'ts-jest': { tsconfig: './tsconfig.json' } },
+
+  moduleFileExtensions: 
+  ["js", "ts"],
+
   moduleNameMapper: 
-  { '^~/(.*)':  '<rootDir>/../src/$1',
-  },
+  { '^~/(.*)':  '<rootDir>/../src/$1' },
+  
+  collectCoverageFrom: 
+  [ "./**/*.ts" ],
+
+  coverageReporters: 
+  ['json', 'lcov']
 };

@@ -1,4 +1,4 @@
-## Introduction
+# A modular JSON tranformer package
 
 The ```@wljkowa/json-transformer``` package is used to transform JSON template
 objects into JSON objects. It has been developed in course of the lecture

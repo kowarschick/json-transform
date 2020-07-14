@@ -4,8 +4,7 @@
  * @license   MIT
  */
 
-// build and run
-//   npm run examples:prod && node examples_es6/examples_bundle_es6.js
+// build and run: npm run examples:es6
 
 //import JsonTransformerTraversal from '@wljkowa/json-transformer/transformer/traversal.js';
 //import JsonTransformerLevel     from '@wljkowa/json-transformer/transformer/level.js';

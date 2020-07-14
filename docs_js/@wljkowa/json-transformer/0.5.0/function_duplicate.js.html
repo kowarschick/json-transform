@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: function/duplicate.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <style>#main>h3{font-family: 'Open Sans Light', sans-serif;font-size: 48px;letter-spacing: -2px;margin: 12px 24px 20px;}
+           article>h1{font-size: 30px;font-weight: 700;letter-spacing: -1px;margin-bottom: 12px;margin: 0;font-family:'Open Sans',sans-serif;}
+    </style>
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: function/duplicate.js</h1>
+    
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module    function/duplicate
+ * @author    Wolfgang L. J. Kowarschick &lt;kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
+ * @license   MIT
+ */
+import { JsonType } from '../types';
+import { JsonTransformerTraversal } from '../traversal';
+const VALUE = '$value', TIMES = '$times', FLATTEN = '$flatten';
+/**
+ * @function
+ * @description
+ * Returns an array with several duplicates (clones) of a JSON value.
+ * If ```_.init.flatten === true```, array elements within the
+ * array value are not only duplicated, their elements are also
+ * added directly to the result array.
+ *
+ *  __Examples__
+ *
+ * ```ts
+ * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
+ * import { JsonFunctionDuplicate }   from '@wljkowa/json-transformer';
+ *
+ * const t = new JsonTransformerFunction
+ *           ({init: { [ JsonFunctionDuplicate ] })
+ *
+ * t.transform({ value: { "$function": "$duplicate",
+ *                        "$value":    {},
+ *                        "$times":    3
+ *                      }
+ *             );
+ * // => [ {}, {}, {} ]
+ *
+ * t.transform({ value: { "$function": "$duplicate",
+ *                        "$value":    [5, 7, 9],
+ *                        "$times":    3,
+ *                        "$flatten":  true
+ *                      }
+ *            });
+ * // => [ 5, 5, 5, 7, 7, 7, 9, 9, 9 ]
+ *
+ * t.transform({ value: { "$function": "$duplicate",
+ *                        "$value":    [5, 7, 9],
+ *                        "$times":    3,
+ *                      //"$flatten":  false
+ *                      }
+ *            });
+ * // => [ [5, 7, 9], [5, 7, 9], [5, 7, 9] ]
+ * // please note, applying ```$unnest```
+ * // to this result would yield
+ * //    [ 5, 7, 9, 5, 7, 9, 5, 7, 9 ]
+ * // which differs from the flattend result above.
+ * ```
+ *
+ * @param {Partial&lt;JsonFunctionParameters&lt;JsonObject>>} _
+ *   An object containing the following attributes.
+ * @param {JsonArray} _.value
+ *   The JSON array to be transformed.
+ * @param {Init}    _.init
+ * @param {number}  [_.init.times   = 1]
+ *   How often the elements are to be duplicated.
+ * @param {number}  [_.init.flatten = false]
+ *   Flattens the resulting array, if ```true```.
+ *
+ */
+export function duplicate({ value, init, rename = name => name }) {
+    var _a, _b, _c;
+    const c_clone_transformer = new JsonTransformerTraversal(), c_init = init, c_value = ((_a = value === null || value === void 0 ? void 0 : value[rename(VALUE)]) !== null &amp;&amp; _a !== void 0 ? _a : null), c_times = ((_b = value === null || value === void 0 ? void 0 : value[rename(TIMES)]) !== null &amp;&amp; _b !== void 0 ? _b : c_init.times), c_flatten = ((_c = value === null || value === void 0 ? void 0 : value[rename(FLATTEN)]) !== null &amp;&amp; _c !== void 0 ? _c : c_init.flatten), c_result = [];
+    if (c_flatten &amp;&amp; Array.isArray(c_value)) {
+        for (let l_value of c_value) {
+            for (let i = 0; i &lt; c_times; i++) {
+                c_result.push(c_clone_transformer.transform({ value: l_value }));
+            }
+        }
+    }
+    else {
+        for (let i = 0; i &lt; c_times; i++) {
+            c_result.push(c_clone_transformer.transform({ value: c_value }));
+        }
+    }
+    return c_result;
+}
+/**
+ * This constant defines a JSON function that duplicates
+ * the number of the elements of an array several times.
+ * It may also flatten the array.
+ * @constant
+ * @type {JsonFunctionDescriptor}
+ */
+export const JsonFunctionDuplicate = { name: '$duplicate',
+    type: JsonType.Object,
+    function: duplicate,
+    init: { times: 1,
+        withinArray: false
+    }
+};
+export default JsonFunctionDuplicate;
+//# sourceMappingURL=duplicate.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-function.html">function</a></li><li><a href="module-function_aggregate.html">function/aggregate</a></li><li><a href="module-function_count.html">function/count</a></li><li><a href="module-function_duplicate.html">function/duplicate</a></li><li><a href="module-function_level.html">function/level</a></li><li><a href="module-function_random.html">function/random</a></li><li><a href="module-function_sequence.html">function/sequence</a></li><li><a href="module-function_shuffle.html">function/shuffle</a></li><li><a href="module-function_some.html">function/some</a></li><li><a href="module-function_string.html">function/string</a></li><li><a href="module-function_unnest.html">function/unnest</a></li><li><a href="module-level.html">level</a></li><li><a href="module-null.html">null</a></li><li><a href="module-random.html">random</a></li><li><a href="module-some.html">some</a></li><li><a href="module-template.html">template</a></li><li><a href="module-template_functions.html">template_functions</a></li><li><a href="module-transformer.html">transformer</a></li><li><a href="module-traversal.html">traversal</a></li><li><a href="module-traversal_breadth_first.html">traversal_breadth_first</a></li><li><a href="module-traversal_restricted.html">traversal_restricted</a></li></ul><h3>Classes</h3><ul><li><a href="module-function.JsonTransformerFunction.html">JsonTransformerFunction</a></li><li><a href="module-function_string.JsonTransformerStringReplace.html">JsonTransformerStringReplace</a></li><li><a href="module-level.JsonTransformerLevel.html">JsonTransformerLevel</a></li><li><a href="module-null.JsonTransformerNull.html">JsonTransformerNull</a></li><li><a href="module-random.JsonTransformerRandom.html">JsonTransformerRandom</a></li><li><a href="module-some.JsonTransformerSome.html">JsonTransformerSome</a></li><li><a href="module-template.JsonTransformerTemplate.html">JsonTransformerTemplate</a></li><li><a href="module-template_functions.JsonTransformerTemplateFunctions.html">JsonTransformerTemplateFunctions</a></li><li><a href="module-transformer.JsonTransformer.html">JsonTransformer</a></li><li><a href="module-traversal.JsonTransformerTraversal.html">JsonTransformerTraversal</a></li><li><a href="module-traversal_breadth_first.JsonTransformerTraversalBreadthFirst.html">JsonTransformerTraversalBreadthFirst</a></li><li><a href="module-traversal_restricted.JsonTransformerTraversalRestricted.html">JsonTransformerTraversalRestricted</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Init">Init</a></li><li><a href="global.html#isInitMap">isInitMap</a></li><li><a href="global.html#isJsonArray">isJsonArray</a></li><li><a href="global.html#isJsonBoolean">isJsonBoolean</a></li><li><a href="global.html#isJsonFunction">isJsonFunction</a></li><li><a href="global.html#isJsonNull">isJsonNull</a></li><li><a href="global.html#isJsonNumber">isJsonNumber</a></li><li><a href="global.html#isJsonObject">isJsonObject</a></li><li><a href="global.html#isJsonPrimitive">isJsonPrimitive</a></li><li><a href="global.html#isJsonString">isJsonString</a></li><li><a href="global.html#isJsonValue">isJsonValue</a></li><li><a href="global.html#isRegExp">isRegExp</a></li><li><a href="global.html#JsonArray">JsonArray</a></li><li><a href="global.html#JsonBoolean">JsonBoolean</a></li><li><a href="global.html#JsonFunctionDescriptor">JsonFunctionDescriptor</a></li><li><a href="global.html#JsonNull">JsonNull</a></li><li><a href="global.html#JsonNumber">JsonNumber</a></li><li><a href="global.html#JsonObject">JsonObject</a></li><li><a href="global.html#JsonPrimitive">JsonPrimitive</a></li><li><a href="global.html#JsonString">JsonString</a></li><li><a href="global.html#JsonType">JsonType</a></li><li><a href="global.html#JsonValue">JsonValue</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href="https://opensource.org/licenses/MIT">MIT</a>
+    <br/>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Jul 14 2020 14:27:51 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

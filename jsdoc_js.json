@@ -1,0 +1,36 @@
+{ "source":
+  { "include":        ["./transformer.commented/", "package.json", "README.md"],
+    "includePattern": ".+\\.js$"
+  },
+
+  "tags":
+  { "allowUnknownTags": true,
+    "dictionaries":     ["jsdoc","closure"]
+  },
+
+  "plugins": 
+  [ "plugins/markdown",
+    "node_modules/better-docs/category",
+    "node_modules/better-docs/typescript"
+  ],
+  
+  "opts":
+  { "Xtemplate":    "node_modules/better-docs",
+    "encoding":     "utf8",
+    "destination":  "docs_js",
+    "recurse":      true,
+    "verbose":      false,
+    "private":      false
+  },
+  
+  "templates": 
+  { "default":
+    { "layoutFile": "./jsdoc.tmpl"
+    },
+ 
+    "wljkowa":
+    { "footer": "Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href=\"https://opensource.org/licenses/MIT\">MIT</a>"  
+    }
+  }
+}
+  

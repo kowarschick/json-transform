@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: template.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <style>#main>h3{font-family: 'Open Sans Light', sans-serif;font-size: 48px;letter-spacing: -2px;margin: 12px 24px 20px;}
+           article>h1{font-size: 30px;font-weight: 700;letter-spacing: -1px;margin-bottom: 12px;margin: 0;font-family:'Open Sans',sans-serif;}
+    </style>
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: template.js</h1>
+    
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module    template
+ * @author    Wolfgang L. J. Kowarschick &lt;kowa@hs-augsburg.de>
+ * @copyright 2020 © Wolfgang L. J. Kowarschick
+ * @license   MIT
+ */
+var __rest = (this &amp;&amp; this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) &amp;&amp; e.indexOf(p) &lt; 0)
+        t[p] = s[p];
+    if (s != null &amp;&amp; typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i &lt; p.length; i++) {
+            if (e.indexOf(p[i]) &lt; 0 &amp;&amp; Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+import { JsonTransformer } from './transformer';
+/**
+ * Strings that match the regular expression
+ * ```_.init.template``` are replaced by values
+ * found in ```_.data```.
+ *
+ * For instance, the string ```"${abc}"``` is
+ * replaced by ```_.data["abc"]```, if that
+ * value is defined.
+ *
+ * If ```_.value``` consists only
+ * of such a string, the replacement value
+ * may be of any {@link JsonType}. If
+ * ```_.value```, on the other hand,
+ * contains further characters, ```_.data["abc"]```
+ * should be of type ```string```.
+ * ```_.value```.
+ *
+ * __Examples__
+ *
+ * ```ts
+ * import { JsonTransformerTemplate } from '@wljkowa/json-transformer';
+ *
+ * const t = new JsonTransformerTemplate
+ *               ({ data: {"abc": [123], "hello": "Hallo"} });
+ *
+ * t.transform({ value: "${abc}" })
+ * // => [123]
+ *
+ * t.transform({ value: "-${abc}-" })
+ * // => "-[123]-"
+ *
+ * t.transform({ value: "${hello}, ${name}!", data: {name: "Wolfgang"} })
+ * // => "Hallo, Wolfgang!"
+ * ```
+ *
+ * @extends  module:transformer.JsonTransformer
+ *
+ * @param {JsonTransformerParameters} _
+ * @param {Init}   _.init
+ * @param {string} [_.init.template = /\${([\w\d@_-]+)}/]
+ */
+export class JsonTransformerTemplate extends JsonTransformer {
+    constructor(_a = {}) {
+        var { init = /\${([\w\d@_-]+)}/ } = _a, _ = __rest(_a, ["init"]);
+        super(Object.assign({ init }, _));
+        this.transformerJsonString = ({ value, data }) => {
+            const c_regexp = this.init, c_value = value, c_match = c_value.match(new RegExp(`^${c_regexp.toString().slice(1, -1)}$`)), f_replace_placeholders = (p_value) => {
+                const c_placeholders = p_value.matchAll(new RegExp(c_regexp, 'g')), c_replacers = []; // these are not sugar replacers :-)
+                let l_result = c_placeholders.next();
+                if (l_result.done) {
+                    return p_value;
+                }
+                while (!l_result.done) {
+                    const c_match = l_result.value, c_data = data[c_match[1]], c_data_string = typeof c_data === 'string' ? c_data : JSON.stringify(c_data);
+                    if (c_data != null) {
+                        c_replacers.push([c_match[0], f_replace_placeholders(c_data_string)]);
+                    }
+                    l_result = c_placeholders.next();
+                }
+                for (const r of c_replacers) {
+                    p_value = p_value.replace(r[0], r[1]);
+                }
+                return p_value;
+            };
+            return c_match != null
+                ? data[c_match[1]]
+                : f_replace_placeholders(c_value);
+        };
+        this.initialize();
+    }
+}
+export default JsonTransformerTemplate;
+//# sourceMappingURL=template.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-function.html">function</a></li><li><a href="module-function_aggregate.html">function/aggregate</a></li><li><a href="module-function_count.html">function/count</a></li><li><a href="module-function_duplicate.html">function/duplicate</a></li><li><a href="module-function_level.html">function/level</a></li><li><a href="module-function_random.html">function/random</a></li><li><a href="module-function_sequence.html">function/sequence</a></li><li><a href="module-function_shuffle.html">function/shuffle</a></li><li><a href="module-function_some.html">function/some</a></li><li><a href="module-function_string.html">function/string</a></li><li><a href="module-function_unnest.html">function/unnest</a></li><li><a href="module-level.html">level</a></li><li><a href="module-null.html">null</a></li><li><a href="module-random.html">random</a></li><li><a href="module-some.html">some</a></li><li><a href="module-template.html">template</a></li><li><a href="module-template_functions.html">template_functions</a></li><li><a href="module-transformer.html">transformer</a></li><li><a href="module-traversal.html">traversal</a></li><li><a href="module-traversal_breadth_first.html">traversal_breadth_first</a></li><li><a href="module-traversal_restricted.html">traversal_restricted</a></li></ul><h3>Classes</h3><ul><li><a href="module-function.JsonTransformerFunction.html">JsonTransformerFunction</a></li><li><a href="module-function_string.JsonTransformerStringReplace.html">JsonTransformerStringReplace</a></li><li><a href="module-level.JsonTransformerLevel.html">JsonTransformerLevel</a></li><li><a href="module-null.JsonTransformerNull.html">JsonTransformerNull</a></li><li><a href="module-random.JsonTransformerRandom.html">JsonTransformerRandom</a></li><li><a href="module-some.JsonTransformerSome.html">JsonTransformerSome</a></li><li><a href="module-template.JsonTransformerTemplate.html">JsonTransformerTemplate</a></li><li><a href="module-template_functions.JsonTransformerTemplateFunctions.html">JsonTransformerTemplateFunctions</a></li><li><a href="module-transformer.JsonTransformer.html">JsonTransformer</a></li><li><a href="module-traversal.JsonTransformerTraversal.html">JsonTransformerTraversal</a></li><li><a href="module-traversal_breadth_first.JsonTransformerTraversalBreadthFirst.html">JsonTransformerTraversalBreadthFirst</a></li><li><a href="module-traversal_restricted.JsonTransformerTraversalRestricted.html">JsonTransformerTraversalRestricted</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Init">Init</a></li><li><a href="global.html#isInitMap">isInitMap</a></li><li><a href="global.html#isJsonArray">isJsonArray</a></li><li><a href="global.html#isJsonBoolean">isJsonBoolean</a></li><li><a href="global.html#isJsonFunction">isJsonFunction</a></li><li><a href="global.html#isJsonNull">isJsonNull</a></li><li><a href="global.html#isJsonNumber">isJsonNumber</a></li><li><a href="global.html#isJsonObject">isJsonObject</a></li><li><a href="global.html#isJsonPrimitive">isJsonPrimitive</a></li><li><a href="global.html#isJsonString">isJsonString</a></li><li><a href="global.html#isJsonValue">isJsonValue</a></li><li><a href="global.html#isRegExp">isRegExp</a></li><li><a href="global.html#JsonArray">JsonArray</a></li><li><a href="global.html#JsonBoolean">JsonBoolean</a></li><li><a href="global.html#JsonFunctionDescriptor">JsonFunctionDescriptor</a></li><li><a href="global.html#JsonNull">JsonNull</a></li><li><a href="global.html#JsonNumber">JsonNumber</a></li><li><a href="global.html#JsonObject">JsonObject</a></li><li><a href="global.html#JsonPrimitive">JsonPrimitive</a></li><li><a href="global.html#JsonString">JsonString</a></li><li><a href="global.html#JsonType">JsonType</a></li><li><a href="global.html#JsonValue">JsonValue</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Copyright © 2020 by Wolfgang L. J. Kowarschick, License <a href="https://opensource.org/licenses/MIT">MIT</a>
+    <br/>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue Jul 14 2020 14:27:51 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

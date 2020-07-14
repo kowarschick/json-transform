@@ -4,8 +4,7 @@
  * @license   MIT
  */
 
-// build and run
-//   npm run examples:prod && node examples_es6/examples_bundle_es6.js
+// build and run: npm run examples:es6
 
 import './example_some_es6';
 import './example_level_es6';

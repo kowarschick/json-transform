@@ -4,8 +4,6 @@
  * @license   MIT
  */
 
-import { basename } from 'path';
-
 export * from './types' 
 
 // JSON transformers
@@ -15,12 +13,12 @@ export * from './level';                   // also exists as function transforme
 export * from './null';                    // transforms undefined to null
 export * from './random';                  // also exists as function transformer
 export * from './some';                    // also exists as function transformer
-export * from './traversal';               // traveres a JSON value depth first
-export * from './traversal_breadth_first'; // traveres a JSON value breath first
-export * from './traversal_restricted';    // traverses only certain levels
 export * from './string_replace';          // replaces string by values found in data
 export * from './template';                // replaces values within strings by data values
 export * from './template_functions';      // replaces values within strings by data values/functions
+export * from './traversal';               // traveres a JSON value depth first
+export * from './traversal_breadth_first'; // traveres a JSON value breath first
+export * from './traversal_restricted';    // traverses only certain levels
 
 // JSON functions
 export * from './function';                // transformer that invokes JSON functions 

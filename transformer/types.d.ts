@@ -17,35 +17,35 @@ export declare enum JsonType {
     Boolean = 6,
     Null = 7
 }
-export declare type JsonFunctionParameters<T extends JsonValue = JsonValue> = {
+export interface JsonFunctionParameters<T extends JsonValue = JsonValue> {
     value: T;
     level: number;
     data: Data;
     init?: Init;
     rename?: (name: string) => string;
-};
+}
 export declare type JsonFunction<T extends JsonValue = JsonValue> = (_: JsonFunctionParameters<T>) => JsonValue;
 export declare type JsonValueFunction<T extends JsonValue = JsonValue> = (_: T) => JsonValue;
-declare type JsonFunctionDescriptorCommon = {
-    name: string;
+export interface JsonFunctionDescriptorCommon {
+    name: JsonString;
     type: JsonType;
-    init?: Record<string, Init>;
-    rename?: (name: string) => string;
-};
-export declare type JsonFunctionDescriptorArray = JsonFunctionDescriptorCommon & {
+    init?: Record<JsonString, Init>;
+    rename?: (name: JsonString) => JsonString;
+}
+export interface JsonFunctionDescriptorArray extends JsonFunctionDescriptorCommon {
     type: JsonType.Array;
     function: (_: JsonFunctionParameters<JsonArray>, begin: number) => JsonValue;
-};
-export declare type JsonFunctionDescriptorObject = JsonFunctionDescriptorCommon & {
+}
+export interface JsonFunctionDescriptorObject extends JsonFunctionDescriptorCommon {
     type: JsonType.Object;
-    function: (_: JsonFunctionParameters<JsonObject>) => JsonValue;
-};
-export declare type JsonFunctionDescriptorString = JsonFunctionDescriptorCommon & {
+    function: JsonFunction<JsonObject>;
+}
+export interface JsonFunctionDescriptorString extends JsonFunctionDescriptorCommon {
     type: JsonType.String;
     function: (_: JsonFunctionParameters<JsonString>) => JsonValue;
-};
+}
 export declare type JsonFunctionDescriptor = JsonFunctionDescriptorArray | JsonFunctionDescriptorObject | JsonFunctionDescriptorString;
-export declare type Init = JsonValue | JsonFunction | JsonValueFunction | Function | JsonFunctionDescriptor[] | RegExp | Function | InitMap;
+export declare type Init = any;
 export interface InitMap {
     [key: string]: Init;
 }
@@ -63,4 +63,3 @@ export declare function isJsonValue(value: JsonValue | JsonFunction | RegExp | I
 export declare function isJsonFunction(value: JsonValue | JsonFunction | RegExp | Init): value is JsonFunction;
 export declare function isRegExp(value: JsonValue | JsonFunction | RegExp | Init): value is RegExp;
 export declare function isInitMap(value: Init): value is InitMap;
-export {};

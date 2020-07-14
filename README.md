@@ -1,4 +1,8 @@
-# A modular JSON tranformer package
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/kowarschick/json-transform.svg?branch=master)](https://travis-ci.org/taniarascia/chip8)
+[![Coverage Status](https://coveralls.io/repos/github/kowarschick/json-transform/badge.svg?branch=master)](https://coveralls.io/github/taniarascia/chip8?branch=master)
+
+## A modular JSON tranformer package
 
 The ```@wljkowa/json-transformer``` package is used to transform JSON template
 objects into JSON objects. It has been developed in course of the lecture
@@ -8,6 +12,10 @@ This package can be used in all cases where an application is initialized
 using a JSON file. The content of such file can be transformed in
 a variety of ways. Typical applications are REST API templates, game levels, or
 configuration files.
+
+Please note that I use the [Horstmann Brace Style](https://horstmann.com/unblog/2010-06-28/braces.html).
+Every LISP programmer knows why. Moverover, since I like to make code readable manually, I currently
+don't use any linter.
 
 ## Installation
 

@@ -21,16 +21,17 @@
     "build": "tsc -p tsconfig.cjs.json",
     "test": "jest -i",
     "test:watch": "jest -i --watch",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prejsdoc": "rm -rf docs/@wljkowa",
     "jsdoc": "jsdoc -c jsdoc.json",
     "postjsdocOld": "cp -r node_modules/jsdoc/templates/default/static/* docs/@wljkowa/json-transformer/0.5.0/",
-    "prejsdoc:js" : "rm -rf docs_js; rm -rf transformer.commented",
+    "prejsdoc:js": "rm -rf docs_js; rm -rf transformer.commented",
     "jsdoc:js": "tsc -p tsconfig.commented.json && jsdoc -c jsdoc_js.json",
     "prelink": "npm run build",
     "link": "npm link  && npm i && npm link @wljkowa/json-transformer",
     "examples:cjs": "node examples_cjs/examples_cjs.js",
     "preexamples:es6": "webpack --mode production --config webpack.config.examples.js",
-    "examples:es6": "node examples_es6/examples_bundle_es6.js"  
+    "examples:es6": "node examples_es6/examples_bundle_es6.js"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",

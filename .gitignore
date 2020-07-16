@@ -17,7 +17,7 @@ node_modules/
 transformer.commented/
 docs/
 docs_js/
-/coverage/lcov-report/
+coverage/
 
 # -------------------------
 # BEGIN Whitelisted Files

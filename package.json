@@ -6,7 +6,7 @@
   "description": "recursively apply transformers to JSON elements",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kowa/wk-json-transform.git"
+    "url": "git+https://github.com/kowarschick/json-transform.git"
   },
   "keywords": [
     "json",

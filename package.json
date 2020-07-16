@@ -19,7 +19,7 @@
   "scripts": {
     "prebuild": "rm -rf transformer",
     "build": "tsc -p tsconfig.cjs.json",
-    "test": "jest --coverage -i -c jest.config.js",
+    "test": "jest -c jest.config.js",
     "test:watch": "jest -i --watch -c jest.config.js",
     "precoveralls": "rm -rf coverage",
     "coveralls": "jest --coverage -c jest.config.js && coveralls < ./coverage/lcov.info",

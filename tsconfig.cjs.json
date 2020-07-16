@@ -7,13 +7,5 @@
   },
     
   "include": 
-  [ "src/**/*.ts" ],
-  
-  "exclude": 
-  [ "node_modules",
-    "transformer",
-    "transformer.commented",
-    "test",
-    "examples"
-  ]
+  [ "src/**/*.ts"]
 }

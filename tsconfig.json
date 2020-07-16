@@ -1,15 +1,25 @@
 { "compilerOptions": 
-  { "moduleResolution":   "node",
-    "target":             "ES2017",
-    "declaration":        true,
-    "sourceMap":          true,
-    "esModuleInterop":    true,
-    "strict":             true,
-    "lib":                ["es2020.string"],
-    "downlevelIteration": true,
-    "baseUrl":            "./",
-    "paths":              { "~/*": [ "./src/*" ] },
-    "allowJs":            true,
+  { "moduleResolution":             "node",
+    "target":                       "ES2017",
+    "declaration":                  true,
+    "sourceMap":                    true,
+    "esModuleInterop":              true,
+    "lib":                          ["es2020.string"],
+    "downlevelIteration":           true,
+    "baseUrl":                      "./",
+    "paths":                        { "~/*": [ "./src/*" ] },
+    "allowJs":                      false,
+    "alwaysStrict":                 true,
+    "noImplicitAny":                true,
+    "noImplicitReturns":            true,
+    "noImplicitThis":               true,
+    "noUnusedParameters":           true,
+    "noFallthroughCasesInSwitch":   true,
+    "strict":                       true,
+    "strictNullChecks":             true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes":          true,
+    "strictBindCallApply":          true
   },
 
   "include": 
@@ -21,5 +31,7 @@
   [ "node_modules",
     "transformer",
     "transformer.commented",
+    "examples_cjs",
+    "examples_es6"
   ]
 }

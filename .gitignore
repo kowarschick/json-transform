@@ -13,10 +13,11 @@ temp.*
 # ignore dependency directories
 node_modules/
 
-# ignore generated documentation
-
+# ignore generated directories
 transformer.commented/
 docs/
+docs_js/
+/coverage/lcov-report/
 
 # -------------------------
 # BEGIN Whitelisted Files

@@ -6,10 +6,10 @@
 
 // build and run: npm run examples:es6
 
-//import JsonTransformerTraversal from '@wljkowa/json-transformer/transformer/traversal.js';
-//import JsonTransformerLevel     from '@wljkowa/json-transformer/transformer/level.js';
+//import JsonTransformerTraversal from '@kowa/json-transformer/transformer/traversal.js';
+//import JsonTransformerLevel     from '@kowa/json-transformer/transformer/level.js';
 
-import { JsonTransformerTraversal, JsonTransformerLevel } from '@wljkowa/json-transformer';
+import { JsonTransformerTraversal, JsonTransformerLevel } from '@kowa/json-transformer';
 
 import trace from './trace_es6';
 

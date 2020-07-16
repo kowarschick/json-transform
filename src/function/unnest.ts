@@ -19,8 +19,8 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonFunctionUnnest }      from '@wljkowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowa/json-transformer';
+ * import { JsonFunctionUnnest }      from '@kowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({ init: [ JsonFunctionUnnest ] })

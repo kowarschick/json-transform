@@ -1,10 +1,10 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/kowarschick/json-transform.svg?branch=master)](https://travis-ci.org/taniarascia/chip8)
-[![Coverage Status](https://coveralls.io/repos/github/kowarschick/json-transform/badge.svg?branch=master)](https://coveralls.io/github/taniarascia/chip8?branch=master)
+[![Build Status](https://travis-ci.org/kowarschick/json-transform.svg?branch=master)](https://travis-ci.org/kowarschick/json-transform)
+[![Coverage Status](https://coveralls.io/repos/github/kowarschick/json-transform/badge.svg?branch=master)](https://coveralls.io/github/kowarschick/json-transform?branch=master)
 
 ## A modular JSON tranformer package
 
-The ```@wljkowa/json-transformer``` package is used to transform JSON template
+The ```@kowa/json-transformer``` package is used to transform JSON template
 objects into JSON objects. It has been developed in course of the lecture
 “Web Programming” by [Wolfgang L. J. Kowarschick](https://kowa.hs-augsburg.de).
 
@@ -20,7 +20,7 @@ don't use any linter.
 ## Installation
 
 ```bash
-npm install --save @wljkowa/json-transformer
+npm install --save @kowa/json-transformer
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ an element of an array starting with ```$some```. The head element
 ```$some``` is, of course, never returned.
 
 ```ts
-Import { JsonTransformerSome } from '@wljkowa/json-transformer';
+Import { JsonTransformerSome } from '@kowa/json-transformer';
 
 const transformer =
   new JsonTransformerSome();
@@ -49,8 +49,8 @@ when appropriate. The example above could also be
 implemented as follows:
 
 ```ts
-Import { JsonTransformerFunction } from '@wljkowa/json-transformer';
-Import { JsonFunctionSome }        from '@wljkowa/json-transformer';
+Import { JsonTransformerFunction } from '@kowa/json-transformer';
+Import { JsonFunctionSome }        from '@kowa/json-transformer';
 
 const transformer =
   new JsonTransformerFunction({ init: [JsonFunctionSome] });
@@ -76,9 +76,9 @@ string ```"$level"``` by the level of the JSON container which it
 is a member of.
 
 ```ts
-Import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
-Import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
-Import { JsonFunctionSome }         from '@wljkowa/json-transformer';
+Import { JsonTransformerTraversal } from '@kowa/json-transformer';
+Import { JsonTransformerLevel }     from '@kowa/json-transformer';
+Import { JsonFunctionSome }         from '@kowa/json-transformer';
 
 const
   transformer =
@@ -118,8 +118,8 @@ in the data object that function is invoked to compute the
 replacement value.
 
 ```ts
-Import { JsonTransformerTraversal }         from '@wljkowa/json-transformer';
-Import { JsonTransformerTemplateFunctions } from '@wljkowa/json-transformer';
+Import { JsonTransformerTraversal }         from '@kowa/json-transformer';
+Import { JsonTransformerTemplateFunctions } from '@kowa/json-transformer';
 
 const
   transformer =
@@ -175,14 +175,14 @@ support string templates. It only replaces complete strings
 by other values.
 
 ```ts
-import { JsonTransformerTraversal }     from '@wljkowa/json-transformer';
-import { JsonTransformerFunction }      from '@wljkowa/json-transformer';
-import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
+import { JsonTransformerTraversal }     from '@kowa/json-transformer';
+import { JsonTransformerFunction }      from '@kowa/json-transformer';
+import { JsonTransformerStringReplace } from '@kowa/json-transformer';
 
-import { JsonFunctionDuplicate }        from '@wljkowa/json-transformer';
-import { JsonFunctionSequence }         from '@wljkowa/json-transformer';
-import { JsonFunctionShuffle }          from '@wljkowa/json-transformer';
-import { JsonFunctionUnnest }           from '@wljkowa/json-transformer';
+import { JsonFunctionDuplicate }        from '@kowa/json-transformer';
+import { JsonFunctionSequence }         from '@kowa/json-transformer';
+import { JsonFunctionShuffle }          from '@kowa/json-transformer';
+import { JsonFunctionUnnest }           from '@kowa/json-transformer';
 
 const
   transformer =  

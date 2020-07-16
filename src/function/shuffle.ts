@@ -16,8 +16,8 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonFunctionShuffle }     from '@wljkowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowa/json-transformer';
+ * import { JsonFunctionShuffle }     from '@kowa/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({ init: [ JsonFunctionShuffle ] })

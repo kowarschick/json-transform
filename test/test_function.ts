@@ -5,21 +5,21 @@
  */
 
 /*
-import { JsonValue, JsonArray, Data }                  from '@wljkowa/json-transformer';
-import { JsonFunctionDescriptor }                      from '@wljkowa/json-transformer';
-import { JsonTransformerFunction }                     from '@wljkowa/json-transformer';
+import { JsonValue, JsonArray, Data }                  from '@kowa/json-transformer';
+import { JsonFunctionDescriptor }                      from '@kowa/json-transformer';
+import { JsonTransformerFunction }                     from '@kowa/json-transformer';
 
-import { JsonFunctionCount }                           from '@wljkowa/json-transformer';
-import { JsonFunctionDuplicate }                       from '@wljkowa/json-transformer';
-import { JsonFunctionLevel }                           from '@wljkowa/json-transformer';
-import { JsonFunctionMin,       JsonFunctionMax}       from '@wljkowa/json-transformer';
-import { JsonFunctionMinString, JsonFunctionMaxString} from '@wljkowa/json-transformer';
-import { JsonFunctionRandom }                          from '@wljkowa/json-transformer';
-import { JsonFunctionSequence }                        from '@wljkowa/json-transformer';
-import { JsonFunctionShuffle }                         from '@wljkowa/json-transformer';
-import { JsonFunctionSome }                            from '@wljkowa/json-transformer';
-import { JsonFunctionSum,       JsonFunctionProduct}   from '@wljkowa/json-transformer';
-import { JsonFunctionUnnest }                          from '@wljkowa/json-transformer';
+import { JsonFunctionCount }                           from '@kowa/json-transformer';
+import { JsonFunctionDuplicate }                       from '@kowa/json-transformer';
+import { JsonFunctionLevel }                           from '@kowa/json-transformer';
+import { JsonFunctionMin,       JsonFunctionMax}       from '@kowa/json-transformer';
+import { JsonFunctionMinString, JsonFunctionMaxString} from '@kowa/json-transformer';
+import { JsonFunctionRandom }                          from '@kowa/json-transformer';
+import { JsonFunctionSequence }                        from '@kowa/json-transformer';
+import { JsonFunctionShuffle }                         from '@kowa/json-transformer';
+import { JsonFunctionSome }                            from '@kowa/json-transformer';
+import { JsonFunctionSum,       JsonFunctionProduct}   from '@kowa/json-transformer';
+import { JsonFunctionUnnest }                          from '@kowa/json-transformer';
 */
 
 import { JsonValue, JsonArray, Data }                  from '~/types';

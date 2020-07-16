@@ -8,10 +8,10 @@
 //   node examples_cjs/example_level_cjs.js
 
 const 
-/*JsonTransformerTraversal = require('@wljkowa/json-transformer/transformer/traversal').JsonTransformerTraversal,
-  JsonTransformerLevel     = require('@wljkowa/json-transformer/transformer/level')    .JsonTransformerLevel,
+/*JsonTransformerTraversal = require('@kowa/json-transformer/transformer/traversal').JsonTransformerTraversal,
+  JsonTransformerLevel     = require('@kowa/json-transformer/transformer/level')    .JsonTransformerLevel,
 */
-  JT                       = require('@wljkowa/json-transformer')
+  JT                       = require('@kowa/json-transformer')
   JsonTransformerTraversal = JT.JsonTransformerTraversal,
   JsonTransformerLevel     = JT.JsonTransformerLevel,
 

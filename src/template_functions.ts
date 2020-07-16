@@ -40,8 +40,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
- * import { JsonTransformerTemplate }  from '@wljkowa/json-transformer';
+ * import { JsonTransformerTraversal } from '@kowa/json-transformer';
+ * import { JsonTransformerTemplate }  from '@kowa/json-transformer';
  * 
  * const t1 = new JsonTransformerTemplate
  *                ({ data: { abc:   [123], 

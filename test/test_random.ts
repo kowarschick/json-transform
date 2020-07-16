@@ -5,8 +5,8 @@
  */
 
 /*
-import { JsonValue, Data }       from '@wljkowa/json-transformer';
-import { JsonTransformerRandom } from '@wljkowa/json-transformer';
+import { JsonValue, Data }       from '@kowa/json-transformer';
+import { JsonTransformerRandom } from '@kowa/json-transformer';
 */
 
 import { JsonValue, Data }       from '~/types';

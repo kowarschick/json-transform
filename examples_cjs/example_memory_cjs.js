@@ -8,7 +8,7 @@
 //   node examples_cjs/example_memory_cjs.js
 
 const 
-  JT                           = require('@wljkowa/json-transformer')
+  JT                           = require('@kowa/json-transformer')
   JsonTransformerTraversal     = JT.JsonTransformerTraversal,
   JsonTransformerFunction      = JT.JsonTransformerFunction,
   JsonTransformerStringReplace = JT.JsonTransformerStringReplace,

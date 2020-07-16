@@ -5,8 +5,8 @@
  */
 
 /*
-import { JsonTransformer }     from '@wljkowa/json-transformer';
-import { JsonTransformerNull } from '@wljkowa/json-transformer';
+import { JsonTransformer }     from '@kowa/json-transformer';
+import { JsonTransformerNull } from '@kowa/json-transformer';
 */
 
 import { JsonTransformer }     from '~/transformer';

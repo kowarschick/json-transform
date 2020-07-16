@@ -23,8 +23,8 @@ const
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@wljkowa/json-transformer';
- * import { JsonFunctionRandom }      from '@wljkowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowa/json-transformer';
+ * import { JsonFunctionRandom }      from '@kowa/json-transformer';
  * 
  * const t1 = new JsonTransformerFunction({ init: [JsonFunctionRandom] });
  * 

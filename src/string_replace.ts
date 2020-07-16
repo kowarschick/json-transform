@@ -17,7 +17,7 @@ import { JsonTransformer, JsonTransformerParameters }  from './transformer';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerStringReplace } from '@wljkowa/json-transformer';
+ * import { JsonTransformerStringReplace } from '@kowa/json-transformer';
  * 
  * const t1 = new JsonTransformerStringReplace
  *                ({ data: { "${a}": 1, "@b": [], "@c": {}, 

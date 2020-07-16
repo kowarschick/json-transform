@@ -20,8 +20,8 @@ import { JsonTransformerParameters } from './transformer';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerTraversalRestricted } from '@wljkowa/json-transformer';
- * import { JsonTransformerLevel }               from '@wljkowa/json-transformer';
+ * import { JsonTransformerTraversalRestricted } from '@kowa/json-transformer';
+ * import { JsonTransformerLevel }               from '@kowa/json-transformer';
  * 
  * const t = new JsonTransformerTraversalRestricted({init: {minLevel: 2, maxLevel: 3}})
  *     .pipe(new JsonTransformerLevel());

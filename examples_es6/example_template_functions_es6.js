@@ -10,7 +10,7 @@ import
   JsonTransformerLevel,
   JsonTransformerTemplateFunctions
 } 
-from '@wljkowa/json-transformer';
+from '@kowa/json-transformer';
 
 import trace from './trace_es6';
 

@@ -5,10 +5,10 @@
  */
 
 /*
-import { JsonTransformer }          from '@wljkowa/json-transformer';
-import { JsonTransformerLevel }     from '@wljkowa/json-transformer';
-import { JsonTransformerTemplate }  from '@wljkowa/json-transformer';
-import { JsonTransformerTraversal } from '@wljkowa/json-transformer';
+import { JsonTransformer }          from '@kowa/json-transformer';
+import { JsonTransformerLevel }     from '@kowa/json-transformer';
+import { JsonTransformerTemplate }  from '@kowa/json-transformer';
+import { JsonTransformerTraversal } from '@kowa/json-transformer';
 */
 
 import { JsonTransformer }          from '~/transformer';

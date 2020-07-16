@@ -5,16 +5,16 @@
  */
 
 /*
-import { JsonValue }                    from '@kowa/json-transformer';
+import { JsonValue }                    from '@kowarschick/json-transformer';
 
-import { JsonTransformerTraversal }     from '@kowa/json-transformer';
-import { JsonTransformerFunction }      from '@kowa/json-transformer';
-import { JsonTransformerStringReplace } from '@kowa/json-transformer';
+import { JsonTransformerTraversal }     from '@kowarschick/json-transformer';
+import { JsonTransformerFunction }      from '@kowarschick/json-transformer';
+import { JsonTransformerStringReplace } from '@kowarschick/json-transformer';
 
-import { JsonFunctionDuplicate }        from '@kowa/json-transformer';
-import { JsonFunctionSequence }         from '@kowa/json-transformer';
-import { JsonFunctionShuffle }          from '@kowa/json-transformer';
-import { JsonFunctionUnnest }           from '@kowa/json-transformer';
+import { JsonFunctionDuplicate }        from '@kowarschick/json-transformer';
+import { JsonFunctionSequence }         from '@kowarschick/json-transformer';
+import { JsonFunctionShuffle }          from '@kowarschick/json-transformer';
+import { JsonFunctionUnnest }           from '@kowarschick/json-transformer';
 */
 
 import { JsonValue }                    from '~/types';

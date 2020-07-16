@@ -25,8 +25,8 @@ const
  *  __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { JsonFunctionDuplicate }   from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { JsonFunctionDuplicate }   from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({init: { [ JsonFunctionDuplicate ] })

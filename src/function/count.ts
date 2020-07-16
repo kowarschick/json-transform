@@ -18,8 +18,8 @@ import { JsonFunctionParameters, JsonFunctionDescriptor } from '../types';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { JsonFunctionCount }       from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { JsonFunctionCount }       from '@kowarschick/json-transformer';
  * 
  * const t1 = new JsonTransformerFunction({ init: [JsonFunctionCount] });
  * 

@@ -8,15 +8,16 @@
 //   node examples_cjs/example_memory_cjs.js
 
 const 
-  JT                           = require('@kowa/json-transformer')
-  JsonTransformerTraversal     = JT.JsonTransformerTraversal,
-  JsonTransformerFunction      = JT.JsonTransformerFunction,
-  JsonTransformerStringReplace = JT.JsonTransformerStringReplace,
-  JsonFunctionDuplicate        = JT.JsonFunctionDuplicate,
-  JsonFunctionSequence         = JT.JsonFunctionSequence,
-  JsonFunctionShuffle          = JT.JsonFunctionShuffle,
-  JsonFunctionUnnest           = JT.JsonFunctionUnnest,
-  
+  { JsonTransformerTraversal,
+    JsonTransformerFunction,
+    JsonTransformerStringReplace,
+    JsonFunctionDuplicate,
+    JsonFunctionSequence,
+    JsonFunctionShuffle,
+    JsonFunctionUnnest
+  } = 
+  require('@kowarschick/json-transformer/'),
+
   trace = require('./trace_cjs'),
   
   transformer =  

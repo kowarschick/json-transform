@@ -5,9 +5,9 @@
  */
 
 /*
-import { JsonTransformer }                    from '@kowa/json-transformer';
-import { JsonTransformerLevel }               from '@kowa/json-transformer';
-import { JsonTransformerTraversalRestricted } from '@kowa/json-transformer';
+import { JsonTransformer }                    from '@kowarschick/json-transformer';
+import { JsonTransformerLevel }               from '@kowarschick/json-transformer';
+import { JsonTransformerTraversalRestricted } from '@kowarschick/json-transformer';
 */
 
 import { JsonTransformer }                    from '~/transformer';

@@ -19,8 +19,8 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerTraversal } from '@kowa/json-transformer';
- * import { JsonTransformerLevel }     from '@kowa/json-transformer';
+ * import { JsonTransformerTraversal } from '@kowarschick/json-transformer';
+ * import { JsonTransformerLevel }     from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerTraversal()
  *     .pipe(new JsonTransformerLevel())

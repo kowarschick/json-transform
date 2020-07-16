@@ -4,14 +4,15 @@
  * @license   MIT
  */
 
-// build and run: npm run examples:es6
+// build and run: 
+//   npm run examples:es6
 
 import 
 { JsonTransformerTraversal, 
   JsonTransformerLevel,
   JsonTransformerTemplate
 } 
-from '@kowa/json-transformer';
+from '@kowarschick/json-transformer';
 
 import trace from './trace_es6';
  

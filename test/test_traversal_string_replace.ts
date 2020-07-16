@@ -5,8 +5,8 @@
  */
 
 /*
-import { JsonTransformerTraversal }     from '@kowa/json-transformer';
-import { JsonTransformerStringReplace } from '@kowa/json-transformer';
+import { JsonTransformerTraversal }     from '@kowarschick/json-transformer';
+import { JsonTransformerStringReplace } from '@kowarschick/json-transformer';
 */
 
 import { JsonTransformerTraversal }     from '~/traversal';

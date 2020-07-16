@@ -24,8 +24,8 @@ const
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { JsonFunctionSequence }    from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { JsonFunctionSequence }    from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction
  *           ({init: [ JsonFunctionSequence ] })

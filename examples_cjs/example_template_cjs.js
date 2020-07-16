@@ -8,14 +8,11 @@
 //   node examples_cjs/example_template_cjs.js
 
 const 
-/*JsonTransformerTraversal = require('@kowa/json-transformer/transformer/traversal').JsonTransformerTraversal,
-  JsonTransformerLevel     = require('@kowa/json-transformer/transformer/level')    .JsonTransformerLevel,
-  JsonTransformerTemplate  = require('@kowa/json-transformer/transformer/template') .JsonTransformerTemplate,
-*/
-  JT                       = require('@kowa/json-transformer')
-  JsonTransformerTraversal = JT.JsonTransformerTraversal,
-  JsonTransformerLevel     = JT.JsonTransformerLevel,
-  JsonTransformerTemplate  = JT.JsonTransformerTemplate,
+  { JsonTransformerTraversal,
+    JsonTransformerLevel,
+    JsonTransformerTemplate
+  } = 
+  require('@kowarschick/json-transformer/'),
 
   trace = require('./trace_cjs'),
   

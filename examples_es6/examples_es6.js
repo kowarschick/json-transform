@@ -4,7 +4,8 @@
  * @license   MIT
  */
 
-// build and run: npm run examples:es6
+// build and run: 
+//   npm run examples:es6
 
 import './example_some_es6';
 import './example_level_es6';

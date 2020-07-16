@@ -8,17 +8,11 @@
 //   node examples_cjs/example_template_functions_cjs.js
 
 const 
-/*JsonTransformerTraversal         = require('@kowa/json-transformer/transformer/traversal')
-                                             .JsonTransformerTraversal,
-  JsonTransformerLevel             = require('@kowa/json-transformer/transformer/level')
-                                             .JsonTransformerLevel,
-  JsonTransformerTemplateFunctions = require('@kowa/json-transformer/transformer/template_functions')
-                                             .JsonTransformerTemplateFunctions,
-*/
-  JT                               = require('@kowa/json-transformer')
-  JsonTransformerTraversal         = JT.JsonTransformerTraversal,
-  JsonTransformerLevel             = JT.JsonTransformerLevel,
-  JsonTransformerTemplateFunctions = JT.JsonTransformerTemplateFunctions,
+  { JsonTransformerTraversal,
+    JsonTransformerLevel,
+    JsonTransformerTemplateFunctions
+  } = 
+  require('@kowarschick/json-transformer'),
 
   trace = require('./trace_cjs'),
   
@@ -46,7 +40,7 @@ trace.transform(transformer, "${abc}");
 trace.transform(transformer, "${hello}, ${name}!");
 trace.transform(transformer, "${hello}, ${name}! ${HowAreYou}");
 trace.transform(transformer, [["${abc}"], {abc: "${abc}", "${abc}": "abc"}, "${name}"]);
-trace.transform(transformer, "${vpf({'x':100, 'y':200})}");
+trace.transform(transformer, "${vpf({'vx':100, 'vy':200})}");
 trace.transform(transformer, "{v: ${vpf({'vx':100, 'vy':200})}}");
 trace.transform(transformer, {v: "${vpf({'vx':100, 'vy':200})}"});
 trace.transform(transformer, [{v: "${vpf({'vx':100, 'vy':200})}"}, {a: "${vpf({'vx':200, 'vy':400})}"}]);

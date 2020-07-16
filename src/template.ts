@@ -29,7 +29,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerTemplate } from '@kowa/json-transformer';
+ * import { JsonTransformerTemplate } from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerTemplate
  *               ({ data: {"abc": [123], "hello": "Hallo"} });

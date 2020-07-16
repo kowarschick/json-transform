@@ -5,11 +5,11 @@
  */
 
 /*
-import { JsonTransformer }                      from '@kowa/json-transformer';
-import { JsonTransformerTraversal }             from '@kowa/json-transformer';
-import { JsonTransformerTraversalBreadthFirst } from '@kowa/json-transformer';
-import { JsonTransformerLevel }                 from '@kowa/json-transformer';
-import { JsonTransformerSome }                  from '@kowa/json-transformer';
+import { JsonTransformer }                      from '@kowarschick/json-transformer';
+import { JsonTransformerTraversal }             from '@kowarschick/json-transformer';
+import { JsonTransformerTraversalBreadthFirst } from '@kowarschick/json-transformer';
+import { JsonTransformerLevel }                 from '@kowarschick/json-transformer';
+import { JsonTransformerSome }                  from '@kowarschick/json-transformer';
 */
 
 import { JsonTransformer }                      from '~/transformer';

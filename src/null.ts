@@ -24,7 +24,7 @@ import { JsonTransformer, JsonTransformerParameters } from './transformer';
  * __Examples__
  *
  * ```ts
- * import { JsonTransformerNull } from '@kowa/json-transformer';
+ * import { JsonTransformerNull } from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerNull();
  * 

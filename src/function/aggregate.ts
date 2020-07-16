@@ -83,8 +83,8 @@ function aggregate( {value, init}: JsonFunctionParameters<JsonArray>,
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionMin }          from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionMin }          from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionMin] });
  * 
@@ -130,8 +130,8 @@ const JsonFunctionMin: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionMax }          from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionMax }          from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionMax] });
  * 
@@ -178,8 +178,8 @@ const JsonFunctionMax: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionMinString }    from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionMinString }    from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionMinString] });
  * 
@@ -229,8 +229,8 @@ const JsonFunctionMinString: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionMaxString }    from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionMaxString }    from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionMaxString] });
  * 
@@ -280,8 +280,8 @@ const JsonFunctionMaxString: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionSum }          from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionSum }          from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionSum] });
  * 
@@ -327,8 +327,8 @@ const JsonFunctionSum: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { sonFunctionProduct }      from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { sonFunctionProduct }      from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionProduct] });
  * 
@@ -374,8 +374,8 @@ const JsonFunctionProduct: JsonFunctionDescriptor =
  * __Examples__ 
  *
  * ```ts
- * import { JsonTransformerFunction } from '@kowa/json-transformer';
- * import { JsonFunctionAverage }     from '@kowa/json-transformer';
+ * import { JsonTransformerFunction } from '@kowarschick/json-transformer';
+ * import { JsonFunctionAverage }     from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerFunction({ init: [JsonFunctionAverage] });
  * 

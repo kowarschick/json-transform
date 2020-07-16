@@ -31,9 +31,9 @@ function level( {level}: JsonFunctionParameters<JsonString> ): JsonNumber
  * nested JSON object or array).
  *
  * ```ts
- * import { JsonTransformerTraversal } from '@kowa/json-transformer';
- * import { JsonTransformerFunction }  from '@kowa/json-transformer';
- * import { JsonFunctionLevel }        from '@kowa/json-transformer';
+ * import { JsonTransformerTraversal } from '@kowarschick/json-transformer';
+ * import { JsonTransformerFunction }  from '@kowarschick/json-transformer';
+ * import { JsonFunctionLevel }        from '@kowarschick/json-transformer';
  * 
  * const t = new JsonTransformerTraversal()
  *     .pipe(new JsonTransformerFunction({init: { [JsonFunctionLevel] })

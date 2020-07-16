@@ -1,5 +1,5 @@
 {
-  "name": "@kowa/json-transformer",
+  "name": "@kowarschick/json-transformer",
   "version": "0.5.0",
   "author": "Wolfgang L. J. Kowarschick",
   "license": "MIT",
@@ -23,19 +23,19 @@
     "test:watch": "jest -i --watch -c jest.config.js",
     "precoveralls": "rm -rf coverage",
     "coveralls": "jest --coverage -c jest.config.js && coveralls < ./coverage/lcov.info",
-    "prejsdoc": "rm -rf docs/@kowa",
+    "prejsdoc": "rm -rf docs/@kowarschick",
     "jsdoc": "jsdoc -c jsdoc_ts.json",
     "prejsdoc:js": "rm -rf docs_js transformer.commented && tsc -p tsconfig.commented.json",
     "jsdoc:js": "jsdoc -c jsdoc_js.json",
     "prelink": "npm run build",
-    "link": "npm link && npm i && npm link @kowa/json-transformer",
+    "link": "npm link && npm i && npm link @kowarschick/json-transformer",
     "examples:cjs": "node examples_cjs/examples_cjs.js",
     "preexamples:es6": "webpack --mode production --config webpack.config.examples.js",
     "examples:es6": "node examples_es6/examples_bundle_es6.js",
     "publish": "npm publish --access public"
   },
-  "publishConfig": { 
-    "registry": "https://npm.pkg.github.com/" 
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",

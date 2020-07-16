@@ -22,7 +22,7 @@ const SOME = '$some';
  * __Examples__
  * 
  * ```ts
- * import { JsonTransformerSome } from '@kowa/json-transformer';
+ * import { JsonTransformerSome } from '@kowarschick/json-transformer';
  * 
  * const t1 = new JsonTransformerSome();
  * 

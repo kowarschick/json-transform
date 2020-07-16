@@ -31,7 +31,8 @@
     "link": "npm link && npm i && npm link @kowa/json-transformer",
     "examples:cjs": "node examples_cjs/examples_cjs.js",
     "preexamples:es6": "webpack --mode production --config webpack.config.examples.js",
-    "examples:es6": "node examples_es6/examples_bundle_es6.js"
+    "examples:es6": "node examples_es6/examples_bundle_es6.js",
+    "publish": "npm publish --access public"
   },
   "publishConfig": { 
     "registry": "https://npm.pkg.github.com/" 

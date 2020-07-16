@@ -35,7 +35,8 @@
     "publish": "npm publish --access public"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access":   "public"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",

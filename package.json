@@ -1,6 +1,6 @@
 {
   "name": "@kowarschick/json-transformer",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "author": "Wolfgang L. J. Kowarschick",
   "license": "MIT",
   "description": "recursively apply transformers to JSON elements",

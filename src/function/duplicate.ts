@@ -71,14 +71,14 @@ const
  *   
  */
 export 
-function duplicate({value, init, rename = name => name}: 
+function duplicate({value, init, rename}: 
          JsonFunctionParameters<JsonObject>)
 { const 
     c_clone_transformer = new JsonTransformerTraversal(),
     c_init              = init as InitMap,
-    c_value             = (value?.[rename(VALUE)]   ?? null) as JsonValue,
-    c_times             = (value?.[rename(TIMES)]   ?? c_init.times) as number,
-    c_flatten           = (value?.[rename(FLATTEN)] ?? c_init.flatten) as boolean,
+    c_value             = (value[rename(VALUE)]   ?? null) as JsonValue,
+    c_times             = (value[rename(TIMES)]   ?? c_init.times) as number,
+    c_flatten           = (value[rename(FLATTEN)] ?? c_init.flatten) as boolean,
     c_result: JsonArray = [];
 
   if (c_flatten && Array.isArray(c_value))

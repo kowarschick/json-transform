@@ -99,6 +99,20 @@ function f_test(t: JsonTransformerFunction)
   );
 
   test
+  ( '{"$function":"$duplicate", $times":3} should be transformed to [null,null,null]', 
+    () => { expect(t.transform({ value: {"$function":"$duplicate", "$times":3} }))
+              .toStrictEqual([null,null,null]); 
+          }
+  );
+
+  test
+  ( '{"$function":"$duplicate", "$value":[5,7,9]} should be transformed to [[5,7,9]]}', 
+    () => { expect(t.transform({ value: {"$function":"$duplicate", "$value":[5,7,9]} }))
+              .toStrictEqual([[5,7,9]]); 
+          }
+  );
+
+  test
   ( '["$level"] should be transformed to ["$level"]', 
     () => { expect(t.transform({ value: ["$level"] })).toStrictEqual(["$level"]); }
   );

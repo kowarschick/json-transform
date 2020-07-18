@@ -34,7 +34,7 @@ export interface JsonFunctionDescriptorCommon {
 }
 export interface JsonFunctionDescriptorArray extends JsonFunctionDescriptorCommon {
     type: JsonType.Array;
-    function: (_: JsonFunctionParameters<JsonArray>, begin: number) => JsonValue;
+    function: (_: JsonFunctionParameters<JsonArray>, begin?: number) => JsonValue;
 }
 export interface JsonFunctionDescriptorObject extends JsonFunctionDescriptorCommon {
     type: JsonType.Object;

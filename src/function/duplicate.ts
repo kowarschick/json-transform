@@ -71,7 +71,7 @@ const
  *   
  */
 export 
-function duplicate({value, init, rename}: 
+function duplicate({value, init, rename = name => name}: 
          JsonFunctionParameters<JsonObject>)
 { const 
     c_clone_transformer = new JsonTransformerTraversal(),

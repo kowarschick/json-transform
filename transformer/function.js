@@ -30,7 +30,7 @@ class JsonTransformerFunction extends transformer_1.JsonTransformer {
                     return c_do.function(Object.assign(Object.assign({}, _), { init: c_do.init, rename: this.rename.bind(this) }));
                 }
                 const c_da = this.descriptors[types_1.JsonType.Array][c_function_name], c_a = this.arrayFunctionValue(c_function_name, c_value);
-                return c_a == null ? c_value : c_da.function(Object.assign(Object.assign({}, _), { value: c_a, init: c_da.init, rename: this.rename.bind(this) }), 0);
+                return c_a == null ? c_value : c_da.function(Object.assign(Object.assign({}, _), { value: c_a, init: c_da.init, rename: this.rename.bind(this) }));
             }
             else {
                 return c_value;

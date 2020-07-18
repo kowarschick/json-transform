@@ -122,7 +122,7 @@ enum JsonType
 */
 export
 interface JsonFunctionParameters<T extends JsonValue = JsonValue> 
-{ value: T, level: number, data: Data, init: Init, rename: (name: string) => string }
+{ value: T, level: number, data: Data, init?: Init, rename?: (name: string) => string }
 
 /** 
  * ```<T extends JsonValue = JsonValue>```

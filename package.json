@@ -1,6 +1,6 @@
 {
   "name": "@kowarschick/json-transformer",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "author": "Wolfgang L. J. Kowarschick",
   "license": "MIT",
   "description": "recursively apply transformers to JSON elements",
@@ -31,11 +31,9 @@
     "link": "npm link && npm i && npm link @kowarschick/json-transformer",
     "examples:cjs": "node examples_cjs/examples_cjs.js",
     "preexamples:es6": "webpack --mode production --config webpack.config.examples_es6.js",
-    "examples:es6": "node examples_es6/examples_bundle_es6.js",
-    "publish": "npm publish --access public"
+    "examples:es6": "node examples_es6/examples_bundle_es6.js"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
     "access": "public"
   },
   "devDependencies": {
